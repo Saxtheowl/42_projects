@@ -1,0 +1,6 @@
+computor_v2: complex/matrix interpreter implemented and tested
+corewar: initial structure + plan created (implementation pending full spec)
+corewar: assembler/VM specs drafted (ASSEMBLER.md, VM.md, op.h)
+corewar: assembler tokenizer CLI (--show-tokens) implemented
+dash00/ex00: sum_args skeleton (atof sum) created
+dash00/ex00: sum_args implemented (custom atoi/putnbr)
