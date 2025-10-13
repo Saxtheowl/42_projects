@@ -1,0 +1,146 @@
+# COMMANDES DE TEST POUR FT_PRINTF
+
+## Compilation
+
+### 1. Compiler la bibliothèque
+cd /home/roro/work/projects/All-42-subject/full_auto_claude_v2/C/ft_printf
+make
+
+### 2. Nettoyer
+make clean      # Supprime les .o
+make fclean     # Supprime les .o et libftprintf.a
+make re         # Recompile tout
+
+## Tests automatisés
+
+### 1. Exécuter tous les tests
+cd tests_realisation
+./run_tests.sh
+
+## Tests manuels
+
+### 1. Compiler un programme de test manuel
+cc -Wall -Wextra -Werror main.c -L. -lftprintf -o test
+
+### 2. Exécuter
+./test
+
+### 3. Vérifier les fuites mémoire
+valgrind --leak-check=full --show-leak-kinds=all ./test
+
+## Tests individuels
+
+### Test %c (caractère)
+ft_printf("Test: %c\n", 'A');
+Attendu: "Test: A\n"
+Retour: 8
+
+### Test %s (chaîne)
+ft_printf("Test: %s\n", "Hello");
+Attendu: "Test: Hello\n"
+Retour: 13
+
+### Test %s avec NULL
+ft_printf("Test: %s\n", NULL);
+Attendu: "Test: (null)\n"
+Retour: 14
+
+### Test %p (pointeur)
+ft_printf("Ptr: %p\n", &variable);
+Attendu: "Ptr: 0xADDRESS\n"
+Retour: variable
+
+### Test %p avec NULL
+ft_printf("Ptr: %p\n", NULL);
+Attendu: "Ptr: (nil)\n"
+Retour: 11
+
+### Test %d (décimal)
+ft_printf("Num: %d\n", 42);
+Attendu: "Num: 42\n"
+Retour: 8
+
+### Test %d avec négatif
+ft_printf("Num: %d\n", -42);
+Attendu: "Num: -42\n"
+Retour: 9
+
+### Test %d avec INT_MIN
+ft_printf("Min: %d\n", -2147483648);
+Attendu: "Min: -2147483648\n"
+Retour: 17
+
+### Test %d avec INT_MAX
+ft_printf("Max: %d\n", 2147483647);
+Attendu: "Max: 2147483647\n"
+Retour: 16
+
+### Test %i (entier)
+ft_printf("Int: %i\n", 123);
+Attendu: "Int: 123\n"
+Retour: 9
+
+### Test %u (unsigned)
+ft_printf("Unsigned: %u\n", 4294967295);
+Attendu: "Unsigned: 4294967295\n"
+Retour: 24
+
+### Test %x (hexadécimal minuscule)
+ft_printf("Hex: %x\n", 255);
+Attendu: "Hex: ff\n"
+Retour: 8
+
+### Test %X (hexadécimal majuscule)
+ft_printf("Hex: %X\n", 255);
+Attendu: "Hex: FF\n"
+Retour: 8
+
+### Test %% (pourcent)
+ft_printf("Percent: %%\n");
+Attendu: "Percent: %\n"
+Retour: 11
+
+### Test combiné
+ft_printf("Mix: %c %s %d %x %%\n", 'A', "test", 42, 255);
+Attendu: "Mix: A test 42 ff %\n"
+Retour: 20
+
+### Test zéros
+ft_printf("Zeros: %d %u %x %X\n", 0, 0, 0, 0);
+Attendu: "Zeros: 0 0 0 0\n"
+Retour: 15
+
+## Cas d'erreur à tester
+
+1. Format NULL
+   ft_printf(NULL);
+   Comportement: retourne -1
+
+2. Conversion invalide
+   ft_printf("%z", 42);
+   Comportement: affiche '%z' tel quel
+
+3. % en fin de chaîne
+   ft_printf("Test %");
+   Comportement: affiche "Test %"
+
+## Comparaison avec printf
+
+Pour chaque test, comparer avec printf:
+```c
+int ret1 = printf("Test: %d\n", 42);
+int ret2 = ft_printf("Test: %d\n", 42);
+// ret1 devrait égaler ret2
+// La sortie devrait être identique
+```
+
+## Vérifications critiques
+
+✓ Valeur de retour correcte (nombre de caractères imprimés)
+✓ Sortie identique à printf
+✓ Pas de fuites mémoire
+✓ Pas de segfault
+✓ Gestion correcte de NULL
+✓ Gestion de INT_MIN/INT_MAX
+✓ Gestion de UINT_MAX
+✓ Respect de la norme 42

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Vue props</title>
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <series-item
+        v-for="series in NetflixList"
+        :key="series.id"
+        :series="series"
+      ></series-item>
+    </div>
+    <script>
+      Vue.component('series-item', {
+        props: ['series'],
+        template: '<h2>{{ series.text }}</h2>'
+      });
+
+      new Vue({
+        el: '#app',
+        data: {
+          NetflixList: [
+            { id: 0, text: "Queen's Gambit" },
+            { id: 1, text: 'Altered Carbon' },
+            { id: 2, text: 'Black Mirror' }
+          ]
+        }
+      });
+    </script>
+  </body>
+</html>
