@@ -1,0 +1,29 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bookworm64"
+  config.vm.hostname = "#{ENV.fetch('B2BR_LOGIN', 'student')}42"
+  config.ssh.guest_port = 4242
+  config.ssh.port = 4242
+  config.vm.network "forwarded_port", guest: 4242, host: 4242, id: "ssh", auto_correct: true
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "born2beroot"
+    vb.memory = ENV.fetch("B2BR_MEMORY", "2048")
+    vb.cpus = ENV.fetch("B2BR_CPUS", "2")
+
+    storage_path = File.expand_path("born2beroot-lvm.vdi", __dir__)
+    unless File.exist?(storage_path)
+      vb.customize ["createhd", "--filename", storage_path, "--size", 10240]
+    end
+    vb.customize ["storageattach", :id,
+                  "--storagectl", "SATA Controller",
+                  "--port", 1,
+                  "--device", 0,
+                  "--type", "hdd",
+                  "--medium", storage_path]
+  end
+
+  config.vm.provision "shell", path: "provisioning/00-system-prep.sh",
+                       args: [ENV.fetch("B2BR_LOGIN", "student"), ENV.fetch("B2BR_PASSWORD", "ChangeMe42!")]
+  config.vm.provision "shell", path: "provisioning/10-monitoring.sh"
+end

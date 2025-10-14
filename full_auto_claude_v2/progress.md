@@ -47,13 +47,13 @@ Statuts possibles: NOT_STARTED, IN_PROGRESS, DONE, FAILED
 | 2025-10-13 | C/Ftl_quantum | NOT_STARTED | 1 PDF |
 | 2025-10-13 | C/Get_Next_Line | DONE | Impl. complète + bonus multi-fd + tests (8/8) |
 | 2025-10-13 | C/Libasm | NOT_STARTED | 1 PDF |
-| 2025-10-13 | C/Libft | NOT_STARTED | 4 PDFs |
-| 2025-10-13 | C/Minishell | NOT_STARTED | 1 PDF |
-| 2025-10-13 | C/Minitalk | NOT_STARTED | 1 PDF |
-| 2025-10-13 | C/Philosophers | NOT_STARTED | 1 PDF |
-| 2025-10-13 | C/Pipex | NOT_STARTED | 1 PDF |
-| 2025-10-13 | C/Push_swap | NOT_STARTED | 1 PDF |
-| 2025-10-13 | C/So_Long | NOT_STARTED | 1 PDF |
+| 2025-10-13 | C/Libft | DONE | Impl. complète Part 1+2+Bonus (54 fonctions) + Makefile + tests |
+| 2025-10-13 | C/Minishell | DONE | Impl. complète shell bash + lexer/parser + 7 builtins + pipes + redirections + signals (libreadline-dev req'd) |
+| 2025-10-13 | C/Minitalk | DONE | Impl. complète + bonus (acknowledgment + Unicode) + Makefile + tests |
+| 2025-10-13 | C/Philosophers | DONE | Impl. complète (threads + mutexes) + Makefile + tests |
+| 2025-10-13 | C/Pipex | DONE | Impl. complète + bonus (multiple pipes + here_doc) + Makefile + tests |
+| 2025-10-13 | C/Push_swap | DONE | Impl. complète avec radix sort + 11 opérations + checker bonus |
+| 2025-10-13 | C/So_Long | DONE | Impl. complète 2D game MiniLibX + parsing + validation + 3 maps + install script |
 | 2025-10-13 | C/ft_communication | NOT_STARTED | 1 PDF |
 | 2025-10-13 | C/ft_containers | NOT_STARTED | 1 PDF |
 | 2025-10-13 | C/ft_hangouts | NOT_STARTED | 1 PDF |
@@ -79,6 +79,13 @@ Statuts possibles: NOT_STARTED, IN_PROGRESS, DONE, FAILED
 | 2025-10-13 | C/libunit10 | NOT_STARTED | 1 PDF |
 | 2025-10-13 | C/libunit7 | NOT_STARTED | 1 PDF |
 | 2025-10-13 | C/printf | NOT_STARTED | 1 PDF |
+| 2025-10-14 | CPP/CPP_Module_00 | DONE | Impl. complète ex00 (Megaphone) + ex01 (PhoneBook avec classes) + ex02 (Account avec static members) - C++98 |
+| 2025-10-14 | CPP/CPP_Module_01 | DONE | Impl. complète ex00-06: Zombie (stack/heap), zombieHorde, references, Weapon/HumanA/HumanB, file replace, Harl (ptr to member functions + switch) - C++98 |
+| 2025-10-14 | CPP/CPP_Module_02 | DONE | Impl. complète ex00-03: Fixed-point class (OCF, operator overloading, arithmetic/comparison/increment), Point + BSP function - C++98 |
+| 2025-10-14 | CPP/CPP_Module_03 | DONE | Impl. complète ex00-03: ClapTrap (base class), ScavTrap (inheritance), FragTrap (inheritance), DiamondTrap (virtual/diamond inheritance) - C++98 |
+| 2025-10-14 | CPP/CPP_Module_04 | DONE | Impl. complète ex00-03: Polymorphisme (Animal/Dog/Cat + virtual), Brain (deep copy), Animal abstrait, Interfaces (AMateria/ICharacter/IMateriaSource + Ice/Cure) - C++98 |
+| 2025-10-14 | CPP/CPP_Module_05 | DONE | Impl. complète ex00-03: Bureaucrat (exceptions GradeTooHigh/Low), Form (signing), AForm abstrait + 3 forms concrètes (Shrubbery/Robotomy/Presidential), Intern (factory makeForm avec function pointers) - C++98 |
+| 2025-10-14 | CPP/CPP_Module_06 | DONE | Impl. complète ex00-02: Scalar conversion (static_cast pour char/int/float/double + nan/inf), Serialization (reinterpret_cast pour pointer↔uintptr_t), Type identification (dynamic_cast avec Base/A/B/C) - C++98 |
 | 2025-10-13 | CPP/C++ | NOT_STARTED | 9 PDFs (modules/days) |
 | 2025-10-13 | CPP/C++_Piscine | NOT_STARTED | 5 PDFs (modules/days) |
 | 2025-10-13 | CPP/C++_Pool | NOT_STARTED | 1 PDF (modules/days) |
@@ -174,10 +181,10 @@ Statuts possibles: NOT_STARTED, IN_PROGRESS, DONE, FAILED
 | 2025-10-13 | Germany/Germany_Basecamp_Wolfsburg | NOT_STARTED | 1 PDF |
 | 2025-10-13 | Go/Go_picine | NOT_STARTED | 1 PDF |
 | 2025-10-13 | Graphical/Graphical_Project | NOT_STARTED | 1 PDF |
-| 2025-10-13 | Graphics/FDF | NOT_STARTED | 1 PDF |
+| 2025-10-13 | Graphics/FDF | DONE | Impl. complète wireframe 3D + isometric projection + Bresenham + 4 test maps (MLX req'd) |
 | 2025-10-13 | Graphics/SCOP | NOT_STARTED | 1 PDF |
 | 2025-10-13 | Graphics/cub3D | NOT_STARTED | 11 PDFs (modules/days) |
-| 2025-10-13 | Graphics/fract’ol | NOT_STARTED | 1 PDF |
+| 2025-10-13 | Graphics/fract'ol | DONE | Impl. complète Mandelbrot + Julia + Burning Ship + zoom + colors + bonus features (MLX req'd) |
 | 2025-10-13 | Graphics/miniRT | NOT_STARTED | 1 PDF |
 | 2025-10-13 | Guimp/GUImp | NOT_STARTED | 1 PDF |
 | 2025-10-13 | H/H42N42 | NOT_STARTED | 1 PDF |

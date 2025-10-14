@@ -1,0 +1,5 @@
+Hello world!
+This is a test file.
+Hello again, world!
+We will replace all occurrences of Hello with Hi.
+Hello Hello Hello

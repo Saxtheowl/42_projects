@@ -1,0 +1,2 @@
+2025-10-13: Dockerfile de base + script d'entrypoint. Services: nginx + php-fpm + mariadb + wordpress + phpmyadmin. SSL auto-signé généré à la construction.
+2025-10-13: Autoindex paramétrable, téléchargements vérifiés (SHA256), WP-CLI (install auto), phpMyAdmin durci, doc mise à jour.
