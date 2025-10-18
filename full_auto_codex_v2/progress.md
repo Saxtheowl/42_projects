@@ -32,3 +32,5 @@
 2025-10-18 | C/Minishell | IN_PROGRESS | Audit norme 42 : aucune fonction >25 lignes détectée dans `src/`; refacto ciblé non requis pour l'instant.
 2025-10-18 | C/Minishell | IN_PROGRESS | Préparation refacto norme (ciblage fonctions à découper : lexer `collect_heredoc_input`, executor `apply_redirects` & pipeline).
 2025-10-18 | C/Minishell | IN_PROGRESS | Analyse approfondie norme 42 : `collect_heredoc_input` (145 lignes), `apply_redirects` (36) et `execute_pipeline` (69) doivent être refactorées ; plan de découpe à définir.
+2025-10-18 | C/Minishell | IN_PROGRESS | Plan refacto : scinder `collect_heredoc_input` (lecture, expansion, écriture), `apply_redirects` (dispatch par type) et `execute_pipeline` (setup, fork left/right, wait) avant implémentation.
+2025-10-18 | C/Minishell | IN_PROGRESS | Lancement refacto norme : rédaction du plan d'extraction (helpers heredoc/pipeline) avant modifications du code.
