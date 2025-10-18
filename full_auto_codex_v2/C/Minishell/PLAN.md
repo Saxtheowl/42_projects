@@ -21,15 +21,16 @@
 
 ## Étape 5 – Exécution & builtins
 - [x] Résolution des binaires via `PATH`.
-- [x] Gestion redirections (`<`, `>`, `>>`). *(Heredoc à implémenter.)*
-- [ ] Implémenter builtins requis (exec parent si nécessaire). *(`echo`, `pwd`, `env`, `exit` faits ; `cd`, `export`, `unset` à venir).*
+- [x] Gestion redirections (`<`, `>`, `>>`, `<<`) avec pré-lecture des heredocs.
+- [x] Implémenter builtins requis (exec parent si nécessaire). *(bonus possibles : builtins optionnels supplémentaires).* 
+- [x] Expansions avancées (`~`, `~+`, `~-`, opérateur `export +=`).
 
 ## Étape 6 – Tests & validation
-- [ ] Tests unitaires (lexer/parser) avec `criterion` ou harness perso.
-- [ ] Tests end-to-end (scripts bash/expect vs bash).
+- [x] Tests unitaires (lexer/parser) avec `criterion` ou harness perso. *(couverture via `tests_realisation/unit_tests.py`)*
+- [x] Tests end-to-end (scripts bash/expect vs bash). *(comparaison `e2e_tests.py` vs bash)*
 - [ ] Analyse mémoire (`valgrind`), fuites et erreurs.
 
 ## Étape 7 – Finition
 - [ ] Norme 42 (norminette).
-- [ ] Documentation finale (README, commandes tests).
+- [x] Documentation de travail (README, commandes tests) – relecture finale à prévoir.
 - [ ] Binaire & archive prêtes pour rendu.

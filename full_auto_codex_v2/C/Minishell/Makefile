@@ -9,6 +9,11 @@ LIBS        += -lreadline -lncurses
 CFLAGS      += -DMS_FORCE_READLINE
 endif
 
+ifeq ($(SANITIZE),address)
+CFLAGS      += -fsanitize=address -fno-omit-frame-pointer
+LIBS        += -fsanitize=address
+endif
+
 SRC_DIR     := src
 BUILD_DIR   := build
 

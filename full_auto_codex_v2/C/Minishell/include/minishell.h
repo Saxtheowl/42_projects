@@ -22,5 +22,6 @@ char	*ms_readline(t_ms *ms);
 /* signals */
 void	ms_configure_signals_interactive(void);
 void	ms_configure_signals_child(void);
+int		ms_signals_consume_sigint(void);
 
 #endif

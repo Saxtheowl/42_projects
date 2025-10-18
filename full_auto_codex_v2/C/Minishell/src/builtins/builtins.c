@@ -245,41 +245,77 @@ static int	export_with_no_args(t_ms *ms)
 
 static int	handle_export_assignment(t_ms *ms, const char *arg)
 {
-	char	*name;
-	const char	*value;
-	char	*plus;
-	int	status;
+	const char	*value_ptr;
+	char		*name;
+	int			status;
+	int			append;
 
-	plus = strstr(arg, "+=");
-	if (plus)
+	append = 0;
+	value_ptr = strstr(arg, "+=");
+	if (value_ptr)
 	{
-		fprintf(stderr, "minishell: export: invalid operator '+=\'\n");
-		return (1);
-	}
-	value = strchr(arg, '=');
-	if (value)
-	{
-		name = strndup(arg, value - arg);
+		name = strndup(arg, value_ptr - arg);
 		if (!name)
 		{
 			perror("minishell: export");
 			return (1);
 		}
-		value++;
+		append = 1;
+		value_ptr += 2;
 	}
 	else
 	{
-		name = strdup(arg);
-		value = ms_env_get(ms, arg);
-		if (!value)
-			value = "";
+		value_ptr = strchr(arg, '=');
+		if (value_ptr)
+		{
+			name = strndup(arg, value_ptr - arg);
+			if (!name)
+			{
+				perror("minishell: export");
+				return (1);
+			}
+			value_ptr++;
+		}
+		else
+		{
+			name = strdup(arg);
+			if (!name)
+			{
+				perror("minishell: export");
+				return (1);
+			}
+			value_ptr = ms_env_get(ms, arg);
+			if (!value_ptr)
+				value_ptr = "";
+		}
 	}
-	if (!name)
+	if (append)
 	{
-		perror("minishell: export");
-		return (1);
+		const char	*current;
+		char		*joined;
+		size_t		len_current;
+		size_t		len_new;
+
+		current = ms_env_get(ms, name);
+		len_current = current ? strlen(current) : 0;
+		len_new = strlen(value_ptr);
+		joined = malloc(len_current + len_new + 1);
+		if (!joined)
+		{
+			perror("minishell: export");
+			free(name);
+			return (1);
+		}
+		if (current)
+			memcpy(joined, current, len_current);
+		if (len_new > 0)
+			memcpy(joined + len_current, value_ptr, len_new);
+		joined[len_current + len_new] = '\0';
+		status = ms_env_set(ms, name, joined);
+		free(joined);
 	}
-	status = ms_env_set(ms, name, value);
+	else
+		status = ms_env_set(ms, name, value_ptr);
 	free(name);
 	if (status)
 		perror("minishell: export");
@@ -298,13 +334,41 @@ int	ms_builtin_export(t_ms *ms, t_command *cmd, int in_child)
 	i = 1;
 	while (cmd->argv[i])
 	{
-		if (!ms_env_is_valid_identifier(cmd->argv[i]))
+		const char	*arg = cmd->argv[i];
+		const char	*plus = strstr(arg, "+=");
+		char		*name;
+
+		name = NULL;
+		if (plus)
+		{
+			name = strndup(arg, plus - arg);
+			if (!name)
+			{
+				perror("minishell: export");
+				status = 1;
+				i++;
+				continue ;
+			}
+			if (!ms_env_is_valid_identifier(name))
+			{
+				fprintf(stderr, "minishell: export: '%s': not a valid identifier\n",
+					arg);
+				free(name);
+				status = 1;
+				i++;
+				continue ;
+			}
+			free(name);
+		}
+		else if (!ms_env_is_valid_identifier(arg))
 		{
 			fprintf(stderr, "minishell: export: '%s': not a valid identifier\n",
-				cmd->argv[i]);
+				arg);
 			status = 1;
+			i++;
+			continue ;
 		}
-		else if (handle_export_assignment(ms, cmd->argv[i]))
+		if (handle_export_assignment(ms, arg))
 			status = 1;
 		i++;
 	}

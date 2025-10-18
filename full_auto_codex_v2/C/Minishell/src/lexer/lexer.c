@@ -183,6 +183,63 @@ static int	parse_double_quote(t_builder *b, t_lexer *lx, t_ms *ms)
 	return (0);
 }
 
+static int	is_tilde_boundary(char c)
+{
+	return (c == '\0' || c == '/' || c == ':' || isspace((unsigned char)c)
+		|| is_operator_char(c));
+}
+
+static int	handle_tilde(t_builder *b, t_lexer *lx)
+{
+	const char	*value;
+	char		next;
+
+	next = peek_char(lx, 1);
+	if (next == '+' && is_tilde_boundary(peek_char(lx, 2)))
+	{
+		value = ms_env_get(lx->ms, "PWD");
+		if (value)
+		{
+			if (builder_append_str(b, value))
+				return (1);
+		}
+		else if (builder_append_char(b, '~') || builder_append_char(b, '+'))
+			return (1);
+		advance(lx, 2);
+		return (0);
+	}
+	if (next == '-' && is_tilde_boundary(peek_char(lx, 2)))
+	{
+		value = ms_env_get(lx->ms, "OLDPWD");
+		if (value)
+		{
+			if (builder_append_str(b, value))
+				return (1);
+		}
+		else if (builder_append_char(b, '~') || builder_append_char(b, '-'))
+			return (1);
+		advance(lx, 2);
+		return (0);
+	}
+	if (is_tilde_boundary(next))
+	{
+		value = ms_env_get(lx->ms, "HOME");
+		if (value)
+		{
+			if (builder_append_str(b, value))
+				return (1);
+		}
+		else if (builder_append_char(b, '~'))
+			return (1);
+		advance(lx, 1);
+		return (0);
+	}
+	if (builder_append_char(b, '~'))
+		return (1);
+	advance(lx, 1);
+	return (0);
+}
+
 static int	parse_word(t_lexer *lx, t_builder *b)
 {
 	if (builder_reserve(b, 0))
@@ -200,6 +257,12 @@ static int	parse_word(t_lexer *lx, t_builder *b)
 		if (current_char(lx) == '"')
 		{
 			if (parse_double_quote(b, lx, lx->ms))
+				return (1);
+			continue ;
+		}
+		if (current_char(lx) == '~' && b->len == 0)
+		{
+			if (handle_tilde(b, lx))
 				return (1);
 			continue ;
 		}

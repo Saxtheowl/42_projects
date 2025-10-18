@@ -16,6 +16,7 @@ typedef struct s_redirect
 	t_redirect_type		type;
 	char				*target;
 	int					heredoc_expand;
+	char				*heredoc_data;
 	struct s_redirect	*next;
 }	t_redirect;
 

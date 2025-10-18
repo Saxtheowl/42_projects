@@ -1,6 +1,7 @@
 #include "executor.h"
 #include "env.h"
 #include "builtins.h"
+#include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -142,77 +143,111 @@ static int	target_fd_from_redirect(t_redirect_type type)
 	return (STDOUT_FILENO);
 }
 
-static int	write_line_to_fd(int fd, const char *line)
+static int	append_line_to_buffer(t_buf *buf, const char *line)
 {
-	size_t	len;
-
-	len = strlen(line);
-	if (len > 0 && write(fd, line, len) < 0)
-		return (perror("write"), 1);
-	if (write(fd, "\n", 1) < 0)
-		return (perror("write"), 1);
+	if (!buf->data && buf_reserve(buf, 0))
+		return (1);
+	if (line && buf_append_str(buf, line))
+		return (1);
+	if (buf_append_char(buf, '\n'))
+		return (1);
 	return (0);
 }
 
-static int	process_heredoc(t_ms *ms, const t_redirect *redir, int apply_to_stdin)
+static int	collect_heredoc_input(t_ms *ms, t_redirect *redir)
 {
-	int	 pipefd[2];
+	t_buf	buf;
 	char	*line;
-	int	 status;
+	char	*expanded;
+	const char	*prompt;
+	int		interrupted;
 
-	if (pipe(pipefd) < 0)
-	{
-		perror("pipe");
-		return (1);
-	}
-	status = 0;
+	memset(&buf, 0, sizeof(buf));
+	(void)ms_signals_consume_sigint();
 	while (1)
 	{
-		line = readline("heredoc> ");
+		prompt = ms->interactive ? "heredoc> " : NULL;
+		line = readline(prompt);
 		if (!line)
+		{
+			interrupted = ms_signals_consume_sigint();
+			if (interrupted)
+			{
+				free(buf.data);
+				return (130);
+			}
+			fprintf(stderr,
+				"minishell: warning: here-document delimited by end-of-file "
+				"(wanted `%s')\n", redir->target);
 			break ;
+		}
 		if (strcmp(line, redir->target) == 0)
 		{
 			free(line);
 			break ;
 		}
-		char *expanded = NULL;
-		const char *to_write = line;
+		expanded = NULL;
 		if (redir->heredoc_expand)
 		{
 			expanded = expand_heredoc_line(ms, line);
 			if (!expanded)
 			{
 				free(line);
-				status = 1;
-				break ;
+				free(buf.data);
+				return (1);
 			}
-			to_write = expanded;
 		}
-		if (write_line_to_fd(pipefd[1], to_write))
+		if (append_line_to_buffer(&buf, expanded ? expanded : line))
 		{
-			status = 1;
 			free(expanded);
 			free(line);
-			break ;
+			free(buf.data);
+			return (1);
 		}
 		free(expanded);
 		free(line);
 	}
-	close(pipefd[1]);
-	if (status == 0 && apply_to_stdin)
+	if (!buf.data)
 	{
-		if (dup2(pipefd[0], STDIN_FILENO) < 0)
-		{
-			perror("dup2");
-			status = 1;
-		}
+		buf.data = strdup("");
+		if (!buf.data)
+			return (1);
 	}
-	close(pipefd[0]);
-	return (status);
+	free(redir->heredoc_data);
+	redir->heredoc_data = buf.data;
+	return (0);
 }
 
-static int	apply_redirects(t_ms *ms, const t_redirect *redir, int apply_heredoc)
+static int	redirect_heredoc_to_stdin(const t_redirect *redir)
+{
+	int	pipefd[2];
+	size_t	len;
+
+	if (pipe(pipefd) < 0)
+	{
+		perror("pipe");
+		return (1);
+	}
+	len = redir->heredoc_data ? strlen(redir->heredoc_data) : 0;
+	if (len > 0 && write(pipefd[1], redir->heredoc_data, len) < 0)
+	{
+		perror("write");
+		close(pipefd[0]);
+		close(pipefd[1]);
+		return (1);
+	}
+	close(pipefd[1]);
+	if (dup2(pipefd[0], STDIN_FILENO) < 0)
+	{
+		perror("dup2");
+		close(pipefd[0]);
+		return (1);
+	}
+	close(pipefd[0]);
+	return (0);
+}
+
+static int	apply_redirects(const t_redirect *redir)
 {
 	int	fd;
 	int	target;
@@ -222,29 +257,63 @@ static int	apply_redirects(t_ms *ms, const t_redirect *redir, int apply_heredoc)
 	{
 		if (redir->type == REDIR_HEREDOC)
 		{
-			if (process_heredoc(ms, redir, apply_heredoc))
+			if (redirect_heredoc_to_stdin(redir))
 				return (1);
-			redir = redir->next;
-			continue ;
 		}
-		flags = open_mode_from_redirect(redir->type);
-		fd = open(redir->target, flags, 0644);
-		if (fd < 0)
+		else
 		{
-			perror(redir->target);
-			return (1);
-		}
-		target = target_fd_from_redirect(redir->type);
-		if (dup2(fd, target) < 0)
-		{
-			perror("dup2");
+			flags = open_mode_from_redirect(redir->type);
+			fd = open(redir->target, flags, 0644);
+			if (fd < 0)
+			{
+				perror(redir->target);
+				return (1);
+			}
+			target = target_fd_from_redirect(redir->type);
+			if (dup2(fd, target) < 0)
+			{
+				perror("dup2");
+				close(fd);
+				return (1);
+			}
 			close(fd);
-			return (1);
 		}
-		close(fd);
 		redir = redir->next;
 	}
 	return (0);
+}
+
+static int	prepare_command_heredocs(t_ms *ms, t_command *cmd)
+{
+	t_redirect	*redir;
+	int			status;
+
+	redir = cmd->redirects;
+	while (redir)
+	{
+		if (redir->type == REDIR_HEREDOC)
+		{
+			status = collect_heredoc_input(ms, redir);
+			if (status != 0)
+				return (status);
+		}
+		redir = redir->next;
+	}
+	return (0);
+}
+
+static int	prepare_ast_heredocs(t_ms *ms, t_ast *node)
+{
+	int	status;
+
+	if (!node)
+		return (0);
+	if (node->type == AST_COMMAND)
+		return (prepare_command_heredocs(ms, &node->as.command));
+	status = prepare_ast_heredocs(ms, node->as.pipeline.left);
+	if (status != 0)
+		return (status);
+	return (prepare_ast_heredocs(ms, node->as.pipeline.right));
 }
 
 static char	*resolve_command_path(t_ms *ms, const char *cmd)
@@ -383,7 +452,7 @@ static int	execute_builtin(t_ms *ms, t_command *cmd,
 		if (save_stdio(saved, cmd->redirects))
 			return (1);
 	}
-    if (apply_redirects(ms, cmd->redirects, 1))
+	if (apply_redirects(cmd->redirects))
 	{
 		if (!in_child)
 			restore_stdio(saved);
@@ -397,7 +466,8 @@ static int	execute_builtin(t_ms *ms, t_command *cmd,
 
 static int	execute_external_child(t_ms *ms, t_command *cmd)
 {
-	if (apply_redirects(ms, cmd->redirects, 1))
+	ms_configure_signals_child();
+	if (apply_redirects(cmd->redirects))
 		_exit(1);
 	execve_with_error(ms, cmd);
 	_exit(1);
@@ -409,25 +479,24 @@ static int	execute_redirection_only(t_ms *ms, t_command *cmd)
 	int					fd;
 	int					flags;
 
+	(void)ms;
 	redir = cmd->redirects;
 	while (redir)
 	{
 		if (redir->type == REDIR_HEREDOC)
-		{
-			if (process_heredoc(ms, redir, 0))
-				return (1);
 			redir = redir->next;
-			continue ;
-		}
-		flags = open_mode_from_redirect(redir->type);
-		fd = open(redir->target, flags, 0644);
-		if (fd < 0)
+		else
 		{
-			perror(redir->target);
-			return (1);
+			flags = open_mode_from_redirect(redir->type);
+			fd = open(redir->target, flags, 0644);
+			if (fd < 0)
+			{
+				perror(redir->target);
+				return (1);
+			}
+			close(fd);
+			redir = redir->next;
 		}
-		close(fd);
-		redir = redir->next;
 	}
 	return (0);
 }
@@ -458,7 +527,7 @@ static int	execute_command(t_ms *ms, t_command *cmd, int in_child)
 	t_builtin_fn	builtin;
 
 	if (!cmd->argv || !cmd->argv[0])
-		return (execute_redirection_only(cmd));
+		return (execute_redirection_only(ms, cmd));
 	builtin = ms_builtin_get(cmd->argv[0]);
 	if (builtin)
 		return (execute_builtin(ms, cmd, builtin, in_child));
@@ -492,6 +561,7 @@ static int	execute_pipeline(t_ms *ms, t_ast *left, t_ast *right)
 	}
 	if (left_pid == 0)
 	{
+		ms_configure_signals_child();
 		if (dup2(pipefd[1], STDOUT_FILENO) < 0)
 		{
 			perror("dup2");
@@ -514,6 +584,7 @@ static int	execute_pipeline(t_ms *ms, t_ast *left, t_ast *right)
 	}
 	if (right_pid == 0)
 	{
+		ms_configure_signals_child();
 		if (dup2(pipefd[0], STDIN_FILENO) < 0)
 		{
 			perror("dup2");
@@ -557,6 +628,15 @@ int	ms_execute(t_ms *ms, t_ast *ast)
 {
 	int	status;
 
+	status = prepare_ast_heredocs(ms, ast);
+	if (status != 0)
+	{
+		if (status == 130)
+			ms->last_status = 130;
+		else
+			ms->last_status = 1;
+		return (status);
+	}
 	status = execute_ast_node(ms, ast, 0);
 	if (status < 0)
 		status = 1;

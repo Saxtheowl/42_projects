@@ -79,6 +79,7 @@ static int	append_redirect(t_redirect **list, t_redirect_type type,
 		return (1);
 	}
 	node->heredoc_expand = heredoc_expand;
+	node->heredoc_data = NULL;
 	node->next = NULL;
 	if (!*list)
 		*list = node;

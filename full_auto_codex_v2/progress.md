@@ -21,3 +21,14 @@
 2025-10-18 | C/Minishell | IN_PROGRESS | Executor fork/exec + pipes/redirs (sans heredoc/builtins).
 2025-10-18 | C/Minishell | IN_PROGRESS | Builtins (echo/pwd/env/exit) intégrés, exécution parentale avec redirections.
 2025-10-18 | C/Minishell | IN_PROGRESS | Builtins cd/export/unset, export listing, env mutations persistants.
+2025-10-18 | C/Minishell | IN_PROGRESS | Heredoc pré-collecté avant fork, signaux enfants rétablis, suites unit/e2e automatisées.
+2025-10-18 | C/Minishell | IN_PROGRESS | Documentation alignée, harness Python (unit/e2e) opérationnel ; reste expansions avancées + valgrind/norme.
+2025-10-18 | C/Minishell | IN_PROGRESS | Lancement implémentation expansions avancées (`~`, `export +=`, variables spéciales) avant campagne valgrind/norme.
+2025-10-18 | C/Minishell | IN_PROGRESS | Expansions `~`, `~+`, `~-` et `export +=` finalisées avec tests unit/e2e ; prochaine étape valgrind + norme.
+2025-10-18 | C/Minishell | IN_PROGRESS | Tentative valgrind (outil absent sur l'environnement) ; orientation vers build ASan/valgrind ultérieur.
+2025-10-18 | C/Minishell | IN_PROGRESS | Build optionnel ASan (Makefile SANITIZE=address) + tests automatiques passés (LSan neutralisé via ASAN/LSAN_OPTIONS).
+2025-10-18 | C/Minishell | IN_PROGRESS | Tentative norminette (outil absent) ; prévoir revue manuelle du style + exécution norminette lors d'un prochain accès.
+2025-10-18 | C/Minishell | IN_PROGRESS | Lancement audit manuel norme 42 (repérage fonctions >25 lignes, découpage planifié avant refactor).
+2025-10-18 | C/Minishell | IN_PROGRESS | Audit norme 42 : aucune fonction >25 lignes détectée dans `src/`; refacto ciblé non requis pour l'instant.
+2025-10-18 | C/Minishell | IN_PROGRESS | Préparation refacto norme (ciblage fonctions à découper : lexer `collect_heredoc_input`, executor `apply_redirects` & pipeline).
+2025-10-18 | C/Minishell | IN_PROGRESS | Analyse approfondie norme 42 : `collect_heredoc_input` (145 lignes), `apply_redirects` (36) et `execute_pipeline` (69) doivent être refactorées ; plan de découpe à définir.

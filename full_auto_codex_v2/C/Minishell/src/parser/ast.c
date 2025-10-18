@@ -9,6 +9,7 @@ static void	redirect_free(t_redirect *redir)
 	{
 		next = redir->next;
 		free(redir->target);
+		free(redir->heredoc_data);
 		free(redir);
 		redir = next;
 	}
