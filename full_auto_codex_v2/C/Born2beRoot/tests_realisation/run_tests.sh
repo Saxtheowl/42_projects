@@ -21,7 +21,9 @@ shellcheck \
     "${PROJECT_DIR}/provisioning/00-system-prep.sh" \
     "${PROJECT_DIR}/provisioning/10-monitoring.sh" \
     "${PROJECT_DIR}/scripts/monitoring.sh" \
-    "${PROJECT_DIR}/scripts/apply_configuration.sh"
+    "${PROJECT_DIR}/scripts/apply_configuration.sh" \
+    "${PROJECT_DIR}/tests_realisation/validate_vm.sh" \
+    "${PROJECT_DIR}/scripts/generate_signature.sh"
 
 PROJECT_DIR="${PROJECT_DIR}" python3 - <<'PY'
 import os

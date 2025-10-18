@@ -52,10 +52,12 @@ Chaque script est idempotent pour permettre plusieurs exécutions (utile après 
 - Inspecter LVM/chiffrement : `lsblk`, `sudo cryptsetup status cryptlvm`
 
 ## Tests
-```bash
-./tests_realisation/run_tests.sh
-```
-Le script s’assure que `shellcheck` est disponible (install automatique via `scripts/install_shellcheck.sh` si besoin), exécute `shellcheck` sur les scripts, valide la syntaxe de la configuration `sudoers` et vérifie quelques invariants (port 4242, limites `passwd_tries`, etc.).
+Depuis la racine du projet :
+- `./tests_realisation/run_tests.sh` : vérifications statiques (ShellCheck, cohérence des gabarits, Vagrantfile).
+- `./tests_realisation/validate_vm.sh` : contrôles runtime via `vagrant ssh` sur une VM démarrée (`vagrant up`) ; définir `B2BR_LOGIN` si nécessaire.
+- `./tests_realisation/COMMANDS.md` : récapitulatif des commandes de test et de la génération de signature.
+
+`run_tests.sh` s’assure que `shellcheck` est disponible (installation automatique via `scripts/install_shellcheck.sh` si besoin), exécute `shellcheck` sur les scripts, valide la syntaxe de la configuration `sudoers` et vérifie quelques invariants (port 4242, limites `passwd_tries`, etc.).
 
 ## signature.txt
 1. Créer/mettre à jour la VM (`vagrant up`), puis l’arrêter (`vagrant halt`).

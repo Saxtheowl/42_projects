@@ -13,3 +13,11 @@
 2025-10-13 | C/So_Long | DONE | Rendu MiniLibX complet (sprites, déplacements, sortie), fallback headless et tests parsing.
 2025-10-13 | C/Ft_server | DONE | Autoindex variable, WordPress/phpMyAdmin versions vérifiées (SHA256), WP-CLI install auto + durcissement entrypoint.
 2025-10-13 | C/Born2beRoot | IN_PROGRESS | Provisioning complet (Vagrant + LVM chiffré, politique PAM/sudo, monitoring); reste validation VM et signature.
+2025-10-18 | C/Born2beRoot | DONE | Ajout validation VM (vagrant), doc tests/signature et ShellCheck.
+2025-10-18 | C/Minishell | IN_PROGRESS | Initialisation projet, plan détaillé et TODO pipeline minishell.
+2025-10-18 | C/Minishell | IN_PROGRESS | Toolchain Makefile + boucle readline (stub getline) et signaux interactifs.
+2025-10-18 | C/Minishell | IN_PROGRESS | Lexer tokens/pipes/redirs + quotes et expansions $VAR/$? intégrés.
+2025-10-18 | C/Minishell | IN_PROGRESS | Parser AST pipeline+redir avec détection syntaxe (build OK, exécution à venir).
+2025-10-18 | C/Minishell | IN_PROGRESS | Executor fork/exec + pipes/redirs (sans heredoc/builtins).
+2025-10-18 | C/Minishell | IN_PROGRESS | Builtins (echo/pwd/env/exit) intégrés, exécution parentale avec redirections.
+2025-10-18 | C/Minishell | IN_PROGRESS | Builtins cd/export/unset, export listing, env mutations persistants.
