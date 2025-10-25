@@ -24,6 +24,15 @@ SRCS        := \
 	lexer/lexer.c \
 	lexer/token.c \
 	executor/executor.c \
+	executor/execute_node.c \
+	executor/heredoc.c \
+	executor/heredoc_expand.c \
+	executor/redirects.c \
+	executor/pipeline.c \
+	executor/status.c \
+	executor/command.c \
+	executor/external.c \
+	executor/builtin.c \
 	parser/ast.c \
 	parser/parser.c \
 	prompt/prompt.c \

@@ -34,3 +34,6 @@
 2025-10-18 | C/Minishell | IN_PROGRESS | Analyse approfondie norme 42 : `collect_heredoc_input` (145 lignes), `apply_redirects` (36) et `execute_pipeline` (69) doivent être refactorées ; plan de découpe à définir.
 2025-10-18 | C/Minishell | IN_PROGRESS | Plan refacto : scinder `collect_heredoc_input` (lecture, expansion, écriture), `apply_redirects` (dispatch par type) et `execute_pipeline` (setup, fork left/right, wait) avant implémentation.
 2025-10-18 | C/Minishell | IN_PROGRESS | Lancement refacto norme : rédaction du plan d'extraction (helpers heredoc/pipeline) avant modifications du code.
+2025-10-25 | C/Minishell | IN_PROGRESS | Refacto heredoc/pipeline/apply_redirects selon norme 42 + scripts de tests OK.
+2025-10-25 | C/Minishell | IN_PROGRESS | Executor éclaté en modules norm-compliants (≤5 fonctions/≤25 lignes) et tests unit/e2e validés.
+2025-10-25 | C/Minishell | IN_PROGRESS | Tentative norminette via `make norm` échouée (outil indisponible) ; relancer contrôle style dès que possible.
