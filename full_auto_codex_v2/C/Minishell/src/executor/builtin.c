@@ -2,39 +2,41 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static int	save_stdio(int saved[2], const t_redirect *redir)
+static int	redirects_need_dup(const t_redirect *redir, t_redirect_type a,
+			t_redirect_type b)
 {
-	int	need_in;
-	int	need_out;
-
-	need_in = 0;
-	need_out = 0;
 	while (redir)
 	{
-		if (redir->type == REDIR_INPUT || redir->type == REDIR_HEREDOC)
-			need_in = 1;
-		if (redir->type == REDIR_OUTPUT || redir->type == REDIR_APPEND)
-			need_out = 1;
+		if (redir->type == a || redir->type == b)
+			return (1);
 		redir = redir->next;
 	}
+	return (0);
+}
+
+static int	dup_fd(int *dst, int fd)
+{
+	*dst = dup(fd);
+	if (*dst < 0)
+		return (perror("dup"), 1);
+	return (0);
+}
+
+static int	save_stdio(int saved[2], const t_redirect *redir)
+{
+	const int	need_in = redirects_need_dup(redir, REDIR_INPUT, REDIR_HEREDOC);
+	const int	need_out = redirects_need_dup(redir, REDIR_OUTPUT,
+			REDIR_APPEND);
+
 	saved[0] = -1;
 	saved[1] = -1;
-	if (need_in)
+	if (need_in && dup_fd(&saved[0], STDIN_FILENO))
+		return (1);
+	if (need_out && dup_fd(&saved[1], STDOUT_FILENO))
 	{
-		saved[0] = dup(STDIN_FILENO);
-		if (saved[0] < 0)
-			return (perror("dup"), 1);
-	}
-	if (need_out)
-	{
-		saved[1] = dup(STDOUT_FILENO);
-		if (saved[1] < 0)
-		{
-			perror("dup");
-			if (saved[0] >= 0)
-				close(saved[0]);
-			return (1);
-		}
+		if (saved[0] >= 0)
+			close(saved[0]);
+		return (1);
 	}
 	return (0);
 }

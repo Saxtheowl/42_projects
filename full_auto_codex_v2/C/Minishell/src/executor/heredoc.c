@@ -53,27 +53,26 @@ char	*ms_expand_heredoc_line(t_ms *ms, const char *line);
 static int	hd_handle_line(t_ms *ms, t_redirect *redir,
 			t_hd_buffer *buf, char *line)
 {
-	char	*expanded;
+	char	*payload;
+	char	*to_free;
 
 	if (strcmp(line, redir->target) == 0)
 		return (free(line), 1);
-	expanded = line;
+	payload = to_free = line;
 	if (redir->heredoc_expand)
 	{
-		expanded = ms_expand_heredoc_line(ms, line);
+		payload = ms_expand_heredoc_line(ms, line);
 		free(line);
-		if (!expanded)
+		if (!payload)
 			return (-1);
+		to_free = payload;
 	}
-	if (hd_append_line(buf, expanded))
+	if (hd_append_line(buf, payload))
 	{
-		free(expanded);
+		free(to_free);
 		return (-1);
 	}
-	if (redir->heredoc_expand)
-		free(expanded);
-	else
-		free(line);
+	free(to_free);
 	return (0);
 }
 

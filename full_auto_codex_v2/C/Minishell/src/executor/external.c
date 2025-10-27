@@ -77,8 +77,6 @@ static void	execve_with_error(t_ms *ms, t_command *cmd)
 	free(path);
 	if (err == ENOENT)
 		_exit(EXIT_CMD_NOT_FOUND);
-	if (err == EACCES)
-		_exit(EXIT_NO_PERMISSION);
 	_exit(EXIT_NO_PERMISSION);
 }
 

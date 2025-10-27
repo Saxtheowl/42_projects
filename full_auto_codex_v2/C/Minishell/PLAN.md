@@ -28,9 +28,10 @@
 ## Étape 6 – Tests & validation
 - [x] Tests unitaires (lexer/parser) avec `criterion` ou harness perso. *(couverture via `tests_realisation/unit_tests.py`)*
 - [x] Tests end-to-end (scripts bash/expect vs bash). *(comparaison `e2e_tests.py` vs bash)*
-- [ ] Analyse mémoire (`valgrind`), fuites et erreurs.
+- [x] Analyse mémoire via AddressSanitizer (`make SANITIZE=address` + suites automatiques).
+- [ ] Analyse mémoire `valgrind` — outil absent sur l'environnement courant (à relancer dès installation).
 
 ## Étape 7 – Finition
-- [ ] Norme 42 (norminette).
-- [x] Documentation de travail (README, commandes tests) – relecture finale à prévoir.
-- [ ] Binaire & archive prêtes pour rendu.
+- [ ] Norme 42 (norminette) — à exécuter dès que l'outil est disponible.
+- [x] Documentation de travail (README, commandes tests) – relecture finale réalisée.
+- [x] Binaire & archive prêtes pour rendu (`scripts/package_release.sh` générant `minishell_submission.tar.gz`).

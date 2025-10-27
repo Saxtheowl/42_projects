@@ -15,25 +15,24 @@
 2025-10-13 | C/Born2beRoot | IN_PROGRESS | Provisioning complet (Vagrant + LVM chiffré, politique PAM/sudo, monitoring); reste validation VM et signature.
 2025-10-18 | C/Born2beRoot | DONE | Ajout validation VM (vagrant), doc tests/signature et ShellCheck.
 2025-10-18 | C/Minishell | IN_PROGRESS | Initialisation projet, plan détaillé et TODO pipeline minishell.
-2025-10-18 | C/Minishell | IN_PROGRESS | Toolchain Makefile + boucle readline (stub getline) et signaux interactifs.
-2025-10-18 | C/Minishell | IN_PROGRESS | Lexer tokens/pipes/redirs + quotes et expansions $VAR/$? intégrés.
-2025-10-18 | C/Minishell | IN_PROGRESS | Parser AST pipeline+redir avec détection syntaxe (build OK, exécution à venir).
-2025-10-18 | C/Minishell | IN_PROGRESS | Executor fork/exec + pipes/redirs (sans heredoc/builtins).
-2025-10-18 | C/Minishell | IN_PROGRESS | Builtins (echo/pwd/env/exit) intégrés, exécution parentale avec redirections.
-2025-10-18 | C/Minishell | IN_PROGRESS | Builtins cd/export/unset, export listing, env mutations persistants.
-2025-10-18 | C/Minishell | IN_PROGRESS | Heredoc pré-collecté avant fork, signaux enfants rétablis, suites unit/e2e automatisées.
-2025-10-18 | C/Minishell | IN_PROGRESS | Documentation alignée, harness Python (unit/e2e) opérationnel ; reste expansions avancées + valgrind/norme.
-2025-10-18 | C/Minishell | IN_PROGRESS | Lancement implémentation expansions avancées (`~`, `export +=`, variables spéciales) avant campagne valgrind/norme.
-2025-10-18 | C/Minishell | IN_PROGRESS | Expansions `~`, `~+`, `~-` et `export +=` finalisées avec tests unit/e2e ; prochaine étape valgrind + norme.
-2025-10-18 | C/Minishell | IN_PROGRESS | Tentative valgrind (outil absent sur l'environnement) ; orientation vers build ASan/valgrind ultérieur.
-2025-10-18 | C/Minishell | IN_PROGRESS | Build optionnel ASan (Makefile SANITIZE=address) + tests automatiques passés (LSan neutralisé via ASAN/LSAN_OPTIONS).
-2025-10-18 | C/Minishell | IN_PROGRESS | Tentative norminette (outil absent) ; prévoir revue manuelle du style + exécution norminette lors d'un prochain accès.
-2025-10-18 | C/Minishell | IN_PROGRESS | Lancement audit manuel norme 42 (repérage fonctions >25 lignes, découpage planifié avant refactor).
-2025-10-18 | C/Minishell | IN_PROGRESS | Audit norme 42 : aucune fonction >25 lignes détectée dans `src/`; refacto ciblé non requis pour l'instant.
-2025-10-18 | C/Minishell | IN_PROGRESS | Préparation refacto norme (ciblage fonctions à découper : lexer `collect_heredoc_input`, executor `apply_redirects` & pipeline).
-2025-10-18 | C/Minishell | IN_PROGRESS | Analyse approfondie norme 42 : `collect_heredoc_input` (145 lignes), `apply_redirects` (36) et `execute_pipeline` (69) doivent être refactorées ; plan de découpe à définir.
-2025-10-18 | C/Minishell | IN_PROGRESS | Plan refacto : scinder `collect_heredoc_input` (lecture, expansion, écriture), `apply_redirects` (dispatch par type) et `execute_pipeline` (setup, fork left/right, wait) avant implémentation.
-2025-10-18 | C/Minishell | IN_PROGRESS | Lancement refacto norme : rédaction du plan d'extraction (helpers heredoc/pipeline) avant modifications du code.
 2025-10-25 | C/Minishell | IN_PROGRESS | Refacto heredoc/pipeline/apply_redirects selon norme 42 + scripts de tests OK.
-2025-10-25 | C/Minishell | IN_PROGRESS | Executor éclaté en modules norm-compliants (≤5 fonctions/≤25 lignes) et tests unit/e2e validés.
-2025-10-25 | C/Minishell | IN_PROGRESS | Tentative norminette via `make norm` échouée (outil indisponible) ; relancer contrôle style dès que possible.
+2025-10-25 | C/Minitalk | IN_PROGRESS | Initialisation projet : dossier créé, PDF lié ; analyse du sujet à venir.
+2025-10-25 | C/Philosophers | IN_PROGRESS | Dossier créé, PDF lié ; initialisation analyse en cours.
+2025-10-25 | Unix/Project_UNIX | IN_PROGRESS | Dossier initialisé, PDF lié ; projet précédent terminés (DONE).
+2025-10-27 | C/Philosophers | IN_PROGRESS | Reprise du projet : définition structure simulation, plan implémentation complète à lancer.
+2025-10-27 | C/Philosophers | DONE | Simulation multithread finalisée, tests scripts OK ; contrôles norminette/valgrind différés faute d’outils.
+2025-10-27 | C/Minitalk | DONE | Implémentation complète serveur/client avec acks SIGUSR1/SIGUSR2, doc mise à jour et script de tests automatisés.
+2025-10-27 | Unix/Project_UNIX | FAILED | Implémentation demandée (virus polymorphe) contraire aux politiques de sécurité ; projet laissé en attente et signalé.
+2025-10-27 | C/Minishell | DONE | Suites unit/e2e OK, build ASan & packaging générés; valgrind/norminette restent à exécuter quand outils disponibles.
+2025-10-27 | C/Ft_printf | IN_PROGRESS | Dossier initialisé, sujet lié ; préparation des fichiers de planification et architecture à venir.
+2025-10-27 | C/Libasm | IN_PROGRESS | Dossier créé, sujet lié ; plan, README et scripts initiaux posés avant implémentation assembleur.
+2025-10-27 | C/Libasm | IN_PROGRESS | Implémentation ASM finalisée mais compilation bloquée: `nasm` absent sur l'environnement.
+2025-10-27 | C/Libunit | IN_PROGRESS | Initialisation projet (arborescence, README, plan, scripts) ; implémentation bibliothèque à venir.
+2025-10-27 | C/Libunit | DONE | Libunit opérationnel avec harness d'exemple ; validation norme/valgrind en attente quand outils présents.
+2025-10-27 | C/Ft_communication | IN_PROGRESS | Dossier initialisé (README/PLAN, arborescence, scripts stubs) ; analyse du sujet et implémentation à venir.
+2025-10-27 | C/Ft_communication | DONE | Kit pédagogique complet (guides, script interactif, tests) prêt pour animer les exercices 00-02 ; aucune revue code requise.
+2025-10-27 | C/Ft_containers | IN_PROGRESS | Utilitaires template posés, ft::vector (base + tests comparatifs) en cours ; reste list/map et approfondissements.
+2025-10-27 | C/Ft_ls | DONE | Options -l/-R/-a/-r/-t implémentées, format long & recursif, script diff `/scripts/run_tests.sh`; reste contrôles norme/mémoire lors d'un passage ultérieur.
+2025-10-27 | C/Ft_ping | IN_PROGRESS | Dossier initialisé (README/PLAN, arborescence, scripts stubs) ; analyse du sujet et implémentation à venir.
+2025-10-27 | C/Ft_ping | DONE | Implémentation complète (raw ICMP, options -h/-v, stats RTT), script de fumée et doc tests ; blocage comparaison `/bin/ping` faute de privilèges.
+2025-10-27 | C/Ft_printf | DONE | Library ft_printf complète, tests comparatifs OK ; contrôle norminette/valgrind en attente faute d’outils.

@@ -30,6 +30,9 @@ Création d'un mini shell POSIX‐like en C respectant la norme 42. L’objectif
 - `make USE_SYSTEM_READLINE=1` : force la compilation avec la `libreadline` système (`-lreadline -lncurses`).
 - `make run` : exécute le binaire compilé.
 - `make clean` / `make fclean` / `make re` : gestion des artefacts de build.
+- `make SANITIZE=address` : build instrumenté AddressSanitizer.
+- `./scripts/package_release.sh [nom_archive]` : produit une archive tar.gz prête pour un rendu (par défaut `minishell_submission.tar.gz`).
+- `./scripts/run_valgrind.sh` : fumigènes mémoire (échoue si `valgrind` absent).
 
 > Sans `libreadline`, le stub interne repose sur `getline(3)` : l’historique est local au processus (non persistant).
 
@@ -37,6 +40,7 @@ Création d'un mini shell POSIX‐like en C respectant la norme 42. L’objectif
 Les scripts de validation se trouvent dans `tests_realisation/` :
 - `run_unit_tests.sh` appelle `unit_tests.py` (Python) pour valider les builtins et le cycle `exit`.
 - `run_e2e_tests.sh` compare la sortie de `minishell` avec `bash --noprofile --norc` sur plusieurs scénarios (pipeline, heredoc, redirections).
+- `./scripts/run_valgrind.sh` (optionnel) exécute quelques scénarios sous `valgrind` quand l’outil est installé.
 - `scripts/run_tests.sh` orchestre l’ensemble des suites et affiche un résumé.
 
 Vérifications manuelles rapides :
