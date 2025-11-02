@@ -1,0 +1,38 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "first_name": "Alice",
+      "last_name": "Mentor",
+      "phone": "0611223344",
+      "email": "alice@42.fr",
+      "campus": "Paris",
+      "notes": "Updated",
+      "tags": [
+        "Mentor",
+        "Piscine"
+      ],
+      "created_at": "2025-10-31 12:33:19",
+      "updated_at": "2025-10-31 12:33:19"
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "contact_id": 1,
+      "direction": "OUT",
+      "body": "Salut",
+      "timestamp": "2025-10-31 12:33:19"
+    },
+    {
+      "id": 2,
+      "contact_id": 1,
+      "direction": "IN",
+      "body": "Hey",
+      "timestamp": "2025-10-31 12:33:19"
+    }
+  ],
+  "settings": {
+    "last_background": null
+  }
+}

@@ -1,14 +1,15 @@
 #pragma once
 
 #include <cstddef>
+#include <iterator>
 
 namespace ft
 {
-	struct input_iterator_tag {};
-	struct output_iterator_tag {};
-	struct forward_iterator_tag : input_iterator_tag {};
-	struct bidirectional_iterator_tag : forward_iterator_tag {};
-	struct random_access_iterator_tag : bidirectional_iterator_tag {};
+	typedef std::input_iterator_tag		 input_iterator_tag;
+	typedef std::output_iterator_tag	 output_iterator_tag;
+	typedef std::forward_iterator_tag	 forward_iterator_tag;
+	typedef std::bidirectional_iterator_tag bidirectional_iterator_tag;
+	typedef std::random_access_iterator_tag random_access_iterator_tag;
 
 	template <typename Category, typename T, typename Distance = std::ptrdiff_t,
 		typename Pointer = T *, typename Reference = T &>
@@ -199,29 +200,26 @@ namespace ft
 		return reverse_iterator<Iterator>(it.base() - n);
 	}
 
-template <typename Iterator1, typename Iterator2>
-typename reverse_iterator<Iterator1>::difference_type operator-(
-	const reverse_iterator<Iterator1> &lhs,
-	const reverse_iterator<Iterator2> &rhs)
-{
-	return rhs.base() - lhs.base();
-}
+	template <typename Iterator1, typename Iterator2>
+	typename reverse_iterator<Iterator1>::difference_type operator-(
+		const reverse_iterator<Iterator1> &lhs,
+		const reverse_iterator<Iterator2> &rhs)
+	{
+		return rhs.base() - lhs.base();
+	}
 
-template <typename InputIt>
-typename iterator_traits<InputIt>::difference_type
-distance(InputIt first, InputIt last)
-{
-	typename iterator_traits<InputIt>::difference_type count = 0;
-	for (; first != last; ++first)
-		++count;
-	return count;
-}
+	template <typename InputIt>
+	typename iterator_traits<InputIt>::difference_type
+	distance(InputIt first, InputIt last)
+	{
+		return std::distance(first, last);
+	}
 
-template <typename ForwardIt1, typename ForwardIt2>
-void iter_swap(ForwardIt1 lhs, ForwardIt2 rhs)
-{
-	typename iterator_traits<ForwardIt1>::value_type tmp = *lhs;
-	*lhs = *rhs;
-	*rhs = tmp;
-}
+	template <typename ForwardIt1, typename ForwardIt2>
+	void iter_swap(ForwardIt1 lhs, ForwardIt2 rhs)
+	{
+		typename iterator_traits<ForwardIt1>::value_type tmp = *lhs;
+		*lhs = *rhs;
+		*rhs = tmp;
+	}
 }

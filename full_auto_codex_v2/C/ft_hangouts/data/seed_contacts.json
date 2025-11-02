@@ -1,0 +1,20 @@
+[
+  {
+    "first_name": "Alice",
+    "last_name": "Mentor",
+    "phone": "+33611223344",
+    "email": "alice@42.fr",
+    "campus": "Paris",
+    "notes": "Mentor piscine",
+    "tags": ["Mentor", "Piscine"]
+  },
+  {
+    "first_name": "Ben",
+    "last_name": "Staff",
+    "phone": "+33644332211",
+    "email": "ben@42.fr",
+    "campus": "Lyon",
+    "notes": "Staff events",
+    "tags": ["Staff", "Event"]
+  }
+]

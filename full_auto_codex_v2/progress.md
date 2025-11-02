@@ -32,7 +32,14 @@
 2025-10-27 | C/Ft_communication | IN_PROGRESS | Dossier initialisé (README/PLAN, arborescence, scripts stubs) ; analyse du sujet et implémentation à venir.
 2025-10-27 | C/Ft_communication | DONE | Kit pédagogique complet (guides, script interactif, tests) prêt pour animer les exercices 00-02 ; aucune revue code requise.
 2025-10-27 | C/Ft_containers | IN_PROGRESS | Utilitaires template posés, ft::vector (base + tests comparatifs) en cours ; reste list/map et approfondissements.
+2025-10-27 | C/ft_hangouts | IN_PROGRESS | Personas, user journeys, architecture Android + prototype CLI (contacts/SMS) prêts ; reste maquettes UI haute fidélité et app Android.
+2025-10-31 | C/ft_helpme | IN_PROGRESS | Contexte & questions préparés pour aider sur ft_linear_regression ; attendre planification de la review.
+2025-10-31 | C/ft_kalman | IN_PROGRESS | Lecture sujet, README/PLAN créés ; modélisation du filtre et implémentation C++ à venir.
+2025-10-31 | C/ft_linux | IN_PROGRESS | Sujet analysé, README/PLAN posés ; reste préparation toolchain LFS et scripts d'automatisation.
 2025-10-27 | C/Ft_ls | DONE | Options -l/-R/-a/-r/-t implémentées, format long & recursif, script diff `/scripts/run_tests.sh`; reste contrôles norme/mémoire lors d'un passage ultérieur.
 2025-10-27 | C/Ft_ping | IN_PROGRESS | Dossier initialisé (README/PLAN, arborescence, scripts stubs) ; analyse du sujet et implémentation à venir.
 2025-10-27 | C/Ft_ping | DONE | Implémentation complète (raw ICMP, options -h/-v, stats RTT), script de fumée et doc tests ; blocage comparaison `/bin/ping` faute de privilèges.
 2025-10-27 | C/Ft_printf | DONE | Library ft_printf complète, tests comparatifs OK ; contrôle norminette/valgrind en attente faute d’outils.
+2025-10-29 | C/Ft_containers | DONE | Implémentation complète vector/list/map + stack/queue, arbre RB, tests std vs ft automatisés.
+2025-10-31 | C/ft_linear_regression | IN_PROGRESS | Gradient descent normalisé opérationnel + CLI/scripts/tests ; bonus visualisation et tuning à réaliser.
+2025-10-31 | C/ft_irc | IN_PROGRESS | README/PLAN, squelette C++ (Makefile, Server stub) et scripts/tests manuels en place ; reste à coder la boucle poll/commandes IRC.
