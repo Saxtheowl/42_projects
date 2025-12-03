@@ -1,24 +1,50 @@
-#include "../include/Server.hpp"
+#include "Server.hpp"
 
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <string>
 
-static void print_usage(const char *prog)
+namespace
 {
-	std::cerr << "Usage: " << prog << " <port> <password>" << std::endl;
+void printUsage(const char *progName)
+{
+	std::cerr << "Usage: " << progName << " <port> <password>" << std::endl;
+}
+
+bool isNumber(const std::string &value)
+{
+	if (value.empty())
+		return false;
+	for (std::string::const_iterator it = value.begin(); it != value.end(); ++it)
+	{
+		if (*it < '0' || *it > '9')
+			return false;
+	}
+	return true;
+}
 }
 
 int main(int argc, char **argv)
 {
 	if (argc != 3)
 	{
-		print_usage(argv[0]);
+		printUsage(argv[0]);
 		return EXIT_FAILURE;
 	}
 
-	const std::string port = argv[1];
-	const std::string password = argv[2];
+	const std::string port(argv[1]);
+	const std::string password(argv[2]);
+	if (!isNumber(port))
+	{
+		std::cerr << "Error: invalid port '" << port << "'" << std::endl;
+		return EXIT_FAILURE;
+	}
+	if (password.empty())
+	{
+		std::cerr << "Error: password must not be empty" << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	try
 	{
@@ -27,11 +53,11 @@ int main(int argc, char **argv)
 	}
 	catch (const std::exception &e)
 	{
-		std::cerr << "Unexpected error: " << e.what() << std::endl;
+		std::cerr << "Fatal: " << e.what() << std::endl;
 	}
 	catch (...)
 	{
-		std::cerr << "Unknown error" << std::endl;
+		std::cerr << "Fatal: unknown exception" << std::endl;
 	}
 	return EXIT_FAILURE;
 }
