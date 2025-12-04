@@ -12,7 +12,7 @@
 - [x] ex01 : `PhoneBook` (ajout/affichage contacts).
 - [x] ex02 : `Account` / logs.
 - [x] ex03 : `Weapon/HumanA/HumanB`.
-- [ ] ex04 : `Sed` (remplacement de chaîne).
+- [x] ex04 : `Sed` (remplacement de chaîne).
 
 ## Étape 4 – Tests
 - [ ] Scripts basiques sous `tests/` (diff stdout).
