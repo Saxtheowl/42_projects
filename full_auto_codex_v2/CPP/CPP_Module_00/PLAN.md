@@ -8,7 +8,7 @@
 - [ ] Rédiger Makefile avec cibles dédiées + `all`, `clean`.
 
 ## Étape 3 – Implémentations
-- [ ] ex00 : `Megaphone` (affiche args en uppercase).
+- [x] ex00 : `Megaphone` (affiche args en uppercase).
 - [ ] ex01 : `PhoneBook` (ajout/affichage contacts).
 - [ ] ex02 : `Account` / logs.
 - [ ] ex03 : `Weapon/HumanA/HumanB`.
