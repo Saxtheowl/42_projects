@@ -27,6 +27,7 @@ Objectif : construire une distribution Linux minimale et fonctionnelle, utilisé
 - `docs/network.md` : notes réseau (DHCP via dhcpcd, alternative NetworkManager).
 - `docs/chroot.md` : instructions pour entrer en chroot (bind mounts + chroot).
  - `docs/build_log.md` : journal de build à compléter lors d'un run réel.
+ - `docs/toolchain.md` : rappel commandes pour binutils/gcc/linux-headers/glibc + chroot.
   - `configs/linux-6.6.config.todo` : placeholder .config à générer/adapter.
 - `checksums/` : à compléter (SHA256 tarballs + image finale).
 - `logs/` : répertoires pour les builds.
