@@ -10,8 +10,8 @@
 ## Étape 3 – Implémentations
 - [x] ex00 : `Megaphone` (affiche args en uppercase).
 - [x] ex01 : `PhoneBook` (ajout/affichage contacts).
-- [ ] ex02 : `Account` / logs.
-- [ ] ex03 : `Weapon/HumanA/HumanB`.
+- [x] ex02 : `Account` / logs.
+- [x] ex03 : `Weapon/HumanA/HumanB`.
 - [ ] ex04 : `Sed` (remplacement de chaîne).
 
 ## Étape 4 – Tests
