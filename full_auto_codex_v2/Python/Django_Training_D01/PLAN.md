@@ -5,7 +5,7 @@
 
 ## Étape 2 – Setup
 - [ ] Créer venv local (`python3 -m venv .venv`), requirements (Django).
-- [ ] Générer projet `training_d01` via `django-admin startproject`.
+- [x] Générer projet `training_d01` via `django-admin startproject` (structure initialisée).
 
 ## Étape 3 – Exercices
 - [ ] Créer apps selon sujet (ex00, ex01, …).

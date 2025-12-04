@@ -15,3 +15,17 @@ Kickoff du cursus Python/Django (jour 01) : prise en main de Django, création d
 - Python 3.x
 - Django (version à fixer selon le sujet, par défaut 4.x)
 - venv local : `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
+
+## Avancement
+- Projet Django `training_d01` initialisé (settings/urls/wsgi/asgi, manage.py).
+- Requirements posés (`Django>=4.2,<5.0`).
+- Reste à lire le PDF et implémenter les exercices/applications demandées.
+
+## Lancement (développement)
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
