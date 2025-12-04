@@ -1,0 +1,6 @@
+label: gpt
+unit: MiB
+
+/dev/sda1 : start=1, size=512, type=uefi
+/dev/sda2 : start=513, size=2048, type=swap
+/dev/sda3 : start=2561, size=+100%, type=linux

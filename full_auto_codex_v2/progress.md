@@ -43,3 +43,8 @@
 2025-10-29 | C/Ft_containers | DONE | Implémentation complète vector/list/map + stack/queue, arbre RB, tests std vs ft automatisés.
 2025-10-31 | C/ft_linear_regression | IN_PROGRESS | Gradient descent normalisé opérationnel + CLI/scripts/tests ; bonus visualisation et tuning à réaliser.
 2025-10-31 | C/ft_irc | IN_PROGRESS | README/PLAN, squelette C++ (Makefile, Server stub) et scripts/tests manuels en place ; reste à coder la boucle poll/commandes IRC.
+2025-12-03 | C/ft_linear_regression | DONE | Bonus terminés : script de visualisation matplotlib + RMSE documentée ; projet utilisable avec tests et CLI.
+2025-12-03 | C/ft_irc | DONE | Harness de tests corrigé (gestion du buffer) et serveur IRC validé par le smoke test automatisé.
+2025-12-03 | C/ft_kalman | IN_PROGRESS | MVP Kalman linéaire 6D (pos/vitesse) implémenté avec matrice fixe, démo synthétique et script de test; reste orientation, réseau UDP et calibration Q/R (bloqué tant que `imu-sensor-stream` n'est pas disponible).
+2025-12-03 | C/ft_linux | IN_PROGRESS | Choix versions (kernel 6.6.54 LTS, toolchain GCC 13.2/glibc 2.40), schéma de partitions 20 Go, scripts squelette (image/partition/mount, download SHA, gen checksums, env LFS, chroot, toolchain avec cibles binutils/gcc/linux-headers/glibc, paquets, kernel), et docs versions/partitions/checksums/build_order/grub/fstab/network/chroot/build_log rédigés ; placeholder .config fourni.
+2025-12-03 | C/ft_kalman | IN_PROGRESS | Ajout d'un test unitaire `kalman_test` (make test) couvrant predict/update de base ; blocage UDP toujours présent faute de `imu-sensor-stream`.

@@ -1,30 +1,29 @@
 # ft_kalman
 
-## Synthèse préliminaire
-Projet algorithmique : implémenter un filtre de Kalman pour estimer la trajectoire d’un véhicule en 3D à partir de mesures bruitées (accélération, gyroscope, GPS) transmises via UDP. Il faut maintenir précision (< 5 m d’erreur) et latence (< 1 s). Les données initiales sont envoyées après handshake; le programme répond avec estimations successives.
+## Synthèse actuelle
+Implémentation MVP d’un filtre de Kalman linéaire 6D (position/vitesse) en C++17 avec matrice fixe maison. Le binaire `kalman_demo` simule une trajectoire et applique les étapes predict/update à partir d’accélérations et mesures de position bruitées. Reste à intégrer l’orientation, le parsing du flux UDP et l’adaptation des bruits au sujet réel.
 
-## Architecture visée (draft)
-- `include/` — headers C++ (structures state, matrices, réseau).
-- `src/` — modules :
-  - `network.cpp` (socket UDP client, handshake, boucle IO),
-  - `kalman.cpp` (predict/update, matrices F/Q/H/R),
-  - `math.cpp` (lin alg minimal : matrices 9x9 etc),
-  - `main.cpp` (point d’entrée),
-  - `parser.cpp` (décodage messages capteurs).
-- `docs/` — notes sur le filtre, bruits, conversions.
-- `tests_realisation/` — scripts paramétrant le sensor-stream pour tests (latence, bruit élevé).
-- `scripts/` — build + run (e.g. wrapper `./scripts/run_sensor.sh`).
+## Architecture
+- `include/matrix.hpp` : matrice fixe avec +, -, *, transpose, inverse 3x3.
+- `include/kalman.hpp` + `src/kalman.cpp` : filtre 6D (pos/vel), matrices F/B/H/Q/R configurables.
+- `src/main.cpp` : scénario démo synthétique (affiche les états).
+- `docs/model.md` : notes sur le modèle MVP et les prochaines extensions.
+- `tests_realisation/run_unit.sh` : build + exécution rapide du démo et du test unitaire.
+- `tests_realisation/test_kalman.cpp` : test de cohérence (predict/update de base).
 
-## Hypothèses/MVP
-- Implémentation C++17, sans lib externe (lin alg maison ou petite lib matricielle autorisée si statique).
-- State vector (pos, vel, orientation?); measurement vector (GPS position, accelerations etc). Approche : Extended Kalman (linéaire via Jacobiennes) car orientation non linéaire.
-- Utiliser chrono haute résolution pour respecter timing.
+## Utilisation
+```bash
+cd C/ft_kalman
+make
+./kalman_demo | head
+```
+ou via le script dédié :
+```bash
+./tests_realisation/run_unit.sh
+```
 
 ## Prochaines étapes
-1. Étudier format exact messages `imu-sensor-stream` (parser structure, voir option `-h`).
-2. Définir modèle d’état (12D ? 9D ?) et matrices F, Q, H, R.
-3. Implémenter math utils (matrices, inversions, Quaternions/Euler conversions).
-4. Intégrer boucle réseau (UDP read -> update -> send). Gestion timeouts/erreurs.
-5. Scripts tests + doc (comment lancer stream + analyser log). Ajout visualisation bonus possible (Python).
-
-> Étape critique : validation math (unit tests sur predict/update) avant intégration réseau.
+1. Inspecter `imu-sensor-stream -h` et formaliser le format des paquets UDP (handshake + cadence). _(bloqué : binaire absent sur l'environnement actuel)_
+2. Étendre le modèle avec orientation (EKF) et biais IMU; normalisation quaternion.
+3. Écrire la boucle réseau (recv capteurs -> update -> send estimation) avec timeouts.
+4. Calibrer `Q`/`R` sur traces réelles et ajouter tests automatisés (comparaison à vérité terrain/sim). Ajouter un fetcheur de traces (`scripts/download_dataset.sh` fourni en squelette).

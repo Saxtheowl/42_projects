@@ -24,6 +24,6 @@
 - [x] Tests usage CLI (script shell) + documentation `tests_realisation/COMMANDS.md`.
 
 ## Étape 6 – Bonus / Visualisation
-- [ ] Script `scripts/plot.py` (matplotlib) pour afficher points + droite.
-- [ ] Calcul RMSE (scripts/evaluate.py).
+- [x] Script `scripts/plot.py` (matplotlib) pour afficher points + droite.
+- [x] Calcul RMSE (scripts/evaluate.py).
 *** End Patch

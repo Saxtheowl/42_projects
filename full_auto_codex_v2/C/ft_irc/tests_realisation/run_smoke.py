@@ -38,7 +38,12 @@ class TestClient:
 
 	def _drain(self, deadline):
 		lines = []
-		while time.time() < deadline:
+		while True:
+			while "\r\n" in self.buffer:
+				line, self.buffer = self.buffer.split("\r\n", 1)
+				lines.append(line)
+			if time.time() >= deadline:
+				break
 			try:
 				chunk = self.sock.recv(4096)
 			except socket.timeout:
@@ -46,9 +51,6 @@ class TestClient:
 			if not chunk:
 				break
 			self.buffer += chunk.decode("utf-8", errors="ignore")
-			while "\r\n" in self.buffer:
-				line, self.buffer = self.buffer.split("\r\n", 1)
-				lines.append(line)
 		return lines
 
 	def expect_contains(self, predicate, timeout=1.0):
@@ -57,8 +59,14 @@ class TestClient:
 		while time.time() < deadline:
 			lines = self._drain(deadline)
 			collected.extend(lines)
-			for line in lines:
+			for idx, line in enumerate(lines):
 				if predicate(line):
+					remaining = lines[idx + 1 :]
+					if remaining:
+						tail = "\r\n".join(remaining) + "\r\n"
+						if self.buffer:
+							tail += "\r\n" + self.buffer
+						self.buffer = tail
 					return line
 		raise TestError("Did not observe expected response. Collected:\n%s" % "\n".join(collected))
 

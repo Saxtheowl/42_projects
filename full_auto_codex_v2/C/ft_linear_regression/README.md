@@ -18,7 +18,8 @@ Mini-projet de machine learning : implémenter une régression linéaire univari
 - `scripts/` —
   - `train.sh`, `predict.sh` : raccourcis pour lancer les programmes,
   - `run_tests.sh` : exécute Pytest,
-  - `evaluate.py` : calcule la RMSE sur un dataset donné.
+  - `evaluate.py` : calcule la RMSE sur un dataset donné,
+  - `plot.py` : trace le nuage de points et la droite apprise.
 - `tests_realisation/` — tests Pytest + `COMMANDS.md` listant les commandes de validation.
 
 ## Installation
@@ -38,6 +39,9 @@ pip install -r requirements.txt
 
 # Qualité du modèle (RMSE)
 ./scripts/evaluate.py data/data.csv
+
+# Visualisation
+./scripts/plot.py --output plots/regression.png
 ```
 
 ## Tests
