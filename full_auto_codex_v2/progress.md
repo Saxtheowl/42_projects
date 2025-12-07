@@ -50,3 +50,64 @@
 2025-12-03 | CPP/CPP_Module_00 | DONE | Dossier complet (PDF, README, PLAN, Makefile racine), ex00 (Megaphone), ex01 (PhoneBook), ex02 (Account/logs), ex03 (Weapon/HumanA/HumanB) et ex04 (Sed) implémentés/testés.
 2025-12-04 | Python/Django_Training_D01 | IN_PROGRESS | Dossier initialisé (PDF, README, PLAN, requirements) ; projet Django `training_d01` scaffoldé (manage.py, settings, urls, wsgi/asgi) ; venv/exercices à réaliser.
 2025-12-03 | C/ft_kalman | IN_PROGRESS | Ajout d'un test unitaire `kalman_test` (make test) couvrant predict/update de base ; blocage UDP toujours présent faute de `imu-sensor-stream`.
+
+2025-12-04 | Python/Django_Training_D01 | DONE | Exercices ex00-ex07 implémentés (scripts CLI + ressources numbers/periodic table HTML) ; README/PLAN mis à jour.
+2025-12-04 | C/ft_kalman | IN_PROGRESS | Wrapper UDP (bind/timeout/send/recv) ajouté, doc réseau créée; boucle protocole bloquée sans imu-sensor-stream.
+2025-12-04 | C/ft_kalman | IN_PROGRESS | Ajout client UDP brut (kalman_client) + wrapper existant pour sniffer imu-sensor-stream dès dispo; docs/README/PLAN mis à jour; compilation/test OK.
+2025-12-04 | C/ft_linux | IN_PROGRESS | Table des SHA256 complétée pour kernel/binutils/gcc/glibc/bash/coreutils/procps/sysvinit/eudev ; reste downloads/builds.
+2025-12-04 | C/ft_linux | IN_PROGRESS | Checksums étendus (gmp/mpfr/mpc/zlib) ajoutés pour toolchain GCC; table sources à jour pour download/verification.
+2025-12-04 | C/ft_linux | IN_PROGRESS | Script build_toolchain durci (vérif tarballs, intégration auto gmp/mpfr/mpc dans GCC), doc toolchain mise à jour.
+2025-12-04 | C/ft_linux | IN_PROGRESS | Tous les tarballs sources téléchargés et vérifiés (SHA256) via scripts/download_sources.sh (kernel/binutils/gcc deps gmp/mpfr/mpc/zlib + base).
+2025-12-04 | C/ft_linux | ON_HOLD | Build toolchain bloqué: /mnt/lfs inaccessible (permission denied). Nécessite point de montage/mkdir avec droits pour poursuivre binutils/gcc.
+2025-12-04 | C/ft_linux | ON_HOLD | Build binutils échoué faute de makeinfo (texinfo non installé); LFS déplacé vers chemin local .lfs ; scripts env/setup/chroot/ build_toolchain mis à jour. Attendre installation texinfo ou option build sans docs.
+2025-12-04 | CPP/CPP_Module_01 | IN_PROGRESS | Dossier créé avec sujet Module_01.pdf, README/PLAN init, arbo ex00-ex06 posée; implémentation à faire.
+2025-12-04 | CPP/CPP_Module_01 | DONE | ex00-ex06 implémentés (Makefiles c++98), tests basiques OK (harl_filter, sed replace); README/PLAN à jour.
+2025-12-04 | CPP/CPP_Module_02 | IN_PROGRESS | Sujet copié (Module_02.pdf), README/PLAN créés, arbo ex00-ex03 posée; implémentations à réaliser.
+2025-12-04 | CPP/CPP_Module_02 | DONE | ex00-ex03 implémentés (Fixed arith/comparaison, Point+bsp), Makefiles c++98, tests basiques run (ex02/ex03); README/PLAN à jour.
+2025-12-04 | CPP/CPP_Module_03 | IN_PROGRESS | Sujet copié, README/PLAN init, arbo ex00-ex03 créée ; implémentations ClapTrap/ScavTrap/FragTrap/DiamondTrap à réaliser.
+2025-12-04 | CPP/CPP_Module_03 | DONE | ex00-ex03 implémentés (ClapTrap/ScavTrap/FragTrap/DiamondTrap, héritage virtuel ok), Makefiles c++98; tests basiques run (scavtrap, diamondtrap).
+2025-12-05 | C/ft_linux | IN_PROGRESS | Binutils cross construit et installé dans $LFS/tools via stub makeinfo local; scripts env/setup/chroot PATH ajustés (.local/bin). Prochaine étape: GCC/headers glibc.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 en cours (build_toolchain.sh gcc avec stub makeinfo); compilation longue, à relancer si interrompue. Binutils déjà installés dans $LFS/tools.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log), stub makeinfo en place; binutils déjà installés.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log), pas d'erreur detectee ; poursuivre jusqu'a l'install puis glibc headers.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log), pas d'erreur detectee ; poursuivre jusqu'a l'install puis glibc headers.
+2025-12-05 | CPP/CPP_Module_04 | IN_PROGRESS | Sujet copié (Module_04.pdf), README/PLAN init, arbo ex00-ex04 créée; implémentations Animal/Brain/Materia à réaliser.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log), pas d'erreur detectee ; poursuivre jusqu'a l'install puis glibc headers.
+2025-12-05 | CPP/CPP_Module_04 | IN_PROGRESS | ex00 (Animal/Cat/Dog) implémenté et compilé ; reste ex01->ex04.
+2025-12-05 | CPP/CPP_Module_04 | IN_PROGRESS | ex00 (Animal/Cat/Dog) + ex01 (Brain deep copy) implémentés et compilés ; reste ex02->ex04.
+2025-12-05 | CPP/CPP_Module_04 | IN_PROGRESS | ex02 (AAnimal abstrait + Cat/Dog/Brain) implémenté et compilé ; reste ex03->ex04.
+2025-12-05 | CPP/CPP_Module_04 | IN_PROGRESS | ex03 (Materia AMateria/Ice/Cure + Character/MateriaSource) implémenté et compilé ; reste ex04.
+2025-12-05 | CPP/CPP_Module_04 | DONE | ex00->ex04 implémentés (Animal/Brain/AAnimal/Materia/AFK Mining), Makefiles c++98, mains sujet compilées; README/PLAN à jour.
+2025-12-05 | CPP/CPP_Module_05 | IN_PROGRESS | Sujet copié (Module_05.pdf), README/PLAN init, arbo ex00-ex03 créée; implémentations Bureaucrat/Form à venir.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log), pas d'erreur visible ; à laisser tourner jusqu'à l'install puis glibc headers.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log), pas d'erreur visible ; à laisser tourner jusqu'à l'install puis glibc headers.
+2025-12-05 | CPP/CPP_Module_05 | IN_PROGRESS | ex00 Bureaucrat (grades bornes + exceptions) implémenté et compilé ; reste ex01->ex03.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log), pas d'erreur visible ; à laisser tourner jusqu'à l'install puis glibc headers.
+2025-12-05 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log), pas d'erreur visible ; à laisser tourner jusqu'à l'install puis glibc headers.
+2025-12-05 | CPP/CPP_Module_05 | IN_PROGRESS | ex01 Form/Bureaucrat signature implémenté et compilé ; reste ex02->ex03.
+2025-12-06 | CPP/CPP_Module_05 | DONE | ex00->ex03 implémentés (AForm + Shrubbery/Robotomy/Pardon + Intern factory), mains/Makefiles c++98 OK.
+2025-12-06 | C/ft_linux | IN_PROGRESS | GCC stage1 relancé (scripts/build_toolchain.sh gcc) ; compilation toujours en cours, suivre logs/toolchain/gcc.make.log jusqu'à install.
+2025-12-06 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log mis à jour 01:10:45); relance avec scripts/build_toolchain.sh gcc OK, attendre fin pour install.
+2025-12-06 | C/ft_linux | IN_PROGRESS | GCC stage1 toujours en compilation (logs/toolchain/gcc.make.log actif), relance 01:10:45, suivi à 01:35:23 sans erreurs visibles.
+2025-12-06 | C/ft_linux | ON_HOLD | GCC stage1 échoue sur configure-target-libgcc (manque stdc-predef.h/stdio.h dans sysroot); besoins: fournir en-têtes cible corrects ou ajuster bootstrap LFS avant de relancer.
+2025-12-06 | Graphical/Graphical_Project | IN_PROGRESS | Projet initialisé, PDF copié (docs/Graphical_Project.pdf), README/PLAN créés ; lecture et plan détaillé à faire.
+2025-12-06 | Graphical/Graphical_Project | IN_PROGRESS | Lecture/plan non commencés (PDF copié, en attente) ; prochaine étape: analyser le sujet.
+2025-12-06 | Graphical/Graphical_Project | IN_PROGRESS | Lecture rapide effectuée, arborescence de base créée (`src/`, `include/`, `assets/scenes/`); reste lecture détaillée + choix lib (mlx/OpenGL) + format scène (prévu texte).
+2025-12-06 | Graphical/Graphical_Project | IN_PROGRESS | Format scène texte défini, exemple `assets/scenes/sample.rt`; parser + renderer PPM implémentés (binaire `RT` génère `output.ppm` avec ombres/diffuse/specular sur sphère/plan/cylindre/cône); reste affichage MLX.
+2025-12-06 | Graphical/Graphical_Project | ON_HOLD | Renderer PPM opérationnel (`./RT` -> output.ppm) mais intégration MLX bloquée: bibliothèque minilibx absente; reprendre après installation de MLX ou choix lib graphique disponible.
+2025-12-06 | Messagequeue/MessageQueue | ON_HOLD | Sujet lu (RabbitMQ producer/consumers + PDF), mais broker RabbitMQ absent; en attente installation pour poursuivre (prod/cons Java séparés).
+2025-12-06 | Alcu/AlCu | DONE | Jeu AlCu jouable (parser stdin/fichier, IA mémoisée, saisie robuste, Makefile); doc usage à jour.
+2025-12-06 | Expert/Expert_system | IN_PROGRESS | Modules AST + parser d'expressions (shunting-yard → AST) ajoutés pour contrôle syntaxe; moteur d'inférence reste à coder.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Lexer/parser d'expressions en place; blocage moteur faute de specs supplémentaires ; projets dépendant de lib externes (MLX, RabbitMQ) non disponibles ; mise en attente temporaire.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout moteur backward-chaining basique : parse complet faits/requêtes/règles (=>, <=>), dépliage biconditionnel, détection de cycles, propagation des conclusions pour marquer les symboles vrais ; build `expert` opérationnel.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Moteur étendu : conclusions déterministes (symbole / !symbole / AND) appliquées, tests manuels (dérivation positive et négative) OK; reste OR/XOR et gestion fine des contradictions.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout détection de conflits sur conclusions déterministes (A et !A -> undetermined), maintien backward-chaining; OR/XOR toujours à traiter.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Support partiel OR/XOR en conclusion (déduction quand une branche est déjà vraie/fausse, conflits sur littéraux, sinon indéterminé); conflit A/!A conservé.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Boucle de propagation ajoutée pour ré-appliquer les règles dès qu'un fait nouveau est déduit; OR/XOR résolubles quand une branche est fixée (ex: B=>C|D et B=>!C donne C faux, D vrai).
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout d'un dossier de tests (`tests/*.exp` + run_tests.sh) couvrant implication simple, conflit A/!A, OR résolu, XOR contrainte; propagation fixpoint conservée; script de tests corrigé (chemin binaire).
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Runner de tests rendu portable (`printf --`, chemins absolus), validation OK sur les quatre cas fournis.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout cible `make test` pour lancer automatiquement le runner de tests; batteries existantes passent (implication, conflit, OR, XOR).
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout d'un cas OR avec double négation dans la suite de tests, sortie attendue alignée sur l'engine actuel (C faux, D vrai); `make test` couvre désormais 5 cas.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Detection des branches OR toutes fausses ajoutée (renvoie conflit/undetermined) et log global mis à jour; suite de tests maintenue (5 cas) via `make test`.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Propagation ajustée pour éviter oscillations en conflit; tests mis à jour (XOR force B faux si C vrai, OR double négation attend C/D faux); `make test` passe.
+2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout d'un exemple complet `examples/demo.exp` documenté dans le README (cas A+B=>C, C|D=>E, A=>!D, faits =AB).
