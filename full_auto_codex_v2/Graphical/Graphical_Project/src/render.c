@@ -12,6 +12,13 @@ static t_vec3	vec_sub(t_vec3 a, t_vec3 b) { return (t_vec3){a.x - b.x, a.y - b.y
 static t_vec3	vec_scale(t_vec3 v, double s) { return (t_vec3){v.x * s, v.y * s, v.z * s}; }
 static double	vec_dot(t_vec3 a, t_vec3 b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
 static double	vec_len(t_vec3 v) { return sqrt(vec_dot(v, v)); }
+static t_vec3	vec_cross(t_vec3 a, t_vec3 b)
+{
+	return (t_vec3){
+		a.y * b.z - a.z * b.y,
+		a.z * b.x - a.x * b.z,
+		a.x * b.y - a.y * b.x};
+}
 static t_vec3	vec_norm(t_vec3 v)
 {
 	double l = vec_len(v);
@@ -39,6 +46,7 @@ typedef struct s_hit
 	t_vec3 point;
 	t_vec3 normal;
 	t_material mat;
+	const t_object *obj;
 }	t_hit;
 
 static int	intersect_sphere(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
@@ -59,6 +67,7 @@ static int	intersect_sphere(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 	hit->point = vec_add(ro, vec_scale(rd, t));
 	hit->normal = vec_norm(vec_sub(hit->point, o->pos));
 	hit->mat = o->mat;
+	hit->obj = o;
 	return 1;
 }
 
@@ -75,6 +84,7 @@ static int	intersect_plane(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 	hit->point = vec_add(ro, vec_scale(rd, t));
 	hit->normal = (denom < 0) ? n : vec_scale(n, -1);
 	hit->mat = o->mat;
+	hit->obj = o;
 	return 1;
 }
 
@@ -94,6 +104,7 @@ static int	intersect_cap(t_vec3 center, t_vec3 normal, double radius, t_vec3 ro,
 	hit->point = p;
 	hit->normal = (denom < 0) ? normal : vec_scale(normal, -1);
 	hit->mat = *mat;
+	hit->obj = NULL;
 	return 1;
 }
 
@@ -127,17 +138,20 @@ static int	intersect_cylinder(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hi
 		t_vec3 proj = vec_add(o->pos, vec_scale(ca, y));
 		best.normal = vec_norm(vec_sub(best.point, proj));
 		best.mat = o->mat;
+		best.obj = o;
 	}
 	t_hit caphit;
 	if (intersect_cap(o->pos, ca, o->radius, ro, rd, &caphit, &o->mat) && (!hit_any || caphit.t < best.t))
 	{
 		best = caphit;
+		best.obj = o;
 		hit_any = 1;
 	}
 	t_vec3 top_center = vec_add(o->pos, vec_scale(ca, o->height));
 	if (intersect_cap(top_center, ca, o->radius, ro, rd, &caphit, &o->mat) && (!hit_any || caphit.t < best.t))
 	{
 		best = caphit;
+		best.obj = o;
 		hit_any = 1;
 	}
 	if (hit_any)
@@ -178,6 +192,7 @@ static int	intersect_cone(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 		t_vec3 n = vec_norm(vec_sub(vec_sub(best.point, proj), vec_scale(ca, k * k * vec_len(vec_sub(best.point, proj)))));
 		best.normal = n;
 		best.mat = o->mat;
+		best.obj = o;
 	}
 	/* base cap */
 	t_vec3 base_center = vec_add(o->pos, vec_scale(ca, o->height));
@@ -186,6 +201,7 @@ static int	intersect_cone(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 	if (intersect_cap(base_center, ca, base_radius, ro, rd, &caphit, &o->mat) && (!hit_any || caphit.t < best.t))
 	{
 		best = caphit;
+		best.obj = o;
 		hit_any = 1;
 	}
 	if (hit_any)
@@ -200,6 +216,7 @@ static int	trace(const t_scene *scene, t_vec3 ro, t_vec3 rd, t_hit *closest)
 	for (size_t i = 0; i < scene->objects_count; ++i)
 	{
 		t_hit h;
+		memset(&h, 0, sizeof(h));
 		int ok = 0;
 		t_object *o = &scene->objects[i];
 		if (o->type == OBJ_SPHERE)
@@ -210,10 +227,15 @@ static int	trace(const t_scene *scene, t_vec3 ro, t_vec3 rd, t_hit *closest)
 			ok = intersect_cylinder(o, ro, rd, &h);
 		else if (o->type == OBJ_CONE)
 			ok = intersect_cone(o, ro, rd, &h);
-		if (ok && h.t < closest->t)
+		if (ok)
 		{
-			hit_any = 1;
-			*closest = h;
+			if (!h.obj)
+				h.obj = o;
+			if (h.t < closest->t)
+			{
+				hit_any = 1;
+				*closest = h;
+			}
 		}
 	}
 	return hit_any;
@@ -227,8 +249,28 @@ static int	in_shadow(const t_scene *scene, t_vec3 point, t_vec3 light_dir, doubl
 	return 0;
 }
 
+static void	apply_checker(const t_object *obj, t_hit *hit)
+{
+	if (!obj || obj->type != OBJ_PLANE || !obj->checker_enabled)
+		return;
+	t_vec3 n = obj->dir;
+	n = vec_norm(n);
+	t_vec3 tangent = fabs(n.x) > 0.9 ? (t_vec3){0, 1, 0} : (t_vec3){1, 0, 0};
+	tangent = vec_norm(vec_cross(tangent, n));
+	t_vec3 bitangent = vec_norm(vec_cross(n, tangent));
+	t_vec3 rel = vec_sub(hit->point, obj->pos);
+	double u = vec_dot(rel, tangent) / obj->checker_size;
+	double v = vec_dot(rel, bitangent) / obj->checker_size;
+	long long iu = (long long)floor(u);
+	long long iv = (long long)floor(v);
+	int pattern = (iu + iv) & 1;
+	if (pattern)
+		hit->mat.color = obj->checker_color;
+}
+
 static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 {
+	apply_checker(hit->obj, hit);
 	double r = scene->ambient_intensity * hit->mat.color.r * scene->ambient_color.r / 255.0 / 255.0;
 	double g = scene->ambient_intensity * hit->mat.color.g * scene->ambient_color.g / 255.0 / 255.0;
 	double b = scene->ambient_intensity * hit->mat.color.b * scene->ambient_color.b / 255.0 / 255.0;
@@ -303,6 +345,7 @@ typedef struct s_render_task
 {
 	const t_scene	*scene;
 	t_color			*buffer;
+	double			*depths;
 	int				width;
 	int				height;
 	int				samples;
@@ -332,10 +375,20 @@ static void	*render_chunk(void *arg)
 				double ndc_x = (2.0 * u - 1.0) * t->aspect * t->fov_scale;
 				double ndc_y = (1.0 - 2.0 * v) * t->fov_scale;
 				t_vec3 dir = vec_norm(vec_add(t->forward, vec_add(vec_scale(t->right, ndc_x), vec_scale(t->up, ndc_y))));
+				t_hit first_hit;
+				double depth = -1.0;
+				if (trace(t->scene, t->scene->camera.pos, dir, &first_hit))
+					depth = first_hit.t;
 				t_color c = trace_ray(t->scene, t->scene->camera.pos, dir, t->max_depth);
 				cr += c.r;
 				cg += c.g;
 				cb += c.b;
+				if (depth >= 0)
+				{
+					int idx = y * t->width + x;
+					if (t->depths[idx] < 0 || depth < t->depths[idx])
+						t->depths[idx] = depth;
+				}
 			}
 			int idx = y * t->width + x;
 			t->buffer[idx].r = (int)(cr / t->samples);
@@ -356,7 +409,35 @@ static int	apply_gamma(int v, double gamma)
 	return (int)(pow(normalized, 1.0 / gamma) * 255.0 + 0.5);
 }
 
-int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth)
+static void	write_depth_ppm(const char *path, const double *depths, int width, int height)
+{
+	double maxd = 0.0;
+	for (int i = 0; i < width * height; ++i)
+		if (depths[i] > maxd)
+			maxd = depths[i];
+	FILE *f = fopen(path, "w");
+	if (!f)
+	{
+		perror("fopen depth");
+		return;
+	}
+	fprintf(f, "P3\n%d %d\n255\n", width, height);
+	for (int y = 0; y < height; ++y)
+	{
+		for (int x = 0; x < width; ++x)
+		{
+			double d = depths[y * width + x];
+			int val = 0;
+			if (d > 0 && maxd > 0)
+				val = clamp_i((int)((1.0 - fmin(d / maxd, 1.0)) * 255.0), 0, 255);
+			fprintf(f, "%d %d %d ", val, val, val);
+		}
+		fprintf(f, "\n");
+	}
+	fclose(f);
+}
+
+int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth, const char *depth_path)
 {
 	FILE *f = fopen(path, "w");
 	if (!f)
@@ -386,17 +467,28 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 	pthread_t th[threads];
 	t_render_task tasks[threads];
 	t_color *buffer = calloc((size_t)width * (size_t)height, sizeof(t_color));
+	double *depths = calloc((size_t)width * (size_t)height, sizeof(double));
 	if (!buffer)
 	{
 		perror("calloc");
 		fclose(f);
 		return 0;
 	}
+	if (!depths)
+	{
+		perror("calloc");
+		free(buffer);
+		fclose(f);
+		return 0;
+	}
+	for (int i = 0; i < width * height; ++i)
+		depths[i] = -1.0;
 	int chunk = height / threads;
 	for (int i = 0; i < threads; ++i)
 	{
 		tasks[i].scene = scene;
 		tasks[i].buffer = buffer;
+		tasks[i].depths = depths;
 		tasks[i].width = width;
 		tasks[i].height = height;
 		tasks[i].samples = samples;
@@ -423,6 +515,9 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 		fprintf(f, "\n");
 	}
 	fclose(f);
+	if (depth_path)
+		write_depth_ppm(depth_path, depths, width, height);
 	free(buffer);
+	free(depths);
 	return 1;
 }

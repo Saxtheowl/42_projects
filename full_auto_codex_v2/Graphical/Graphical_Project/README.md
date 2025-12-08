@@ -10,7 +10,7 @@ Sujet RT (ray tracing) : rendu d’images 3D en ray tracing avec au moins quatre
 - [x] Planification préliminaire : C + MiniLibX (fallback OpenGL/PPM si mlx absente), fichier scène texte.
 - [x] Format scène texte défini (caméra, lumières, plan/sphère/cylindre/cône, matériaux).
 - [x] Implémentation parser + binaire `RT` qui charge et affiche la scène (sample.rt).
-- [x] Renderer fallback PPM : `RT` génère `output.ppm` (par défaut 800x600) avec ray tracing de base (diffuse/specular, ombres, sphère/plan/cylindre/cône) + sky gradient + supersampling configurable + rendu multi-thread + gamma correction.
+- [x] Renderer fallback PPM : `RT` génère `output.ppm` (par défaut 800x600) avec ray tracing de base (diffuse/specular, ombres, sphère/plan/cylindre/cône), sky gradient, supersampling configurable, rendu multi-thread, gamma correction, réflexions (1 rebond) via un coefficient optionnel.
 - [ ] Intégration renderer MLX (affichage temps réel) en complément du PPM (lib mlx absente sur l'env).
 
 Mise à jour (2025-12-08 23:00:33) : PPM amélioré (fond ciel, supersampling, multithread), CLI enrichie (`--out`, `--size`, `--samples`, `--threads`); MLX toujours en attente.
@@ -20,13 +20,14 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 - `camera px py pz dx dy dz fov` — position et direction caméra normalisée, FOV en degrés.
 - `light px py pz i r g b` — point light avec intensité i (0-1) et couleur (0-255).
 - `ambient i r g b` — lumière ambiante.
-- `sphere px py pz radius r g b kd ks shininess`
-- `plane px py pz nx ny nz r g b kd ks shininess`
-- `cylinder px py pz dx dy dz radius height r g b kd ks shininess`
-- `cone px py pz dx dy dz angle_deg height r g b kd ks shininess`
+- `sphere px py pz radius r g b kd ks shininess [reflect]`
+- `plane px py pz nx ny nz r g b kd ks shininess [reflect]`
+- `cylinder px py pz dx dy dz radius height r g b kd ks shininess [reflect]`
+- `cone px py pz dx dy dz angle_deg height r g b kd ks shininess [reflect]`
 Où `kd/ks` sont coefficients diffuse/specular. Les directions (dx dy dz) doivent être normalisées dans la scène ou lors du parse.
+L'option `reflect` est facultative (0-1) pour mélanger une réflexion (un rebond).
 
-CLI actuelle : `./RT [scene.rt] [--out output.ppm] [--size WxH] [--samples N] [--threads N] [--gamma G]`. Génère un PPM (fallback) jusqu'à disponibilité de la MLX.
+CLI actuelle : `./RT [scene.rt] [--out output.ppm] [--size WxH] [--samples N] [--threads N] [--gamma G] [--maxdepth D] [--depth depth.ppm]`. Génère un PPM (fallback) jusqu'à disponibilité de la MLX; `--depth` exporte une carte de profondeur (PPM). Les plans peuvent recevoir un motif checker optionnel (`... kd ks shininess reflect checker_size r g b`).
 
 Scènes fournies :
 - `assets/scenes/sample.rt` : scène de démonstration simple (sphère + plan + cylindre + cône).
