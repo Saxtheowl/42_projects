@@ -24,7 +24,6 @@ static t_vec3	reflect(t_vec3 I, t_vec3 N)
 {
 	return vec_sub(I, vec_scale(N, 2.0 * vec_dot(I, N)));
 }
-
 static int	clamp_i(int v, int min, int max)
 {
 	if (v < min)
@@ -230,6 +229,24 @@ static t_vec3	random_in_unit_square(int px, int py, int s)
 	return (t_vec3){rx, ry, 0};
 }
 
+static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
+{
+	t_hit hit;
+	if (!trace(scene, ro, rd, &hit))
+		return background_color(rd);
+	t_color local = shade(scene, &hit, rd);
+	if (depth <= 0 || hit.mat.reflect <= 1e-6)
+		return local;
+	t_vec3 refl_dir = reflect(vec_scale(rd, -1.0), hit.normal);
+	t_color refl_col = trace_ray(scene, vec_add(hit.point, vec_scale(hit.normal, 1e-3)), refl_dir, depth - 1);
+	double kr = hit.mat.reflect;
+	t_color out;
+	out.r = clamp_i((int)(local.r * (1.0 - kr) + refl_col.r * kr), 0, 255);
+	out.g = clamp_i((int)(local.g * (1.0 - kr) + refl_col.g * kr), 0, 255);
+	out.b = clamp_i((int)(local.b * (1.0 - kr) + refl_col.b * kr), 0, 255);
+	return out;
+}
+
 typedef struct s_render_task
 {
 	const t_scene	*scene;
@@ -262,12 +279,7 @@ static void	*render_chunk(void *arg)
 				double ndc_x = (2.0 * u - 1.0) * t->aspect * t->fov_scale;
 				double ndc_y = (1.0 - 2.0 * v) * t->fov_scale;
 				t_vec3 dir = vec_norm(vec_add(t->forward, vec_add(vec_scale(t->right, ndc_x), vec_scale(t->up, ndc_y))));
-				t_hit hit;
-				t_color c;
-				if (trace(t->scene, t->scene->camera.pos, dir, &hit))
-					c = shade(t->scene, &hit, dir);
-				else
-					c = background_color(dir);
+				t_color c = trace_ray(t->scene, t->scene->camera.pos, dir, 2);
 				cr += c.r;
 				cg += c.g;
 				cb += c.b;
