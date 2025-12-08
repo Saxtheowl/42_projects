@@ -25,18 +25,23 @@ static void	print_scene(const t_scene *s)
 	for (size_t i = 0; i < s->objects_count; ++i)
 	{
 		const t_object *o = &s->objects[i];
-		const char *type = (o->type == OBJ_SPHERE) ? "sphere" : (o->type == OBJ_PLANE) ? "plane" : (o->type == OBJ_CYLINDER) ? "cylinder" : "cone";
+		const char *type = (o->type == OBJ_SPHERE) ? "sphere" : (o->type == OBJ_PLANE) ? "plane" : (o->type == OBJ_CYLINDER) ? "cylinder" : (o->type == OBJ_CONE) ? "cone" : "box";
 		printf("  Obj %zu %-8s pos(%.2f %.2f %.2f)", i, type, o->pos.x, o->pos.y, o->pos.z);
 		if (o->type != OBJ_SPHERE)
 			printf(" dir(%.2f %.2f %.2f)", o->dir.x, o->dir.y, o->dir.z);
 		if (o->type == OBJ_SPHERE || o->type == OBJ_CYLINDER)
 			printf(" radius=%.2f", o->radius);
+		if (o->type == OBJ_BOX)
+			printf(" size(%.2f %.2f %.2f)", o->size.x, o->size.y, o->size.z);
 		if (o->type == OBJ_CYLINDER || o->type == OBJ_CONE)
 			printf(" height=%.2f", o->height);
 		if (o->type == OBJ_CONE)
 			printf(" angle=%.2f", o->angle);
-		printf(" color(%d %d %d) kd=%.2f ks=%.2f shin=%d\n",
-			   o->mat.color.r, o->mat.color.g, o->mat.color.b, o->mat.kd, o->mat.ks, o->mat.shininess);
+		printf(" color(%d %d %d) kd=%.2f ks=%.2f shin=%d refl=%.2f",
+			   o->mat.color.r, o->mat.color.g, o->mat.color.b, o->mat.kd, o->mat.ks, o->mat.shininess, o->mat.reflect);
+		if (o->checker_enabled)
+			printf(" checker(size=%.2f color %d %d %d)", o->checker_size, o->checker_color.r, o->checker_color.g, o->checker_color.b);
+		printf("\n");
 	}
 }
 

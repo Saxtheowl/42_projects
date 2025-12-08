@@ -21,6 +21,7 @@ typedef struct s_material
 	double kd;
 	double ks;
 	int shininess;
+	double reflect;
 	t_color color;
 }	t_material;
 
@@ -44,7 +45,8 @@ typedef enum e_objtype
 	OBJ_SPHERE,
 	OBJ_PLANE,
 	OBJ_CYLINDER,
-	OBJ_CONE
+	OBJ_CONE,
+	OBJ_BOX
 }	t_objtype;
 
 typedef struct s_object
@@ -55,6 +57,10 @@ typedef struct s_object
 	double radius; /* sphere/cylinder */
 	double height; /* cylinder/cone */
 	double angle;  /* cone angle in degrees */
+	t_vec3 size;   /* box half-size */
+	int checker_enabled;
+	double checker_size;
+	t_color checker_color;
 	t_material mat;
 }	t_object;
 

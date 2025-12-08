@@ -209,6 +209,60 @@ static int	intersect_cone(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 	return hit_any;
 }
 
+static int	intersect_box(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
+{
+	/* axis-aligned box centered at o->pos with half-size o->size */
+	t_vec3 min = {o->pos.x - o->size.x, o->pos.y - o->size.y, o->pos.z - o->size.z};
+	t_vec3 max = {o->pos.x + o->size.x, o->pos.y + o->size.y, o->pos.z + o->size.z};
+	double tmin = -1e30, tmax = 1e30;
+	for (int axis = 0; axis < 3; ++axis)
+	{
+		double origin = (&ro.x)[axis];
+		double dir = (&rd.x)[axis];
+		double inv = (dir != 0.0) ? 1.0 / dir : 1e30;
+		double t1 = ((&min.x)[axis] - origin) * inv;
+		double t2 = ((&max.x)[axis] - origin) * inv;
+		if (t1 > t2)
+		{
+			double tmp = t1;
+			t1 = t2;
+			t2 = tmp;
+		}
+		if (t1 > tmin)
+			tmin = t1;
+		if (t2 < tmax)
+			tmax = t2;
+		if (tmin > tmax || tmax < 1e-4)
+			return 0;
+	}
+	double t = tmin > 1e-4 ? tmin : tmax;
+	if (t < 1e-4)
+		return 0;
+	t_vec3 p = vec_add(ro, vec_scale(rd, t));
+	t_vec3 normal = {0, 0, 0};
+	const double eps = 1e-4;
+	if (fabs(p.x - min.x) < eps)
+		normal = (t_vec3){-1, 0, 0};
+	else if (fabs(p.x - max.x) < eps)
+		normal = (t_vec3){1, 0, 0};
+	else if (fabs(p.y - min.y) < eps)
+		normal = (t_vec3){0, -1, 0};
+	else if (fabs(p.y - max.y) < eps)
+		normal = (t_vec3){0, 1, 0};
+	else if (fabs(p.z - min.z) < eps)
+		normal = (t_vec3){0, 0, -1};
+	else if (fabs(p.z - max.z) < eps)
+		normal = (t_vec3){0, 0, 1};
+	else
+		normal = vec_norm(vec_sub(p, o->pos));
+	hit->t = t;
+	hit->point = p;
+	hit->normal = normal;
+	hit->mat = o->mat;
+	hit->obj = o;
+	return 1;
+}
+
 static int	trace(const t_scene *scene, t_vec3 ro, t_vec3 rd, t_hit *closest)
 {
 	int hit_any = 0;
@@ -227,6 +281,8 @@ static int	trace(const t_scene *scene, t_vec3 ro, t_vec3 rd, t_hit *closest)
 			ok = intersect_cylinder(o, ro, rd, &h);
 		else if (o->type == OBJ_CONE)
 			ok = intersect_cone(o, ro, rd, &h);
+		else if (o->type == OBJ_BOX)
+			ok = intersect_box(o, ro, rd, &h);
 		if (ok)
 		{
 			if (!h.obj)

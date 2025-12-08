@@ -24,6 +24,7 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 - `plane px py pz nx ny nz r g b kd ks shininess [reflect]`
 - `cylinder px py pz dx dy dz radius height r g b kd ks shininess [reflect]`
 - `cone px py pz dx dy dz angle_deg height r g b kd ks shininess [reflect]`
+- `box px py pz sx sy sz r g b kd ks shininess [reflect]`
 Où `kd/ks` sont coefficients diffuse/specular. Les directions (dx dy dz) doivent être normalisées dans la scène ou lors du parse.
 L'option `reflect` est facultative (0-1) pour mélanger une réflexion (un rebond).
 
@@ -32,3 +33,4 @@ CLI actuelle : `./RT [scene.rt] [--out output.ppm] [--size WxH] [--samples N] [-
 Scènes fournies :
 - `assets/scenes/sample.rt` : scène de démonstration simple (sphère + plan + cylindre + cône).
 - `assets/scenes/room.rt` : petite pièce avec murs colorés, deux lumières, sphère/cylindre/cône pour tester les ombres multiples.
+- `assets/scenes/box.rt` : boîte réfléchissante, checker au sol, sphère et cône pour tester le nouveau primitive.

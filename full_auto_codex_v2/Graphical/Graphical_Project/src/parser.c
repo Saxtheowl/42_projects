@@ -123,6 +123,15 @@ static int	fill_material(char **tok, t_material *m)
 		return 0;
 	if (!read_int(tok, &m->shininess))
 		return 0;
+	if (*tok)
+	{
+		if (!read_double(tok, &m->reflect))
+			return 0;
+		if (m->reflect < 0.0)
+			m->reflect = 0.0;
+		if (m->reflect > 1.0)
+			m->reflect = 1.0;
+	}
 	return 1;
 }
 
@@ -133,8 +142,12 @@ static int	parse_object(char **tok, t_scene *scene, t_objtype type)
 	t_object *o = &scene->objects[scene->objects_count];
 	memset(o, 0, sizeof(*o));
 	o->type = type;
+	o->checker_enabled = 0;
 	if (!read_vec3(tok, &o->pos))
 		return 0;
+	if (type == OBJ_BOX)
+		if (!read_vec3(tok, &o->size))
+			return 0;
 	if (type == OBJ_PLANE || type == OBJ_CYLINDER || type == OBJ_CONE)
 		if (!read_vec3(tok, &o->dir))
 			return 0;
@@ -149,6 +162,14 @@ static int	parse_object(char **tok, t_scene *scene, t_objtype type)
 			return 0;
 	if (!fill_material(tok, &o->mat))
 		return 0;
+	if (type == OBJ_PLANE && *tok)
+	{
+		if (!read_double(tok, &o->checker_size) || !read_color(tok, &o->checker_color))
+			return 0;
+		if (o->checker_size <= 0.0)
+			o->checker_size = 1.0;
+		o->checker_enabled = 1;
+	}
 	scene->objects_count++;
 	return 1;
 }
@@ -175,6 +196,8 @@ static int	dispatch(char *line, t_scene *scene, int lineno)
 		return parse_object(&args, scene, OBJ_CYLINDER);
 	if (strcmp(tok, "cone") == 0)
 		return parse_object(&args, scene, OBJ_CONE);
+	if (strcmp(tok, "box") == 0)
+		return parse_object(&args, scene, OBJ_BOX);
 	fprintf(stderr, "Unknown token at line %d\n", lineno);
 	return 0;
 }
