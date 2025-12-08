@@ -281,7 +281,17 @@ static void	*render_chunk(void *arg)
 	return NULL;
 }
 
-int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads)
+static int	apply_gamma(int v, double gamma)
+{
+	double normalized = v / 255.0;
+	if (normalized < 0.0)
+		normalized = 0.0;
+	if (normalized > 1.0)
+		normalized = 1.0;
+	return (int)(pow(normalized, 1.0 / gamma) * 255.0 + 0.5);
+}
+
+int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma)
 {
 	FILE *f = fopen(path, "w");
 	if (!f)
@@ -342,7 +352,7 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 		for (int x = 0; x < width; ++x)
 		{
 			t_color c = buffer[y * width + x];
-			fprintf(f, "%d %d %d ", c.r, c.g, c.b);
+			fprintf(f, "%d %d %d ", apply_gamma(c.r, gamma), apply_gamma(c.g, gamma), apply_gamma(c.b, gamma));
 		}
 		fprintf(f, "\n");
 	}

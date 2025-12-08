@@ -6,8 +6,8 @@
 
 static void	usage(const char *prog)
 {
-	printf("Usage: %s [scene.rt] [--out output.ppm] [--size WxH] [--samples N] [--threads N]\n", prog);
-	printf("Default scene: assets/scenes/sample.rt, output: output.ppm, size: 800x600, samples: 1, threads: auto (4 or height)\n");
+	printf("Usage: %s [scene.rt] [--out output.ppm] [--size WxH] [--samples N] [--threads N] [--gamma G]\n", prog);
+	printf("Default scene: assets/scenes/sample.rt, output: output.ppm, size: 800x600, samples: 1, threads: auto (4 or height), gamma: 2.2\n");
 }
 
 static void	print_scene(const t_scene *s)
@@ -45,6 +45,7 @@ int	main(int argc, char **argv)
 	const char *path = "assets/scenes/sample.rt";
 	const char *out = "output.ppm";
 	int width = 800, height = 600, samples = 1, threads = 0;
+	double gamma = 2.2;
 	for (int i = 1; i < argc; ++i)
 	{
 		if (argv[i][0] != '-')
@@ -63,6 +64,8 @@ int	main(int argc, char **argv)
 			samples = atoi(argv[++i]);
 		else if (strcmp(argv[i], "--threads") == 0 && i + 1 < argc)
 			threads = atoi(argv[++i]);
+		else if (strcmp(argv[i], "--gamma") == 0 && i + 1 < argc)
+			gamma = atof(argv[++i]);
 		else
 		{
 			usage(argv[0]);
@@ -82,9 +85,11 @@ int	main(int argc, char **argv)
 		samples = 1;
 	if (threads < 0)
 		threads = 0;
-	if (render_ppm(&scene, out, width, height, samples, threads))
-		printf("Rendered to %s (%dx%d, %d sample%s, %s threads). Intégrer MLX pour l'affichage temps réel.\n",
-			   out, width, height, samples, (samples > 1 ? "s" : ""), (threads > 0 ? "custom" : "auto"));
+	if (gamma <= 0.0)
+		gamma = 2.2;
+	if (render_ppm(&scene, out, width, height, samples, threads, gamma))
+		printf("Rendered to %s (%dx%d, %d sample%s, %s threads, gamma=%.2f). Intégrer MLX pour l'affichage temps réel.\n",
+			   out, width, height, samples, (samples > 1 ? "s" : ""), (threads > 0 ? "custom" : "auto"), gamma);
 	free_scene(&scene);
 	return EXIT_SUCCESS;
 }

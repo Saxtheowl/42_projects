@@ -3,3 +3,4 @@ Derniere mise a jour (2025-12-08 22:52:34) : C/Ft_turing termine : CLI complète
 Derniere mise a jour (2025-12-08 22:59:00) : Graphical_Project progresse : renderer PPM enrichi (sky gradient, supersampling), CLI `--out/--size/--samples`; MLX toujours en attente faute de bibliothèque sur l'environnement.
 Derniere mise a jour (2025-12-08 23:00:33) : Graphical_Project progresse encore : PPM multithread, supersampling/sky conservés, CLI `--threads` ajoutée (`RT [scene] --out --size --samples --threads`), MLX toujours en attente.
 Derniere mise a jour (2025-12-08 23:07:46) : Graphical_Project progresse encore : nouvelle scène `assets/scenes/room.rt` (murs colorés, multiples lumières) pour tester le renderer; MLX toujours en attente.
+Derniere mise a jour (2025-12-08 23:07:46) : Graphical_Project progresse encore : gamma correction et threads configurables (`--gamma/--threads`), scène room.rt ajoutée; MLX toujours en attente.
