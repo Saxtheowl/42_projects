@@ -9,6 +9,8 @@
 - Transitions : `q_current read -> q_next write move` où `move` est `L` ou `R`.
 - Commentaires : `#` en début de ligne.
 
+Sections obligatoires : `states`, `alphabet`, `blank`, `initial`. Le validateur refuse les fichiers où l'une de ces sections manque.
+
 Exemple minimal :
 ```
 states: q0,q1,qacc
