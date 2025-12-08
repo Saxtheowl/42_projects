@@ -254,6 +254,7 @@ typedef struct s_render_task
 	int				width;
 	int				height;
 	int				samples;
+	int				max_depth;
 	int				y0;
 	int				y1;
 	t_vec3			forward;
@@ -279,7 +280,7 @@ static void	*render_chunk(void *arg)
 				double ndc_x = (2.0 * u - 1.0) * t->aspect * t->fov_scale;
 				double ndc_y = (1.0 - 2.0 * v) * t->fov_scale;
 				t_vec3 dir = vec_norm(vec_add(t->forward, vec_add(vec_scale(t->right, ndc_x), vec_scale(t->up, ndc_y))));
-				t_color c = trace_ray(t->scene, t->scene->camera.pos, dir, 2);
+				t_color c = trace_ray(t->scene, t->scene->camera.pos, dir, t->max_depth);
 				cr += c.r;
 				cg += c.g;
 				cb += c.b;
@@ -303,7 +304,7 @@ static int	apply_gamma(int v, double gamma)
 	return (int)(pow(normalized, 1.0 / gamma) * 255.0 + 0.5);
 }
 
-int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma)
+int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth)
 {
 	FILE *f = fopen(path, "w");
 	if (!f)
@@ -349,6 +350,7 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 		tasks[i].samples = samples;
 		tasks[i].y0 = i * chunk;
 		tasks[i].y1 = (i == threads - 1) ? height : (i + 1) * chunk;
+		tasks[i].max_depth = max_depth;
 		tasks[i].forward = forward;
 		tasks[i].right = right;
 		tasks[i].up = up;
