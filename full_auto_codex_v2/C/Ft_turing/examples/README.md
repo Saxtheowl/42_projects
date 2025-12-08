@@ -11,3 +11,4 @@
   - `invalid_missing_states.tm` : section `states:` absente.
   - `invalid_missing_alphabet.tm` : section `alphabet:` absente.
   - `invalid_missing_initial.tm` : section `initial:` absente.
+  - `invalid_transition_extra_tokens.tm` : transition avec des tokens superflus.

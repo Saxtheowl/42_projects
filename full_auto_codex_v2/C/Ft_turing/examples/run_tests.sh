@@ -35,6 +35,7 @@ test_case "$BIN $ROOT/examples/invalid_missing_blank.tm a" "Error: Blank symbol 
 test_case "$BIN $ROOT/examples/invalid_missing_states.tm a" "Error: No states defined"
 test_case "$BIN $ROOT/examples/invalid_missing_alphabet.tm a" "Error: No alphabet defined"
 test_case "$BIN $ROOT/examples/invalid_missing_initial.tm a" "Error: No initial state defined"
+test_case "$BIN $ROOT/examples/invalid_transition_extra_tokens.tm a" "Error: Line 8: extra tokens after transition"
 
 echo "$pass/$total tests passed"
 [ $pass -eq $total ]

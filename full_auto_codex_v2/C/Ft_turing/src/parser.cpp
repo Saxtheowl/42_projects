@@ -124,6 +124,9 @@ Machine parse_machine(const std::string &path)
 		char read, write, move;
 		if (!(ss >> cur >> read >> arrow >> next >> write >> move) || arrow != "->")
 			throw std::runtime_error("Line " + std::to_string(lineno) + ": invalid transition format");
+		std::string extra;
+		if (ss >> extra)
+			throw std::runtime_error("Line " + std::to_string(lineno) + ": extra tokens after transition");
 		if (m.transitions[cur].count(read))
 			throw std::runtime_error("Line " + std::to_string(lineno) + ": duplicate transition for state " + cur + " and symbol " + std::string(1, read));
 		Transition t{next, write, move};

@@ -10,6 +10,7 @@
 - Commentaires : `#` en début de ligne.
 
 Sections obligatoires : `states`, `alphabet`, `blank`, `initial`. Le validateur refuse les fichiers où l'une de ces sections manque.
+Une transition ne doit pas contenir de tokens supplémentaires au-delà des 6 attendus.
 
 Exemple minimal :
 ```
