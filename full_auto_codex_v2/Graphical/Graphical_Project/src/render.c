@@ -402,6 +402,7 @@ typedef struct s_render_task
 	const t_scene	*scene;
 	t_color			*buffer;
 	double			*depths;
+	t_vec3			*normals;
 	int				width;
 	int				height;
 	int				samples;
@@ -443,7 +444,10 @@ static void	*render_chunk(void *arg)
 				{
 					int idx = y * t->width + x;
 					if (t->depths[idx] < 0 || depth < t->depths[idx])
+					{
 						t->depths[idx] = depth;
+						t->normals[idx] = first_hit.normal;
+					}
 				}
 			}
 			int idx = y * t->width + x;
@@ -493,7 +497,35 @@ static void	write_depth_ppm(const char *path, const double *depths, int width, i
 	fclose(f);
 }
 
-int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth, const char *depth_path)
+static void	write_normals_ppm(const char *path, const t_vec3 *normals, int width, int height)
+{
+	FILE *f = fopen(path, "w");
+	if (!f)
+	{
+		perror("fopen normal");
+		return;
+	}
+	fprintf(f, "P3\n%d %d\n255\n", width, height);
+	for (int y = 0; y < height; ++y)
+	{
+		for (int x = 0; x < width; ++x)
+		{
+			t_vec3 n = normals[y * width + x];
+			int r = 0, g = 0, b = 0;
+			if (n.x != 0 || n.y != 0 || n.z != 0)
+			{
+				r = clamp_i((int)((n.x * 0.5 + 0.5) * 255.0), 0, 255);
+				g = clamp_i((int)((n.y * 0.5 + 0.5) * 255.0), 0, 255);
+				b = clamp_i((int)((n.z * 0.5 + 0.5) * 255.0), 0, 255);
+			}
+			fprintf(f, "%d %d %d ", r, g, b);
+		}
+		fprintf(f, "\n");
+	}
+	fclose(f);
+}
+
+int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth, const char *depth_path, const char *normal_path)
 {
 	FILE *f = fopen(path, "w");
 	if (!f)
@@ -524,27 +556,28 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 	t_render_task tasks[threads];
 	t_color *buffer = calloc((size_t)width * (size_t)height, sizeof(t_color));
 	double *depths = calloc((size_t)width * (size_t)height, sizeof(double));
-	if (!buffer)
-	{
-		perror("calloc");
-		fclose(f);
-		return 0;
-	}
-	if (!depths)
+	t_vec3 *normals = calloc((size_t)width * (size_t)height, sizeof(t_vec3));
+	if (!buffer || !depths || !normals)
 	{
 		perror("calloc");
 		free(buffer);
+		free(depths);
+		free(normals);
 		fclose(f);
 		return 0;
 	}
 	for (int i = 0; i < width * height; ++i)
+	{
 		depths[i] = -1.0;
+		normals[i] = (t_vec3){0, 0, 0};
+	}
 	int chunk = height / threads;
 	for (int i = 0; i < threads; ++i)
 	{
 		tasks[i].scene = scene;
 		tasks[i].buffer = buffer;
 		tasks[i].depths = depths;
+		tasks[i].normals = normals;
 		tasks[i].width = width;
 		tasks[i].height = height;
 		tasks[i].samples = samples;
@@ -573,7 +606,10 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 	fclose(f);
 	if (depth_path)
 		write_depth_ppm(depth_path, depths, width, height);
+	if (normal_path)
+		write_normals_ppm(normal_path, normals, width, height);
 	free(buffer);
 	free(depths);
+	free(normals);
 	return 1;
 }
