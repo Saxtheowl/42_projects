@@ -13,4 +13,4 @@
   - `invalid_missing_alphabet.tm` : section `alphabet:` absente.
   - `invalid_missing_initial.tm` : section `initial:` absente.
   - `invalid_transition_extra_tokens.tm` : transition avec des tokens superflus.
-  - `invalid_missing_transition.tm` : transition manquante (détectée seulement avec l'option `-c`).
+  - `invalid_missing_transition.tm` : transition manquante (détectée seulement avec l'option `-c`; ou en exécution via `-r` pour afficher la raison d'arrêt).

@@ -19,17 +19,27 @@ SimulationResult simulate(const Machine &m, const std::string &input, int max_st
 	int head = 0;
 	std::string state = m.initial_state;
 	int steps = 0;
+	std::string reason;
 	while (steps < max_steps)
 	{
 		if (m.accept_states.count(state))
+		{
+			reason = "accept state reached";
 			break;
+		}
 		char read = tape[head];
 		auto sit = m.transitions.find(state);
 		if (sit == m.transitions.end())
+		{
+			reason = "no transition for state " + state + " and symbol " + std::string(1, read);
 			break;
+		}
 		auto tit = sit->second.find(read);
 		if (tit == sit->second.end())
+		{
+			reason = "no transition for state " + state + " and symbol " + std::string(1, read);
 			break;
+		}
 		const Transition &tr = tit->second;
 		tape[head] = tr.write;
 		if (verbose)
@@ -54,7 +64,9 @@ SimulationResult simulate(const Machine &m, const std::string &input, int max_st
 		}
 		++steps;
 	}
+	if (reason.empty() && steps >= max_steps)
+		reason = "max steps reached";
 	std::string snapshot(tape.begin(), tape.end());
 	bool accepted = m.accept_states.count(state) > 0;
-	return SimulationResult{accepted, steps, state, snapshot};
+	return SimulationResult{accepted, steps, state, snapshot, reason};
 }

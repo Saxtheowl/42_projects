@@ -29,6 +29,7 @@ struct SimulationResult
 	int steps;
 	std::string final_state;
 	std::string tape_snapshot;
+	std::string halt_reason;
 };
 
 Machine parse_machine(const std::string &path);

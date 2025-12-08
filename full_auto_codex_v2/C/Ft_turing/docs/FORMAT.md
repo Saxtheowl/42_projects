@@ -14,6 +14,8 @@ Une transition ne doit pas contenir de tokens supplémentaires au-delà des 6 at
 
 Option `-c` (complétude) : vérifie que chaque état non-acceptant possède une transition pour chaque symbole de l'alphabet (y compris le blanc). Utile pour s'assurer que la machine est totale.
 
+Option `-r` (raison) : affiche la raison d'arrêt de la simulation (état acceptant atteint, transition manquante, limite de pas).
+
 Exemple minimal :
 ```
 states: q0,q1,qacc
