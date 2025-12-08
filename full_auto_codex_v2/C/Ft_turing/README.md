@@ -12,10 +12,10 @@ Sujet 42 « ft_turing » : implémenter un vérificateur/simulateur de machine d
 - Option `-r` : affiche la raison d'arrêt (accept, transition manquante, max steps).
 - Script de tests : `examples/run_tests.sh` (compilation requise), couvre accept/reject et validations (18 cas).
 
-## Plan provisoire
-1) Lire le sujet et ajuster encore les messages d'erreur attendus (alignement complet avec le PDF si besoin).
-2) Ajouter des machines de test supplémentaires (transitions manquantes, halt explicite) et scénarios de validation.
-3) Finaliser la CLI/format (expliquer -t, limiter taille du ruban) et documenter les codes de retour.
+## Plan final
+- Validations complètes (sections requises, blank dans l'alphabet, transitions L/R, complétude optionnelle).
+- Simulation robuste avec options `-v -t -r -o -s -c` et codes de retour (0 accept, 2 reject, 1 erreur).
+- Suite de tests intégrée (`examples/run_tests.sh`) : 18 cas couvrant accept/reject, validations, complétude, limite de pas, sortie fichier.
 
 ## Journal
 - 2025-12-08 22:14:12 : blank rendu obligatoire (erreurs dédiées), CLI documentée avec `-t`, ajout du test `invalid_missing_blank.tm` et docs/README/examples mis à jour.
@@ -26,3 +26,4 @@ Sujet 42 « ft_turing » : implémenter un vérificateur/simulateur de machine d
 - 2025-12-08 22:39:03 : option `-r` ajoutée pour afficher la raison d'arrêt de la simulation (accept, transition manquante, max steps) avec test d'exécution sur machine incomplète; suite à 15 cas.
 - 2025-12-08 22:42:45 : test d'arrêt par limite de pas (`loop.tm -s 2 -r`) ajouté, suite portée à 17 cas.
 - 2025-12-08 22:48:01 : option `-o` pour écrire le ruban final dans un fichier, test dédié ajouté; suite portée à 18 cas.
+- 2025-12-08 22:52:34 : projet finalisé (suite de tests 18/18, CLI/documentation stabilisées, validation exhaustive); status DONE.
