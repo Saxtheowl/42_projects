@@ -102,3 +102,5 @@
 2025-12-08 21:17:33 | C/Ft_services | DONE | Stack complète prête pour déploiement Minikube externe: MetalLB (pool substituable), ingress TLS (whoami, WP/PMA, Grafana), MariaDB/WordPress/phpMyAdmin, FTPS LB, monitoring InfluxDB+Grafana (datasource + dashboard), scripts seed/check/hosts/start/stop/apply; tests à exécuter sur Minikube réel (non disponible ici).
 2025-12-08 22:52:34 | C/Ft_turing | DONE | Simulateur complet (-v/-t/-r/-o/-s/-c), validation exhaustive (blank, sections requises, complétude optionnelle), suite de tests 18/18 OK, docs format/exemples/README finalisées.
 2025-12-08 22:59:00 | Graphical/Graphical_Project | IN_PROGRESS | Renderer PPM enrichi (sky gradient, supersampling, CLI --out/--size/--samples); attente MLX pour affichage temps réel.
+2025-12-08 23:00:33 | Graphical/Graphical_Project | IN_PROGRESS | PPM multithread + supersampling et ciel, CLI --threads ajoutée (`RT [scene] --out --size --samples --threads`), MLX toujours en attente.
+2025-12-08 23:07:46 | Graphical/Graphical_Project | IN_PROGRESS | Nouvelle scène `assets/scenes/room.rt` (murs colorés, lumières multiples) pour tester le renderer; CLI et README actualisés.

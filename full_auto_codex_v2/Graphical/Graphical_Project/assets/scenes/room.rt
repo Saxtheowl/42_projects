@@ -1,0 +1,16 @@
+# Camera looking at a small room with colored walls and objects
+camera 0 1 6 0 0 -1 60
+ambient 0.1 255 255 255
+light 3 4 3 0.7 255 255 255
+light -3 4 1 0.5 200 200 255
+
+# floor and walls
+plane 0 0 0 0 1 0 200 200 200 0.8 0.2 32
+plane 0 0 -5 0 0 1 180 180 180 0.7 0.3 64
+plane -4 0 0 1 0 0 255 200 200 0.7 0.2 32
+plane 4 0 0 -1 0 0 200 200 255 0.7 0.2 32
+
+# objects
+sphere 0 1 -2 1.0 200 255 200 0.7 0.3 64
+cylinder -2 0 -3 0 1 0 0.5 2.5 255 220 180 0.7 0.3 32
+cone 2 0 -3 0 1 0 15 3 200 220 255 0.6 0.3 64

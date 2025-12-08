@@ -10,10 +10,10 @@ Sujet RT (ray tracing) : rendu d’images 3D en ray tracing avec au moins quatre
 - [x] Planification préliminaire : C + MiniLibX (fallback OpenGL/PPM si mlx absente), fichier scène texte.
 - [x] Format scène texte défini (caméra, lumières, plan/sphère/cylindre/cône, matériaux).
 - [x] Implémentation parser + binaire `RT` qui charge et affiche la scène (sample.rt).
-- [x] Renderer fallback PPM : `RT` génère `output.ppm` (800x600) avec ray tracing de base (diffuse/specular, ombres, sphère/plan/cylindre/cône) + sky gradient + supersampling configurable.
+- [x] Renderer fallback PPM : `RT` génère `output.ppm` (par défaut 800x600) avec ray tracing de base (diffuse/specular, ombres, sphère/plan/cylindre/cône) + sky gradient + supersampling configurable + rendu multi-thread.
 - [ ] Intégration renderer MLX (affichage temps réel) en complément du PPM (lib mlx absente sur l'env).
 
-Mise à jour (2025-12-08 22:59:00) : PPM amélioré (fond ciel, supersampling), CLI enrichie (`--out`, `--size`, `--samples`); MLX toujours en attente.
+Mise à jour (2025-12-08 23:00:33) : PPM amélioré (fond ciel, supersampling, multithread), CLI enrichie (`--out`, `--size`, `--samples`, `--threads`); MLX toujours en attente.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
@@ -26,4 +26,8 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 - `cone px py pz dx dy dz angle_deg height r g b kd ks shininess`
 Où `kd/ks` sont coefficients diffuse/specular. Les directions (dx dy dz) doivent être normalisées dans la scène ou lors du parse.
 
-CLI actuelle : `./RT [scene.rt] [--out output.ppm] [--size WxH] [--samples N]`. Génère un PPM (fallback) jusqu'à disponibilité de la MLX.
+CLI actuelle : `./RT [scene.rt] [--out output.ppm] [--size WxH] [--samples N] [--threads N]`. Génère un PPM (fallback) jusqu'à disponibilité de la MLX.
+
+Scènes fournies :
+- `assets/scenes/sample.rt` : scène de démonstration simple (sphère + plan + cylindre + cône).
+- `assets/scenes/room.rt` : petite pièce avec murs colorés, deux lumières, sphère/cylindre/cône pour tester les ombres multiples.
