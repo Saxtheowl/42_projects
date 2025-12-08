@@ -1,6 +1,7 @@
 # Exemples
 
 - `unary_increment.tm` : ajoute un symbole `a` au bout d'une chaîne unaire. Utilisation : `./ft_turing examples/unary_increment.tm aaaa -v` (attendu: ACCEPT, ruban ~ aaaaa).
+- On peut écrire le ruban final dans un fichier avec `-o out.txt`.
 - `reject_even.tm` : accepte les longueurs impaires uniquement. Utilisation : `./ft_turing examples/reject_even.tm aa` (REJECT) et `./ft_turing examples/reject_even.tm aaa` (ACCEPT).
 - Invalides pour tests de validation :
   - `bad_input.tm` : symbole lu non présent dans l'alphabet.

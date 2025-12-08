@@ -1,14 +1,16 @@
 #include "turing.hpp"
 
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 
 static void usage(const char *prog)
 {
-	std::cerr << "Usage: " << prog << " <machine_file> <input> [-v] [-t] [-r] [-s max_steps] [-c]\n";
+	std::cerr << "Usage: " << prog << " <machine_file> <input> [-v] [-t] [-r] [-o tape.txt] [-s max_steps] [-c]\n";
 	std::cerr << "  -v : verbose (trace pas à pas)\n";
 	std::cerr << "  -t : afficher le ruban final\n";
 	std::cerr << "  -r : afficher la raison d'arrêt (accept, transition manquante, max steps)\n";
+	std::cerr << "  -o : écrire le ruban final dans un fichier\n";
 	std::cerr << "  -s : définir un nombre maximum d'étapes (défaut 10000)\n";
 	std::cerr << "  -c : vérifier que chaque état non-acceptant possède une transition pour chaque symbole de l'alphabet\n";
 }
@@ -26,6 +28,7 @@ int main(int argc, char **argv)
 	bool show_tape = false;
 	bool show_reason = false;
 	bool check_total = false;
+	std::string output_path;
 	int max_steps = 10000;
 	for (int i = 3; i < argc; ++i)
 	{
@@ -38,6 +41,10 @@ int main(int argc, char **argv)
 			check_total = true;
 		else if (arg == "-t")
 			show_tape = true;
+		else if (arg == "-o" && i + 1 < argc)
+		{
+			output_path = argv[++i];
+		}
 		else if (arg == "-s" && i + 1 < argc)
 		{
 			max_steps = std::stoi(argv[++i]);
@@ -60,6 +67,13 @@ int main(int argc, char **argv)
 			std::cout << "[reason] " << res.halt_reason << "\n";
 		if (verbose || show_tape)
 			std::cout << "Final tape: " << res.tape_snapshot << "\n";
+		if (!output_path.empty())
+		{
+			std::ofstream ofs(output_path.c_str());
+			if (!ofs)
+				throw std::runtime_error("Cannot open output file: " + output_path);
+			ofs << res.tape_snapshot;
+		}
 		return res.accepted ? 0 : 2;
 	}
 	catch (const std::exception &e)

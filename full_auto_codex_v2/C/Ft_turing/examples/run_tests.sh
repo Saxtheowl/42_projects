@@ -24,6 +24,10 @@ test_case() {
 
 test_case "$BIN $ROOT/examples/unary_increment.tm aaaa -t" "ACCEPT after 10 steps (state=qacc)
 Final tape: _aaaaa"
+tmp_tape=$(mktemp)
+test_case "$BIN $ROOT/examples/unary_increment.tm aaaa -o $tmp_tape" "ACCEPT after 10 steps (state=qacc)"
+if [ "$(cat "$tmp_tape")" != "_aaaaa" ]; then echo "FAIL: expected tape written to file" >&2; exit 1; fi
+rm -f "$tmp_tape"
 test_case "$BIN $ROOT/examples/reject_even.tm aa" "REJECT after 3 steps (state=qrej)"
 test_case "$BIN $ROOT/examples/reject_even.tm aaa" "ACCEPT after 4 steps (state=qacc)"
 test_case "$BIN $ROOT/examples/loop.tm aaaa -s 5" "REJECT after 5 steps (state=q0)"
