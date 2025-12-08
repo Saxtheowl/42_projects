@@ -1,6 +1,7 @@
 #include "render.h"
 
 #define _GNU_SOURCE
+#include <pthread.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -229,7 +230,58 @@ static t_vec3	random_in_unit_square(int px, int py, int s)
 	return (t_vec3){rx, ry, 0};
 }
 
-int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples)
+typedef struct s_render_task
+{
+	const t_scene	*scene;
+	t_color			*buffer;
+	int				width;
+	int				height;
+	int				samples;
+	int				y0;
+	int				y1;
+	t_vec3			forward;
+	t_vec3			right;
+	t_vec3			up;
+	double			aspect;
+	double			fov_scale;
+}	t_render_task;
+
+static void	*render_chunk(void *arg)
+{
+	t_render_task *t = (t_render_task *)arg;
+	for (int y = t->y0; y < t->y1; ++y)
+	{
+		for (int x = 0; x < t->width; ++x)
+		{
+			double cr = 0, cg = 0, cb = 0;
+			for (int s = 0; s < t->samples; ++s)
+			{
+				t_vec3 jitter = random_in_unit_square(x, y, s);
+				double u = (x + (jitter.x - 0.5)) / t->width;
+				double v = (y + (jitter.y - 0.5)) / t->height;
+				double ndc_x = (2.0 * u - 1.0) * t->aspect * t->fov_scale;
+				double ndc_y = (1.0 - 2.0 * v) * t->fov_scale;
+				t_vec3 dir = vec_norm(vec_add(t->forward, vec_add(vec_scale(t->right, ndc_x), vec_scale(t->up, ndc_y))));
+				t_hit hit;
+				t_color c;
+				if (trace(t->scene, t->scene->camera.pos, dir, &hit))
+					c = shade(t->scene, &hit, dir);
+				else
+					c = background_color(dir);
+				cr += c.r;
+				cg += c.g;
+				cb += c.b;
+			}
+			int idx = y * t->width + x;
+			t->buffer[idx].r = (int)(cr / t->samples);
+			t->buffer[idx].g = (int)(cg / t->samples);
+			t->buffer[idx].b = (int)(cb / t->samples);
+		}
+	}
+	return NULL;
+}
+
+int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads)
 {
 	FILE *f = fopen(path, "w");
 	if (!f)
@@ -250,33 +302,51 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 						   right.x * forward.y - right.y * forward.x});
 	double aspect = (double)width / (double)height;
 	double fov_scale = tan(scene->camera.fov * 0.5 * M_PI / 180.0);
+	if (threads <= 0)
+		threads = 4;
+	if (threads > height)
+		threads = height;
+	if (threads < 1)
+		threads = 1;
+	pthread_t th[threads];
+	t_render_task tasks[threads];
+	t_color *buffer = calloc((size_t)width * (size_t)height, sizeof(t_color));
+	if (!buffer)
+	{
+		perror("calloc");
+		fclose(f);
+		return 0;
+	}
+	int chunk = height / threads;
+	for (int i = 0; i < threads; ++i)
+	{
+		tasks[i].scene = scene;
+		tasks[i].buffer = buffer;
+		tasks[i].width = width;
+		tasks[i].height = height;
+		tasks[i].samples = samples;
+		tasks[i].y0 = i * chunk;
+		tasks[i].y1 = (i == threads - 1) ? height : (i + 1) * chunk;
+		tasks[i].forward = forward;
+		tasks[i].right = right;
+		tasks[i].up = up;
+		tasks[i].aspect = aspect;
+		tasks[i].fov_scale = fov_scale;
+		if (pthread_create(&th[i], NULL, render_chunk, &tasks[i]) != 0)
+			perror("pthread_create");
+	}
+	for (int i = 0; i < threads; ++i)
+		pthread_join(th[i], NULL);
 	for (int y = 0; y < height; ++y)
 	{
 		for (int x = 0; x < width; ++x)
 		{
-			double cr = 0, cg = 0, cb = 0;
-			for (int s = 0; s < samples; ++s)
-			{
-				t_vec3 jitter = random_in_unit_square(x, y, s);
-				double u = (x + (jitter.x - 0.5)) / width;
-				double v = (y + (jitter.y - 0.5)) / height;
-				double ndc_x = (2.0 * u - 1.0) * aspect * fov_scale;
-				double ndc_y = (1.0 - 2.0 * v) * fov_scale;
-				t_vec3 dir = vec_norm(vec_add(forward, vec_add(vec_scale(right, ndc_x), vec_scale(up, ndc_y))));
-				t_hit hit;
-				t_color c;
-				if (trace(scene, scene->camera.pos, dir, &hit))
-					c = shade(scene, &hit, dir);
-				else
-					c = background_color(dir);
-				cr += c.r;
-				cg += c.g;
-				cb += c.b;
-			}
-			fprintf(f, "%d %d %d ", (int)(cr / samples), (int)(cg / samples), (int)(cb / samples));
+			t_color c = buffer[y * width + x];
+			fprintf(f, "%d %d %d ", c.r, c.g, c.b);
 		}
 		fprintf(f, "\n");
 	}
 	fclose(f);
+	free(buffer);
 	return 1;
 }

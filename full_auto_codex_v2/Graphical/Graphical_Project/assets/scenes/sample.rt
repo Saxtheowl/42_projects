@@ -1,0 +1,9 @@
+# Scene de démonstration ray tracing
+ambient 0.1 255 255 255
+camera 0 1 5 0 0 -1 60
+light 5 5 5 0.7 255 255 255
+light -5 5 2 0.5 255 200 200
+sphere 0 1 0 1 200 200 255 0.7 0.3 64
+plane 0 0 0 0 1 0 180 180 180 0.8 0.2 32
+cylinder 2 0 0 0 1 0 0.5 3 200 255 200 0.7 0.3 64
+cone -2 0 0 0 1 0 20 3 255 200 200 0.7 0.3 64
