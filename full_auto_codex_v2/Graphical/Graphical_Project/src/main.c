@@ -54,6 +54,9 @@ int	main(int argc, char **argv)
 	int width = 800, height = 600, samples = 1, threads = 0, max_depth = 2;
 	double gamma = 2.2;
 	t_tonemap tonemap = TM_NONE;
+	int sky_set = 0;
+	t_color sky_top = {135, 206, 250};
+	t_color sky_bottom = {30, 30, 40};
 	for (int i = 1; i < argc; ++i)
 	{
 		if (argv[i][0] != '-')
@@ -90,6 +93,12 @@ int	main(int argc, char **argv)
 			else
 				tonemap = TM_NONE;
 		}
+		else if (strcmp(argv[i], "--sky") == 0 && i + 6 < argc)
+		{
+			sky_top = (t_color){atoi(argv[++i]), atoi(argv[++i]), atoi(argv[++i])};
+			sky_bottom = (t_color){atoi(argv[++i]), atoi(argv[++i]), atoi(argv[++i])};
+			sky_set = 1;
+		}
 		else
 		{
 			usage(argv[0]);
@@ -102,6 +111,11 @@ int	main(int argc, char **argv)
 	{
 		fprintf(stderr, "Failed to parse scene: %s\n", path);
 		return EXIT_FAILURE;
+	}
+	if (sky_set)
+	{
+		scene.sky_top = sky_top;
+		scene.sky_bottom = sky_bottom;
 	}
 	printf("Scene loaded: %s\n", path);
 	print_scene(&scene);

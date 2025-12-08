@@ -69,6 +69,8 @@ typedef struct s_scene
 	t_camera camera;
 	t_color ambient_color;
 	double ambient_intensity;
+	t_color sky_top;
+	t_color sky_bottom;
 	t_light *lights;
 	size_t lights_count;
 	size_t lights_cap;

@@ -355,11 +355,11 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 	return out;
 }
 
-static t_color	background_color(t_vec3 dir)
+static t_color	background_color(const t_scene *scene, t_vec3 dir)
 {
 	double t = 0.5 * (dir.y + 1.0);
-	t_color sky_top = {135, 206, 250};   /* light sky blue */
-	t_color sky_bottom = {30, 30, 40};   /* dark horizon */
+	t_color sky_top = scene->sky_top;
+	t_color sky_bottom = scene->sky_bottom;
 	t_color out;
 	out.r = (int)((1.0 - t) * sky_bottom.r + t * sky_top.r);
 	out.g = (int)((1.0 - t) * sky_bottom.g + t * sky_top.g);
@@ -383,7 +383,7 @@ static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
 {
 	t_hit hit;
 	if (!trace(scene, ro, rd, &hit))
-		return background_color(rd);
+		return background_color(scene, rd);
 	t_color local = shade(scene, &hit, rd);
 	if (depth <= 0 || hit.mat.reflect <= 1e-6)
 		return local;
