@@ -469,6 +469,22 @@ static int	apply_gamma(int v, double gamma)
 	return (int)(pow(normalized, 1.0 / gamma) * 255.0 + 0.5);
 }
 
+static double	tonemap_channel(double x, t_tonemap mode)
+{
+	if (mode == TM_REINHARD)
+		return x / (1.0 + x);
+	if (mode == TM_ACES)
+	{
+		double a = 2.51;
+		double b = 0.03;
+		double c = 2.43;
+		double d = 0.59;
+		double e = 0.14;
+		return fmin(fmax((x * (a * x + b)) / (x * (c * x + d) + e), 0.0), 1.0);
+	}
+	return x;
+}
+
 static void	write_depth_ppm(const char *path, const double *depths, int width, int height)
 {
 	double maxd = 0.0;
@@ -525,7 +541,7 @@ static void	write_normals_ppm(const char *path, const t_vec3 *normals, int width
 	fclose(f);
 }
 
-int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth, const char *depth_path, const char *normal_path)
+int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth, const char *depth_path, const char *normal_path, t_tonemap tonemap)
 {
 	FILE *f = fopen(path, "w");
 	if (!f)
@@ -599,7 +615,10 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 		for (int x = 0; x < width; ++x)
 		{
 			t_color c = buffer[y * width + x];
-			fprintf(f, "%d %d %d ", apply_gamma(c.r, gamma), apply_gamma(c.g, gamma), apply_gamma(c.b, gamma));
+			double lr = tonemap_channel(c.r / 255.0, tonemap);
+			double lg = tonemap_channel(c.g / 255.0, tonemap);
+			double lb = tonemap_channel(c.b / 255.0, tonemap);
+			fprintf(f, "%d %d %d ", apply_gamma((int)(lr * 255.0), gamma), apply_gamma((int)(lg * 255.0), gamma), apply_gamma((int)(lb * 255.0), gamma));
 		}
 		fprintf(f, "\n");
 	}

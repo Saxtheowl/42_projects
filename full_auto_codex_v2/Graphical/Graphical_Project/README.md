@@ -28,7 +28,7 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 Où `kd/ks` sont coefficients diffuse/specular. Les directions (dx dy dz) doivent être normalisées dans la scène ou lors du parse.
 L'option `reflect` est facultative (0-1) pour mélanger une réflexion (un rebond).
 
-CLI actuelle : `./RT [scene.rt] [--out output.ppm] [--size WxH] [--samples N] [--threads N] [--gamma G] [--maxdepth D] [--depth depth.ppm]`. Génère un PPM (fallback) jusqu'à disponibilité de la MLX; `--depth` exporte une carte de profondeur (PPM). Les plans peuvent recevoir un motif checker optionnel (`... kd ks shininess reflect checker_size r g b`).
+CLI actuelle : `./RT [scene.rt] [--out output.ppm] [--size WxH] [--samples N] [--threads N] [--gamma G] [--maxdepth D] [--depth depth.ppm] [--normal normals.ppm] [--tonemap none|reinhard|aces]`. Génère un PPM (fallback) jusqu'à disponibilité de la MLX; `--depth` exporte une carte de profondeur, `--normal` une carte de normales. Les plans peuvent recevoir un motif checker optionnel (`... kd ks shininess reflect checker_size r g b`).
 
 Scènes fournies :
 - `assets/scenes/sample.rt` : scène de démonstration simple (sphère + plan + cylindre + cône).
