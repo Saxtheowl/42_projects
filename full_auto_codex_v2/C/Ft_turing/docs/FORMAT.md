@@ -3,7 +3,7 @@
 
 - `states:` liste d'états séparés par des virgules.
 - `alphabet:` alphabet de travail (caractères sans virgule). Le symbole de blanc doit y figurer.
-- `blank:` symbole utilisé pour les cases vides (ex: `_`). Obligatoire et d'un seul caractère.
+- `blank:` symbole utilisé pour les cases vides (ex: `_`). Obligatoire, d'un seul caractère, et doit appartenir à l'alphabet.
 - `initial:` état initial.
 - `accept:` liste d'états acceptants (optionnelle).
 - Transitions : `q_current read -> q_next write move` où `move` est `L` ou `R`.

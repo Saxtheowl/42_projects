@@ -32,6 +32,7 @@ test_case "$BIN $ROOT/examples/invalid_duplicate.tm a" "Error: Line 9: duplicate
 test_case "$BIN $ROOT/examples/invalid_move.tm a" "Error: Transition move must be L or R"
 test_case "$BIN $ROOT/examples/invalid_unknown_state.tm a" "Error: Transition targets unknown state: q2"
 test_case "$BIN $ROOT/examples/invalid_missing_blank.tm a" "Error: Blank symbol not specified"
+test_case "$BIN $ROOT/examples/invalid_blank_not_in_alphabet.tm a" "Error: Blank symbol '_' not in alphabet"
 test_case "$BIN $ROOT/examples/invalid_missing_states.tm a" "Error: No states defined"
 test_case "$BIN $ROOT/examples/invalid_missing_alphabet.tm a" "Error: No alphabet defined"
 test_case "$BIN $ROOT/examples/invalid_missing_initial.tm a" "Error: No initial state defined"

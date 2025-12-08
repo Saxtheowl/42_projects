@@ -8,6 +8,7 @@
   - `invalid_move.tm` : mouvement interdit (ni L ni R).
   - `invalid_unknown_state.tm` : transition vers un état inexistant.
   - `invalid_missing_blank.tm` : absence de symbole de blanc déclaré.
+  - `invalid_blank_not_in_alphabet.tm` : blank non présent dans l'alphabet.
   - `invalid_missing_states.tm` : section `states:` absente.
   - `invalid_missing_alphabet.tm` : section `alphabet:` absente.
   - `invalid_missing_initial.tm` : section `initial:` absente.
