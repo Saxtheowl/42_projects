@@ -40,6 +40,8 @@ test_case "$BIN $ROOT/examples/invalid_transition_extra_tokens.tm a" "Error: Lin
 test_case "$BIN $ROOT/examples/invalid_missing_transition.tm a -c" "Error: Missing transition for state q0 and symbol _"
 test_case "$BIN $ROOT/examples/invalid_missing_transition.tm _ -r" "REJECT after 0 steps (state=q0)
 [reason] no transition for state q0 and symbol _"
+test_case "$BIN $ROOT/examples/loop.tm aaaa -s 2 -r" "REJECT after 2 steps (state=q0)
+[reason] max steps reached"
 
 echo "$pass/$total tests passed"
 [ $pass -eq $total ]
