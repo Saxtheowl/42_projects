@@ -104,4 +104,4 @@
 2025-12-08 22:59:00 | Graphical/Graphical_Project | IN_PROGRESS | Renderer PPM enrichi (sky gradient, supersampling, CLI --out/--size/--samples); attente MLX pour affichage temps réel.
 2025-12-08 23:00:33 | Graphical/Graphical_Project | IN_PROGRESS | PPM multithread + supersampling et ciel, CLI --threads ajoutée (`RT [scene] --out --size --samples --threads`), MLX toujours en attente.
 2025-12-08 23:07:46 | Graphical/Graphical_Project | IN_PROGRESS | Nouvelle scène `assets/scenes/room.rt` (murs colorés, lumières multiples) pour tester le renderer; CLI et README actualisés.
-2025-12-08 23:19:41 | Graphical/Graphical_Project | IN_PROGRESS | Réflexions (1 rebond) via coefficient reflect, gamma optionnelle, multithread + supersampling conservés, paramètre --maxdepth ajouté; MLX toujours manquante.
+2025-12-08 23:28:44 | Graphical/Graphical_Project | IN_PROGRESS | Cylindres/cônes désormais fermés (caps), réflexions avec profondeur paramétrable (--maxdepth), PPM multi-thread/gamma/supersampling conservés; MLX toujours manquante.

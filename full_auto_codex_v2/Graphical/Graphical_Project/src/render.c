@@ -78,6 +78,25 @@ static int	intersect_plane(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 	return 1;
 }
 
+static int	intersect_cap(t_vec3 center, t_vec3 normal, double radius, t_vec3 ro, t_vec3 rd, t_hit *hit, const t_material *mat)
+{
+	double denom = vec_dot(normal, rd);
+	if (fabs(denom) < 1e-6)
+		return 0;
+	double t = vec_dot(vec_sub(center, ro), normal) / denom;
+	if (t < 1e-4)
+		return 0;
+	t_vec3 p = vec_add(ro, vec_scale(rd, t));
+	double d = vec_len(vec_sub(p, center));
+	if (d > radius + 1e-6)
+		return 0;
+	hit->t = t;
+	hit->point = p;
+	hit->normal = (denom < 0) ? normal : vec_scale(normal, -1);
+	hit->mat = *mat;
+	return 1;
+}
+
 static int	intersect_cylinder(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 {
 	t_vec3 ca = vec_norm(o->dir);
@@ -98,14 +117,32 @@ static int	intersect_cylinder(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hi
 	if (t < 1e-4)
 		return 0;
 	double y = caoc + t * card;
-	if (y < 0 || y > o->height)
-		return 0;
-	hit->t = t;
-	hit->point = vec_add(ro, vec_scale(rd, t));
-	t_vec3 proj = vec_add(o->pos, vec_scale(ca, y));
-	hit->normal = vec_norm(vec_sub(hit->point, proj));
-	hit->mat = o->mat;
-	return 1;
+	int hit_any = 0;
+	t_hit best;
+	if (y >= 0 && y <= o->height)
+	{
+		hit_any = 1;
+		best.t = t;
+		best.point = vec_add(ro, vec_scale(rd, t));
+		t_vec3 proj = vec_add(o->pos, vec_scale(ca, y));
+		best.normal = vec_norm(vec_sub(best.point, proj));
+		best.mat = o->mat;
+	}
+	t_hit caphit;
+	if (intersect_cap(o->pos, ca, o->radius, ro, rd, &caphit, &o->mat) && (!hit_any || caphit.t < best.t))
+	{
+		best = caphit;
+		hit_any = 1;
+	}
+	t_vec3 top_center = vec_add(o->pos, vec_scale(ca, o->height));
+	if (intersect_cap(top_center, ca, o->radius, ro, rd, &caphit, &o->mat) && (!hit_any || caphit.t < best.t))
+	{
+		best = caphit;
+		hit_any = 1;
+	}
+	if (hit_any)
+		*hit = best;
+	return hit_any;
 }
 
 static int	intersect_cone(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
@@ -130,15 +167,30 @@ static int	intersect_cone(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 	if (t < 1e-4)
 		return 0;
 	double y = co_v + t * dv;
-	if (y < 0 || y > o->height)
-		return 0;
-	hit->t = t;
-	hit->point = vec_add(ro, vec_scale(rd, t));
-	t_vec3 proj = vec_add(o->pos, vec_scale(ca, y));
-	t_vec3 n = vec_norm(vec_sub(vec_sub(hit->point, proj), vec_scale(ca, k * k * vec_len(vec_sub(hit->point, proj)))));
-	hit->normal = n;
-	hit->mat = o->mat;
-	return 1;
+	int hit_any = 0;
+	t_hit best;
+	if (y >= 0 && y <= o->height)
+	{
+		hit_any = 1;
+		best.t = t;
+		best.point = vec_add(ro, vec_scale(rd, t));
+		t_vec3 proj = vec_add(o->pos, vec_scale(ca, y));
+		t_vec3 n = vec_norm(vec_sub(vec_sub(best.point, proj), vec_scale(ca, k * k * vec_len(vec_sub(best.point, proj)))));
+		best.normal = n;
+		best.mat = o->mat;
+	}
+	/* base cap */
+	t_vec3 base_center = vec_add(o->pos, vec_scale(ca, o->height));
+	double base_radius = o->height * k;
+	t_hit caphit;
+	if (intersect_cap(base_center, ca, base_radius, ro, rd, &caphit, &o->mat) && (!hit_any || caphit.t < best.t))
+	{
+		best = caphit;
+		hit_any = 1;
+	}
+	if (hit_any)
+		*hit = best;
+	return hit_any;
 }
 
 static int	trace(const t_scene *scene, t_vec3 ro, t_vec3 rd, t_hit *closest)
