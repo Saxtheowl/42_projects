@@ -1,0 +1,86 @@
+#include "parser.h"
+#include "render.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static void	usage(const char *prog)
+{
+	printf("Usage: %s [scene.rt] [--out output.ppm] [--size WxH] [--samples N]\n", prog);
+	printf("Default scene: assets/scenes/sample.rt, output: output.ppm, size: 800x600, samples: 1\n");
+}
+
+static void	print_scene(const t_scene *s)
+{
+	printf("Camera: (%.2f %.2f %.2f) dir(%.2f %.2f %.2f) fov %.1f\n",
+		   s->camera.pos.x, s->camera.pos.y, s->camera.pos.z,
+		   s->camera.dir.x, s->camera.dir.y, s->camera.dir.z, s->camera.fov);
+	printf("Ambient: %.2f rgb(%d %d %d)\n", s->ambient_intensity,
+		   s->ambient_color.r, s->ambient_color.g, s->ambient_color.b);
+	printf("Lights: %zu, Objects: %zu\n", s->lights_count, s->objects_count);
+	for (size_t i = 0; i < s->lights_count; ++i)
+		printf("  Light %zu at (%.2f %.2f %.2f) I=%.2f rgb(%d %d %d)\n", i,
+			   s->lights[i].pos.x, s->lights[i].pos.y, s->lights[i].pos.z,
+			   s->lights[i].intensity, s->lights[i].color.r, s->lights[i].color.g, s->lights[i].color.b);
+	for (size_t i = 0; i < s->objects_count; ++i)
+	{
+		const t_object *o = &s->objects[i];
+		const char *type = (o->type == OBJ_SPHERE) ? "sphere" : (o->type == OBJ_PLANE) ? "plane" : (o->type == OBJ_CYLINDER) ? "cylinder" : "cone";
+		printf("  Obj %zu %-8s pos(%.2f %.2f %.2f)", i, type, o->pos.x, o->pos.y, o->pos.z);
+		if (o->type != OBJ_SPHERE)
+			printf(" dir(%.2f %.2f %.2f)", o->dir.x, o->dir.y, o->dir.z);
+		if (o->type == OBJ_SPHERE || o->type == OBJ_CYLINDER)
+			printf(" radius=%.2f", o->radius);
+		if (o->type == OBJ_CYLINDER || o->type == OBJ_CONE)
+			printf(" height=%.2f", o->height);
+		if (o->type == OBJ_CONE)
+			printf(" angle=%.2f", o->angle);
+		printf(" color(%d %d %d) kd=%.2f ks=%.2f shin=%d\n",
+			   o->mat.color.r, o->mat.color.g, o->mat.color.b, o->mat.kd, o->mat.ks, o->mat.shininess);
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	const char *path = "assets/scenes/sample.rt";
+	const char *out = "output.ppm";
+	int width = 800, height = 600, samples = 1;
+	for (int i = 1; i < argc; ++i)
+	{
+		if (argv[i][0] != '-')
+			path = argv[i];
+		else if (strcmp(argv[i], "--out") == 0 && i + 1 < argc)
+			out = argv[++i];
+		else if (strcmp(argv[i], "--size") == 0 && i + 1 < argc)
+		{
+			if (sscanf(argv[++i], "%dx%d", &width, &height) != 2)
+			{
+				fprintf(stderr, "Invalid size, expected WxH\n");
+				return EXIT_FAILURE;
+			}
+		}
+		else if (strcmp(argv[i], "--samples") == 0 && i + 1 < argc)
+			samples = atoi(argv[++i]);
+		else
+		{
+			usage(argv[0]);
+			return EXIT_FAILURE;
+		}
+	}
+	t_scene scene;
+
+	if (!parse_scene(path, &scene))
+	{
+		fprintf(stderr, "Failed to parse scene: %s\n", path);
+		return EXIT_FAILURE;
+	}
+	printf("Scene loaded: %s\n", path);
+	print_scene(&scene);
+	if (samples < 1)
+		samples = 1;
+	if (render_ppm(&scene, out, width, height, samples))
+		printf("Rendered to %s (%dx%d, %d sample%s). Integrate MLX pour l'affichage temps réel.\n",
+			   out, width, height, samples, (samples > 1 ? "s" : ""));
+	free_scene(&scene);
+	return EXIT_SUCCESS;
+}
