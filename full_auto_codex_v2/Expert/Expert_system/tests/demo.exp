@@ -1,0 +1,6 @@
+# Demo of inference engine
+A + B => C
+C | D => E
+A => !D
+=AB
+?CDE

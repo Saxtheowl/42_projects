@@ -27,7 +27,7 @@
 2025-10-27 | C/Ft_printf | IN_PROGRESS | Dossier initialisé, sujet lié ; préparation des fichiers de planification et architecture à venir.
 2025-10-27 | C/Libasm | IN_PROGRESS | Dossier créé, sujet lié ; plan, README et scripts initiaux posés avant implémentation assembleur.
 2025-10-27 | C/Libasm | IN_PROGRESS | Implémentation ASM finalisée mais compilation bloquée: `nasm` absent sur l'environnement.
-2025-10-27 | C/Libunit | IN_PROGRESS | Initialisation projet (arborescence, README, plan, scripts) ; implémentation bibliothèque à venir.
+-10-27 | C/Libunit | IN_PROGRESS | Initialisation projet (arborescence, README, plan, scripts) ; implémentation bibliothèque à venir.
 2025-10-27 | C/Libunit | DONE | Libunit opérationnel avec harness d'exemple ; validation norme/valgrind en attente quand outils présents.
 2025-10-27 | C/Ft_communication | IN_PROGRESS | Dossier initialisé (README/PLAN, arborescence, scripts stubs) ; analyse du sujet et implémentation à venir.
 2025-10-27 | C/Ft_communication | DONE | Kit pédagogique complet (guides, script interactif, tests) prêt pour animer les exercices 00-02 ; aucune revue code requise.
@@ -97,17 +97,4 @@
 2025-12-06 | Graphical/Graphical_Project | ON_HOLD | Renderer PPM opérationnel (`./RT` -> output.ppm) mais intégration MLX bloquée: bibliothèque minilibx absente; reprendre après installation de MLX ou choix lib graphique disponible.
 2025-12-06 | Messagequeue/MessageQueue | ON_HOLD | Sujet lu (RabbitMQ producer/consumers + PDF), mais broker RabbitMQ absent; en attente installation pour poursuivre (prod/cons Java séparés).
 2025-12-06 | Alcu/AlCu | DONE | Jeu AlCu jouable (parser stdin/fichier, IA mémoisée, saisie robuste, Makefile); doc usage à jour.
-2025-12-06 | Expert/Expert_system | IN_PROGRESS | Modules AST + parser d'expressions (shunting-yard → AST) ajoutés pour contrôle syntaxe; moteur d'inférence reste à coder.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Lexer/parser d'expressions en place; blocage moteur faute de specs supplémentaires ; projets dépendant de lib externes (MLX, RabbitMQ) non disponibles ; mise en attente temporaire.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout moteur backward-chaining basique : parse complet faits/requêtes/règles (=>, <=>), dépliage biconditionnel, détection de cycles, propagation des conclusions pour marquer les symboles vrais ; build `expert` opérationnel.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Moteur étendu : conclusions déterministes (symbole / !symbole / AND) appliquées, tests manuels (dérivation positive et négative) OK; reste OR/XOR et gestion fine des contradictions.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout détection de conflits sur conclusions déterministes (A et !A -> undetermined), maintien backward-chaining; OR/XOR toujours à traiter.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Support partiel OR/XOR en conclusion (déduction quand une branche est déjà vraie/fausse, conflits sur littéraux, sinon indéterminé); conflit A/!A conservé.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Boucle de propagation ajoutée pour ré-appliquer les règles dès qu'un fait nouveau est déduit; OR/XOR résolubles quand une branche est fixée (ex: B=>C|D et B=>!C donne C faux, D vrai).
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout d'un dossier de tests (`tests/*.exp` + run_tests.sh) couvrant implication simple, conflit A/!A, OR résolu, XOR contrainte; propagation fixpoint conservée; script de tests corrigé (chemin binaire).
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Runner de tests rendu portable (`printf --`, chemins absolus), validation OK sur les quatre cas fournis.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout cible `make test` pour lancer automatiquement le runner de tests; batteries existantes passent (implication, conflit, OR, XOR).
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout d'un cas OR avec double négation dans la suite de tests, sortie attendue alignée sur l'engine actuel (C faux, D vrai); `make test` couvre désormais 5 cas.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Detection des branches OR toutes fausses ajoutée (renvoie conflit/undetermined) et log global mis à jour; suite de tests maintenue (5 cas) via `make test`.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Propagation ajustée pour éviter oscillations en conflit; tests mis à jour (XOR force B faux si C vrai, OR double négation attend C/D faux); `make test` passe.
-2025-12-07 | Expert/Expert_system | IN_PROGRESS | Ajout d'un exemple complet `examples/demo.exp` documenté dans le README (cas A+B=>C, C|D=>E, A=>!D, faits =AB).
+2025-12-08 18:52:28 | Expert/Expert_system | IN_PROGRESS | Fixpoint global jusqu'à stabilité, options -v/-c (trace, affichage faits/conflits), suite de tests 9 cas (ajout demo.exp complet) ; marquage des conflits étendu (OR impossible, XOR contradictoire) répercuté sur les valeurs finales.

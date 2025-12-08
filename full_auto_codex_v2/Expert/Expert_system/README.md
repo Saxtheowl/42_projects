@@ -13,15 +13,25 @@ Implémenter un moteur d'inférence (backward chaining) pour le calcul propositi
 ## Usage
 ```sh
 make
-make test   # lance les tests dans tests/run_tests.sh
-./expert <input_file>
+make test                        # lance les tests dans tests/run_tests.sh
+./expert [-v] [-c] <input_file>  # -v affiche les faits connus après le fixpoint, -c affiche la liste des conflits (trace des règles en -v)
 ```
 Chaque ligne de règle est lue tant qu'un `#` n'est pas rencontré. Les faits commencent par `=` (ex: `=AB`), les requêtes par `?` (ex: `?ACD`). Les opérateurs supportés sont `!`, `+`, `|`, `^`, les parenthèses et les flèches `=>` ou `<=>`. En cas d'erreur de syntaxe, le parser s'arrête en indiquant la ligne fautive.
 
-Exemple rapide : `examples/demo.exp` déduit `C: true, D: false, E: true` à partir de `A+B=>C`, `C|D=>E`, `A=>!D`, faits `=AB`, requêtes `?CDE`.
+Exemple rapide : `examples/demo.exp` déduit `C: true, D: false, E: true` à partir de `A+B=>C`, `C|D=>E`, `A=>!D`, faits `=AB`, requêtes `?CDE`. Un préfixe de fixpoint global est appliqué sur les symboles présents dans règles/requêtes avant d'afficher les réponses.
 
 ## Tests
-Des cas d'usage rapides sont fournis dans `tests/` (simple implication, conflit A/!A, OR résolu avec branche fausse, XOR avec branche forcée). Lancer `tests/run_tests.sh` après compilation.
+Des cas d'usage rapides sont fournis dans `tests/` :
+- `simple_implication.exp`
+- `conflict.exp` (A et !A)
+- `or_resolution.exp` (branche fausse -> l'autre vraie)
+- `xor_branch.exp` (branche forcée)
+- `or_conflict.exp` (double négation)
+- `xor_conflict.exp` (B ^ C et !B/!C)
+- `bicond.exp` (A <=> B)
+- `xor_mixed.exp` (OR de XOR avec négations croisées)
+- `demo.exp` (exemple complet)
+Lancer `tests/run_tests.sh` après compilation ou `make test`.
 
 ## Note
 Le moteur applique les conclusions déterministes (symbole, !symbole, AND), gère les conflits A/!A en renvoyant `undetermined`, traite partiellement OR/XOR (si une branche est fausse ou vraie de façon certaine, l'autre est appliquée/niée), détecte le cas où les deux branches d'un OR sont forcées fausses, et itère jusqu'à stabilisation pour propager les nouvelles informations.

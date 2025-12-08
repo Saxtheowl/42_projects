@@ -27,4 +27,13 @@ D: true"
 run xor_branch.exp "B: false
 C: true"
 run or_conflict.exp "C: false
-D: false"
+D: undetermined"
+run xor_conflict.exp "B: false
+C: undetermined"
+run xor_mixed.exp "B: true
+C: undetermined
+D: undetermined"
+run bicond.exp "B: true"
+run demo.exp "C: true
+D: false
+E: true"

@@ -17,8 +17,11 @@ typedef struct s_rule
 {
 	t_ast			*premise;
 	t_ast			*conclusion;
+	int				id;
 	struct s_rule	*next;
 }	t_rule;
+
+static int	g_trace = 0;
 
 typedef enum e_apply_res
 {
@@ -44,13 +47,14 @@ static void	strip_comment(char *line)
 	trim(line);
 }
 
-static t_rule	*rule_new(t_ast *premise, t_ast *conclusion)
+static t_rule	*rule_new(t_ast *premise, t_ast *conclusion, int id)
 {
 	t_rule *r = malloc(sizeof(t_rule));
 	if (!r)
 		return NULL;
 	r->premise = premise;
 	r->conclusion = conclusion;
+	r->id = id;
 	r->next = NULL;
 	return r;
 }
@@ -72,9 +76,17 @@ static int	idx(char c)
 	return c - 'A';
 }
 
-static t_value	eval_symbol(char symbol, t_rule *rules, t_value values[]);
-static t_apply_res	apply_conclusion(t_ast *node, t_value values[]);
-static int		propagate_all(t_rule *rules, t_value values[]);
+static t_value	eval_symbol(char symbol, t_rule *rules, t_value values[], int conflicts[]);
+static t_apply_res	apply_conclusion(t_ast *node, t_value values[], int conflicts[]);
+static int		propagate_all(t_rule *rules, t_value values[], int conflicts[]);
+static void		collect_ast(const t_ast *node, int seen[]);
+static void		collect_rules(t_rule *rules, int seen[]);
+static void		print_known(const int seen[], const t_value values[]);
+static void		trace_rule(int id, t_apply_res res);
+static int		values_changed(const t_value a[], const t_value b[]);
+static void		print_conflicts(const int conflicts[]);
+static void		mark_conflict_symbols(t_ast *node, int conflicts[]);
+static void		apply_conflicts_to_values(int conflicts[], t_value values[]);
 
 static int	is_literal(const t_ast *node)
 {
@@ -112,21 +124,21 @@ static t_value	literal_value(const t_ast *node, t_value values[], int *is_det)
 	return VAL_UNKNOWN;
 }
 
-static t_value	eval_ast(t_ast *node, t_rule *rules, t_value values[])
+static t_value	eval_ast(t_ast *node, t_rule *rules, t_value values[], int conflicts[])
 {
 	if (!node)
 		return VAL_UNKNOWN;
 	if (node->type == NODE_SYMBOL)
-		return eval_symbol(node->symbol, rules, values);
+		return eval_symbol(node->symbol, rules, values, conflicts);
 	if (node->type == NODE_NOT)
 	{
-		t_value v = eval_ast(node->left, rules, values);
+		t_value v = eval_ast(node->left, rules, values, conflicts);
 		if (v == VAL_UNKNOWN)
 			return VAL_UNKNOWN;
 		return v == VAL_TRUE ? VAL_FALSE : VAL_TRUE;
 	}
-	t_value l = eval_ast(node->left, rules, values);
-	t_value r = eval_ast(node->right, rules, values);
+	t_value l = eval_ast(node->left, rules, values, conflicts);
+	t_value r = eval_ast(node->right, rules, values, conflicts);
 	if (node->type == NODE_AND)
 	{
 		if (l == VAL_FALSE || r == VAL_FALSE)
@@ -157,7 +169,7 @@ static t_value	eval_ast(t_ast *node, t_rule *rules, t_value values[])
  * - XOR tries to conclude the opposite of a true literal, or the truth of the other if one is false
  * Returns APPLY_* to signal progress/conflict/satisfied/none.
  */
-static t_apply_res	apply_conclusion(t_ast *node, t_value values[])
+static t_apply_res	apply_conclusion(t_ast *node, t_value values[], int conflicts[])
 {
 	if (!node)
 		return APPLY_NONE;
@@ -167,6 +179,7 @@ static t_apply_res	apply_conclusion(t_ast *node, t_value values[])
 		if (values[id] == VAL_FALSE)
 		{
 			values[id] = VAL_UNKNOWN;
+			conflicts[id] = 1;
 			return APPLY_CONFLICT;
 		}
 		if (values[id] == VAL_TRUE)
@@ -180,6 +193,7 @@ static t_apply_res	apply_conclusion(t_ast *node, t_value values[])
 		if (values[id] == VAL_TRUE)
 		{
 			values[id] = VAL_UNKNOWN;
+			conflicts[id] = 1;
 			return APPLY_CONFLICT;
 		}
 		if (values[id] == VAL_FALSE)
@@ -189,8 +203,8 @@ static t_apply_res	apply_conclusion(t_ast *node, t_value values[])
 	}
 	if (node->type == NODE_AND)
 	{
-		t_apply_res a = apply_conclusion(node->left, values);
-		t_apply_res b = apply_conclusion(node->right, values);
+		t_apply_res a = apply_conclusion(node->left, values, conflicts);
+		t_apply_res b = apply_conclusion(node->right, values, conflicts);
 		if (a == APPLY_CONFLICT || b == APPLY_CONFLICT)
 			return APPLY_CONFLICT;
 		if (a == APPLY_PROGRESS || b == APPLY_PROGRESS)
@@ -205,13 +219,16 @@ static t_apply_res	apply_conclusion(t_ast *node, t_value values[])
 		t_value lv = literal_value(node->left, values, &det_left);
 		t_value rv = literal_value(node->right, values, &det_right);
 		if (det_left && det_right && lv == VAL_FALSE && rv == VAL_FALSE)
+		{
+			mark_conflict_symbols(node, conflicts);
 			return APPLY_CONFLICT;
+		}
 		if ((det_left && lv == VAL_TRUE) || (det_right && rv == VAL_TRUE))
 			return APPLY_SATISFIED;
 		if (det_left && lv == VAL_FALSE)
-			return apply_conclusion(node->right, values);
+			return apply_conclusion(node->right, values, conflicts);
 		if (det_right && rv == VAL_FALSE)
-			return apply_conclusion(node->left, values);
+			return apply_conclusion(node->left, values, conflicts);
 		return APPLY_NONE;
 	}
 	if (node->type == NODE_XOR)
@@ -222,30 +239,33 @@ static t_apply_res	apply_conclusion(t_ast *node, t_value values[])
 		if (det_left && det_right)
 		{
 			if (lv == rv)
+			{
+				mark_conflict_symbols(node, conflicts);
 				return APPLY_CONFLICT;
+			}
 			return APPLY_SATISFIED;
 		}
 		if (det_left && lv == VAL_TRUE && is_literal(node->right))
 		{
 			t_ast neg = {.type = NODE_NOT, .symbol = 0, .left = node->right, .right = NULL};
-			return apply_conclusion(&neg, values);
+			return apply_conclusion(&neg, values, conflicts);
 		}
 		if (det_left && lv == VAL_FALSE)
-			return apply_conclusion(node->right, values);
+			return apply_conclusion(node->right, values, conflicts);
 		if (det_right && rv == VAL_TRUE && is_literal(node->left))
 		{
 			t_ast neg = {.type = NODE_NOT, .symbol = 0, .left = node->left, .right = NULL};
-			return apply_conclusion(&neg, values);
+			return apply_conclusion(&neg, values, conflicts);
 		}
 		if (det_right && rv == VAL_FALSE)
-			return apply_conclusion(node->left, values);
+			return apply_conclusion(node->left, values, conflicts);
 		return APPLY_NONE;
 	}
 	return APPLY_NONE;
 }
 
 /* Forward propagation pass: apply all rules whose premise is true until fixpoint */
-static int	propagate_all(t_rule *rules, t_value values[])
+static int	propagate_all(t_rule *rules, t_value values[], int conflicts[])
 {
 	int changed = 0;
 	int loop = 0;
@@ -255,12 +275,16 @@ static int	propagate_all(t_rule *rules, t_value values[])
 		int conflict = 0;
 		for (t_rule *r = rules; r; r = r->next)
 		{
-			t_value prem = eval_ast(r->premise, rules, values);
+			t_value prem = eval_ast(r->premise, rules, values, conflicts);
 			if (prem == VAL_TRUE)
 			{
-				t_apply_res res = apply_conclusion(r->conclusion, values);
+				t_apply_res res = apply_conclusion(r->conclusion, values, conflicts);
 				if (res == APPLY_PROGRESS)
+				{
 					loop_changed = 1;
+					if (g_trace)
+						trace_rule(r->id, res);
+				}
 				else if (res == APPLY_CONFLICT)
 				{
 					conflict = 1;
@@ -277,7 +301,103 @@ static int	propagate_all(t_rule *rules, t_value values[])
 	return changed;
 }
 
-static t_value	eval_symbol(char symbol, t_rule *rules, t_value values[])
+static void	collect_ast(const t_ast *node, int seen[])
+{
+	if (!node)
+		return;
+	if (node->type == NODE_SYMBOL)
+	{
+		int id = idx(node->symbol);
+		if (id >= 0 && id < 26)
+			seen[id] = 1;
+		return;
+	}
+	collect_ast(node->left, seen);
+	collect_ast(node->right, seen);
+}
+
+static void	collect_rules(t_rule *rules, int seen[])
+{
+	for (t_rule *r = rules; r; r = r->next)
+	{
+		collect_ast(r->premise, seen);
+		collect_ast(r->conclusion, seen);
+	}
+}
+
+static void	print_known(const int seen[], const t_value values[])
+{
+	printf("Known facts after fixpoint:\n");
+	for (int i = 0; i < 26; ++i)
+	{
+		if (!seen[i])
+			continue;
+		if (values[i] == VAL_TRUE)
+			printf("%c: true\n", 'A' + i);
+		else if (values[i] == VAL_FALSE)
+			printf("%c: false\n", 'A' + i);
+	}
+}
+
+static void	print_conflicts(const int conflicts[])
+{
+	printf("Conflicts detected:\n");
+	int any = 0;
+	for (int i = 0; i < 26; ++i)
+	{
+		if (conflicts[i])
+		{
+			printf("%c ", 'A' + i);
+			any = 1;
+		}
+	}
+	if (!any)
+		printf("none");
+	printf("\n");
+}
+
+static void	mark_conflict_symbols(t_ast *node, int conflicts[])
+{
+	if (!node)
+		return;
+	if (node->type == NODE_SYMBOL)
+	{
+		conflicts[idx(node->symbol)] = 1;
+		return;
+	}
+	if (node->type == NODE_NOT && node->left && node->left->type == NODE_SYMBOL)
+	{
+		conflicts[idx(node->left->symbol)] = 1;
+		return;
+	}
+	mark_conflict_symbols(node->left, conflicts);
+	mark_conflict_symbols(node->right, conflicts);
+}
+
+static void	apply_conflicts_to_values(int conflicts[], t_value values[])
+{
+	for (int i = 0; i < 26; ++i)
+	{
+		if (conflicts[i])
+			values[i] = VAL_UNKNOWN;
+	}
+}
+
+static int	values_changed(const t_value a[], const t_value b[])
+{
+	for (int i = 0; i < 26; ++i)
+		if (a[i] != b[i])
+			return 1;
+	return 0;
+}
+
+static void	trace_rule(int id, t_apply_res res)
+{
+	const char *label = (res == APPLY_PROGRESS) ? "progress" : "satisfied";
+	printf("Rule #%d fired (%s)\n", id, label);
+}
+
+static t_value	eval_symbol(char symbol, t_rule *rules, t_value values[], int conflicts[])
 {
 	int i = idx(symbol);
 	if (values[i] == VAL_TRUE || values[i] == VAL_FALSE)
@@ -299,10 +419,10 @@ static t_value	eval_symbol(char symbol, t_rule *rules, t_value values[])
 			if (!ast_contains_symbol(r->conclusion, symbol))
 				continue;
 			has_rule = 1;
-			t_value prem = eval_ast(r->premise, rules, values);
+			t_value prem = eval_ast(r->premise, rules, values, conflicts);
 			if (prem == VAL_TRUE)
 			{
-				t_apply_res applied = apply_conclusion(r->conclusion, values);
+				t_apply_res applied = apply_conclusion(r->conclusion, values, conflicts);
 				if (applied == APPLY_CONFLICT)
 					conflict = 1;
 				else if (applied == APPLY_PROGRESS || applied == APPLY_SATISFIED)
@@ -314,7 +434,11 @@ static t_value	eval_symbol(char symbol, t_rule *rules, t_value values[])
 					else
 						seen_unknown = 1;
 					if (applied == APPLY_PROGRESS)
+					{
 						changed = 1;
+						if (g_trace)
+							trace_rule(r->id, applied);
+					}
 				}
 				else
 				{
@@ -355,19 +479,51 @@ static void	print_result(char sym, t_value v)
 
 int	main(int argc, char **argv)
 {
+	int verbose = 0;
+	int show_conflicts = 0;
+	const char *path = NULL;
+	int conflicts[26] = {0};
+	if (argc >= 2 && strcmp(argv[1], "-v") == 0)
+	{
+		verbose = 1;
+		g_trace = 1;
+		if (argc >= 3 && strcmp(argv[2], "-c") == 0)
+		{
+			show_conflicts = 1;
+			path = argv[3];
+		}
+		else
+			path = argv[2];
+	}
+	else if (argc >= 2 && strcmp(argv[1], "-c") == 0)
+	{
+		show_conflicts = 1;
+		if (argc >= 3 && strcmp(argv[2], "-v") == 0)
+		{
+			verbose = 1;
+			g_trace = 1;
+			path = argv[3];
+		}
+		else
+			path = argv[2];
+	}
+	else
+	{
+		path = (argc == 2) ? argv[1] : NULL;
+	}
+	if (!path)
+	{
+		fprintf(stderr, "Usage: %s [-v] [-c] <input_file>\n", argv[0]);
+		return 1;
+	}
 	char queries[256] = {0};
 	t_value values[26];
 	for (int i = 0; i < 26; ++i)
 		values[i] = VAL_UNKNOWN;
 	t_rule *rules = NULL;
 	t_rule **tail = &rules;
-
-	if (argc != 2)
-	{
-		fprintf(stderr, "Usage: %s <input_file>\n", argv[0]);
-		return 1;
-	}
-	FILE *f = fopen(argv[1], "r");
+	int rule_id = 1;
+	FILE *f = fopen(path, "r");
 	if (!f)
 	{
 		perror("fopen");
@@ -413,7 +569,7 @@ int	main(int argc, char **argv)
 			fclose(f);
 			return 1;
 		}
-		t_rule *r = rule_new(prem, conc);
+		t_rule *r = rule_new(prem, conc, rule_id++);
 		if (!r)
 		{
 			perror("malloc");
@@ -429,7 +585,7 @@ int	main(int argc, char **argv)
 		{
 			t_ast *rev_p = ast_clone(conc);
 			t_ast *rev_c = ast_clone(prem);
-			t_rule *rev = rule_new(rev_p, rev_c);
+			t_rule *rev = rule_new(rev_p, rev_c, rule_id++);
 			if (!rev)
 			{
 				perror("malloc");
@@ -449,13 +605,35 @@ int	main(int argc, char **argv)
 		return 1;
 	}
 	/* Optional forward pass to expose trivial deductions before answering */
-	propagate_all(rules, values);
+	int seen[26] = {0};
+	collect_rules(rules, seen);
+	for (int qi = 0; queries[qi]; ++qi)
+		if (isupper((unsigned char)queries[qi]))
+			seen[idx(queries[qi])] = 1;
+	for (int iter = 0; iter < 50; ++iter)
+	{
+		t_value before[26];
+		memcpy(before, values, sizeof(values));
+		for (int s = 0; s < 26; ++s)
+			if (seen[s])
+				eval_symbol('A' + s, rules, values, conflicts);
+		propagate_all(rules, values, conflicts);
+		apply_conflicts_to_values(conflicts, values);
+		if (!values_changed(before, values))
+			break;
+	}
+	if (verbose)
+		print_known(seen, values);
+	if (show_conflicts)
+		print_conflicts(conflicts);
 	for (int i = 0; queries[i]; ++i)
 	{
 		char q = queries[i];
 		if (!isupper((unsigned char)q))
 			continue;
-		t_value v = eval_symbol(q, rules, values);
+		t_value v = eval_symbol(q, rules, values, conflicts);
+		if (conflicts[idx(q)])
+			v = VAL_UNKNOWN;
 		print_result(q, v);
 	}
 	rules_free(rules);
