@@ -12,6 +12,8 @@
 Sections obligatoires : `states`, `alphabet`, `blank`, `initial`. Le validateur refuse les fichiers où l'une de ces sections manque.
 Une transition ne doit pas contenir de tokens supplémentaires au-delà des 6 attendus.
 
+Option `-c` (complétude) : vérifie que chaque état non-acceptant possède une transition pour chaque symbole de l'alphabet (y compris le blanc). Utile pour s'assurer que la machine est totale.
+
 Exemple minimal :
 ```
 states: q0,q1,qacc

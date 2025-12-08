@@ -135,3 +135,18 @@ Machine parse_machine(const std::string &path)
 	validate_machine(m);
 	return m;
 }
+
+void validate_total_transitions(const Machine &m)
+{
+	for (const std::string &state : m.states)
+	{
+		if (m.accept_states.count(state))
+			continue; // accept states may halt
+		for (char sym : m.alphabet)
+		{
+			auto sit = m.transitions.find(state);
+			if (sit == m.transitions.end() || sit->second.find(sym) == sit->second.end())
+				throw std::runtime_error("Missing transition for state " + state + " and symbol " + std::string(1, sym));
+		}
+	}
+}

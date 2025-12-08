@@ -32,4 +32,5 @@ struct SimulationResult
 };
 
 Machine parse_machine(const std::string &path);
+void validate_total_transitions(const Machine &m);
 SimulationResult simulate(const Machine &m, const std::string &input, int max_steps, bool verbose);
