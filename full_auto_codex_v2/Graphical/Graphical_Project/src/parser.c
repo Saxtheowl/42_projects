@@ -116,6 +116,16 @@ static int	parse_ambient(char **tok, t_scene *scene)
 	return 1;
 }
 
+static int	parse_fog(char **tok, t_scene *scene)
+{
+	if (!read_double(tok, &scene->fog_density) || !read_color(tok, &scene->fog_color))
+		return 0;
+	if (scene->fog_density < 0.0)
+		scene->fog_density = 0.0;
+	scene->fog_enabled = scene->fog_density > 0.0;
+	return 1;
+}
+
 static int	parse_light(char **tok, t_scene *scene)
 {
 	if (!ensure_light_cap(scene, scene->lights_count + 1))
@@ -220,6 +230,8 @@ static int	dispatch(char *line, t_scene *scene, int lineno)
 		return parse_camera(&args, scene);
 	if (strcmp(tok, "ambient") == 0)
 		return parse_ambient(&args, scene);
+	if (strcmp(tok, "fog") == 0)
+		return parse_fog(&args, scene);
 	if (strcmp(tok, "light") == 0)
 		return parse_light(&args, scene);
 	if (strcmp(tok, "spot") == 0)
@@ -249,6 +261,9 @@ int	parse_scene(const char *path, t_scene *scene)
 	memset(scene, 0, sizeof(*scene));
 	scene->sky_top = (t_color){135, 206, 250};
 	scene->sky_bottom = (t_color){30, 30, 40};
+	scene->fog_density = 0.0;
+	scene->fog_color = (t_color){200, 200, 200};
+	scene->fog_enabled = 0;
 	char buf[1024];
 	int ok = 1;
 	int lineno = 0;

@@ -107,3 +107,4 @@
 2025-12-08 23:58:26 | Graphical/Graphical_Project | IN_PROGRESS | Ajout tonemap (none/reinhard/aces), export depth/normal, primitive box, checker sur plans, ciel personnalisable (--sky), PPM multi-thread/supersampling/gamma/reflexions (--maxdepth); MLX toujours manquante.
 2025-12-09 00:03:30 | Graphical/Graphical_Project | IN_PROGRESS | Ajout atténuation quadratique des lumières pour un shading plus réaliste (évite la surexposition en proximité); rendu PPM intact, MLX toujours manquante.
 2025-12-09 00:09:06 | Graphical/Graphical_Project | IN_PROGRESS | Ajout des spots (direction + cutoff) dans parser/rendu + nouvelle scène `assets/scenes/spotlight.rt`; MLX toujours manquante.
+2025-12-09 00:12:44 | Graphical/Graphical_Project | IN_PROGRESS | Ajout du brouillard exponentiel global (token `fog`) mixé avec la distance + scène `assets/scenes/foggy.rt`; MLX toujours manquante.

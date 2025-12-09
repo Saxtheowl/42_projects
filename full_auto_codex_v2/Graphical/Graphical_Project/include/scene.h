@@ -80,6 +80,9 @@ typedef struct s_scene
 	double ambient_intensity;
 	t_color sky_top;
 	t_color sky_bottom;
+	double fog_density;
+	t_color fog_color;
+	int fog_enabled;
 	t_light *lights;
 	size_t lights_count;
 	size_t lights_cap;

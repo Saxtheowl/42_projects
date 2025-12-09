@@ -16,14 +16,15 @@ Sujet RT (ray tracing) : rendu d’images 3D en ray tracing avec au moins quatre
 Mise à jour (2025-12-08 23:00:33) : PPM amélioré (fond ciel, supersampling, multithread), CLI enrichie (`--out`, `--size`, `--samples`, `--threads`); MLX toujours en attente.
 Mise à jour (2025-12-09 00:03:30) : Ajout d’une atténuation quadratique des lumières pour éviter la surexposition sur les plans proches et rendre le shading plus réaliste (diffuse/specular pondérés par la distance).
 Mise à jour (2025-12-09 00:09:06) : Ajout des spots directionnels (position + direction + cutoff) dans le parser/rendu; nouvelle scène `assets/scenes/spotlight.rt` pour tester le faisceau et le fill light.
+Mise à jour (2025-12-09 00:12:44) : Ajout du brouillard exponentiel global (`fog densité r g b`) mixé selon la distance caméra→objet; scène `assets/scenes/foggy.rt` pour illustrer.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
 - `camera px py pz dx dy dz fov` — position et direction caméra normalisée, FOV en degrés.
-- `light px py pz i r g b` — point light avec intensité i (0-1) et couleur (0-255).
-- `ambient i r g b` — lumière ambiante.
-- `light px py pz i r g b` — point light (ancienne syntaxe).
+- `light px py pz i r g b` — point light (intensité 0-1, couleur 0-255).
 - `spot px py pz dx dy dz cutoff_deg i r g b` — spot orienté; direction normalisée, cutoff en degrés.
+- `fog density r g b` — brouillard exponentiel global, densité >= 0.
+- `ambient i r g b` — lumière ambiante.
 - `sphere px py pz radius r g b kd ks shininess [reflect]`
 - `plane px py pz nx ny nz r g b kd ks shininess [reflect]`
 - `cylinder px py pz dx dy dz radius height r g b kd ks shininess [reflect]`

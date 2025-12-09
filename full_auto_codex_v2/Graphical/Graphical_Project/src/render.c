@@ -396,6 +396,14 @@ static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
 	if (!trace(scene, ro, rd, &hit))
 		return background_color(scene, rd);
 	t_color local = shade(scene, &hit, rd);
+	if (scene->fog_enabled && scene->fog_density > 0.0)
+	{
+		double f = 1.0 - exp(-scene->fog_density * hit.t);
+		f = f < 0.0 ? 0.0 : (f > 1.0 ? 1.0 : f);
+		local.r = clamp_i((int)(local.r * (1.0 - f) + scene->fog_color.r * f), 0, 255);
+		local.g = clamp_i((int)(local.g * (1.0 - f) + scene->fog_color.g * f), 0, 255);
+		local.b = clamp_i((int)(local.b * (1.0 - f) + scene->fog_color.b * f), 0, 255);
+	}
 	if (depth <= 0 || hit.mat.reflect <= 1e-6)
 		return local;
 	t_vec3 refl_dir = reflect(vec_scale(rd, -1.0), hit.normal);
