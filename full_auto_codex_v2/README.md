@@ -11,5 +11,6 @@ Derniere mise a jour (2025-12-09 00:43:13) : Graphical_Project : `mesh` supporte
 Derniere mise a jour (2025-12-09 00:48:23) : Graphical_Project : roughness sur les matériaux pour reflets glossy (scene `assets/scenes/glossy.rt`); MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:54:17) : Graphical_Project : loader OBJ supporte les normals `vn`/faces `v//n` + interpolation; scènes `mesh_normals.rt`/`pyramid.obj`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:58:21) : Graphical_Project : matériaux émissifs (emission_strength + couleur) et scène `assets/scenes/emissive.rt`; MLX toujours en attente.
+Derniere mise a jour (2025-12-09 01:02:45) : Graphical_Project : mix refl/trans plus physique via Fresnel (Schlick) pour pondération auto des reflets.
 Derniere mise a jour (2025-12-09 00:33:24) : Graphical_Project : primitive triangle ajoutée (parser + intersection) avec scène `assets/scenes/triangles.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:23:54) : Graphical_Project : profondeur de champ (aperture/focal_dist) + scène `assets/scenes/dof.rt`; MLX toujours en attente.

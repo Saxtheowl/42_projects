@@ -26,6 +26,7 @@ Mise à jour (2025-12-09 00:43:13) : `mesh` supporte un scale/translate optionne
 Mise à jour (2025-12-09 00:48:23) : Ajout du roughness pour les reflets (réflexions glossy jitterisées); scène `assets/scenes/glossy.rt` pour tester les reflets flous.
 Mise à jour (2025-12-09 00:54:17) : Loader OBJ étendu : normals `vn` + faces `v//n` supportées, normales interpolées sur les triangles; scènes `assets/scenes/mesh_normals.rt` et `assets/meshes/pyramid.obj`.
 Mise à jour (2025-12-09 00:58:21) : Matériaux émissifs (`emission_strength r g b`) pour auto-éclairage des surfaces; scène `assets/scenes/emissive.rt` avec panneau lumineux.
+Mise à jour (2025-12-09 01:02:45) : Mélange réflexion/réfraction plus physique via Fresnel (Schlick) pour pondérer dynamiquement refl/trans.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.

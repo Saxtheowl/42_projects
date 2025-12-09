@@ -515,6 +515,26 @@ static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
 	double kt = hit.mat.transparency;
 	if (kr <= 1e-6 && kt <= 1e-6)
 		return local;
+	double cosi = fabs(vec_dot(rd, hit.normal));
+	double etai = 1.0, etat = hit.mat.ior;
+	if (vec_dot(rd, hit.normal) > 0.0)
+	{
+		double tmp = etai;
+		etai = etat;
+		etat = tmp;
+	}
+	double r0 = (etai - etat) / (etai + etat);
+	r0 = r0 * r0;
+	double fresnel = r0 + (1.0 - r0) * pow(1.0 - cosi, 5.0);
+	double refl_weight = kr + (1.0 - kr) * fresnel;
+	if (refl_weight > 1.0)
+		refl_weight = 1.0;
+	double trans_weight = kt * (1.0 - refl_weight);
+	if (trans_weight < 0.0)
+		trans_weight = 0.0;
+	double base = 1.0 - refl_weight - trans_weight;
+	if (base < 0.0)
+		base = 0.0;
 	t_vec3 refl_dir = reflect(vec_scale(rd, -1.0), hit.normal);
 	if (hit.mat.roughness > 1e-6)
 	{
@@ -540,13 +560,10 @@ static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
 		else
 			kt = 0.0;
 	}
-	double base = 1.0 - kr - kt;
-	if (base < 0.0)
-		base = 0.0;
 	t_color out;
-	out.r = clamp_i((int)(local.r * base + refl_col.r * kr + refr_col.r * kt), 0, 255);
-	out.g = clamp_i((int)(local.g * base + refl_col.g * kr + refr_col.g * kt), 0, 255);
-	out.b = clamp_i((int)(local.b * base + refl_col.b * kr + refr_col.b * kt), 0, 255);
+	out.r = clamp_i((int)(local.r * base + refl_col.r * refl_weight + refr_col.r * trans_weight), 0, 255);
+	out.g = clamp_i((int)(local.g * base + refl_col.g * refl_weight + refr_col.g * trans_weight), 0, 255);
+	out.b = clamp_i((int)(local.b * base + refl_col.b * refl_weight + refr_col.b * trans_weight), 0, 255);
 	return out;
 }
 

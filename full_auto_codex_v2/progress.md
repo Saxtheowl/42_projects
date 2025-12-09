@@ -117,3 +117,4 @@
 2025-12-09 00:48:23 | Graphical/Graphical_Project | IN_PROGRESS | Matériaux avec roughness pour reflets glossy + scène `assets/scenes/glossy.rt`; MLX toujours manquante.
 2025-12-09 00:54:17 | Graphical/Graphical_Project | IN_PROGRESS | Loader OBJ supporte normals `vn` (faces v//n) + interpolation; mesh/scene `pyramid.obj`/`mesh_normals.rt`; MLX toujours manquante.
 2025-12-09 00:58:21 | Graphical/Graphical_Project | IN_PROGRESS | Matériaux émissifs (emission_strength + couleur) + scène `assets/scenes/emissive.rt`; MLX toujours manquante.
+2025-12-09 01:02:45 | Graphical/Graphical_Project | IN_PROGRESS | Mélange refl/trans basé Fresnel (Schlick) pour un rendu plus physique; MLX toujours manquante.
