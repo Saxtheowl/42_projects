@@ -271,6 +271,109 @@ static int	parse_object(char **tok, t_scene *scene, t_objtype type)
 	return 1;
 }
 
+static int	parse_face_index(const char *s, int *out)
+{
+	char buf[64];
+	size_t i = 0;
+	while (s[i] && s[i] != '/' && i + 1 < sizeof(buf))
+	{
+		buf[i] = s[i];
+		++i;
+	}
+	buf[i] = '\0';
+	char *end = NULL;
+	long v = strtol(buf, &end, 10);
+	if (end == buf || v <= 0)
+		return 0;
+	*out = (int)v;
+	return 1;
+}
+
+static int	parse_mesh(char **tok, t_scene *scene)
+{
+	if (!*tok)
+		return 0;
+	const char *path = *tok;
+	*tok = strtok(NULL, " \t");
+	t_material mat;
+	if (!fill_material(tok, &mat))
+		return 0;
+	FILE *f = fopen(path, "r");
+	if (!f)
+	{
+		perror("fopen mesh");
+		return 0;
+	}
+	size_t vcap = 16, vcount = 0;
+	t_vec3 *verts = malloc(vcap * sizeof(t_vec3));
+	if (!verts)
+	{
+		fclose(f);
+		return 0;
+	}
+	char line[256];
+	int ok = 1;
+	while (ok && fgets(line, sizeof(line), f))
+	{
+		if (line[0] == 'v' && isspace((unsigned char)line[1]))
+		{
+			t_vec3 v;
+			if (sscanf(line + 1, "%lf %lf %lf", &v.x, &v.y, &v.z) != 3)
+			{
+				ok = 0;
+				break ;
+			}
+			if (vcount == vcap)
+			{
+				vcap *= 2;
+				t_vec3 *nv = realloc(verts, vcap * sizeof(t_vec3));
+				if (!nv)
+				{
+					ok = 0;
+					break ;
+				}
+				verts = nv;
+			}
+			verts[vcount++] = v;
+		}
+		else if (line[0] == 'f' && isspace((unsigned char)line[1]))
+		{
+			char a[64], b[64], c[64];
+			if (sscanf(line + 1, "%63s %63s %63s", a, b, c) != 3)
+			{
+				ok = 0;
+				break ;
+			}
+			int ia, ib, ic;
+			if (!parse_face_index(a, &ia) || !parse_face_index(b, &ib) || !parse_face_index(c, &ic))
+			{
+				ok = 0;
+				break ;
+			}
+			if (ia < 1 || ib < 1 || ic < 1 || (size_t)ia > vcount || (size_t)ib > vcount || (size_t)ic > vcount)
+			{
+				ok = 0;
+				break ;
+			}
+			if (!ensure_obj_cap(scene, scene->objects_count + 1))
+			{
+				ok = 0;
+				break ;
+			}
+			t_object *o = &scene->objects[scene->objects_count++];
+			memset(o, 0, sizeof(*o));
+			o->type = OBJ_TRIANGLE;
+			o->v0 = verts[ia - 1];
+			o->v1 = verts[ib - 1];
+			o->v2 = verts[ic - 1];
+			o->mat = mat;
+		}
+	}
+	free(verts);
+	fclose(f);
+	return ok;
+}
+
 static int	dispatch(char *line, t_scene *scene, int lineno)
 {
 	if (*line == '\0' || *line == '#')
@@ -301,6 +404,8 @@ static int	dispatch(char *line, t_scene *scene, int lineno)
 		return parse_object(&args, scene, OBJ_BOX);
 	if (strcmp(tok, "triangle") == 0)
 		return parse_object(&args, scene, OBJ_TRIANGLE);
+	if (strcmp(tok, "mesh") == 0)
+		return parse_mesh(&args, scene);
 	fprintf(stderr, "Unknown token at line %d\n", lineno);
 	return 0;
 }

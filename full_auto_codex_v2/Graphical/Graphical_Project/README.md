@@ -21,6 +21,7 @@ Mise à jour (2025-12-09 00:18:26) : Matériaux transparents/réfractifs (coeff 
 Mise à jour (2025-12-09 00:23:54) : Profondeur de champ (aperture/focal_dist optionnels sur `camera`) avec jitter sur le disque de lentille; scène `assets/scenes/dof.rt` pour démontrer le bokeh.
 Mise à jour (2025-12-09 00:29:20) : Ombres douces via un rayon optionnel sur les lights (multi shadow rays); scène `assets/scenes/soft_shadow.rt` dédiée.
 Mise à jour (2025-12-09 00:33:24) : Primitive triangle (parser + intersection) et scène `assets/scenes/triangles.rt` (plaque triangulaire + triangle dressé).
+Mise à jour (2025-12-09 00:37:48) : Loader OBJ minimal (`mesh path ...`) qui triangule les faces et génère des triangles; exemple `assets/scenes/mesh.rt` + `assets/meshes/quad.obj`.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
@@ -35,6 +36,7 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 - `cone px py pz dx dy dz angle_deg height r g b kd ks shininess [reflect]`
 - `box px py pz sx sy sz r g b kd ks shininess [reflect]`
 - `triangle x1 y1 z1 x2 y2 z2 x3 y3 z3 r g b kd ks shininess [reflect transparency ior]`
+- `mesh path r g b kd ks shininess [reflect transparency ior]` — charge un OBJ (v/f), faces triangulées.
 Où `kd/ks` sont coefficients diffuse/specular. Les directions (dx dy dz) doivent être normalisées dans la scène ou lors du parse.
 L'option `reflect` est facultative (0-1) pour mélanger une réflexion (un rebond).
 
@@ -50,3 +52,4 @@ Scènes fournies :
 - `assets/scenes/dof.rt` : profondeur de champ (aperture/focal_dist) avec sphere/box/cone pour visualiser le bokeh.
 - `assets/scenes/soft_shadow.rt` : zone lights avec rayon pour produire des ombres douces.
 - `assets/scenes/triangles.rt` : triangles (plaque + triangle dressé) pour vérifier l’intersection triangle.
+- `assets/scenes/mesh.rt` : quad OBJ chargé via `mesh`, plus triangle supplémentaire.
