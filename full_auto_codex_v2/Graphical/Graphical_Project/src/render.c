@@ -816,15 +816,18 @@ static void	write_normals_ppm(const char *path, const t_vec3 *normals, int width
 	fclose(f);
 }
 
-int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth, const char *depth_path, const char *normal_path, t_tonemap tonemap)
+int	render_ppm(const t_scene *scene, const char *path, int width, int height, int samples, int threads, double gamma, int max_depth, const char *depth_path, const char *normal_path, t_tonemap tonemap, int binary)
 {
-	FILE *f = fopen(path, "w");
+	FILE *f = fopen(path, binary ? "wb" : "w");
 	if (!f)
 	{
 		perror("fopen");
 		return 0;
 	}
-	fprintf(f, "P3\n%d %d\n255\n", width, height);
+	if (binary)
+		fprintf(f, "P6\n%d %d\n255\n", width, height);
+	else
+		fprintf(f, "P3\n%d %d\n255\n", width, height);
 	t_vec3 forward = vec_norm(scene->camera.dir);
 	t_vec3 up = {0, 1, 0};
 	if (fabs(vec_dot(up, forward)) > 0.99)
@@ -887,17 +890,48 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 	}
 	for (int i = 0; i < threads; ++i)
 		pthread_join(th[i], NULL);
-	for (int y = 0; y < height; ++y)
+	if (binary)
 	{
-		for (int x = 0; x < width; ++x)
+		unsigned char *row = malloc((size_t)width * 3);
+		if (!row)
 		{
-			t_color c = buffer[y * width + x];
-			double lr = tonemap_channel(c.r / 255.0, tonemap);
-			double lg = tonemap_channel(c.g / 255.0, tonemap);
-			double lb = tonemap_channel(c.b / 255.0, tonemap);
-			fprintf(f, "%d %d %d ", apply_gamma((int)(lr * 255.0), gamma), apply_gamma((int)(lg * 255.0), gamma), apply_gamma((int)(lb * 255.0), gamma));
+			perror("malloc");
+			free(buffer);
+			free(depths);
+			free(normals);
+			fclose(f);
+			return 0;
 		}
-		fprintf(f, "\n");
+		for (int y = 0; y < height; ++y)
+		{
+			for (int x = 0; x < width; ++x)
+			{
+				t_color c = buffer[y * width + x];
+				double lr = tonemap_channel(c.r / 255.0, tonemap);
+				double lg = tonemap_channel(c.g / 255.0, tonemap);
+				double lb = tonemap_channel(c.b / 255.0, tonemap);
+				row[x * 3 + 0] = (unsigned char)apply_gamma((int)(lr * 255.0), gamma);
+				row[x * 3 + 1] = (unsigned char)apply_gamma((int)(lg * 255.0), gamma);
+				row[x * 3 + 2] = (unsigned char)apply_gamma((int)(lb * 255.0), gamma);
+			}
+			fwrite(row, 1, (size_t)width * 3, f);
+		}
+		free(row);
+	}
+	else
+	{
+		for (int y = 0; y < height; ++y)
+		{
+			for (int x = 0; x < width; ++x)
+			{
+				t_color c = buffer[y * width + x];
+				double lr = tonemap_channel(c.r / 255.0, tonemap);
+				double lg = tonemap_channel(c.g / 255.0, tonemap);
+				double lb = tonemap_channel(c.b / 255.0, tonemap);
+				fprintf(f, "%d %d %d ", apply_gamma((int)(lr * 255.0), gamma), apply_gamma((int)(lg * 255.0), gamma), apply_gamma((int)(lb * 255.0), gamma));
+			}
+			fprintf(f, "\n");
+		}
 	}
 	fclose(f);
 	if (depth_path)

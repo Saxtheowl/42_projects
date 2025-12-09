@@ -33,6 +33,8 @@ Mise à jour (2025-12-09 01:23:34) : Ajout uv_scale (tile textures) sur sphères
 Mise à jour (2025-12-09 01:27:40) : Textures échantillonnées en bilinéaire pour éviter l’aliasing (wrap); applicable à tous les objets texturés.
 Mise à jour (2025-12-09 01:32:53) : Ajustements CLI (doc options matériaux/texture) et wrap bilinéaire consolidé.
 Mise à jour (2025-12-09 01:38:46) : Ajout des lumières directionnelles (`dirlight`/`sun`) avec intensité/couleur/rayon soft; scène `assets/scenes/sun.rt`.
+Mise à jour (2025-12-09 01:42:51) : Mesh: rotation optionnelle (rx ry rz) après scale/translate + scène `assets/scenes/mesh_rotated.rt`; env map et lights support inchangés.
+Mise à jour (2025-12-09 01:53:52) : Ajout envmap `env ...` pour le fond (échantillonnage sphérique) + PPM binaire optionnel `--binary` (P6) pour accélérer l’export; `assets/scenes/envmap.rt` illustre l’option.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
@@ -40,6 +42,7 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 - `light px py pz i r g b [radius]` — point light (intensité 0-1, couleur 0-255), rayon optionnel pour ombres douces.
 - `spot px py pz dx dy dz cutoff_deg i r g b [radius]` — spot orienté; direction normalisée, cutoff en degrés, rayon optionnel pour ombres douces.
 - `fog density r g b` — brouillard exponentiel global, densité >= 0.
+- `env path.ppm` — env map PPM (P3) sphérique pour le fond.
 - `ambient i r g b` — lumière ambiante.
 - `sphere px py pz radius r g b kd ks shininess [reflect transparency ior roughness emission_strength er eg eb [texture.ppm]]`
 - `plane px py pz nx ny nz r g b kd ks shininess [reflect]`
@@ -70,3 +73,6 @@ Scènes fournies :
 - `assets/scenes/emissive.rt` : panneau lumineux émissif + objets diffus/réfléchissants.
 - `assets/scenes/textured.rt` : plan + sphère texturés (checker PPM).
 - `assets/scenes/textured_tiled.rt` : démonstration du tiling via uv_scale sur plan/sphère.
+- `assets/scenes/mesh_rotated.rt` : exemple de rotation mesh (quad pivoté et décalé).
+- `assets/scenes/sun.rt` : lumière directionnelle + fill light.
+- `assets/scenes/envmap.rt` : fond envmap PPM + simple éclairage.

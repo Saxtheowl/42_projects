@@ -21,3 +21,4 @@ Derniere mise a jour (2025-12-09 01:38:46) : Graphical_Project : lumières direc
 Derniere mise a jour (2025-12-09 01:42:51) : Graphical_Project : rotation des meshes (rx ry rz après scale/translate) + scène `assets/scenes/mesh_rotated.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:33:24) : Graphical_Project : primitive triangle ajoutée (parser + intersection) avec scène `assets/scenes/triangles.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:23:54) : Graphical_Project : profondeur de champ (aperture/focal_dist) + scène `assets/scenes/dof.rt`; MLX toujours en attente.
+Derniere mise a jour (2025-12-09 01:53:52) : Graphical_Project : env map pour le fond (`env` PPM) et export PPM binaire optionnel `--binary` (P6) pour accélérer l’écriture; MLX toujours en attente.

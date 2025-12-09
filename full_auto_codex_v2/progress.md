@@ -123,4 +123,5 @@
 2025-12-09 01:32:53 | Graphical/Graphical_Project | IN_PROGRESS | Bilinear wrap consolidé + doc CLI matériaux/texture; MLX toujours manquante.
 2025-12-09 01:38:46 | Graphical/Graphical_Project | IN_PROGRESS | Lumières directionnelles (`dirlight`/`sun`) avec rayon soft + scène `assets/scenes/sun.rt`; MLX toujours manquante.
 2025-12-09 01:42:51 | Graphical/Graphical_Project | IN_PROGRESS | Transformation mesh étendue (rotation XYZ après scale/translate) + scène `assets/scenes/mesh_rotated.rt`; MLX toujours manquante.
+2025-12-09 01:53:52 | Graphical/Graphical_Project | IN_PROGRESS | Env map en fond (`env` PPM) + export PPM binaire `--binary` (P6); MLX toujours manquante.
 2025-12-09 01:02:45 | Graphical/Graphical_Project | IN_PROGRESS | Mélange refl/trans basé Fresnel (Schlick) pour un rendu plus physique; MLX toujours manquante.
