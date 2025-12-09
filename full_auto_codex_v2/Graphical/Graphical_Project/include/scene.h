@@ -77,6 +77,10 @@ typedef struct s_object
 	t_vec3 v0;     /* triangle vertices */
 	t_vec3 v1;
 	t_vec3 v2;
+	t_vec3 vn0;    /* vertex normals (optional) */
+	t_vec3 vn1;
+	t_vec3 vn2;
+	int has_vertex_normals;
 	int checker_enabled;
 	double checker_size;
 	t_color checker_color;

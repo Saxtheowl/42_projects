@@ -298,7 +298,17 @@ static int	intersect_triangle(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hi
 	double t = vec_dot(v0v2, qvec) * invDet;
 	if (t < 1e-4)
 		return 0;
-	t_vec3 n = vec_norm(vec_cross(v0v1, v0v2));
+	t_vec3 n;
+	if (o->has_vertex_normals)
+	{
+		double w = 1.0 - u - v;
+		n = vec_norm((t_vec3){
+				o->vn0.x * w + o->vn1.x * u + o->vn2.x * v,
+				o->vn0.y * w + o->vn1.y * u + o->vn2.y * v,
+				o->vn0.z * w + o->vn1.z * u + o->vn2.z * v});
+	}
+	else
+		n = vec_norm(vec_cross(v0v1, v0v2));
 	hit->t = t;
 	hit->point = vec_add(ro, vec_scale(rd, t));
 	hit->normal = n;

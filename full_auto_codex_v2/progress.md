@@ -115,3 +115,4 @@
 2025-12-09 00:37:48 | Graphical/Graphical_Project | IN_PROGRESS | Loader OBJ (`mesh path ...`) qui triangule les faces; nouvelle scène `assets/scenes/mesh.rt` + mesh `assets/meshes/quad.obj`; MLX toujours manquante.
 2025-12-09 00:43:13 | Graphical/Graphical_Project | IN_PROGRESS | `mesh` supporte scale/translate optionnel (sx sy sz tx ty tz) + scène `assets/scenes/mesh_scaled.rt`; MLX toujours manquante.
 2025-12-09 00:48:23 | Graphical/Graphical_Project | IN_PROGRESS | Matériaux avec roughness pour reflets glossy + scène `assets/scenes/glossy.rt`; MLX toujours manquante.
+2025-12-09 00:54:17 | Graphical/Graphical_Project | IN_PROGRESS | Loader OBJ supporte normals `vn` (faces v//n) + interpolation; mesh/scene `pyramid.obj`/`mesh_normals.rt`; MLX toujours manquante.
