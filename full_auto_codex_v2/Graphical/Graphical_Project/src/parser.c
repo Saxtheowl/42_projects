@@ -61,6 +61,62 @@ static int	read_color(char **tok, t_color *c)
 	return read_int(tok, &c->r) && read_int(tok, &c->g) && read_int(tok, &c->b);
 }
 
+static t_texture	*load_ppm(const char *path)
+{
+	FILE *f = fopen(path, "r");
+	if (!f)
+	{
+		perror("fopen texture");
+		return NULL;
+	}
+	char magic[3] = {0};
+	if (fscanf(f, "%2s", magic) != 1 || strcmp(magic, "P3") != 0)
+	{
+		fprintf(stderr, "Unsupported texture format (need P3): %s\n", path);
+		fclose(f);
+		return NULL;
+	}
+	int w, h, maxv;
+	if (fscanf(f, "%d %d %d", &w, &h, &maxv) != 3 || maxv <= 0)
+	{
+		fprintf(stderr, "Invalid PPM header: %s\n", path);
+		fclose(f);
+		return NULL;
+	}
+	t_texture *tex = calloc(1, sizeof(*tex));
+	if (!tex)
+	{
+		fclose(f);
+		return NULL;
+	}
+	tex->width = w;
+	tex->height = h;
+	tex->pixels = malloc((size_t)w * (size_t)h * sizeof(t_color));
+	if (!tex->pixels)
+	{
+		free(tex);
+		fclose(f);
+		return NULL;
+	}
+	for (int i = 0; i < w * h; ++i)
+	{
+		int r, g, b;
+		if (fscanf(f, "%d %d %d", &r, &g, &b) != 3)
+		{
+			fprintf(stderr, "Unexpected EOF in texture %s\n", path);
+			free(tex->pixels);
+			free(tex);
+			fclose(f);
+			return NULL;
+		}
+		tex->pixels[i].r = r;
+		tex->pixels[i].g = g;
+		tex->pixels[i].b = b;
+	}
+	fclose(f);
+	return tex;
+}
+
 static t_vec3	normalize(t_vec3 v)
 {
 	double len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
@@ -185,7 +241,7 @@ static int	parse_spot(char **tok, t_scene *scene)
 	return 1;
 }
 
-static int	fill_material(char **tok, t_material *m)
+static int	fill_material(char **tok, t_material *m, t_scene *scene)
 {
 	if (!read_color(tok, &m->color))
 		return 0;
@@ -199,6 +255,7 @@ static int	fill_material(char **tok, t_material *m)
 	m->roughness = 0.0;
 	m->emission_strength = 0.0;
 	m->emission_color = (t_color){0, 0, 0};
+	m->texture = NULL;
 	if (*tok)
 	{
 		if (!read_double(tok, &m->reflect))
@@ -245,6 +302,15 @@ static int	fill_material(char **tok, t_material *m)
 				return 0;
 		}
 	}
+	if (*tok)
+	{
+		t_texture *tex = load_ppm(*tok);
+		if (!tex)
+			return 0;
+		m->texture = tex;
+		tex->next = scene->textures;
+		scene->textures = tex;
+	}
 	return 1;
 }
 
@@ -282,7 +348,7 @@ static int	parse_object(char **tok, t_scene *scene, t_objtype type)
 	if (type == OBJ_CYLINDER || type == OBJ_CONE)
 		if (!read_double(tok, &o->height))
 			return 0;
-	if (!fill_material(tok, &o->mat))
+	if (!fill_material(tok, &o->mat, scene))
 		return 0;
 	if (type == OBJ_PLANE && *tok)
 	{
@@ -333,7 +399,7 @@ static int	parse_mesh(char **tok, t_scene *scene)
 	const char *path = *tok;
 	*tok = strtok(NULL, " \t");
 	t_material mat;
-	if (!fill_material(tok, &mat))
+	if (!fill_material(tok, &mat, scene))
 		return 0;
 	t_vec3 scale = {1.0, 1.0, 1.0};
 	t_vec3 translate = {0.0, 0.0, 0.0};
@@ -357,9 +423,11 @@ static int	parse_mesh(char **tok, t_scene *scene)
 	t_vec3 *verts = malloc(vcap * sizeof(t_vec3));
 	size_t ncap = 16, ncount = 0;
 	t_vec3 *normals = malloc(ncap * sizeof(t_vec3));
-	if (!verts)
+	if (!verts || !normals)
 	{
 		fclose(f);
+		free(verts);
+		free(normals);
 		return 0;
 	}
 	char line[256];
@@ -547,6 +615,14 @@ int	parse_scene(const char *path, t_scene *scene)
 
 void	free_scene(t_scene *scene)
 {
+	t_texture *tex = scene->textures;
+	while (tex)
+	{
+		t_texture *next = tex->next;
+		free(tex->pixels);
+		free(tex);
+		tex = next;
+	}
 	free(scene->lights);
 	free(scene->objects);
 	memset(scene, 0, sizeof(*scene));

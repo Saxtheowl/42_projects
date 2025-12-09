@@ -382,6 +382,28 @@ static void	apply_checker(const t_object *obj, t_hit *hit)
 
 static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 {
+	/* textures */
+	if (hit->mat.texture)
+	{
+		if (hit->obj && hit->obj->type == OBJ_SPHERE)
+		{
+			t_vec3 p = vec_norm(vec_sub(hit->point, hit->obj->pos));
+			double u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
+			double v = 0.5 - asin(p.y) / M_PI;
+			hit->mat.color = sample_texture(hit->mat.texture, u, v);
+		}
+		else if (hit->obj && hit->obj->type == OBJ_PLANE)
+		{
+			t_vec3 n = vec_norm(hit->obj->dir);
+			t_vec3 tangent = fabs(n.x) > 0.9 ? (t_vec3){0, 1, 0} : (t_vec3){1, 0, 0};
+			tangent = vec_norm(vec_cross(tangent, n));
+			t_vec3 bitangent = vec_norm(vec_cross(n, tangent));
+			t_vec3 rel = vec_sub(hit->point, hit->obj->pos);
+			double u = vec_dot(rel, tangent);
+			double v = vec_dot(rel, bitangent);
+			hit->mat.color = sample_texture(hit->mat.texture, u, v);
+		}
+	}
 	apply_checker(hit->obj, hit);
 	double r = scene->ambient_intensity * hit->mat.color.r * scene->ambient_color.r / 255.0 / 255.0;
 	double g = scene->ambient_intensity * hit->mat.color.g * scene->ambient_color.g / 255.0 / 255.0;
@@ -493,6 +515,18 @@ static t_vec3	random_in_unit_sphere(uint32_t seed)
 	double sinphi = sqrt(fmax(0.0, 1.0 - cosphi * cosphi));
 	double r = cbrt(hash_u32(seed * 747796405u + 2891336453u));
 	return (t_vec3){r * sinphi * cos(theta), r * sinphi * sin(theta), r * cosphi};
+}
+
+t_color	sample_texture(const t_texture *tex, double u, double v)
+{
+	if (!tex || !tex->pixels || tex->width <= 0 || tex->height <= 0)
+		return (t_color){0, 0, 0};
+	u = u - floor(u);
+	v = v - floor(v);
+	int x = (int)(u * tex->width) % tex->width;
+	int y = (int)(v * tex->height) % tex->height;
+	int idx = y * tex->width + x;
+	return tex->pixels[idx];
 }
 
 static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)

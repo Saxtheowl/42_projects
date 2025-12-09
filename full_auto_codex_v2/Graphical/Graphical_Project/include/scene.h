@@ -27,6 +27,7 @@ typedef struct s_material
 	double roughness;
 	double emission_strength;
 	t_color emission_color;
+	struct s_texture *texture;
 	t_color color;
 }	t_material;
 
@@ -89,6 +90,14 @@ typedef struct s_object
 	t_material mat;
 }	t_object;
 
+typedef struct s_texture
+{
+	int					width;
+	int					height;
+	t_color				*pixels;
+	struct s_texture	*next;
+}	t_texture;
+
 typedef struct s_scene
 {
 	t_camera camera;
@@ -105,6 +114,7 @@ typedef struct s_scene
 	t_object *objects;
 	size_t objects_count;
 	size_t objects_cap;
+	t_texture *textures;
 }	t_scene;
 
 void	free_scene(t_scene *scene);
