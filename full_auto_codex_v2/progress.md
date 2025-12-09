@@ -109,3 +109,4 @@
 2025-12-09 00:09:06 | Graphical/Graphical_Project | IN_PROGRESS | Ajout des spots (direction + cutoff) dans parser/rendu + nouvelle scène `assets/scenes/spotlight.rt`; MLX toujours manquante.
 2025-12-09 00:12:44 | Graphical/Graphical_Project | IN_PROGRESS | Ajout du brouillard exponentiel global (token `fog`) mixé avec la distance + scène `assets/scenes/foggy.rt`; MLX toujours manquante.
 2025-12-09 00:18:26 | Graphical/Graphical_Project | IN_PROGRESS | Matériaux transparents/réfractifs (transparency + IOR) et scène `assets/scenes/glass.rt` pour tester la réfraction; MLX toujours manquante.
+2025-12-09 00:23:54 | Graphical/Graphical_Project | IN_PROGRESS | Profondeur de champ via aperture/focal_dist sur camera + scène `assets/scenes/dof.rt`; MLX toujours manquante.

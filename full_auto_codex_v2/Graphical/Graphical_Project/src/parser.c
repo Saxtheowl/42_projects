@@ -105,6 +105,22 @@ static int	parse_camera(char **tok, t_scene *scene)
 		return 0;
 	if (!read_vec3(tok, &scene->camera.pos) || !read_vec3(tok, &scene->camera.dir) || !read_double(tok, &scene->camera.fov))
 		return 0;
+	scene->camera.aperture = 0.0;
+	scene->camera.focal_dist = 1.0;
+	if (*tok)
+	{
+		if (!read_double(tok, &scene->camera.aperture))
+			return 0;
+		if (scene->camera.aperture < 0.0)
+			scene->camera.aperture = 0.0;
+	}
+	if (*tok)
+	{
+		if (!read_double(tok, &scene->camera.focal_dist))
+			return 0;
+		if (scene->camera.focal_dist <= 0.0)
+			scene->camera.focal_dist = 1.0;
+	}
 	scene->camera.present = 1;
 	return 1;
 }
@@ -283,6 +299,8 @@ int	parse_scene(const char *path, t_scene *scene)
 	scene->fog_density = 0.0;
 	scene->fog_color = (t_color){200, 200, 200};
 	scene->fog_enabled = 0;
+	scene->camera.aperture = 0.0;
+	scene->camera.focal_dist = 1.0;
 	char buf[1024];
 	int ok = 1;
 	int lineno = 0;

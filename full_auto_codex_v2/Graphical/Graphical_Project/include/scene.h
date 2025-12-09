@@ -32,6 +32,8 @@ typedef struct s_camera
 	t_vec3 pos;
 	t_vec3 dir;
 	double fov;
+	double aperture;
+	double focal_dist;
 	int present;
 }	t_camera;
 

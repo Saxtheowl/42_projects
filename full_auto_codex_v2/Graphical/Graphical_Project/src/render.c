@@ -400,6 +400,14 @@ static t_vec3	random_in_unit_square(int px, int py, int s)
 	return (t_vec3){rx, ry, 0};
 }
 
+static t_vec3	random_in_unit_disk(int px, int py, int s)
+{
+	t_vec3 r = random_in_unit_square(px, py, s);
+	double theta = 2.0 * M_PI * r.x;
+	double rlen = sqrt(r.y);
+	return (t_vec3){cos(theta) * rlen, sin(theta) * rlen, 0.0};
+}
+
 static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
 {
 	t_hit hit;
@@ -466,6 +474,8 @@ typedef struct s_render_task
 	t_vec3			up;
 	double			aspect;
 	double			fov_scale;
+	double			aperture;
+	double			focal_dist;
 }	t_render_task;
 
 static void	*render_chunk(void *arg)
@@ -484,11 +494,21 @@ static void	*render_chunk(void *arg)
 				double ndc_x = (2.0 * u - 1.0) * t->aspect * t->fov_scale;
 				double ndc_y = (1.0 - 2.0 * v) * t->fov_scale;
 				t_vec3 dir = vec_norm(vec_add(t->forward, vec_add(vec_scale(t->right, ndc_x), vec_scale(t->up, ndc_y))));
+				t_vec3 ro = t->scene->camera.pos;
+				if (t->aperture > 1e-6)
+				{
+					t_vec3 rdisk = random_in_unit_disk(x, y, s);
+					double lens_radius = t->aperture * 0.5;
+					t_vec3 offset = vec_add(vec_scale(t->right, rdisk.x * lens_radius), vec_scale(t->up, rdisk.y * lens_radius));
+					t_vec3 focal_point = vec_add(ro, vec_scale(dir, t->focal_dist));
+					ro = vec_add(ro, offset);
+					dir = vec_norm(vec_sub(focal_point, ro));
+				}
 				t_hit first_hit;
 				double depth = -1.0;
-				if (trace(t->scene, t->scene->camera.pos, dir, &first_hit))
+				if (trace(t->scene, ro, dir, &first_hit))
 					depth = first_hit.t;
-				t_color c = trace_ray(t->scene, t->scene->camera.pos, dir, t->max_depth);
+				t_color c = trace_ray(t->scene, ro, dir, t->max_depth);
 				cr += c.r;
 				cg += c.g;
 				cb += c.b;
@@ -657,6 +677,8 @@ int	render_ppm(const t_scene *scene, const char *path, int width, int height, in
 		tasks[i].up = up;
 		tasks[i].aspect = aspect;
 		tasks[i].fov_scale = fov_scale;
+		tasks[i].aperture = scene->camera.aperture;
+		tasks[i].focal_dist = scene->camera.focal_dist;
 		if (pthread_create(&th[i], NULL, render_chunk, &tasks[i]) != 0)
 			perror("pthread_create");
 	}

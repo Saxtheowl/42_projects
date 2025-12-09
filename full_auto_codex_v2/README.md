@@ -5,3 +5,4 @@ Derniere mise a jour (2025-12-09 00:03:30) : Graphical_Project : ajout d’une a
 Derniere mise a jour (2025-12-09 00:09:06) : Graphical_Project : support des spots directionnels (cutoff en degrés, direction normalisée) + nouvelle scène `assets/scenes/spotlight.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:12:44) : Graphical_Project : ajout d’un brouillard exponentiel global (`fog densité r g b`) appliqué au rendu selon la distance, scène `assets/scenes/foggy.rt` en exemple; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:18:26) : Graphical_Project : matériaux transparents/réfractifs (transparency + IOR optionnels) avec scène `assets/scenes/glass.rt`; MLX toujours en attente.
+Derniere mise a jour (2025-12-09 00:23:54) : Graphical_Project : profondeur de champ (aperture/focal_dist) + scène `assets/scenes/dof.rt`; MLX toujours en attente.
