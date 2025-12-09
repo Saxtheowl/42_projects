@@ -298,6 +298,18 @@ static int	parse_mesh(char **tok, t_scene *scene)
 	t_material mat;
 	if (!fill_material(tok, &mat))
 		return 0;
+	t_vec3 scale = {1.0, 1.0, 1.0};
+	t_vec3 translate = {0.0, 0.0, 0.0};
+	if (*tok)
+	{
+		if (!read_vec3(tok, &scale))
+			return 0;
+		if (*tok)
+		{
+			if (!read_vec3(tok, &translate))
+				return 0;
+		}
+	}
 	FILE *f = fopen(path, "r");
 	if (!f)
 	{
@@ -363,9 +375,15 @@ static int	parse_mesh(char **tok, t_scene *scene)
 			t_object *o = &scene->objects[scene->objects_count++];
 			memset(o, 0, sizeof(*o));
 			o->type = OBJ_TRIANGLE;
-			o->v0 = verts[ia - 1];
-			o->v1 = verts[ib - 1];
-			o->v2 = verts[ic - 1];
+			o->v0 = (t_vec3){verts[ia - 1].x * scale.x + translate.x,
+							 verts[ia - 1].y * scale.y + translate.y,
+							 verts[ia - 1].z * scale.z + translate.z};
+			o->v1 = (t_vec3){verts[ib - 1].x * scale.x + translate.x,
+							 verts[ib - 1].y * scale.y + translate.y,
+							 verts[ib - 1].z * scale.z + translate.z};
+			o->v2 = (t_vec3){verts[ic - 1].x * scale.x + translate.x,
+							 verts[ic - 1].y * scale.y + translate.y,
+							 verts[ic - 1].z * scale.z + translate.z};
 			o->mat = mat;
 		}
 	}

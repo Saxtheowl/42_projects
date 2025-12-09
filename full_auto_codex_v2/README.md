@@ -7,5 +7,6 @@ Derniere mise a jour (2025-12-09 00:12:44) : Graphical_Project : ajout d’un br
 Derniere mise a jour (2025-12-09 00:18:26) : Graphical_Project : matériaux transparents/réfractifs (transparency + IOR optionnels) avec scène `assets/scenes/glass.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:29:20) : Graphical_Project : ombres douces via lights à rayon optionnel (multi shadow rays) + scène `assets/scenes/soft_shadow.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:37:48) : Graphical_Project : loader OBJ (`mesh`) qui triangule les faces, avec scène `assets/scenes/mesh.rt`; MLX toujours en attente.
+Derniere mise a jour (2025-12-09 00:43:13) : Graphical_Project : `mesh` supporte un scale/translate optionnel (sx sy sz tx ty tz), scène `assets/scenes/mesh_scaled.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:33:24) : Graphical_Project : primitive triangle ajoutée (parser + intersection) avec scène `assets/scenes/triangles.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:23:54) : Graphical_Project : profondeur de champ (aperture/focal_dist) + scène `assets/scenes/dof.rt`; MLX toujours en attente.
