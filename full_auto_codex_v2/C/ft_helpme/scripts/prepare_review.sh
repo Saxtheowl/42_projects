@@ -36,3 +36,9 @@ printf '  - Préparer commands build/test à montrer.\n'
 printf '  - Vérifier disponibilité créneaux 30 min.\n'
 
 printf '\nAprès la review:\n  -> Remplir %s\n' "${DEBRIEF}"
+
+if [ -s "${DEBRIEF}" ]; then
+	printf '[OK] Debrief documenté dans %s\n' "${DEBRIEF}"
+else
+	printf '[!] Le debrief %s est encore vide : pensez à le compléter après la session.\n' "${DEBRIEF}"
+fi

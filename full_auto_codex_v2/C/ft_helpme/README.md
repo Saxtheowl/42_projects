@@ -21,7 +21,13 @@ Projet d’accompagnement pédagogique : il ne s’agit pas de livrer du code, m
 - `README.md` (ce fichier) — guide synthétique.
 
 ## Prochaines étapes
-1. Sélectionner le projet bloqué actuel et décrire le contexte.
-2. Rédiger les questions rédigées en amont.
-3. Utiliser le script de préparation pour vérifier que tout est prêt avant la review.
-4. Après la session, remplir `notes/debrief.md` (ce document sera utilisé pour alimenter `progress.md` du projet concerné).
+1. Sélectionner le projet bloqué actuel et décrire le contexte (`notes/context.md` occupe la place de `ft_linear_regression` pour le moment).
+2. Rédiger les questions en priorité (celles présentes dans `notes/questions.md` ciblent les hyperparamètres, la validation et la visualisation).
+3. Lancer `scripts/prepare_review.sh` pour vérifier la check-list (questions, contexte, éventuels extraits + débrief déjà rédigé) avant la review.
+4. Pendant la session 30 min : partager le contexte mentionné, les extraits listés et cocher chaque question avec le reviewer.
+5. Après la session : regarder `notes/debrief.md`, compléter les actions post-review et reporter les décisions dans `C/ft_linear_regression/progress.md`.
+
+## Constat actuel
+- Projet ciblé : `C/ft_linear_regression`, gradient descent stable (RMSE ≈ 410) mais hyperparamètres encore empiriques.
+- Checklist prête : contexte descriptif, questions hiérarchisées, script de préparation renforcé (il alerte également quand `notes/debrief.md` est vide).
+- Prochaine action : planifier la review avec un reviewer de la piscine pour valider scheduler/visualisation/validation, exécuter `scripts/prepare_review.sh` juste avant le créneau.

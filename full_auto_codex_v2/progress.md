@@ -34,6 +34,7 @@
 2025-10-27 | C/Ft_containers | IN_PROGRESS | Utilitaires template posés, ft::vector (base + tests comparatifs) en cours ; reste list/map et approfondissements.
 2025-10-27 | C/ft_hangouts | IN_PROGRESS | Personas, user journeys, architecture Android + prototype CLI (contacts/SMS) prêts ; reste maquettes UI haute fidélité et app Android.
 2025-10-31 | C/ft_helpme | IN_PROGRESS | Contexte & questions préparés pour aider sur ft_linear_regression ; attendre planification de la review.
+2025-12-09 08:00:00 | C/ft_helpme | IN_PROGRESS | Contexte + questions validés pour `C/ft_linear_regression`, script `prepare_review.sh` alerte si `notes/debrief.md` vide ; checklist prête, il ne reste qu’à caler la revue 30 min pour valider scheduler/validation/visualisation.
 2025-10-31 | C/ft_kalman | IN_PROGRESS | Lecture sujet, README/PLAN créés ; modélisation du filtre et implémentation C++ à venir.
 2025-10-31 | C/ft_linux | IN_PROGRESS | Sujet analysé, README/PLAN posés ; reste préparation toolchain LFS et scripts d'automatisation.
 2025-10-27 | C/Ft_ls | DONE | Options -l/-R/-a/-r/-t implémentées, format long & recursif, script diff `/scripts/run_tests.sh`; reste contrôles norme/mémoire lors d'un passage ultérieur.
