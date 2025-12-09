@@ -1,0 +1,8 @@
+camera 0 1 6   0 0 -1   60   0.0   5.0
+ambient 0.05 255 255 255
+
+light 3 4 3 0.8 255 240 230 0.4
+light -3 3 0 0.6 200 220 255 0.4
+
+mesh assets/meshes/quad.obj   180 180 220  0.8 0.2 64  0.05   1 1 1   0 0 0   0 30 0
+mesh assets/meshes/quad.obj   120 200 120  0.8 0.2 64  0.05   1 1 1   0 -0.5 -2   0 0 45

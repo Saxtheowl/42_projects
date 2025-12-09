@@ -47,7 +47,7 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 - `cone px py pz dx dy dz angle_deg height r g b kd ks shininess [reflect]`
 - `box px py pz sx sy sz r g b kd ks shininess [reflect]`
 - `triangle x1 y1 z1 x2 y2 z2 x3 y3 z3 r g b kd ks shininess [reflect transparency ior]`
-- `mesh path r g b kd ks shininess [reflect transparency ior roughness emission_strength er eg eb [texture.ppm] [sx sy sz tx ty tz]]` — charge un OBJ (v/f/vn), faces triangulées, normales optionnelles, transformées (scale/translate), avec les mêmes options de matériau.
+- `mesh path r g b kd ks shininess [reflect transparency ior roughness emission_strength er eg eb [texture.ppm] [sx sy sz tx ty tz rx ry rz]]` — charge un OBJ (v/f/vn), faces triangulées, normales optionnelles, transformées (scale/translate/rotation XYZ), avec les mêmes options de matériau.
 Où `kd/ks` sont coefficients diffuse/specular. Les directions (dx dy dz) doivent être normalisées dans la scène ou lors du parse.
 L'option `reflect` est facultative (0-1) pour mélanger une réflexion (un rebond).
 

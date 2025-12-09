@@ -18,5 +18,6 @@ Derniere mise a jour (2025-12-09 01:23:34) : Graphical_Project : uv_scale pour t
 Derniere mise a jour (2025-12-09 01:27:40) : Graphical_Project : textures bilinéaires (wrap) pour réduire l’aliasing sur sphères/plans/meshes; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 01:32:53) : Graphical_Project : wrap bilinéaire consolidé + doc CLI matériaux/texture; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 01:38:46) : Graphical_Project : lumières directionnelles (`dirlight`/`sun`) avec soft radius + scène `assets/scenes/sun.rt`; MLX toujours en attente.
+Derniere mise a jour (2025-12-09 01:42:51) : Graphical_Project : rotation des meshes (rx ry rz après scale/translate) + scène `assets/scenes/mesh_rotated.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:33:24) : Graphical_Project : primitive triangle ajoutée (parser + intersection) avec scène `assets/scenes/triangles.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:23:54) : Graphical_Project : profondeur de champ (aperture/focal_dist) + scène `assets/scenes/dof.rt`; MLX toujours en attente.

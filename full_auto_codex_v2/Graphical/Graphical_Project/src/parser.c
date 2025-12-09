@@ -130,6 +130,28 @@ static t_vec3	normalize(t_vec3 v)
 	return (t_vec3){v.x / len, v.y / len, v.z / len};
 }
 
+static t_vec3	vec_add(t_vec3 a, t_vec3 b)
+{
+	return (t_vec3){a.x + b.x, a.y + b.y, a.z + b.z};
+}
+
+static t_vec3	rotate_xyz(t_vec3 v, t_vec3 rot_deg)
+{
+	double rx = rot_deg.x * M_PI / 180.0;
+	double ry = rot_deg.y * M_PI / 180.0;
+	double rz = rot_deg.z * M_PI / 180.0;
+	/* rotation X */
+	double cosy = cos(rx), siny = sin(rx);
+	t_vec3 r = {v.x, v.y * cosy - v.z * siny, v.y * siny + v.z * cosy};
+	/* rotation Y */
+	double cosb = cos(ry), sinb = sin(ry);
+	t_vec3 r2 = {r.x * cosb + r.z * sinb, r.y, -r.x * sinb + r.z * cosb};
+	/* rotation Z */
+	double cosz = cos(rz), sinz = sin(rz);
+	t_vec3 r3 = {r2.x * cosz - r2.y * sinz, r2.x * sinz + r2.y * cosz, r2.z};
+	return r3;
+}
+
 static int	ensure_light_cap(t_scene *scene, size_t cap)
 {
 	if (scene->lights_cap >= cap)
@@ -467,6 +489,7 @@ static int	parse_mesh(char **tok, t_scene *scene)
 		return 0;
 	t_vec3 scale = {1.0, 1.0, 1.0};
 	t_vec3 translate = {0.0, 0.0, 0.0};
+	t_vec3 rotation = {0.0, 0.0, 0.0};
 	if (*tok)
 	{
 		if (!read_vec3(tok, &scale))
@@ -475,6 +498,11 @@ static int	parse_mesh(char **tok, t_scene *scene)
 		{
 			if (!read_vec3(tok, &translate))
 				return 0;
+			if (*tok)
+			{
+				if (!read_vec3(tok, &rotation))
+					return 0;
+			}
 		}
 	}
 	FILE *f = fopen(path, "r");
@@ -599,15 +627,12 @@ static int	parse_mesh(char **tok, t_scene *scene)
 			t_object *o = &scene->objects[scene->objects_count++];
 			memset(o, 0, sizeof(*o));
 			o->type = OBJ_TRIANGLE;
-			o->v0 = (t_vec3){verts[ia - 1].x * scale.x + translate.x,
-							 verts[ia - 1].y * scale.y + translate.y,
-							 verts[ia - 1].z * scale.z + translate.z};
-			o->v1 = (t_vec3){verts[ib - 1].x * scale.x + translate.x,
-							 verts[ib - 1].y * scale.y + translate.y,
-							 verts[ib - 1].z * scale.z + translate.z};
-			o->v2 = (t_vec3){verts[ic - 1].x * scale.x + translate.x,
-							 verts[ic - 1].y * scale.y + translate.y,
-							 verts[ic - 1].z * scale.z + translate.z};
+			t_vec3 v0s = {verts[ia - 1].x * scale.x, verts[ia - 1].y * scale.y, verts[ia - 1].z * scale.z};
+			t_vec3 v1s = {verts[ib - 1].x * scale.x, verts[ib - 1].y * scale.y, verts[ib - 1].z * scale.z};
+			t_vec3 v2s = {verts[ic - 1].x * scale.x, verts[ic - 1].y * scale.y, verts[ic - 1].z * scale.z};
+			o->v0 = vec_add(rotate_xyz(v0s, rotation), translate);
+			o->v1 = vec_add(rotate_xyz(v1s, rotation), translate);
+			o->v2 = vec_add(rotate_xyz(v2s, rotation), translate);
 			o->has_vertex_normals = has_norms;
 			if (has_norms)
 			{
