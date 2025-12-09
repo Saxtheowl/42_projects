@@ -152,6 +152,11 @@ static int	parse_light(char **tok, t_scene *scene)
 	l->type = LIGHT_POINT;
 	l->dir = (t_vec3){0, 0, 0};
 	l->cutoff_cos = -1.0;
+	l->radius = 0.0;
+	if (*tok && !read_double(tok, &l->radius))
+		return 0;
+	if (l->radius < 0.0)
+		l->radius = 0.0;
 	scene->lights_count++;
 	return 1;
 }
@@ -171,6 +176,11 @@ static int	parse_spot(char **tok, t_scene *scene)
 		return 0;
 	l->type = LIGHT_SPOT;
 	l->cutoff_cos = cos(cutoff_deg * M_PI / 180.0);
+	l->radius = 0.0;
+	if (*tok && !read_double(tok, &l->radius))
+		return 0;
+	if (l->radius < 0.0)
+		l->radius = 0.0;
 	scene->lights_count++;
 	return 1;
 }

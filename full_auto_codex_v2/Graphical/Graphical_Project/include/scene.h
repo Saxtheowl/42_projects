@@ -48,6 +48,7 @@ typedef struct s_light
 	t_vec3 pos;
 	t_vec3 dir;
 	double intensity;
+	double radius;
 	t_color color;
 	t_lighttype type;
 	double cutoff_cos;

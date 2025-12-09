@@ -19,12 +19,13 @@ Mise à jour (2025-12-09 00:09:06) : Ajout des spots directionnels (position + d
 Mise à jour (2025-12-09 00:12:44) : Ajout du brouillard exponentiel global (`fog densité r g b`) mixé selon la distance caméra→objet; scène `assets/scenes/foggy.rt` pour illustrer.
 Mise à jour (2025-12-09 00:18:26) : Matériaux transparents/réfractifs (coeff `transparency` et IOR optionnels) avec refraction simple; scène `assets/scenes/glass.rt` pour tester le verre.
 Mise à jour (2025-12-09 00:23:54) : Profondeur de champ (aperture/focal_dist optionnels sur `camera`) avec jitter sur le disque de lentille; scène `assets/scenes/dof.rt` pour démontrer le bokeh.
+Mise à jour (2025-12-09 00:29:20) : Ombres douces via un rayon optionnel sur les lights (multi shadow rays); scène `assets/scenes/soft_shadow.rt` dédiée.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
 - `camera px py pz dx dy dz fov [aperture] [focal_dist]` — position/direction caméra, FOV en degrés; aperture > 0 active la profondeur de champ, focal_dist fixe le plan net.
-- `light px py pz i r g b` — point light (intensité 0-1, couleur 0-255).
-- `spot px py pz dx dy dz cutoff_deg i r g b` — spot orienté; direction normalisée, cutoff en degrés.
+- `light px py pz i r g b [radius]` — point light (intensité 0-1, couleur 0-255), rayon optionnel pour ombres douces.
+- `spot px py pz dx dy dz cutoff_deg i r g b [radius]` — spot orienté; direction normalisée, cutoff en degrés, rayon optionnel pour ombres douces.
 - `fog density r g b` — brouillard exponentiel global, densité >= 0.
 - `ambient i r g b` — lumière ambiante.
 - `sphere px py pz radius r g b kd ks shininess [reflect transparency ior]`
@@ -45,3 +46,4 @@ Scènes fournies :
 - `assets/scenes/foggy.rt` : brouillard exponentiel global avec spot + point light pour visualiser l’atténuation atmosphérique.
 - `assets/scenes/glass.rt` : sphère en verre (transparency + IOR) avec spot/point et plan checker pour tester la réfraction.
 - `assets/scenes/dof.rt` : profondeur de champ (aperture/focal_dist) avec sphere/box/cone pour visualiser le bokeh.
+- `assets/scenes/soft_shadow.rt` : zone lights avec rayon pour produire des ombres douces.

@@ -3,6 +3,7 @@
 #define _GNU_SOURCE
 #include <pthread.h>
 #include <math.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -49,6 +50,9 @@ static int	clamp_i(int v, int min, int max)
 		return max;
 	return v;
 }
+
+static double	hash_u32(uint32_t x);
+static t_vec3	random_in_unit_sphere(uint32_t seed);
 
 typedef struct s_hit
 {
@@ -344,30 +348,41 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 	for (size_t i = 0; i < scene->lights_count; ++i)
 	{
 		t_light *L = &scene->lights[i];
-		t_vec3 ldir = vec_sub(L->pos, hit->point);
-		double dist = vec_len(ldir);
-		ldir = vec_scale(ldir, 1.0 / dist);
-		if (L->type == LIGHT_SPOT)
+		int samples = (L->radius > 1e-6) ? 4 : 1;
+		for (int s = 0; s < samples; ++s)
 		{
-			double cos_theta = vec_dot(vec_scale(ldir, -1.0), L->dir);
-			if (cos_theta < L->cutoff_cos)
+			t_vec3 lp = L->pos;
+			if (L->radius > 1e-6)
+			{
+				uint32_t seed = (uint32_t)(i * 73856093u + s * 19349663u + (uint32_t)(fabs(hit->point.x * 9973.0)));
+				t_vec3 jitter = random_in_unit_sphere(seed);
+				lp = vec_add(lp, vec_scale(jitter, L->radius));
+			}
+			t_vec3 ldir = vec_sub(lp, hit->point);
+			double dist = vec_len(ldir);
+			ldir = vec_scale(ldir, 1.0 / dist);
+			if (L->type == LIGHT_SPOT)
+			{
+				double cos_theta = vec_dot(vec_scale(ldir, -1.0), L->dir);
+				if (cos_theta < L->cutoff_cos)
+					continue;
+			}
+			if (in_shadow(scene, hit->point, ldir, dist))
 				continue;
+			double attenuation = 1.0 / (1.0 + 0.09 * dist + 0.032 * dist * dist);
+			double spot_factor = 1.0;
+			if (L->type == LIGHT_SPOT)
+				spot_factor = fmax(0.0, vec_dot(vec_scale(ldir, -1.0), L->dir));
+			double diff = fmax(0.0, vec_dot(hit->normal, ldir));
+			t_vec3 view = vec_scale(rd, -1.0);
+			t_vec3 reflect_dir = reflect(vec_scale(ldir, -1.0), hit->normal);
+			double spec = pow(fmax(0.0, vec_dot(view, reflect_dir)), hit->mat.shininess);
+			double lr = L->color.r / 255.0, lg = L->color.g / 255.0, lb = L->color.b / 255.0;
+			double scale = L->intensity * attenuation * spot_factor / samples;
+			r += scale * (hit->mat.kd * diff * hit->mat.color.r / 255.0 * lr + hit->mat.ks * spec * lr);
+			g += scale * (hit->mat.kd * diff * hit->mat.color.g / 255.0 * lg + hit->mat.ks * spec * lg);
+			b += scale * (hit->mat.kd * diff * hit->mat.color.b / 255.0 * lb + hit->mat.ks * spec * lb);
 		}
-		if (in_shadow(scene, hit->point, ldir, dist))
-			continue;
-		double attenuation = 1.0 / (1.0 + 0.09 * dist + 0.032 * dist * dist);
-		double spot_factor = 1.0;
-		if (L->type == LIGHT_SPOT)
-			spot_factor = fmax(0.0, vec_dot(vec_scale(ldir, -1.0), L->dir));
-		double diff = fmax(0.0, vec_dot(hit->normal, ldir));
-		t_vec3 view = vec_scale(rd, -1.0);
-		t_vec3 reflect_dir = reflect(vec_scale(ldir, -1.0), hit->normal);
-		double spec = pow(fmax(0.0, vec_dot(view, reflect_dir)), hit->mat.shininess);
-		double lr = L->color.r / 255.0, lg = L->color.g / 255.0, lb = L->color.b / 255.0;
-		double scale = L->intensity * attenuation * spot_factor;
-		r += scale * (hit->mat.kd * diff * hit->mat.color.r / 255.0 * lr + hit->mat.ks * spec * lr);
-		g += scale * (hit->mat.kd * diff * hit->mat.color.g / 255.0 * lg + hit->mat.ks * spec * lg);
-		b += scale * (hit->mat.kd * diff * hit->mat.color.b / 255.0 * lb + hit->mat.ks * spec * lb);
 	}
 	t_color out = {
 		.r = clamp_i((int)(r * 255.0), 0, 255),
@@ -406,6 +421,29 @@ static t_vec3	random_in_unit_disk(int px, int py, int s)
 	double theta = 2.0 * M_PI * r.x;
 	double rlen = sqrt(r.y);
 	return (t_vec3){cos(theta) * rlen, sin(theta) * rlen, 0.0};
+}
+
+static double	hash_u32(uint32_t x)
+{
+	x ^= x >> 17;
+	x *= 0xed5ad4bbU;
+	x ^= x >> 11;
+	x *= 0xac4c1b51U;
+	x ^= x >> 15;
+	x *= 0x31848babU;
+	x ^= x >> 14;
+	return (x & 0xFFFFFF) / 16777216.0;
+}
+
+static t_vec3	random_in_unit_sphere(uint32_t seed)
+{
+	double u = hash_u32(seed);
+	double v = hash_u32(seed * 1664525u + 1013904223u);
+	double theta = 2.0 * M_PI * u;
+	double cosphi = 1.0 - 2.0 * v;
+	double sinphi = sqrt(fmax(0.0, 1.0 - cosphi * cosphi));
+	double r = cbrt(hash_u32(seed * 747796405u + 2891336453u));
+	return (t_vec3){r * sinphi * cos(theta), r * sinphi * sin(theta), r * cosphi};
 }
 
 static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
