@@ -15,5 +15,6 @@ Derniere mise a jour (2025-12-09 01:02:45) : Graphical_Project : mix refl/trans 
 Derniere mise a jour (2025-12-09 01:12:56) : Graphical_Project : textures PPM optionnelles (sphere/plane/mesh) avec scène `assets/scenes/textured.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 01:17:37) : Graphical_Project : UV OBJ (vt + faces v/vt/vn) avec sampling barycentrique des textures; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 01:23:34) : Graphical_Project : uv_scale pour tuiler les textures (nouvelle scène `assets/scenes/textured_tiled.rt`); MLX toujours en attente.
+Derniere mise a jour (2025-12-09 01:27:40) : Graphical_Project : textures bilinéaires (wrap) pour réduire l’aliasing sur sphères/plans/meshes; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:33:24) : Graphical_Project : primitive triangle ajoutée (parser + intersection) avec scène `assets/scenes/triangles.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:23:54) : Graphical_Project : profondeur de champ (aperture/focal_dist) + scène `assets/scenes/dof.rt`; MLX toujours en attente.

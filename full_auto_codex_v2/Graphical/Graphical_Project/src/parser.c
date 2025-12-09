@@ -61,6 +61,11 @@ static int	read_color(char **tok, t_color *c)
 	return read_int(tok, &c->r) && read_int(tok, &c->g) && read_int(tok, &c->b);
 }
 
+static int	read_vec2(char **tok, t_vec2 *v)
+{
+	return read_double(tok, &v->u) && read_double(tok, &v->v);
+}
+
 static t_texture	*load_ppm(const char *path)
 {
 	FILE *f = fopen(path, "r");
@@ -256,6 +261,7 @@ static int	fill_material(char **tok, t_material *m, t_scene *scene)
 	m->emission_strength = 0.0;
 	m->emission_color = (t_color){0, 0, 0};
 	m->texture = NULL;
+	m->uv_scale = (t_vec2){1.0, 1.0};
 	if (*tok)
 	{
 		if (!read_double(tok, &m->reflect))
@@ -310,6 +316,11 @@ static int	fill_material(char **tok, t_material *m, t_scene *scene)
 		m->texture = tex;
 		tex->next = scene->textures;
 		scene->textures = tex;
+		if (*tok)
+		{
+			if (!read_vec2(tok, &m->uv_scale))
+				return 0;
+		}
 	}
 	return 1;
 }

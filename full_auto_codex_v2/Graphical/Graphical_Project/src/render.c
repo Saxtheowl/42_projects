@@ -398,8 +398,8 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 		if (hit->obj && hit->obj->type == OBJ_SPHERE)
 		{
 			t_vec3 p = vec_norm(vec_sub(hit->point, hit->obj->pos));
-			double u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
-			double v = 0.5 - asin(p.y) / M_PI;
+			double u = (0.5 + atan2(p.z, p.x) / (2 * M_PI)) * hit->mat.uv_scale.u;
+			double v = (0.5 - asin(p.y) / M_PI) * hit->mat.uv_scale.v;
 			hit->mat.color = sample_texture(hit->mat.texture, u, v);
 		}
 		else if (hit->obj && hit->obj->type == OBJ_PLANE)
@@ -409,15 +409,15 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 			tangent = vec_norm(vec_cross(tangent, n));
 			t_vec3 bitangent = vec_norm(vec_cross(n, tangent));
 			t_vec3 rel = vec_sub(hit->point, hit->obj->pos);
-			double u = vec_dot(rel, tangent);
-			double v = vec_dot(rel, bitangent);
+			double u = vec_dot(rel, tangent) * hit->mat.uv_scale.u;
+			double v = vec_dot(rel, bitangent) * hit->mat.uv_scale.v;
 			hit->mat.color = sample_texture(hit->mat.texture, u, v);
 		}
 		else if (hit->obj && hit->obj->type == OBJ_TRIANGLE && hit->has_uv)
 		{
 			double w = 1.0 - hit->bu - hit->bv;
-			double u = hit->obj->uv0.u * w + hit->obj->uv1.u * hit->bu + hit->obj->uv2.u * hit->bv;
-			double v = hit->obj->uv0.v * w + hit->obj->uv1.v * hit->bu + hit->obj->uv2.v * hit->bv;
+			double u = (hit->obj->uv0.u * w + hit->obj->uv1.u * hit->bu + hit->obj->uv2.u * hit->bv) * hit->mat.uv_scale.u;
+			double v = (hit->obj->uv0.v * w + hit->obj->uv1.v * hit->bu + hit->obj->uv2.v * hit->bv) * hit->mat.uv_scale.v;
 			hit->mat.color = sample_texture(hit->mat.texture, u, v);
 		}
 	}
@@ -540,10 +540,23 @@ t_color	sample_texture(const t_texture *tex, double u, double v)
 		return (t_color){0, 0, 0};
 	u = u - floor(u);
 	v = v - floor(v);
-	int x = (int)(u * tex->width) % tex->width;
-	int y = (int)(v * tex->height) % tex->height;
-	int idx = y * tex->width + x;
-	return tex->pixels[idx];
+	double fx = u * tex->width - 0.5;
+	double fy = v * tex->height - 0.5;
+	int x0 = ((int)floor(fx) % tex->width + tex->width) % tex->width;
+	int y0 = ((int)floor(fy) % tex->height + tex->height) % tex->height;
+	int x1 = (x0 + 1) % tex->width;
+	int y1 = (y0 + 1) % tex->height;
+	double tx = fx - floor(fx);
+	double ty = fy - floor(fy);
+	t_color c00 = tex->pixels[y0 * tex->width + x0];
+	t_color c10 = tex->pixels[y0 * tex->width + x1];
+	t_color c01 = tex->pixels[y1 * tex->width + x0];
+	t_color c11 = tex->pixels[y1 * tex->width + x1];
+	t_color out;
+	out.r = (int)((1 - ty) * ((1 - tx) * c00.r + tx * c10.r) + ty * ((1 - tx) * c01.r + tx * c11.r));
+	out.g = (int)((1 - ty) * ((1 - tx) * c00.g + tx * c10.g) + ty * ((1 - tx) * c01.g + tx * c11.g));
+	out.b = (int)((1 - ty) * ((1 - tx) * c00.b + tx * c10.b) + ty * ((1 - tx) * c01.b + tx * c11.b));
+	return out;
 }
 
 static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)

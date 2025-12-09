@@ -34,6 +34,7 @@ typedef struct s_material
 	double emission_strength;
 	t_color emission_color;
 	struct s_texture *texture;
+	t_vec2 uv_scale;
 	t_color color;
 }	t_material;
 
