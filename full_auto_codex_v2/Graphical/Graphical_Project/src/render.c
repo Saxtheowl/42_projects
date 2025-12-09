@@ -387,6 +387,13 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 	double g = scene->ambient_intensity * hit->mat.color.g * scene->ambient_color.g / 255.0 / 255.0;
 	double b = scene->ambient_intensity * hit->mat.color.b * scene->ambient_color.b / 255.0 / 255.0;
 
+	if (hit->mat.emission_strength > 1e-9)
+	{
+		r += hit->mat.emission_strength * (hit->mat.emission_color.r / 255.0);
+		g += hit->mat.emission_strength * (hit->mat.emission_color.g / 255.0);
+		b += hit->mat.emission_strength * (hit->mat.emission_color.b / 255.0);
+	}
+
 	for (size_t i = 0; i < scene->lights_count; ++i)
 	{
 		t_light *L = &scene->lights[i];

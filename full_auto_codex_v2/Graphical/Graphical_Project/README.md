@@ -25,6 +25,7 @@ Mise à jour (2025-12-09 00:37:48) : Loader OBJ minimal (`mesh path ...`) qui tr
 Mise à jour (2025-12-09 00:43:13) : `mesh` supporte un scale/translate optionnel (sx sy sz tx ty tz) appliqué aux sommets; nouvelle scène `assets/scenes/mesh_scaled.rt` pour illustrer.
 Mise à jour (2025-12-09 00:48:23) : Ajout du roughness pour les reflets (réflexions glossy jitterisées); scène `assets/scenes/glossy.rt` pour tester les reflets flous.
 Mise à jour (2025-12-09 00:54:17) : Loader OBJ étendu : normals `vn` + faces `v//n` supportées, normales interpolées sur les triangles; scènes `assets/scenes/mesh_normals.rt` et `assets/meshes/pyramid.obj`.
+Mise à jour (2025-12-09 00:58:21) : Matériaux émissifs (`emission_strength r g b`) pour auto-éclairage des surfaces; scène `assets/scenes/emissive.rt` avec panneau lumineux.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
@@ -39,7 +40,7 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 - `cone px py pz dx dy dz angle_deg height r g b kd ks shininess [reflect]`
 - `box px py pz sx sy sz r g b kd ks shininess [reflect]`
 - `triangle x1 y1 z1 x2 y2 z2 x3 y3 z3 r g b kd ks shininess [reflect transparency ior]`
-- `mesh path r g b kd ks shininess [reflect transparency ior [sx sy sz tx ty tz]]` — charge un OBJ (v/f/vn), faces triangulées, normales optionnelles, transformées (scale/translate).
+- `mesh path r g b kd ks shininess [reflect transparency ior roughness emission_strength er eg eb [sx sy sz tx ty tz]]` — charge un OBJ (v/f/vn), faces triangulées, normales optionnelles, transformées (scale/translate), avec les mêmes options de matériau.
 Où `kd/ks` sont coefficients diffuse/specular. Les directions (dx dy dz) doivent être normalisées dans la scène ou lors du parse.
 L'option `reflect` est facultative (0-1) pour mélanger une réflexion (un rebond).
 
@@ -59,3 +60,4 @@ Scènes fournies :
 - `assets/scenes/mesh_scaled.rt` : démonstration du scale/translate appliqué au mesh (quad agrandi et décalé + quad réduit).
 - `assets/scenes/glossy.rt` : reflets flous via roughness sur sphere/box/cone.
 - `assets/scenes/mesh_normals.rt` : mesh OBJ avec normals (`pyramid.obj`) pour vérifier l’interpolation.
+- `assets/scenes/emissive.rt` : panneau lumineux émissif + objets diffus/réfléchissants.

@@ -25,6 +25,8 @@ typedef struct s_material
 	double transparency;
 	double ior;
 	double roughness;
+	double emission_strength;
+	t_color emission_color;
 	t_color color;
 }	t_material;
 

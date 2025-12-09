@@ -1,0 +1,12 @@
+camera 0 1 6   0 0 -1   60   0.0   5.0
+ambient 0.05 255 255 255
+
+# Une grande source emissive (quad) pour simuler un panneau lumineux
+mesh assets/meshes/quad.obj   255 240 200  0.0 0.0 1  0.0  0.0 0.0  0.0 0.0   3 3 3   0 4 0
+
+light 3 4 3 0.5 200 220 255 0.6
+
+plane 0 0 0   0 1 0   230 230 230  0.9 0.1 32  0.05  1.0  0.0
+sphere 0 1 0   1.0   180 180 255   0.1 0.1 64  0.05  0.2  1.5  0.0
+box -2 0.8 -2   1 1 1   160 80 60  0.8 0.2 64  0.2  0.0  1.5  0.0
+cone 2 0 0   0 1 0   18 2.5   180 120 80  0.8 0.25 96  0.05  0.0  1.5  0.0
