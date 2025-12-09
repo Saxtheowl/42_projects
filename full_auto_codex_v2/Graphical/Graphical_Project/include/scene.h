@@ -9,6 +9,12 @@ typedef struct s_vec3
 	double z;
 }	t_vec3;
 
+typedef struct s_vec2
+{
+	double u;
+	double v;
+}	t_vec2;
+
 typedef struct s_color
 {
 	int r;
@@ -80,10 +86,14 @@ typedef struct s_object
 	t_vec3 v0;     /* triangle vertices */
 	t_vec3 v1;
 	t_vec3 v2;
+	t_vec2 uv0;
+	t_vec2 uv1;
+	t_vec2 uv2;
 	t_vec3 vn0;    /* vertex normals (optional) */
 	t_vec3 vn1;
 	t_vec3 vn2;
 	int has_vertex_normals;
+	int has_uvs;
 	int checker_enabled;
 	double checker_size;
 	t_color checker_color;

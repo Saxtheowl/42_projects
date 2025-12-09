@@ -27,6 +27,7 @@ Mise à jour (2025-12-09 00:48:23) : Ajout du roughness pour les reflets (réfle
 Mise à jour (2025-12-09 00:54:17) : Loader OBJ étendu : normals `vn` + faces `v//n` supportées, normales interpolées sur les triangles; scènes `assets/scenes/mesh_normals.rt` et `assets/meshes/pyramid.obj`.
 Mise à jour (2025-12-09 00:58:21) : Matériaux émissifs (`emission_strength r g b`) pour auto-éclairage des surfaces; scène `assets/scenes/emissive.rt` avec panneau lumineux.
 Mise à jour (2025-12-09 01:02:45) : Mélange réflexion/réfraction plus physique via Fresnel (Schlick) pour pondérer dynamiquement refl/trans.
+Mise à jour (2025-12-09 01:12:56) : Textures PPM optionnelles (sphère/plan/mesh/triangle) + scène `assets/scenes/textured.rt` et texture `assets/textures/checker.ppm`.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
@@ -62,3 +63,4 @@ Scènes fournies :
 - `assets/scenes/glossy.rt` : reflets flous via roughness sur sphere/box/cone.
 - `assets/scenes/mesh_normals.rt` : mesh OBJ avec normals (`pyramid.obj`) pour vérifier l’interpolation.
 - `assets/scenes/emissive.rt` : panneau lumineux émissif + objets diffus/réfléchissants.
+- `assets/scenes/textured.rt` : plan + sphère texturés (checker PPM).

@@ -323,6 +323,7 @@ static int	parse_object(char **tok, t_scene *scene, t_objtype type)
 	o->type = type;
 	o->checker_enabled = 0;
 	o->has_vertex_normals = 0;
+	o->has_uvs = 0;
 	if (type == OBJ_TRIANGLE)
 	{
 		if (!read_vec3(tok, &o->v0) || !read_vec3(tok, &o->v1) || !read_vec3(tok, &o->v2))
@@ -362,24 +363,36 @@ static int	parse_object(char **tok, t_scene *scene, t_objtype type)
 	return 1;
 }
 
-static int	parse_face_index(const char *s, int *v_idx, int *n_idx)
+static int	parse_face_index(const char *s, int *v_idx, int *t_idx, int *n_idx)
 {
 	char buf[64];
 	strncpy(buf, s, sizeof(buf) - 1);
 	buf[sizeof(buf) - 1] = '\0';
 	char *slash = strchr(buf, '/');
 	char *norm_part = NULL;
+	char *tex_part = NULL;
 	if (slash)
 	{
 		*slash = '\0';
 		if (*(slash + 1) == '/')
 			norm_part = slash + 2;
+		else
+		{
+			tex_part = slash + 1;
+			char *slash2 = strchr(tex_part, '/');
+			if (slash2)
+			{
+				*slash2 = '\0';
+				norm_part = slash2 + 1;
+			}
+		}
 	}
 	char *end = NULL;
 	long v = strtol(buf, &end, 10);
 	if (end == buf || v <= 0)
 		return 0;
 	*v_idx = (int)v;
+	*t_idx = -1;
 	if (norm_part)
 	{
 		long n = strtol(norm_part, &end, 10);
@@ -389,6 +402,13 @@ static int	parse_face_index(const char *s, int *v_idx, int *n_idx)
 	}
 	else
 		*n_idx = -1;
+	if (tex_part)
+	{
+		long t = strtol(tex_part, &end, 10);
+		if (end == tex_part || t <= 0)
+			return 0;
+		*t_idx = (int)t;
+	}
 	return 1;
 }
 
@@ -423,11 +443,14 @@ static int	parse_mesh(char **tok, t_scene *scene)
 	t_vec3 *verts = malloc(vcap * sizeof(t_vec3));
 	size_t ncap = 16, ncount = 0;
 	t_vec3 *normals = malloc(ncap * sizeof(t_vec3));
+	size_t tcap = 16, tcount = 0;
+	t_vec2 *uvs = malloc(tcap * sizeof(t_vec2));
 	if (!verts || !normals)
 	{
 		fclose(f);
 		free(verts);
 		free(normals);
+		free(uvs);
 		return 0;
 	}
 	char line[256];
@@ -476,6 +499,27 @@ static int	parse_mesh(char **tok, t_scene *scene)
 			}
 			normals[ncount++] = n;
 		}
+		else if (line[0] == 'v' && line[1] == 't' && isspace((unsigned char)line[2]))
+		{
+			t_vec2 t;
+			if (sscanf(line + 2, "%lf %lf", &t.u, &t.v) != 2)
+			{
+				ok = 0;
+				break ;
+			}
+			if (tcount == tcap)
+			{
+				tcap *= 2;
+				t_vec2 *nt = realloc(uvs, tcap * sizeof(t_vec2));
+				if (!nt)
+				{
+					ok = 0;
+					break ;
+				}
+				uvs = nt;
+			}
+			uvs[tcount++] = t;
+		}
 		else if (line[0] == 'f' && isspace((unsigned char)line[1]))
 		{
 			char a[64], b[64], c[64];
@@ -486,7 +530,8 @@ static int	parse_mesh(char **tok, t_scene *scene)
 			}
 			int ia, ib, ic;
 			int na = -1, nb = -1, nc = -1;
-			if (!parse_face_index(a, &ia, &na) || !parse_face_index(b, &ib, &nb) || !parse_face_index(c, &ic, &nc))
+			int ta = -1, tb = -1, tc = -1;
+			if (!parse_face_index(a, &ia, &ta, &na) || !parse_face_index(b, &ib, &tb, &nb) || !parse_face_index(c, &ic, &tc, &nc))
 			{
 				ok = 0;
 				break ;
@@ -499,6 +544,9 @@ static int	parse_mesh(char **tok, t_scene *scene)
 			int has_norms = (na > 0 && nb > 0 && nc > 0);
 			if (has_norms && ((size_t)na > ncount || (size_t)nb > ncount || (size_t)nc > ncount))
 				has_norms = 0;
+			int has_uv = (ta > 0 && tb > 0 && tc > 0);
+			if (has_uv && ((size_t)ta > tcount || (size_t)tb > tcount || (size_t)tc > tcount))
+				has_uv = 0;
 			if (!ensure_obj_cap(scene, scene->objects_count + 1))
 			{
 				ok = 0;
@@ -523,11 +571,19 @@ static int	parse_mesh(char **tok, t_scene *scene)
 				o->vn1 = normals[nb - 1];
 				o->vn2 = normals[nc - 1];
 			}
+			o->has_uvs = has_uv;
+			if (has_uv)
+			{
+				o->uv0 = uvs[ta - 1];
+				o->uv1 = uvs[tb - 1];
+				o->uv2 = uvs[tc - 1];
+			}
 			o->mat = mat;
 		}
 	}
 	free(verts);
 	free(normals);
+	free(uvs);
 	fclose(f);
 	return ok;
 }

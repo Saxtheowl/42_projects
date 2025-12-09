@@ -59,6 +59,9 @@ typedef struct s_hit
 	double t;
 	t_vec3 point;
 	t_vec3 normal;
+	int has_uv;
+	double bu;
+	double bv;
 	t_material mat;
 	const t_object *obj;
 }	t_hit;
@@ -312,6 +315,13 @@ static int	intersect_triangle(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hi
 	hit->t = t;
 	hit->point = vec_add(ro, vec_scale(rd, t));
 	hit->normal = n;
+	hit->has_uv = 0;
+	if (o->has_uvs)
+	{
+		hit->has_uv = 1;
+		hit->bu = u;
+		hit->bv = v;
+	}
 	hit->mat = o->mat;
 	hit->obj = o;
 	return 1;
