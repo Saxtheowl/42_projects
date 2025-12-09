@@ -28,6 +28,7 @@ Mise à jour (2025-12-09 00:54:17) : Loader OBJ étendu : normals `vn` + faces `
 Mise à jour (2025-12-09 00:58:21) : Matériaux émissifs (`emission_strength r g b`) pour auto-éclairage des surfaces; scène `assets/scenes/emissive.rt` avec panneau lumineux.
 Mise à jour (2025-12-09 01:02:45) : Mélange réflexion/réfraction plus physique via Fresnel (Schlick) pour pondérer dynamiquement refl/trans.
 Mise à jour (2025-12-09 01:12:56) : Textures PPM optionnelles (sphère/plan/mesh/triangle) + scène `assets/scenes/textured.rt` et texture `assets/textures/checker.ppm`.
+Mise à jour (2025-12-09 01:17:37) : Support UV OBJ (`vt` + faces v/vt/vn) et échantillonnage barycentrique sur triangles texturés.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.

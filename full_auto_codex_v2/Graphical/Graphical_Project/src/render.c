@@ -413,6 +413,13 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 			double v = vec_dot(rel, bitangent);
 			hit->mat.color = sample_texture(hit->mat.texture, u, v);
 		}
+		else if (hit->obj && hit->obj->type == OBJ_TRIANGLE && hit->has_uv)
+		{
+			double w = 1.0 - hit->bu - hit->bv;
+			double u = hit->obj->uv0.u * w + hit->obj->uv1.u * hit->bu + hit->obj->uv2.u * hit->bv;
+			double v = hit->obj->uv0.v * w + hit->obj->uv1.v * hit->bu + hit->obj->uv2.v * hit->bv;
+			hit->mat.color = sample_texture(hit->mat.texture, u, v);
+		}
 	}
 	apply_checker(hit->obj, hit);
 	double r = scene->ambient_intensity * hit->mat.color.r * scene->ambient_color.r / 255.0 / 255.0;

@@ -13,5 +13,6 @@ Derniere mise a jour (2025-12-09 00:54:17) : Graphical_Project : loader OBJ supp
 Derniere mise a jour (2025-12-09 00:58:21) : Graphical_Project : matériaux émissifs (emission_strength + couleur) et scène `assets/scenes/emissive.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 01:02:45) : Graphical_Project : mix refl/trans plus physique via Fresnel (Schlick) pour pondération auto des reflets.
 Derniere mise a jour (2025-12-09 01:12:56) : Graphical_Project : textures PPM optionnelles (sphere/plane/mesh) avec scène `assets/scenes/textured.rt`; MLX toujours en attente.
+Derniere mise a jour (2025-12-09 01:17:37) : Graphical_Project : UV OBJ (vt + faces v/vt/vn) avec sampling barycentrique des textures; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:33:24) : Graphical_Project : primitive triangle ajoutée (parser + intersection) avec scène `assets/scenes/triangles.rt`; MLX toujours en attente.
 Derniere mise a jour (2025-12-09 00:23:54) : Graphical_Project : profondeur de champ (aperture/focal_dist) + scène `assets/scenes/dof.rt`; MLX toujours en attente.
