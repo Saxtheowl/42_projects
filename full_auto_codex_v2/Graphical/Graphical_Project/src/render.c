@@ -499,6 +499,12 @@ static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
 	if (kr <= 1e-6 && kt <= 1e-6)
 		return local;
 	t_vec3 refl_dir = reflect(vec_scale(rd, -1.0), hit.normal);
+	if (hit.mat.roughness > 1e-6)
+	{
+		uint32_t seed = (uint32_t)(fabs(hit.point.x * 73856093.0) + fabs(hit.point.y * 19349663.0) + fabs(hit.point.z * 83492791.0) + (uint32_t)depth * 2654435761u);
+		t_vec3 jitter = random_in_unit_sphere(seed);
+		refl_dir = vec_norm(vec_add(refl_dir, vec_scale(jitter, hit.mat.roughness)));
+	}
 	t_color refl_col = trace_ray(scene, vec_add(hit.point, vec_scale(hit.normal, 1e-3)), refl_dir, depth - 1);
 	t_color refr_col = {0, 0, 0};
 	if (kt > 1e-6)

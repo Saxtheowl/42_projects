@@ -23,6 +23,7 @@ Mise à jour (2025-12-09 00:29:20) : Ombres douces via un rayon optionnel sur le
 Mise à jour (2025-12-09 00:33:24) : Primitive triangle (parser + intersection) et scène `assets/scenes/triangles.rt` (plaque triangulaire + triangle dressé).
 Mise à jour (2025-12-09 00:37:48) : Loader OBJ minimal (`mesh path ...`) qui triangule les faces et génère des triangles; exemple `assets/scenes/mesh.rt` + `assets/meshes/quad.obj`.
 Mise à jour (2025-12-09 00:43:13) : `mesh` supporte un scale/translate optionnel (sx sy sz tx ty tz) appliqué aux sommets; nouvelle scène `assets/scenes/mesh_scaled.rt` pour illustrer.
+Mise à jour (2025-12-09 00:48:23) : Ajout du roughness pour les reflets (réflexions glossy jitterisées); scène `assets/scenes/glossy.rt` pour tester les reflets flous.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
@@ -31,7 +32,7 @@ Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés
 - `spot px py pz dx dy dz cutoff_deg i r g b [radius]` — spot orienté; direction normalisée, cutoff en degrés, rayon optionnel pour ombres douces.
 - `fog density r g b` — brouillard exponentiel global, densité >= 0.
 - `ambient i r g b` — lumière ambiante.
-- `sphere px py pz radius r g b kd ks shininess [reflect transparency ior]`
+- `sphere px py pz radius r g b kd ks shininess [reflect transparency ior roughness]`
 - `plane px py pz nx ny nz r g b kd ks shininess [reflect]`
 - `cylinder px py pz dx dy dz radius height r g b kd ks shininess [reflect]`
 - `cone px py pz dx dy dz angle_deg height r g b kd ks shininess [reflect]`
@@ -55,3 +56,4 @@ Scènes fournies :
 - `assets/scenes/triangles.rt` : triangles (plaque + triangle dressé) pour vérifier l’intersection triangle.
 - `assets/scenes/mesh.rt` : quad OBJ chargé via `mesh`, plus triangle supplémentaire.
 - `assets/scenes/mesh_scaled.rt` : démonstration du scale/translate appliqué au mesh (quad agrandi et décalé + quad réduit).
+- `assets/scenes/glossy.rt` : reflets flous via roughness sur sphere/box/cone.

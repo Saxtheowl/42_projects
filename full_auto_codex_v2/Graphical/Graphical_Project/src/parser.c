@@ -196,6 +196,7 @@ static int	fill_material(char **tok, t_material *m)
 	m->reflect = 0.0;
 	m->transparency = 0.0;
 	m->ior = 1.5;
+	m->roughness = 0.0;
 	if (*tok)
 	{
 		if (!read_double(tok, &m->reflect))
@@ -220,6 +221,15 @@ static int	fill_material(char **tok, t_material *m)
 			return 0;
 		if (m->ior < 1.0)
 			m->ior = 1.0;
+	}
+	if (*tok)
+	{
+		if (!read_double(tok, &m->roughness))
+			return 0;
+		if (m->roughness < 0.0)
+			m->roughness = 0.0;
+		if (m->roughness > 1.0)
+			m->roughness = 1.0;
 	}
 	return 1;
 }
