@@ -127,6 +127,7 @@ typedef struct s_scene
 	size_t objects_count;
 	size_t objects_cap;
 	t_texture *textures;
+	t_texture *env_tex;
 }	t_scene;
 
 void	free_scene(t_scene *scene);

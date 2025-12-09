@@ -504,6 +504,12 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 
 static t_color	background_color(const t_scene *scene, t_vec3 dir)
 {
+	if (scene->env_tex)
+	{
+		double u = 0.5 + atan2(dir.z, dir.x) / (2 * M_PI);
+		double v = 0.5 - asin(dir.y) / M_PI;
+		return sample_texture(scene->env_tex, u, v);
+	}
 	double t = 0.5 * (dir.y + 1.0);
 	t_color sky_top = scene->sky_top;
 	t_color sky_bottom = scene->sky_bottom;

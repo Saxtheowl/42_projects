@@ -66,7 +66,7 @@ static int	read_vec2(char **tok, t_vec2 *v)
 	return read_double(tok, &v->u) && read_double(tok, &v->v);
 }
 
-static t_texture	*load_ppm(const char *path)
+t_texture	*load_ppm(const char *path)
 {
 	FILE *f = fopen(path, "r");
 	if (!f)
@@ -190,6 +190,19 @@ static int	parse_ambient(char **tok, t_scene *scene)
 {
 	if (!read_double(tok, &scene->ambient_intensity) || !read_color(tok, &scene->ambient_color))
 		return 0;
+	return 1;
+}
+
+static int	parse_env(char **tok, t_scene *scene)
+{
+	if (!*tok)
+		return 0;
+	t_texture *tex = load_ppm(*tok);
+	if (!tex)
+		return 0;
+	tex->next = scene->textures;
+	scene->textures = tex;
+	scene->env_tex = tex;
 	return 1;
 }
 
@@ -633,6 +646,8 @@ static int	dispatch(char *line, t_scene *scene, int lineno)
 		return parse_ambient(&args, scene);
 	if (strcmp(tok, "fog") == 0)
 		return parse_fog(&args, scene);
+	if (strcmp(tok, "env") == 0)
+		return parse_env(&args, scene);
 	if (strcmp(tok, "light") == 0)
 		return parse_light(&args, scene);
 	if (strcmp(tok, "spot") == 0)
