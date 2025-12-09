@@ -14,6 +14,7 @@ Sujet RT (ray tracing) : rendu d’images 3D en ray tracing avec au moins quatre
 - [ ] Intégration renderer MLX (affichage temps réel) en complément du PPM (lib mlx absente sur l'env).
 
 Mise à jour (2025-12-08 23:00:33) : PPM amélioré (fond ciel, supersampling, multithread), CLI enrichie (`--out`, `--size`, `--samples`, `--threads`); MLX toujours en attente.
+Mise à jour (2025-12-09 00:03:30) : Ajout d’une atténuation quadratique des lumières pour éviter la surexposition sur les plans proches et rendre le shading plus réaliste (diffuse/specular pondérés par la distance).
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.

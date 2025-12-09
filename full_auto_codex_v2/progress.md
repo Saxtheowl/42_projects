@@ -105,3 +105,4 @@
 2025-12-08 23:00:33 | Graphical/Graphical_Project | IN_PROGRESS | PPM multithread + supersampling et ciel, CLI --threads ajoutée (`RT [scene] --out --size --samples --threads`), MLX toujours en attente.
 2025-12-08 23:07:46 | Graphical/Graphical_Project | IN_PROGRESS | Nouvelle scène `assets/scenes/room.rt` (murs colorés, lumières multiples) pour tester le renderer; CLI et README actualisés.
 2025-12-08 23:58:26 | Graphical/Graphical_Project | IN_PROGRESS | Ajout tonemap (none/reinhard/aces), export depth/normal, primitive box, checker sur plans, ciel personnalisable (--sky), PPM multi-thread/supersampling/gamma/reflexions (--maxdepth); MLX toujours manquante.
+2025-12-09 00:03:30 | Graphical/Graphical_Project | IN_PROGRESS | Ajout atténuation quadratique des lumières pour un shading plus réaliste (évite la surexposition en proximité); rendu PPM intact, MLX toujours manquante.

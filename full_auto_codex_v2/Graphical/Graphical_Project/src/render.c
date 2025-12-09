@@ -339,14 +339,16 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 		ldir = vec_scale(ldir, 1.0 / dist);
 		if (in_shadow(scene, hit->point, ldir, dist))
 			continue;
+		double attenuation = 1.0 / (1.0 + 0.09 * dist + 0.032 * dist * dist);
 		double diff = fmax(0.0, vec_dot(hit->normal, ldir));
 		t_vec3 view = vec_scale(rd, -1.0);
 		t_vec3 reflect_dir = reflect(vec_scale(ldir, -1.0), hit->normal);
 		double spec = pow(fmax(0.0, vec_dot(view, reflect_dir)), hit->mat.shininess);
 		double lr = L->color.r / 255.0, lg = L->color.g / 255.0, lb = L->color.b / 255.0;
-		r += L->intensity * (hit->mat.kd * diff * hit->mat.color.r / 255.0 * lr + hit->mat.ks * spec * lr);
-		g += L->intensity * (hit->mat.kd * diff * hit->mat.color.g / 255.0 * lg + hit->mat.ks * spec * lg);
-		b += L->intensity * (hit->mat.kd * diff * hit->mat.color.b / 255.0 * lb + hit->mat.ks * spec * lb);
+		double scale = L->intensity * attenuation;
+		r += scale * (hit->mat.kd * diff * hit->mat.color.r / 255.0 * lr + hit->mat.ks * spec * lr);
+		g += scale * (hit->mat.kd * diff * hit->mat.color.g / 255.0 * lg + hit->mat.ks * spec * lg);
+		b += scale * (hit->mat.kd * diff * hit->mat.color.b / 255.0 * lb + hit->mat.ks * spec * lb);
 	}
 	t_color out = {
 		.r = clamp_i((int)(r * 255.0), 0, 255),
