@@ -8,7 +8,7 @@
 - [x] Spécifier format scène minimal (fichier texte) : caméra, lumières, objets plan/sphère/cylindre/cône avec matériaux (kd/ks/shininess).
 - [x] Implémentation initiale : parsing scène et binaire `RT` qui charge `sample.rt` et affiche le contenu.
 - [x] Renderer fallback PPM (800x600) : ray tracing diffuse/specular, ombres, sphère/plan/cylindre/cône; sortie `output.ppm`.
-- [ ] Intégration renderer MLX temps réel (ou SDL/OpenGL si mlx absente).
+- [x] Intégration renderer MLX temps réel (MiniLibX) avec `--mlx` + snapshots/exports.
 - [ ] Tests (scènes de référence, vues multiples), perf baseline.
 - [ ] Bonus éventuels (ambiant/directionnel, objets limités, reflets/transparence, textures, composés).
 - [ ] Documentation finale (README, usage, scènes exemples).
