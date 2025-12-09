@@ -167,6 +167,9 @@ static int	fill_material(char **tok, t_material *m)
 		return 0;
 	if (!read_int(tok, &m->shininess))
 		return 0;
+	m->reflect = 0.0;
+	m->transparency = 0.0;
+	m->ior = 1.5;
 	if (*tok)
 	{
 		if (!read_double(tok, &m->reflect))
@@ -175,6 +178,22 @@ static int	fill_material(char **tok, t_material *m)
 			m->reflect = 0.0;
 		if (m->reflect > 1.0)
 			m->reflect = 1.0;
+	}
+	if (*tok)
+	{
+		if (!read_double(tok, &m->transparency))
+			return 0;
+		if (m->transparency < 0.0)
+			m->transparency = 0.0;
+		if (m->transparency > 1.0)
+			m->transparency = 1.0;
+	}
+	if (*tok)
+	{
+		if (!read_double(tok, &m->ior))
+			return 0;
+		if (m->ior < 1.0)
+			m->ior = 1.0;
 	}
 	return 1;
 }

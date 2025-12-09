@@ -22,6 +22,8 @@ typedef struct s_material
 	double ks;
 	int shininess;
 	double reflect;
+	double transparency;
+	double ior;
 	t_color color;
 }	t_material;
 

@@ -31,6 +31,16 @@ static t_vec3	reflect(t_vec3 I, t_vec3 N)
 {
 	return vec_sub(I, vec_scale(N, 2.0 * vec_dot(I, N)));
 }
+
+static int	refract(t_vec3 I, t_vec3 N, double eta, t_vec3 *refr)
+{
+	double cosi = -vec_dot(I, N);
+	double cost2 = 1.0 - eta * eta * (1.0 - cosi * cosi);
+	if (cost2 < 0.0)
+		return 0;
+	*refr = vec_add(vec_scale(I, eta), vec_scale(N, eta * cosi - sqrt(cost2)));
+	return 1;
+}
 static int	clamp_i(int v, int min, int max)
 {
 	if (v < min)
@@ -404,15 +414,38 @@ static t_color	trace_ray(const t_scene *scene, t_vec3 ro, t_vec3 rd, int depth)
 		local.g = clamp_i((int)(local.g * (1.0 - f) + scene->fog_color.g * f), 0, 255);
 		local.b = clamp_i((int)(local.b * (1.0 - f) + scene->fog_color.b * f), 0, 255);
 	}
-	if (depth <= 0 || hit.mat.reflect <= 1e-6)
+	if (depth <= 0)
+		return local;
+	double kr = hit.mat.reflect;
+	double kt = hit.mat.transparency;
+	if (kr <= 1e-6 && kt <= 1e-6)
 		return local;
 	t_vec3 refl_dir = reflect(vec_scale(rd, -1.0), hit.normal);
 	t_color refl_col = trace_ray(scene, vec_add(hit.point, vec_scale(hit.normal, 1e-3)), refl_dir, depth - 1);
-	double kr = hit.mat.reflect;
+	t_color refr_col = {0, 0, 0};
+	if (kt > 1e-6)
+	{
+		double eta = 1.0 / hit.mat.ior;
+		t_vec3 n = hit.normal;
+		double cosi = vec_dot(rd, hit.normal);
+		if (cosi > 0.0)
+		{
+			n = vec_scale(n, -1.0);
+			eta = hit.mat.ior;
+		}
+		t_vec3 refr_dir;
+		if (refract(vec_scale(rd, -1.0), n, eta, &refr_dir))
+			refr_col = trace_ray(scene, vec_add(hit.point, vec_scale(refr_dir, 1e-3)), refr_dir, depth - 1);
+		else
+			kt = 0.0;
+	}
+	double base = 1.0 - kr - kt;
+	if (base < 0.0)
+		base = 0.0;
 	t_color out;
-	out.r = clamp_i((int)(local.r * (1.0 - kr) + refl_col.r * kr), 0, 255);
-	out.g = clamp_i((int)(local.g * (1.0 - kr) + refl_col.g * kr), 0, 255);
-	out.b = clamp_i((int)(local.b * (1.0 - kr) + refl_col.b * kr), 0, 255);
+	out.r = clamp_i((int)(local.r * base + refl_col.r * kr + refr_col.r * kt), 0, 255);
+	out.g = clamp_i((int)(local.g * base + refl_col.g * kr + refr_col.g * kt), 0, 255);
+	out.b = clamp_i((int)(local.b * base + refl_col.b * kr + refr_col.b * kt), 0, 255);
 	return out;
 }
 
