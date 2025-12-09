@@ -436,19 +436,42 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 	for (size_t i = 0; i < scene->lights_count; ++i)
 	{
 		t_light *L = &scene->lights[i];
-		int samples = (L->radius > 1e-6) ? 4 : 1;
+		int samples = (L->radius > 1e-6 && L->type != LIGHT_DIR) ? 4 : 1;
 		for (int s = 0; s < samples; ++s)
 		{
 			t_vec3 lp = L->pos;
-			if (L->radius > 1e-6)
+			t_vec3 ldir;
+			double dist;
+			if (L->type == LIGHT_DIR)
+			{
+				ldir = vec_scale(L->dir, -1.0);
+				dist = 1e9;
+				samples = (L->radius > 1e-6) ? 4 : 1;
+				if (L->radius > 1e-6)
+				{
+					uint32_t seed = (uint32_t)(i * 73856093u + s * 19349663u + (uint32_t)(fabs(hit->point.x * 9973.0)));
+					t_vec3 jitter = random_in_unit_sphere(seed);
+					t_vec3 offset = vec_norm(vec_cross(ldir, (fabs(ldir.x) > 0.9) ? (t_vec3){0,1,0} : (t_vec3){1,0,0}));
+					t_vec3 offset2 = vec_norm(vec_cross(ldir, offset));
+					lp = vec_add(hit->point, vec_add(vec_scale(offset, jitter.x * L->radius), vec_scale(offset2, jitter.y * L->radius)));
+					ldir = vec_norm(vec_scale(L->dir, -1.0));
+				}
+			}
+			else if (L->radius > 1e-6)
 			{
 				uint32_t seed = (uint32_t)(i * 73856093u + s * 19349663u + (uint32_t)(fabs(hit->point.x * 9973.0)));
 				t_vec3 jitter = random_in_unit_sphere(seed);
 				lp = vec_add(lp, vec_scale(jitter, L->radius));
+				ldir = vec_sub(lp, hit->point);
+				dist = vec_len(ldir);
+				ldir = vec_scale(ldir, 1.0 / dist);
 			}
-			t_vec3 ldir = vec_sub(lp, hit->point);
-			double dist = vec_len(ldir);
-			ldir = vec_scale(ldir, 1.0 / dist);
+			else
+			{
+				ldir = vec_sub(lp, hit->point);
+				dist = vec_len(ldir);
+				ldir = vec_scale(ldir, 1.0 / dist);
+			}
 			if (L->type == LIGHT_SPOT)
 			{
 				double cos_theta = vec_dot(vec_scale(ldir, -1.0), L->dir);
@@ -457,7 +480,7 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 			}
 			if (in_shadow(scene, hit->point, ldir, dist))
 				continue;
-			double attenuation = 1.0 / (1.0 + 0.09 * dist + 0.032 * dist * dist);
+			double attenuation = (L->type == LIGHT_DIR) ? 1.0 : 1.0 / (1.0 + 0.09 * dist + 0.032 * dist * dist);
 			double spot_factor = 1.0;
 			if (L->type == LIGHT_SPOT)
 				spot_factor = fmax(0.0, vec_dot(vec_scale(ldir, -1.0), L->dir));

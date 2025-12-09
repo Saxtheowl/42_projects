@@ -121,4 +121,5 @@
 2025-12-09 01:17:37 | Graphical/Graphical_Project | IN_PROGRESS | UV mesh support (vt + mapping sur triangles) et sample texture barycentrique; MLX toujours manquante.
 2025-12-09 01:27:40 | Graphical/Graphical_Project | IN_PROGRESS | Sampling texture bilinéaire (wrap) pour limiter l’aliasing; MLX toujours manquante.
 2025-12-09 01:32:53 | Graphical/Graphical_Project | IN_PROGRESS | Bilinear wrap consolidé + doc CLI matériaux/texture; MLX toujours manquante.
+2025-12-09 01:38:46 | Graphical/Graphical_Project | IN_PROGRESS | Lumières directionnelles (`dirlight`/`sun`) avec rayon soft + scène `assets/scenes/sun.rt`; MLX toujours manquante.
 2025-12-09 01:02:45 | Graphical/Graphical_Project | IN_PROGRESS | Mélange refl/trans basé Fresnel (Schlick) pour un rendu plus physique; MLX toujours manquante.

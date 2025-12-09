@@ -246,6 +246,26 @@ static int	parse_spot(char **tok, t_scene *scene)
 	return 1;
 }
 
+static int	parse_dirlight(char **tok, t_scene *scene)
+{
+	if (!ensure_light_cap(scene, scene->lights_count + 1))
+		return 0;
+	t_light *l = &scene->lights[scene->lights_count];
+	if (!read_vec3(tok, &l->dir) || !read_double(tok, &l->intensity) || !read_color(tok, &l->color))
+		return 0;
+	l->dir = normalize(l->dir);
+	l->type = LIGHT_DIR;
+	l->pos = (t_vec3){0, 0, 0};
+	l->cutoff_cos = -1.0;
+	l->radius = 0.0;
+	if (*tok && !read_double(tok, &l->radius))
+		return 0;
+	if (l->radius < 0.0)
+		l->radius = 0.0;
+	scene->lights_count++;
+	return 1;
+}
+
 static int	fill_material(char **tok, t_material *m, t_scene *scene)
 {
 	if (!read_color(tok, &m->color))
@@ -617,6 +637,8 @@ static int	dispatch(char *line, t_scene *scene, int lineno)
 		return parse_light(&args, scene);
 	if (strcmp(tok, "spot") == 0)
 		return parse_spot(&args, scene);
+	if (strcmp(tok, "dirlight") == 0 || strcmp(tok, "sun") == 0)
+		return parse_dirlight(&args, scene);
 	if (strcmp(tok, "sphere") == 0)
 		return parse_object(&args, scene, OBJ_SPHERE);
 	if (strcmp(tok, "plane") == 0)
@@ -649,6 +671,7 @@ int	parse_scene(const char *path, t_scene *scene)
 	scene->fog_density = 0.0;
 	scene->fog_color = (t_color){200, 200, 200};
 	scene->fog_enabled = 0;
+	scene->textures = NULL;
 	scene->camera.aperture = 0.0;
 	scene->camera.focal_dist = 1.0;
 	char buf[1024];

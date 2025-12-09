@@ -51,7 +51,8 @@ typedef struct s_camera
 typedef enum e_lighttype
 {
 	LIGHT_POINT,
-	LIGHT_SPOT
+	LIGHT_SPOT,
+	LIGHT_DIR
 }	t_lighttype;
 
 typedef struct s_light
