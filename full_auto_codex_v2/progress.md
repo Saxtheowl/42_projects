@@ -111,3 +111,4 @@
 2025-12-09 00:18:26 | Graphical/Graphical_Project | IN_PROGRESS | Matériaux transparents/réfractifs (transparency + IOR) et scène `assets/scenes/glass.rt` pour tester la réfraction; MLX toujours manquante.
 2025-12-09 00:23:54 | Graphical/Graphical_Project | IN_PROGRESS | Profondeur de champ via aperture/focal_dist sur camera + scène `assets/scenes/dof.rt`; MLX toujours manquante.
 2025-12-09 00:29:20 | Graphical/Graphical_Project | IN_PROGRESS | Ombres douces via lights à rayon optionnel (échantillonnage multi-rayons) + scène `assets/scenes/soft_shadow.rt`; MLX toujours manquante.
+2025-12-09 00:33:24 | Graphical/Graphical_Project | IN_PROGRESS | Primitive triangle ajoutée (parser + intersection) + scène `assets/scenes/triangles.rt`; MLX toujours manquante.

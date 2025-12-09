@@ -60,7 +60,8 @@ typedef enum e_objtype
 	OBJ_PLANE,
 	OBJ_CYLINDER,
 	OBJ_CONE,
-	OBJ_BOX
+	OBJ_BOX,
+	OBJ_TRIANGLE
 }	t_objtype;
 
 typedef struct s_object
@@ -72,6 +73,9 @@ typedef struct s_object
 	double height; /* cylinder/cone */
 	double angle;  /* cone angle in degrees */
 	t_vec3 size;   /* box half-size */
+	t_vec3 v0;     /* triangle vertices */
+	t_vec3 v1;
+	t_vec3 v2;
 	int checker_enabled;
 	double checker_size;
 	t_color checker_color;

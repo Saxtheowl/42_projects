@@ -277,6 +277,36 @@ static int	intersect_box(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
 	return 1;
 }
 
+static int	intersect_triangle(const t_object *o, t_vec3 ro, t_vec3 rd, t_hit *hit)
+{
+	const double EPS = 1e-6;
+	t_vec3 v0v1 = vec_sub(o->v1, o->v0);
+	t_vec3 v0v2 = vec_sub(o->v2, o->v0);
+	t_vec3 pvec = vec_cross(rd, v0v2);
+	double det = vec_dot(v0v1, pvec);
+	if (fabs(det) < EPS)
+		return 0;
+	double invDet = 1.0 / det;
+	t_vec3 tvec = vec_sub(ro, o->v0);
+	double u = vec_dot(tvec, pvec) * invDet;
+	if (u < 0.0 || u > 1.0)
+		return 0;
+	t_vec3 qvec = vec_cross(tvec, v0v1);
+	double v = vec_dot(rd, qvec) * invDet;
+	if (v < 0.0 || u + v > 1.0)
+		return 0;
+	double t = vec_dot(v0v2, qvec) * invDet;
+	if (t < 1e-4)
+		return 0;
+	t_vec3 n = vec_norm(vec_cross(v0v1, v0v2));
+	hit->t = t;
+	hit->point = vec_add(ro, vec_scale(rd, t));
+	hit->normal = n;
+	hit->mat = o->mat;
+	hit->obj = o;
+	return 1;
+}
+
 static int	trace(const t_scene *scene, t_vec3 ro, t_vec3 rd, t_hit *closest)
 {
 	int hit_any = 0;
@@ -297,6 +327,8 @@ static int	trace(const t_scene *scene, t_vec3 ro, t_vec3 rd, t_hit *closest)
 			ok = intersect_cone(o, ro, rd, &h);
 		else if (o->type == OBJ_BOX)
 			ok = intersect_box(o, ro, rd, &h);
+		else if (o->type == OBJ_TRIANGLE)
+			ok = intersect_triangle(o, ro, rd, &h);
 		if (ok)
 		{
 			if (!h.obj)

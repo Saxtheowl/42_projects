@@ -232,8 +232,16 @@ static int	parse_object(char **tok, t_scene *scene, t_objtype type)
 	memset(o, 0, sizeof(*o));
 	o->type = type;
 	o->checker_enabled = 0;
-	if (!read_vec3(tok, &o->pos))
-		return 0;
+	if (type == OBJ_TRIANGLE)
+	{
+		if (!read_vec3(tok, &o->v0) || !read_vec3(tok, &o->v1) || !read_vec3(tok, &o->v2))
+			return 0;
+	}
+	else
+	{
+		if (!read_vec3(tok, &o->pos))
+			return 0;
+	}
 	if (type == OBJ_BOX)
 		if (!read_vec3(tok, &o->size))
 			return 0;
@@ -291,6 +299,8 @@ static int	dispatch(char *line, t_scene *scene, int lineno)
 		return parse_object(&args, scene, OBJ_CONE);
 	if (strcmp(tok, "box") == 0)
 		return parse_object(&args, scene, OBJ_BOX);
+	if (strcmp(tok, "triangle") == 0)
+		return parse_object(&args, scene, OBJ_TRIANGLE);
 	fprintf(stderr, "Unknown token at line %d\n", lineno);
 	return 0;
 }
