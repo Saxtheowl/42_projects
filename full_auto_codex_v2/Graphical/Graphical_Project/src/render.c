@@ -337,15 +337,24 @@ static t_color	shade(const t_scene *scene, t_hit *hit, t_vec3 rd)
 		t_vec3 ldir = vec_sub(L->pos, hit->point);
 		double dist = vec_len(ldir);
 		ldir = vec_scale(ldir, 1.0 / dist);
+		if (L->type == LIGHT_SPOT)
+		{
+			double cos_theta = vec_dot(vec_scale(ldir, -1.0), L->dir);
+			if (cos_theta < L->cutoff_cos)
+				continue;
+		}
 		if (in_shadow(scene, hit->point, ldir, dist))
 			continue;
 		double attenuation = 1.0 / (1.0 + 0.09 * dist + 0.032 * dist * dist);
+		double spot_factor = 1.0;
+		if (L->type == LIGHT_SPOT)
+			spot_factor = fmax(0.0, vec_dot(vec_scale(ldir, -1.0), L->dir));
 		double diff = fmax(0.0, vec_dot(hit->normal, ldir));
 		t_vec3 view = vec_scale(rd, -1.0);
 		t_vec3 reflect_dir = reflect(vec_scale(ldir, -1.0), hit->normal);
 		double spec = pow(fmax(0.0, vec_dot(view, reflect_dir)), hit->mat.shininess);
 		double lr = L->color.r / 255.0, lg = L->color.g / 255.0, lb = L->color.b / 255.0;
-		double scale = L->intensity * attenuation;
+		double scale = L->intensity * attenuation * spot_factor;
 		r += scale * (hit->mat.kd * diff * hit->mat.color.r / 255.0 * lr + hit->mat.ks * spec * lr);
 		g += scale * (hit->mat.kd * diff * hit->mat.color.g / 255.0 * lg + hit->mat.ks * spec * lg);
 		b += scale * (hit->mat.kd * diff * hit->mat.color.b / 255.0 * lb + hit->mat.ks * spec * lb);

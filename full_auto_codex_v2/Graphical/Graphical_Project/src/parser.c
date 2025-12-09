@@ -1,11 +1,15 @@
 #include "parser.h"
 
 #include <ctype.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define INITIAL_CAP 8
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
 
 static void	trim_newline(char *s)
 {
@@ -55,6 +59,14 @@ static int	read_vec3(char **tok, t_vec3 *v)
 static int	read_color(char **tok, t_color *c)
 {
 	return read_int(tok, &c->r) && read_int(tok, &c->g) && read_int(tok, &c->b);
+}
+
+static t_vec3	normalize(t_vec3 v)
+{
+	double len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	if (len == 0.0)
+		return v;
+	return (t_vec3){v.x / len, v.y / len, v.z / len};
 }
 
 static int	ensure_light_cap(t_scene *scene, size_t cap)
@@ -111,6 +123,28 @@ static int	parse_light(char **tok, t_scene *scene)
 	t_light *l = &scene->lights[scene->lights_count];
 	if (!read_vec3(tok, &l->pos) || !read_double(tok, &l->intensity) || !read_color(tok, &l->color))
 		return 0;
+	l->type = LIGHT_POINT;
+	l->dir = (t_vec3){0, 0, 0};
+	l->cutoff_cos = -1.0;
+	scene->lights_count++;
+	return 1;
+}
+
+static int	parse_spot(char **tok, t_scene *scene)
+{
+	if (!ensure_light_cap(scene, scene->lights_count + 1))
+		return 0;
+	t_light *l = &scene->lights[scene->lights_count];
+	if (!read_vec3(tok, &l->pos) || !read_vec3(tok, &l->dir))
+		return 0;
+	l->dir = normalize(l->dir);
+	double cutoff_deg;
+	if (!read_double(tok, &cutoff_deg))
+		return 0;
+	if (!read_double(tok, &l->intensity) || !read_color(tok, &l->color))
+		return 0;
+	l->type = LIGHT_SPOT;
+	l->cutoff_cos = cos(cutoff_deg * M_PI / 180.0);
 	scene->lights_count++;
 	return 1;
 }
@@ -188,6 +222,8 @@ static int	dispatch(char *line, t_scene *scene, int lineno)
 		return parse_ambient(&args, scene);
 	if (strcmp(tok, "light") == 0)
 		return parse_light(&args, scene);
+	if (strcmp(tok, "spot") == 0)
+		return parse_spot(&args, scene);
 	if (strcmp(tok, "sphere") == 0)
 		return parse_object(&args, scene, OBJ_SPHERE);
 	if (strcmp(tok, "plane") == 0)
@@ -211,6 +247,8 @@ int	parse_scene(const char *path, t_scene *scene)
 		return 0;
 	}
 	memset(scene, 0, sizeof(*scene));
+	scene->sky_top = (t_color){135, 206, 250};
+	scene->sky_bottom = (t_color){30, 30, 40};
 	char buf[1024];
 	int ok = 1;
 	int lineno = 0;

@@ -33,11 +33,20 @@ typedef struct s_camera
 	int present;
 }	t_camera;
 
+typedef enum e_lighttype
+{
+	LIGHT_POINT,
+	LIGHT_SPOT
+}	t_lighttype;
+
 typedef struct s_light
 {
 	t_vec3 pos;
+	t_vec3 dir;
 	double intensity;
 	t_color color;
+	t_lighttype type;
+	double cutoff_cos;
 }	t_light;
 
 typedef enum e_objtype
