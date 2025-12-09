@@ -31,6 +31,7 @@ Mise à jour (2025-12-09 01:12:56) : Textures PPM optionnelles (sphère/plan/mes
 Mise à jour (2025-12-09 01:17:37) : Support UV OBJ (`vt` + faces v/vt/vn) et échantillonnage barycentrique sur triangles texturés.
 Mise à jour (2025-12-09 01:23:34) : Ajout uv_scale (tile textures) sur sphères/plans/triangles/meshes; scène `assets/scenes/textured_tiled.rt` démontre le tiling.
 Mise à jour (2025-12-09 01:27:40) : Textures échantillonnées en bilinéaire pour éviter l’aliasing (wrap); applicable à tous les objets texturés.
+Mise à jour (2025-12-09 01:32:53) : Ajustements CLI (doc options matériaux/texture) et wrap bilinéaire consolidé.
 
 ## Format de scène (proposition)
 Chaque ligne : `token arguments`. Les valeurs sont des floats (ou int) séparés par des espaces.
