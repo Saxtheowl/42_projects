@@ -12,6 +12,7 @@ PREVIEW = BASE_DIR / "preview_validation.py"
 PRUNE = BASE_DIR / "prune_validation_archives.py"
 VERIFY = BASE_DIR / "verify_archive_summary.py"
 EXPORT = BASE_DIR / "export_validation_summary_csv.py"
+EXPORT_YAML = BASE_DIR / "export_validation_summary_yaml.py"
 
 
 def main() -> int:
@@ -20,6 +21,7 @@ def main() -> int:
         subprocess.run([executable, str(PRUNE)], check=True)
         subprocess.run([executable, str(VERIFY)], check=True)
         subprocess.run([executable, str(EXPORT)], check=True)
+        subprocess.run([executable, str(EXPORT_YAML)], check=True)
     except subprocess.CalledProcessError as exc:
         print(f"refresh pipeline failed: {exc}", file=stderr)
         return 1
