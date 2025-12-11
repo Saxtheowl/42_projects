@@ -22,6 +22,7 @@ source scripts/env_lfs.sh
 ./scripts/build_toolchain.sh linux-headers
 ./scripts/build_toolchain.sh glibc
 ```
+> Le script GCC empaquette automatiquement gmp/mpfr/mpc dans l'arbre `gcc-13.2.0` (tarballs requis dans `sources/`).
 
 5) Entrer en chroot :
 ```bash

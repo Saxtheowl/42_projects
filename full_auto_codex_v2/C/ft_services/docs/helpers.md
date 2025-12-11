@@ -11,6 +11,7 @@ Ce document regroupe tous les scripts d'assistance pour la revue :
 ## 3. Workflow santé + charge
 - `scripts/monitor_status.sh [config [max]]`: nettoie le log, attend `STATUS: OK`, consulte `COUNT` puis déclenche `test_max_connections.sh` (par défaut 10 `STATUS`). Idéal pour montrer en une seule commande que le daemon gère santé, compteur et surcharge.
 - `scripts/client_demo.py [--config config] [--commands ...]`: ouvre une connexion TCP et envoie une série de commandes (`STATUS`, `COUNT`, etc.), imprimant chaque requête et réponse. Utile pour illustrer les échanges et la réponse `connections: <n>`.
+- `scripts/stress_max_connections.sh [config [max]]`: envoie des `STATUS` successifs via `nc` jusqu’à obtenir `overloaded: <n>` et confirme que `max_connections` répond sous charge.
 
 ## 4. Démonstration recommandée
 1. Démarrez `./ft_services --config tests/env/ft_services_status.conf` dans un terminal (service compilé via le `Makefile`).

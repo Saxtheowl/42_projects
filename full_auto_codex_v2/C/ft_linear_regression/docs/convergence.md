@@ -17,7 +17,15 @@ Chaque exécution de `scripts/train.sh` suit maintenant cette chaîne :
 13. `scripts/diff_validation_archives.py` affiche les différences HTML entre deux archives (`docs/archive/validation_summary_*.html`) pour voir ce qui a changé d’un snapshot à l’autre.
 14. `scripts/verify_all_validation_archives.py` parcourt tous les archives disponibles et vérifie que chacun reflète les métriques actuelles (`docs/validation_summary.json`) afin d’éviter d’envoyer une version obsolète.
 15. `scripts/log_validation_summary.py` ajoute l’entrée timestamp/best/worst/avg au sommaire `docs/validation_history.md` pour conserver une trace sérielle des artefacts validés.
-16. Le script `scripts/check_validation_stability.py` vérifie la moyenne RMSE via le JSON généré (`docs/validation_summary.json`) et tombe en erreur si `avg > 1200`, ce qui permet d’ajouter facilement ce contrôle dans le pipeline ft_helpme ou dans un job de revue continue.
+16. `scripts/analyze_validation_history.py` peut résumer ces entrées (nombre total, nombre min/max/average) pour entendre la tendance RMSE et guider la discussion ft_helpme.
+17. Le script `scripts/check_validation_stability.py` vérifie la moyenne RMSE via le JSON généré (`docs/validation_summary.json`) et tombe en erreur si `avg > 1200`, ce qui permet d’ajouter facilement ce contrôle dans le pipeline ft_helpme ou dans un job de revue continue.
 8. Le script `scripts/check_validation_stability.py` vérifie la moyenne RMSE via le JSON généré (`docs/validation_summary.json`) et tombe en erreur si `avg > 1200`, ce qui permet d’ajouter facilement ce contrôle dans le pipeline ft_helpme ou dans un job de revue continue.
 
 Ces artefacts permettent de montrer que la stratégie discutée pendant la revue ft_helpme est suivie : `plots/latest_rmse.txt` contient la courbe ASCII et le résumé RMSE d’un run récent, `plots/latest_rmse.png` est prêt pour un futur affichage, et `data/validation_report.txt` documente la stabilité du scheduler sur différents splits.
+
+## Tendances et exports additionnels
+
+- `scripts/export_validation_history_csv.py` convertit `docs/validation_history.md` en `docs/validation_history.csv`, facilitant l’import des colonnes timestamp/best/worst/avg dans un tableur ou un outil de reporting sans manipuler du Markdown.
+- `scripts/trend_validation_history.py` lit ces entrées historiques, calcule les variations d’average RMSE, compte les progressions/régressions et émet un warning (code 1) si la moyenne augmente de plus de 0.5, ce qui permet de détecter rapidement toute dérive dans les metrics validés.
+- Ces deux scripts complètent `scripts/analyze_validation_history.py` et `scripts/check_validation_stability.py` (qui bloque tout run si avg>1200) en apportant des exports dédiés et un contrôle de tendance que la revue ft_helpme peut invoquer avant chaque session.
+- `scripts/verify_validation_highlight.py` vérifie que `docs/validation_history_highlight.md` ne diverge pas de `docs/validation_history.md`, ce qui permet d’automatiser la confiance dans le résumé highlight partagé avec la revue ft_helpme.

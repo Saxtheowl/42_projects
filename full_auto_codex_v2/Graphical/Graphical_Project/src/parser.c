@@ -66,18 +66,27 @@ static int	read_vec2(char **tok, t_vec2 *v)
 	return read_double(tok, &v->u) && read_double(tok, &v->v);
 }
 
+static int	is_number_token(const char *s)
+{
+	if (!s || !*s)
+		return 0;
+	if (*s == '+' || *s == '-')
+		++s;
+	return isdigit((unsigned char)*s) || *s == '.';
+}
+
 t_texture	*load_ppm(const char *path)
 {
-	FILE *f = fopen(path, "r");
+	FILE *f = fopen(path, "rb");
 	if (!f)
 	{
 		perror("fopen texture");
 		return NULL;
 	}
 	char magic[3] = {0};
-	if (fscanf(f, "%2s", magic) != 1 || strcmp(magic, "P3") != 0)
+	if (fscanf(f, "%2s", magic) != 1 || (strcmp(magic, "P3") != 0 && strcmp(magic, "P6") != 0))
 	{
-		fprintf(stderr, "Unsupported texture format (need P3): %s\n", path);
+		fprintf(stderr, "Unsupported texture format (need P3 or P6): %s\n", path);
 		fclose(f);
 		return NULL;
 	}
@@ -94,6 +103,12 @@ t_texture	*load_ppm(const char *path)
 		fclose(f);
 		return NULL;
 	}
+	int binary = (strcmp(magic, "P6") == 0);
+	int c = fgetc(f);
+	while (c == ' ' || c == '\n' || c == '\r' || c == '\t')
+		c = fgetc(f);
+	if (c != EOF)
+		ungetc(c, f);
 	tex->width = w;
 	tex->height = h;
 	tex->pixels = malloc((size_t)w * (size_t)h * sizeof(t_color));
@@ -106,13 +121,31 @@ t_texture	*load_ppm(const char *path)
 	for (int i = 0; i < w * h; ++i)
 	{
 		int r, g, b;
-		if (fscanf(f, "%d %d %d", &r, &g, &b) != 3)
+		if (binary)
 		{
-			fprintf(stderr, "Unexpected EOF in texture %s\n", path);
-			free(tex->pixels);
-			free(tex);
-			fclose(f);
-			return NULL;
+			unsigned char rgb[3];
+			if (fread(rgb, 1, 3, f) != 3)
+			{
+				fprintf(stderr, "Unexpected EOF in texture %s\n", path);
+				free(tex->pixels);
+				free(tex);
+				fclose(f);
+				return NULL;
+			}
+			r = rgb[0];
+			g = rgb[1];
+			b = rgb[2];
+		}
+		else
+		{
+			if (fscanf(f, "%d %d %d", &r, &g, &b) != 3)
+			{
+				fprintf(stderr, "Unexpected EOF in texture %s\n", path);
+				free(tex->pixels);
+				free(tex);
+				fclose(f);
+				return NULL;
+			}
 		}
 		tex->pixels[i].r = r;
 		tex->pixels[i].g = g;
@@ -190,6 +223,8 @@ static int	parse_camera(char **tok, t_scene *scene)
 		return 0;
 	scene->camera.aperture = 0.0;
 	scene->camera.focal_dist = 1.0;
+	scene->camera.up = (t_vec3){0, 1, 0};
+	scene->camera.has_up = 0;
 	if (*tok)
 	{
 		if (!read_double(tok, &scene->camera.aperture))
@@ -203,6 +238,12 @@ static int	parse_camera(char **tok, t_scene *scene)
 			return 0;
 		if (scene->camera.focal_dist <= 0.0)
 			scene->camera.focal_dist = 1.0;
+	}
+	if (*tok)
+	{
+		if (!read_vec3(tok, &scene->camera.up))
+			return 0;
+		scene->camera.has_up = 1;
 	}
 	scene->camera.present = 1;
 	return 1;
@@ -316,6 +357,7 @@ static int	fill_material(char **tok, t_material *m, t_scene *scene)
 	m->emission_strength = 0.0;
 	m->emission_color = (t_color){0, 0, 0};
 	m->texture = NULL;
+	m->normal_map = NULL;
 	m->uv_scale = (t_vec2){1.0, 1.0};
 	if (*tok)
 	{
@@ -351,13 +393,13 @@ static int	fill_material(char **tok, t_material *m, t_scene *scene)
 		if (m->roughness > 1.0)
 			m->roughness = 1.0;
 	}
-	if (*tok)
+	if (*tok && is_number_token(*tok))
 	{
 		if (!read_double(tok, &m->emission_strength))
 			return 0;
 		if (m->emission_strength < 0.0)
 			m->emission_strength = 0.0;
-		if (*tok)
+		if (*tok && is_number_token(*tok))
 		{
 			if (!read_color(tok, &m->emission_color))
 				return 0;
@@ -371,10 +413,21 @@ static int	fill_material(char **tok, t_material *m, t_scene *scene)
 		m->texture = tex;
 		tex->next = scene->textures;
 		scene->textures = tex;
-		if (*tok)
+		*tok = strtok(NULL, " \t");
+		if (*tok && is_number_token(*tok))
 		{
 			if (!read_vec2(tok, &m->uv_scale))
 				return 0;
+		}
+		if (*tok)
+		{
+			t_texture *nmap = load_ppm(*tok);
+			if (!nmap)
+				return 0;
+			m->normal_map = nmap;
+			nmap->next = scene->textures;
+			scene->textures = nmap;
+			*tok = strtok(NULL, " \t");
 		}
 	}
 	return 1;
@@ -594,60 +647,75 @@ static int	parse_mesh(char **tok, t_scene *scene)
 		}
 		else if (line[0] == 'f' && isspace((unsigned char)line[1]))
 		{
-			char a[64], b[64], c[64];
-			if (sscanf(line + 1, "%63s %63s %63s", a, b, c) != 3)
+			char *tok = strtok(line + 1, " \t\n");
+			char face_tokens[64][64];
+			int ft_count = 0;
+			while (tok && ft_count < 64)
+			{
+				strncpy(face_tokens[ft_count], tok, sizeof(face_tokens[ft_count]) - 1);
+				face_tokens[ft_count][sizeof(face_tokens[ft_count]) - 1] = '\0';
+				ft_count++;
+				tok = strtok(NULL, " \t\n");
+			}
+			if (ft_count < 3)
 			{
 				ok = 0;
 				break ;
 			}
-			int ia, ib, ic;
-			int na = -1, nb = -1, nc = -1;
-			int ta = -1, tb = -1, tc = -1;
-			if (!parse_face_index(a, &ia, &ta, &na) || !parse_face_index(b, &ib, &tb, &nb) || !parse_face_index(c, &ic, &tc, &nc))
+			for (int f = 1; f + 1 < ft_count; ++f)
 			{
-				ok = 0;
-				break ;
+				char *a = face_tokens[0];
+				char *b = face_tokens[f];
+				char *c = face_tokens[f + 1];
+				int ia, ib, ic;
+				int na = -1, nb = -1, nc = -1;
+				int ta = -1, tb = -1, tc = -1;
+				if (!parse_face_index(a, &ia, &ta, &na) || !parse_face_index(b, &ib, &tb, &nb) || !parse_face_index(c, &ic, &tc, &nc))
+				{
+					ok = 0;
+					break ;
+				}
+				if (ia < 1 || ib < 1 || ic < 1 || (size_t)ia > vcount || (size_t)ib > vcount || (size_t)ic > vcount)
+				{
+					ok = 0;
+					break ;
+				}
+				int has_norms = (na > 0 && nb > 0 && nc > 0);
+				if (has_norms && ((size_t)na > ncount || (size_t)nb > ncount || (size_t)nc > ncount))
+					has_norms = 0;
+				int has_uv = (ta > 0 && tb > 0 && tc > 0);
+				if (has_uv && ((size_t)ta > tcount || (size_t)tb > tcount || (size_t)tc > tcount))
+					has_uv = 0;
+				if (!ensure_obj_cap(scene, scene->objects_count + 1))
+				{
+					ok = 0;
+					break ;
+				}
+				t_object *o = &scene->objects[scene->objects_count++];
+				memset(o, 0, sizeof(*o));
+				o->type = OBJ_TRIANGLE;
+				t_vec3 v0s = {verts[ia - 1].x * scale.x, verts[ia - 1].y * scale.y, verts[ia - 1].z * scale.z};
+				t_vec3 v1s = {verts[ib - 1].x * scale.x, verts[ib - 1].y * scale.y, verts[ib - 1].z * scale.z};
+				t_vec3 v2s = {verts[ic - 1].x * scale.x, verts[ic - 1].y * scale.y, verts[ic - 1].z * scale.z};
+				o->v0 = vec_add(rotate_xyz(v0s, rotation), translate);
+				o->v1 = vec_add(rotate_xyz(v1s, rotation), translate);
+				o->v2 = vec_add(rotate_xyz(v2s, rotation), translate);
+				o->has_vertex_normals = has_norms;
+				if (has_norms)
+				{
+					o->vn0 = normals[na - 1];
+					o->vn1 = normals[nb - 1];
+					o->vn2 = normals[nc - 1];
+				}
+				o->has_uvs = has_uv;
+				if (has_uv)
+				{
+					o->uv0 = uvs[ta - 1];
+					o->uv1 = uvs[tb - 1];
+					o->uv2 = uvs[tc - 1];
+				}
+				o->mat = mat;
 			}
-			if (ia < 1 || ib < 1 || ic < 1 || (size_t)ia > vcount || (size_t)ib > vcount || (size_t)ic > vcount)
-			{
-				ok = 0;
-				break ;
-			}
-			int has_norms = (na > 0 && nb > 0 && nc > 0);
-			if (has_norms && ((size_t)na > ncount || (size_t)nb > ncount || (size_t)nc > ncount))
-				has_norms = 0;
-			int has_uv = (ta > 0 && tb > 0 && tc > 0);
-			if (has_uv && ((size_t)ta > tcount || (size_t)tb > tcount || (size_t)tc > tcount))
-				has_uv = 0;
-			if (!ensure_obj_cap(scene, scene->objects_count + 1))
-			{
-				ok = 0;
-				break ;
-			}
-			t_object *o = &scene->objects[scene->objects_count++];
-			memset(o, 0, sizeof(*o));
-			o->type = OBJ_TRIANGLE;
-			t_vec3 v0s = {verts[ia - 1].x * scale.x, verts[ia - 1].y * scale.y, verts[ia - 1].z * scale.z};
-			t_vec3 v1s = {verts[ib - 1].x * scale.x, verts[ib - 1].y * scale.y, verts[ib - 1].z * scale.z};
-			t_vec3 v2s = {verts[ic - 1].x * scale.x, verts[ic - 1].y * scale.y, verts[ic - 1].z * scale.z};
-			o->v0 = vec_add(rotate_xyz(v0s, rotation), translate);
-			o->v1 = vec_add(rotate_xyz(v1s, rotation), translate);
-			o->v2 = vec_add(rotate_xyz(v2s, rotation), translate);
-			o->has_vertex_normals = has_norms;
-			if (has_norms)
-			{
-				o->vn0 = normals[na - 1];
-				o->vn1 = normals[nb - 1];
-				o->vn2 = normals[nc - 1];
-			}
-			o->has_uvs = has_uv;
-			if (has_uv)
-			{
-				o->uv0 = uvs[ta - 1];
-				o->uv1 = uvs[tb - 1];
-				o->uv2 = uvs[tc - 1];
-			}
-			o->mat = mat;
 		}
 	}
 	free(verts);
@@ -714,6 +782,16 @@ int	parse_scene(const char *path, t_scene *scene)
 	scene->textures = NULL;
 	scene->camera.aperture = 0.0;
 	scene->camera.focal_dist = 1.0;
+	scene->enable_bvh = 1;
+	scene->ao_samples = 0;
+	scene->ao_radius = 0.0;
+	scene->srgb_textures = 0;
+	scene->glossy_samples = 1;
+	scene->env_samples = 0;
+	scene->env_intensity = 1.0;
+	scene->base_seed = 1337u;
+	scene->position_range = 10.0;
+	scene->clamp_value = 0.0;
 	char buf[1024];
 	int ok = 1;
 	int lineno = 0;

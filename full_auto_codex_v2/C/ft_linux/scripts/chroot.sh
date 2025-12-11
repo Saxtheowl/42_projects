@@ -2,7 +2,8 @@
 # Helper to mount bind points and enter the LFS chroot.
 set -euo pipefail
 
-LFS=${LFS:-/mnt/lfs}
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+LFS=${LFS:-$ROOT/.lfs}
 
 if [ ! -d "$LFS" ]; then
 	echo "[!] LFS directory not found: $LFS" >&2

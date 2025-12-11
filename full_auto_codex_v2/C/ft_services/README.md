@@ -31,6 +31,7 @@ Consultez `docs/helpers.md` pour un résumé de tous les helpers et de l’ordre
 
 #### Scripts utilitaires complémentaires
 `scripts/show_config.sh [config]` affiche les valeurs `port`, `backlog`, `log_path` et `max_connections` extraites d’une configuration, ce qui aide à s’assurer que les helpers utilisent les mêmes paramètres que le service lui-même sans avoir à relire manuellement le fichier.
+`scripts/stress_max_connections.sh [config [max]]` envoie `STATUS` en boucle via `nc` (POSIX) pour atteindre `overloaded: <n>` et peut être utilisée pour valider que `max_connections` se déclenche sur charge ; le second argument contrôle le nombre d’essais avant d’abandonner.
 ## Objectifs de démarrage
 - Traduire les exigences du PDF en listes de tâches (initialisation, configuration, sécurité, tests).
 - Documenter l'approche (architecture, composants, scripts d'automatisation) dans `PLAN.md`.

@@ -10,8 +10,9 @@ fi
 run() {
   name="$1"
   expected="$2"
+  shift 2
   printf -- '---- %s ----\n' "$name"
-  out="$("$BIN" "$SCRIPT_DIR/$name")"
+  out="$("$BIN" "$@" "$SCRIPT_DIR/$name")"
   if [ "$out" = "$expected" ]; then
     printf -- '%s\n' "$out"
   else
@@ -21,15 +22,25 @@ run() {
 }
 
 run simple_implication.exp "B: true"
-run conflict.exp "B: undetermined"
+run conflict.exp "B: undetermined (conflict)"
 run or_resolution.exp "C: false
 D: true"
 run xor_branch.exp "B: false
 C: true"
 run or_conflict.exp "C: false
-D: undetermined"
+D: undetermined (conflict)"
 run xor_conflict.exp "B: false
-C: undetermined"
+C: undetermined (conflict)"
+run trace_conflict_input.exp "Rule #1 fired (progress): A => B
+Conflict triggered by A => !B on B
+Rule #1 fired (progress): A => B
+Conflict triggered by A => !B on B
+Known facts after fixpoint:
+A: true
+Rule #1 fired (progress): A => B
+Conflict triggered by A => !B on B
+B: undetermined (conflict)" -v
+run simple_implication.exp "{\"results\":[{\"symbol\":\"B\",\"value\":\"true\",\"conflict\":false}]}" -j
 run xor_mixed.exp "B: true
 C: undetermined
 D: undetermined"
@@ -37,3 +48,17 @@ run bicond.exp "B: true"
 run demo.exp "C: true
 D: false
 E: true"
+run bicond_chain.exp "B: true
+C: true"
+run neg_fact.exp "A: false"
+run facts_conflict.exp "A: undetermined (conflict)"
+run or_conflict_origin.exp "Conflicts detected:
+B (from A => B | C) C (from A => B | C)
+B: undetermined (conflict)
+C: undetermined (conflict)" -c
+run or_conflict_origin.exp "B: undetermined (conflict from A => B | C)
+C: undetermined (conflict from A => B | C)" -o
+run or_conflict_origin.exp "Conflicts detected:
+B (from A => B | C) C (from A => B | C)
+B: undetermined (conflict from A => B | C)
+C: undetermined (conflict from A => B | C)" -co

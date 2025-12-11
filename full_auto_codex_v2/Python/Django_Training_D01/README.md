@@ -1,31 +1,38 @@
 # Django Training D01
 
 ## Synthèse
-Kickoff du cursus Python/Django (jour 01) : prise en main de Django, création d'un projet basique et de quelques vues simples. Ce dépôt sert à cadrer les exercices D01 avec un environnement reproductible (venv/requirements), un projet Django racine et des apps à compléter selon le PDF.
+Jour 01 de la piscine Python/Django : exercices fondamentaux en Python (variables, dictionnaires, parsing de fichiers, détection état/capitale) et génération d'une page HTML représentant la table périodique. Les scripts sont autonomes et vivent dans `ex00` → `ex07`. Le scaffold Django initial reste présent mais n'est pas utilisé pour ces exercices.
 
 ## Plan
-- Lire le PDF (`docs/D01_-_Python-Django_training.pdf`) et lister les exos/deliverables attendus.
-- Initialiser venv + requirements (Django).
-- Générer le projet Django (`django-admin startproject training_d01`).
-- Créer les apps demandées (par ex. `ex00`, `ex01`, etc.) et remplir les vues/templates selon le sujet.
-- Ajouter scripts de run/tests (`manage.py test`, lint basique).
-- Documenter dans ce README comment lancer le serveur et les tests.
+- Consignes dans `docs/D01_-_Python-Django_training.pdf`.
+- Scripts :
+  - `ex00/var.py` : affichage de 9 variables typées.
+  - `ex01/numbers.py` : lecture de `numbers.txt` (1 à 100 séparés par des virgules).
+  - `ex02/var_to_dict.py` : inversion liste de tuples → dict et affichage.
+  - `ex03/capital_city.py` : capitale depuis un état (arg unique sinon silence).
+  - `ex04/state.py` : état depuis une capitale (arg unique sinon silence).
+  - `ex05/all_in.py` : détection état/capitale insensible à la casse/espaces (silence si virgules consécutives).
+  - `ex06/my_sort.py` : tri par année puis nom.
+  - `ex07/periodic_table.py` : génère `periodic_table.html` depuis `periodic_table.txt`.
 
-## Environnement prévu
-- Python 3.x
-- Django (version à fixer selon le sujet, par défaut 4.x)
-- venv local : `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
+## Environnement
+- Python 3.x (aucune dépendance externe requise pour les exercices).
+- Un `requirements.txt` Django subsiste pour les journées suivantes ; il n'est pas nécessaire ici.
 
 ## Avancement
-- Projet Django `training_d01` initialisé (settings/urls/wsgi/asgi, manage.py).
-- Requirements posés (`Django>=4.2,<5.0`).
-- Reste à lire le PDF et implémenter les exercices/applications demandées.
+- PDF lu et exercices ex00 → ex07 implémentés.
+- Ressources générées : `ex01/numbers.txt` (1..100), `ex07/periodic_table.txt` (119 éléments via dataset JSON Bowserinator).
 
-## Lancement (développement)
+## Utilisation rapide
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+# Exemple ex05
+cd ex05
+python3 all_in.py "New jersey, Trenton, Salem"
+
+# Générer la table périodique (fichier HTML à ouvrir dans un navigateur)
+cd ex07
+python3 periodic_table.py
 ```
+
+## Journal
+- 2025-12-04 16:43:00 : Implémentation complète ex00 → ex07, génération des ressources (numbers/periodic_table), tests manuels OK, README/PLAN mis à jour.

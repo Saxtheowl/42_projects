@@ -29,15 +29,18 @@ Objectif : construire une distribution Linux minimale et fonctionnelle, utilisé
  - `docs/build_log.md` : journal de build à compléter lors d'un run réel.
  - `docs/toolchain.md` : rappel commandes pour binutils/gcc/linux-headers/glibc + chroot.
   - `configs/linux-6.6.config.todo` : placeholder .config à générer/adapter.
-- `checksums/` : à compléter (SHA256 tarballs + image finale).
+- `docs/checksums.md` : SHA256 des sources (kernel/binutils/gcc/glibc/bash/coreutils/procps/sysvinit/eudev + deps gmp/mpfr/mpc/zlib).
+- `checksums/` : à compléter (SHA256 tarballs téléchargés + image finale).
 - `logs/` : répertoires pour les builds.
 
 ## Prochaines étapes
-1. Compléter les SHA256 réels dans `docs/checksums.md`, exécuter `scripts/download_sources.sh`.
-2. Automatiser les mkfs/mount dans `setup_env.sh` (utiliser `configs/partitions.sfdisk`).
-3. Finaliser la toolchain (glibc/headers/kernel headers) et tester.
-4. Enchaîner les paquets LFS dans `build_system.sh` (ordre complet + tests).
-5. Compiler le kernel 6.6.54, préparer initramfs, installer GRUB.
-6. Documenter un run complet (build + boot VM) dans `docs/build_log.md`.
+1. LFS pointe désormais par défaut sur `$ROOT/.lfs` (scripts env/setup/chroot) pour éviter `/mnt/lfs` root-only.
+2. `makeinfo` contourné via stub (`.local/bin/makeinfo`) et PATH mis à jour ; binutils cross installé dans `$LFS/tools` (warnings gprofng ignorés).
+3. GCC stage1 en échec (`scripts/build_toolchain.sh gcc` 2025-12-06 03:36:38) : configure-target-libgcc ne trouve pas `stdc-predef.h`/`stdio.h` dans le sysroot; besoin de fournir des en-têtes cibles (ou stubs propres) avant de relancer.
+4. Sources téléchargées et vérifiées (`scripts/download_sources.sh` OK, SHA256 alignés). Suivant : automatiser les mkfs/mount dans `setup_env.sh` (utiliser `configs/partitions.sfdisk`).
+5. Poursuivre toolchain : finaliser GCC + linux headers + glibc headers.
+5. Enchaîner les paquets LFS dans `build_system.sh` (ordre complet + tests).
+6. Compiler le kernel 6.6.54, préparer initramfs, installer GRUB.
+7. Documenter un run complet (build + boot VM) dans `docs/build_log.md`.
 
 > Projet long terme : version contrôlée par scripts (CI locale) et documentation complète (inspirée des livres LFS/BLFS).

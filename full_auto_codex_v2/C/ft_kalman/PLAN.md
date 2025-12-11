@@ -13,7 +13,7 @@
 ## Étape 3 – Infrastructure
 - [x] Mettre en place build C++17 (Makefile) + binaire démo.
 - [x] Implémenter bibliothèque matrice (taille fixe) minimale (opérations +, -, *, inverse 3x3).
-- [ ] Créer wrappers UDP (socket connect, sendto/recvfrom, timeouts).
+- [x] Créer wrappers UDP (socket connect, sendto/recvfrom, timeouts) + client brut `kalman_client` pour sniffer.
 
 ## Étape 4 – Implémentation filtre
 - [x] Codifier étapes predict/update (Kalman linéaire 6D position/vitesse).
@@ -22,7 +22,7 @@
 - [x] Ajouter tests unitaires rapides (cible `make test`).
 
 ## Étape 5 – Boucle application
-- [ ] Handshake initial + parsing message init (bloqué sans `imu-sensor-stream`).
+- [ ] Handshake initial + parsing message init (bloqué sans `imu-sensor-stream`; sniffer brut `kalman_client` prêt).
 - [ ] Boucle : réception sensor packet -> update -> renvoi estimation -> logs.
 - [ ] Gestion erreurs (timeout, estimation > 5m -> ajustement).
 

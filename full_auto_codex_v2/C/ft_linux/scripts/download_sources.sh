@@ -34,18 +34,14 @@ verify_sha() {
 	echo "[OK] $file vérifié"
 }
 
-while IFS='|' read -r pkg ver url sha; do
-	# skip header/empty
+while read -r pkg url sha; do
 	[ -z "$pkg" ] && continue
 	case "$pkg" in
-		paquet*|---) continue ;;
+		paquet|---) continue ;;
 	esac
-	pkg=$(echo "$pkg" | xargs)
-	url=$(echo "$url" | xargs)
-	sha=$(echo "$sha" | xargs)
 	[ -z "$url" ] && continue
 	download "$url"
 	verify_sha "$SRC/$(basename "$url")" "$sha"
-done < <(sed -n '3,$p' "$CHECKSUMS")
+done < <(awk -F'|' 'NR>2 && NF>=5 {gsub(/^[ \t]+|[ \t]+$/, "", $2); gsub(/^[ \t]+|[ \t]+$/, "", $4); gsub(/^[ \t]+|[ \t]+$/, "", $5); if($2!="" && $4!="") print $2, $4, $5}' "$CHECKSUMS")
 
 echo "[i] Téléchargement terminé. Si des SHA sont 'TODO', remplissez docs/checksums.md puis relancez le script pour vérifier."

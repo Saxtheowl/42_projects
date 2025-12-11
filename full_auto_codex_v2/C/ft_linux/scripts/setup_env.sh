@@ -7,7 +7,8 @@ WORK="${WORK:-$ROOT/work}"
 IMG="${IMG:-$WORK/disk.raw}"
 SIZE_MB="${SIZE_MB:-20480}"
 SFDISK="${SFDISK:-$ROOT/configs/partitions.sfdisk}"
-LFS="${LFS:-/mnt/lfs}"
+# Par défaut, utiliser un répertoire local pour éviter les permissions root-only.
+LFS="${LFS:-$ROOT/.lfs}"
 
 mkdir -p "$WORK"
 

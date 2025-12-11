@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stddef.h>
+#include <stdint.h>
 
 typedef struct s_vec3
 {
@@ -34,6 +35,7 @@ typedef struct s_material
 	double emission_strength;
 	t_color emission_color;
 	struct s_texture *texture;
+	struct s_texture *normal_map;
 	t_vec2 uv_scale;
 	t_color color;
 }	t_material;
@@ -42,10 +44,12 @@ typedef struct s_camera
 {
 	t_vec3 pos;
 	t_vec3 dir;
+	t_vec3 up;
 	double fov;
 	double aperture;
 	double focal_dist;
 	int present;
+	int has_up;
 }	t_camera;
 
 typedef enum e_lighttype
@@ -120,6 +124,18 @@ typedef struct s_scene
 	double fog_density;
 	t_color fog_color;
 	int fog_enabled;
+	int ao_samples;
+	double ao_radius;
+	int srgb_textures;
+	int glossy_samples;
+	int env_samples;
+	double env_intensity;
+	const char *albedo_path;
+	const char *position_path;
+	const char *id_path;
+	uint32_t base_seed;
+	double position_range;
+	double clamp_value;
 	t_light *lights;
 	size_t lights_count;
 	size_t lights_cap;
@@ -128,6 +144,8 @@ typedef struct s_scene
 	size_t objects_cap;
 	t_texture *textures;
 	t_texture *env_tex;
+	int enable_bvh;
 }	t_scene;
 
 void	free_scene(t_scene *scene);
+#include <stdint.h>
