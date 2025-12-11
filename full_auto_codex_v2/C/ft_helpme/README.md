@@ -30,6 +30,8 @@ Projet d’accompagnement pédagogique : il ne s’agit pas de livrer du code, m
 ## Suivi post-review
 - `notes/review_followup.md` accueille les actions décidées (scheduler, validation, visualisation) pour garder la trace de ce qui doit être implémenté dans `C/ft_linear_regression`.
 - Documenter chaque changement (scripts/train, scripts/reports, docs) dans le follow-up pour accélérer la mise à jour du projet ciblé.
+- Avant de lancer la session, exécuter `scripts/prepare_review.sh`.
+- Après avoir complété les réponses, valider le follow-up avec `scripts/validate_followup.sh` pour vérifier que les mots-clés scheduler/rmse_plot/validation sont bien présents et que `notes/debrief.md` n’est pas vide.
 
 ## Constat actuel
 - Projet ciblé : `C/ft_linear_regression`, gradient descent stable (RMSE ≈ 410) mais hyperparamètres encore empiriques.

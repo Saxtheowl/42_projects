@@ -15,10 +15,10 @@
 - [ ] Template `notes/debrief.md` pour retour post-review.
 - [x] Mettre à jour `README.md` avec les instructions (fait).
 
-## Étape 4 – Passage de la review
+- ## Étape 4 – Passage de la review
 - [ ] Planifier l’échange (30 min) sur 42 Intra.
 - [ ] Pendant la session : partager questions, montrer code, prendre notes.
-- [ ] Après session : remplir `notes/debrief.md`, compléter `notes/review_followup.md` et noter les décisions prises.
+- [ ] Après session : remplir `notes/debrief.md`, compléter `notes/review_followup.md` et valider le suivi via `scripts/validate_followup.sh`.
 
 ## Étape 5 – Suivi
 - [ ] Mettre à jour `progress.md` du projet principal en fonction des avancées.
