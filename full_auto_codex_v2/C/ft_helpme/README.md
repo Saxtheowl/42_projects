@@ -31,6 +31,7 @@ Projet d’accompagnement pédagogique : il ne s’agit pas de livrer du code, m
 - `notes/review_followup.md` accueille les actions décidées (scheduler, validation, visualisation) pour garder la trace de ce qui doit être implémenté dans `C/ft_linear_regression`.
 - Documenter chaque changement (scripts/train, scripts/reports, docs) dans le follow-up pour accélérer la mise à jour du projet ciblé.
 - Avant de lancer la session, exécuter `scripts/prepare_review.sh`.
+- Pendant la revue 30 min, partager l’extrait `code/gradient_notes.md`, `src/train.py` et `scripts/evaluate.py` pour illustrer les hyperparamètres et la métrique RMSE.
 - Après avoir complété les réponses, valider le follow-up avec `scripts/validate_followup.sh` pour vérifier que les mots-clés scheduler/rmse_plot/validation sont bien présents et que `notes/debrief.md` n’est pas vide.
 - Visualisation RMSE : `scripts/reports/rmse_plot.py path/to/history.json [--png plot.png]` lit l’historique JSON du gradient descent, affiche un résumé (avg/best/worst RMSE), trace un sparkline ASCII et peut enregistrer un PNG si `matplotlib` est disponible.
 
