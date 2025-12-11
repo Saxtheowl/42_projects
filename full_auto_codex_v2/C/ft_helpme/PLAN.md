@@ -22,4 +22,5 @@
 
 ## Étape 5 – Suivi
 - [ ] Mettre à jour `progress.md` du projet principal en fonction des avancées.
+- [ ] Ajouter `scripts/reports/rmse_plot.py` au dépôt (fait) et, après la session, l’utiliser une première fois pour résumer l’historique (passer la JSON générée par `scripts/train.sh`).
 - [ ] Si besoin, prévoir une review de suivi.
