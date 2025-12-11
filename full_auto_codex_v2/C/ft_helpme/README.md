@@ -24,8 +24,8 @@ Projet d’accompagnement pédagogique : il ne s’agit pas de livrer du code, m
 1. Sélectionner le projet bloqué actuel et décrire le contexte (`notes/context.md` occupe la place de `ft_linear_regression` pour le moment).
 2. Rédiger les questions en priorité (celles présentes dans `notes/questions.md` ciblent les hyperparamètres, la validation et la visualisation).
 3. Lancer `scripts/prepare_review.sh` pour vérifier la check-list (questions, contexte, éventuels extraits + débrief déjà rédigé) avant la review.
-4. Pendant la session 30 min : partager le contexte mentionné, les extraits listés et cocher chaque question avec le reviewer.
-5. Après la session : regarder `notes/debrief.md`, remplir `notes/review_followup.md`, puis reporter les décisions dans `C/ft_linear_regression/progress.md`.
+4. Pendant la session 30 min (planifiée 2025-12-12 15h avec reviewer 42Net) : partager le contexte, les extraits, cocher chaque question et noter les réponses dans `notes/debrief.md`.
+5. Après la session : remplir à jour `notes/review_followup.md`, reporter les décisions dans `C/ft_linear_regression/progress.md` et lancer les actions follow-up (scheduler, validation, visualisation).
 
 ## Suivi post-review
 - `notes/review_followup.md` accueille les actions décidées (scheduler, validation, visualisation) pour garder la trace de ce qui doit être implémenté dans `C/ft_linear_regression`.
