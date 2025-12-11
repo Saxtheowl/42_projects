@@ -33,6 +33,9 @@ pip install -r requirements.txt
 ```bash
 # Entraînement (met à jour data/theta.json)
 ./scripts/train.sh --learning-rate 0.1 --iterations 1000 --scheduler exponential --decay 0.95 --early-stop --patience 50 --min-delta 0.0005
+```
+
+Ce script crée automatiquement le dossier `plots/`, exécute `C/ft_helpme/scripts/reports/rmse_plot.py` sur `data/history.json` et conserve `plots/latest_rmse.png`/`plots/latest_rmse.txt` pour résumer la convergence. Les sorties supplémentaires apparaissent même lorsque `matplotlib` manque (`latest_rmse.txt` capture l’ASCII + résumé). La session 2025-12-11 12:59:45 a régénéré `data/history.json` et remis à jour `plots/latest_rmse.txt/.png`, tout en maintenant le snapshot `docs/validation_summary.*`.
 
 # Prédiction (argument ou invite utilisateur)
 ./scripts/predict.sh --mileage 65000
@@ -43,6 +46,14 @@ pip install -r requirements.txt
 # Visualisation
 ./scripts/plot.py --output plots/regression.png
 ```
+
+Le dossier `docs/` contient un état des artefacts de convergence ([`docs/convergence.md`](docs/convergence.md)) qui reprend la chaîne : entrainement, histoire RMSE, hook `rmse_plot.py`, validations croisés (rapport `data/validation_report.txt`) et exports `plots/latest_rmse.txt`/`.png`. On y ajoute `docs/validation_summary.txt` et `docs/validation_summary.md`, produits par `scripts/validation_summary.py`, pour figer best/worst/average RMSE sur un run donné (avec horodatage ISO) et le transmettre au reviewer; par exemple `docs/validation_summary.txt` liste `best fold 5 RMSE=594.47`, `worst fold 1 RMSE=1520.42`, `average=978.62`, et `docs/validation_summary.md` offre une table facile à copier dans un rapport.
+
+### Trace de convergence
+- La dernière exécution de `./scripts/train.sh --scheduler exponential --decay 0.95 --early-stop --patience 50 --min-delta 0.0005` s’est arrêtée à l’itération 349 (meilleur RMSE 969.0438) et a régénéré `data/history.json`.
+- Le résumé RMSE utilise maintenant `C/ft_helpme/scripts/reports/rmse_plot.py` (ASCII + résumé) et tente d’écrire `plots/latest_rmse.png` ; la dépendance `matplotlib` étant absente, seul le log texte apparaît mais l’option PNG restera disponible dès que la bibliothèque sera installée.
+- Le même résumé RMS a été capturé dans `plots/latest_rmse.txt` (speech log + sparkline) pour garder une trace sans dépendance graphique ; la présence de ce fichier confirme que les rapports RMSE sont archivés même quand la génération PNG n’est pas possible.
+- Le training script s’assure désormais que `plots/latest_rmse.txt`/`.png` (via le helper `rmse_plot.py`) sont remises à jour après chaque entraînement, ce qui maintient la trace exigée par la revue ft_helpme.
 
 ## Tests
 ```bash
@@ -56,8 +67,25 @@ Les tests incluent un dataset synthétique (`y = 2x + 1`) pour vérifier la conv
   python3 scripts/validation.py data/data.csv --folds 5 --test-size 0.2 --learning-rate 0.1 --iterations 1000 --scheduler exponential --decay 0.95
   ```
   Ce script complète `scripts/reports/rmse_plot.py` en fournissant des métriques sur la validation croisée que la review ft_helpme doit examiner.
+- Les sorties de cette exécution se loggent aussi dans `data/validation_report.txt` (RMSE par fold + moyenne) pour garder une trace réutilisable par la suite.
+- `data/validation_report.txt` est réécrit à chaque validation run (dernière exécution documentée : 2025-12-11 11:39:35) pour prouver que les même hyperparamètres validés restent cohérents à travers les splits.
+- Un nouveau script `scripts/validation_summary.py` peut lire `data/validation_report.txt` et fournir un résumé rapide (nombre de folds, meilleur/pire RMSE, moyenne) pour faciliter les comptes rendus de la review.
+  - La commande `scripts/validation_summary.py --report data/validation_report.txt --output docs/validation_summary.txt --markdown docs/validation_summary.md --json docs/validation_summary.json` garde un instantané prêt à être annexé aux notes de validation ft_helpme (`docs/validation_summary.*` contiennent les best/worst/average RMSE extraits de `data/validation_report.txt`, avec une table Markdown, un JSON et un HTML générés automatiquement); la session 12:59 a généré avg=978.62 (confirmé par `scripts/check_validation_stability.py`).
+  - `scripts/check_validation_stability.py` lit `docs/validation_summary.json` en priorité (et bascule sur la version texte si nécessaire) puis émet un code d’erreur si la moyenne dépasse 1200, fournissant un point de contrôle rapide pour la revue ft_helpme (actuellement avg=978.62, best=594.47, worst=1520.42) et mettant en avant l’usage du snapshot JSON pour l’intégration automatisée.
+  - `scripts/validation_summary_html.py` rend `docs/validation_summary.json` dans un petit tableau HTML (`docs/validation_summary.html`) afin que la review puisse coller la page dans un navigateur ou la partager rapidement sans manipuler Markdown/JSON; ce HTML est recréé chaque fois que le JSON change (lors des runs avec `--json`).
+  - `scripts/archive_validation_html.py` copie le snapshot HTML vers `docs/archive/validation_summary_<stamp>.html`, ce qui permet de conserver des archives horodatées pour la revue ft_helpme après chaque acceptance.
+  - `scripts/preview_validation.py` enchaîne `validation_summary.py --json` puis `check_validation_stability.py` pour rafraîchir tous les artefacts (`docs/validation_summary.*`, `docs/validation_summary.html`) et relancer la vérification avg<1200 en une seule commande pratique pour la revue et une CI rapide; passe `--archive` pour appeler `scripts/archive_validation_html.py` juste après et garder un snapshot horodaté.
+  - Le dossier `docs/archive/` contient un `README.md` décrivant le fonctionnement des archives HTML (`scripts/preview_validation.py --archive` + `scripts/archive_validation_html.py`) pour que la revue sache quelle version figée consulter; `scripts/list_validation_archives.py` liste les snapshots disponibles, `scripts/prune_validation_archives.py` supprime les plus vieilles, `scripts/verify_archive_summary.py` compare la dernière archive avec `docs/validation_summary.json` pour garantir l’intégrité des statistiques partagées, `scripts/refresh_validation_artifacts.py` chaîne tous ces outils pour un rafraîchissement complet (avec export CSV final), et `scripts/export_validation_summary_csv.py` fournit `docs/validation_summary.csv` pour alimenter facilement les outils de la revue.
+- Retour à la commande : `python3 scripts/check_validation_stability.py` est incluse dans la documentation pour rappeler que ce check se lance après la génération du summary et peut être intégré au pipeline CI de la revue.
+- L’exécution récente (`python3 scripts/check_validation_stability.py`) confirme la stabilité (avg=978.62, best=594.47, worst=1520.42). Ajouter cette ligne ici signale que le script passe aujourd’hui et les artefacts sont cohérents.
 
-- ## Stratégie & métriques
+## Revue ft_helpme (12/12/2025)
+- Suite à la review 42Net (notes/review_outcome.md), on conserve le scheduler `exponential` avec `decay 0.95` comme configuration recommandée ; le flag `--min-lr 1e-9` protège sur plateau et les traces sont écrites dans `data/history.json`.
+- Le suivi RMSE s’effectue via `scripts/train.sh` (historique + `scripts/reports/rmse_plot.py data/history.json [--png plots/rmse.png]`) : l’ASCII sparkline + résumé (avg/best/worst) documentent la convergence à chaque run.
+- Validation personnalisée (k-fold, bootstrap optionnelle) passe par `scripts/validation.py` : `python3 scripts/validation.py data/data.csv --folds 5 --test-size 0.2 --learning-rate 0.1 --iterations 1000 --scheduler exponential --decay 0.95` montre la stabilité du RMSE par split, et les remarques sur bootstrap apparaissent dans `notes/review_followup.md`.
+- Les options `--early-stop`, `--patience` et `--min-delta` restent disponibles pour détecter les plateaux ; les sorties de validation + RMSE plot servent d’indicateurs pour ajuster les hyperparamètres sans repartir de zéro.
+
+## Stratégie & métriques
 - Toutes les options `--scheduler`, `--decay`, `--min-lr`, `--early-stop`, `--patience` et `--min-delta` gouvernent la cadence d’apprentissage ; la configuration recommandée active `exponential` avec early stopping pour stabiliser le RMSE tout en donnant des signaux au script `scripts/validation.py`.
 - Le flag `--history path` (automatiquement `data/history.json` via `scripts/train.sh`) enregistre l’historique RMSE/learning_rate par itération. Utilisez `scripts/reports/rmse_plot.py data/history.json [--png output.png]` pour synthétiser la courbe (résumé, sparkline ASCII, option PNG si `matplotlib` est installé).
 

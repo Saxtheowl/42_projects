@@ -1,0 +1,20 @@
+# Convergence & validation
+
+Chaque exécution de `scripts/train.sh` suit maintenant cette chaîne :
+
+1. `src/train.py` entraîne la régression avec `--scheduler exponential --decay 0.95` et les flags `--early-stop`, `--patience 50`, `--min-delta 0.0005`.
+2. L’historique RMSE/learning_rate est exporté vers `data/history.json`.
+3. Le hook appelle `C/ft_helpme/scripts/reports/rmse_plot.py` pour produire les métriques ASCII et la tentative PNG ; les traces sont déposées dans `plots/latest_rmse.txt`/`plots/latest_rmse.png`.
+4. `scripts/validation.py` peut relancer les k-folds (`--folds 5 --test-size 0.2`), avec les mêmes hyperparamètres, pour enregistrer `data/validation_report.txt` (RMSE par fold + moyenne). Ce fichier est mis à jour à chaque validation run (dernier run : 2025-12-11 11:39:35) pour garder une trace précise des splits et de la moyenne RMSE.
+5. `scripts/validation_summary.py` lit ce rapport, imprime les stats best/worst/average RMSE via la console, met à jour `docs/validation_summary.txt`/`.md`, génère `docs/validation_summary.json`, puis appelle `scripts/validation_summary_html.py` pour produire `docs/validation_summary.html` (tableau HTML portatif) afin que la revue ft_helpme puisse citer ces chiffres sans relancer les splits ou qu’un processus automatisé les consomme.
+6. Le script `scripts/archive_validation_html.py` copie le HTML snapshot dans `docs/archive/validation_summary_<timestamp>.html`, ce qui permet de conserver des versions immuables pour la revue ft_helpme.
+7. `scripts/preview_validation.py` exécute `validation_summary.py --json` puis `check_validation_stability.py` pour rafraîchir tous les artefacts (`docs/validation_summary.*`, `docs/validation_summary.html`) et vérifier avg<1200 en une seule commande intéractive ; utilisez `--archive` pour déclencher ensuite `scripts/archive_validation_html.py`.
+8. `scripts/list_validation_archives.py` récapitule les fichiers HTML archivés (`docs/archive/validation_summary_*.html`) afin que l’on puisse sélectionner rapidement une version figée.
+9. `scripts/prune_validation_archives.py` nettoie les archives plus anciennes qu’une fenêtre (30 jours par défaut) pour éviter que le dossier `docs/archive/` ne gonfle et conserver uniquement les snapshots récents demandés par la revue.
+10. `scripts/verify_archive_summary.py` récupère la dernière archive et compare les métriques (best/worst/average RMSE) avec `docs/validation_summary.json` afin de confirmer qu’un HTML archivé reflète bien les chiffres partagés (elle capte les anomalies éventuelles dans la chaîne automatisée).
+11. `scripts/refresh_validation_artifacts.py` enchaîne `preview_validation.py --archive`, `prune_validation_archives.py` et `verify_archive_summary.py` afin de rafraîchir/archiver/pruner/vérifier en une seule commande avant la session ft_helpme.
+12. `scripts/export_validation_summary_csv.py` peut exporter `docs/validation_summary.json` vers `docs/validation_summary.csv` (timestamp, fold count, best/worst/average), utile pour les outils de reporting ou l’injection dans un tableau de suivi; `scripts/refresh_validation_artifacts.py` lance désormais cette exportation à la fin du pipeline.
+13. Le script `scripts/check_validation_stability.py` vérifie la moyenne RMSE via le JSON généré (`docs/validation_summary.json`) et tombe en erreur si `avg > 1200`, ce qui permet d’ajouter facilement ce contrôle dans le pipeline ft_helpme ou dans un job de revue continue.
+8. Le script `scripts/check_validation_stability.py` vérifie la moyenne RMSE via le JSON généré (`docs/validation_summary.json`) et tombe en erreur si `avg > 1200`, ce qui permet d’ajouter facilement ce contrôle dans le pipeline ft_helpme ou dans un job de revue continue.
+
+Ces artefacts permettent de montrer que la stratégie discutée pendant la revue ft_helpme est suivie : `plots/latest_rmse.txt` contient la courbe ASCII et le résumé RMSE d’un run récent, `plots/latest_rmse.png` est prêt pour un futur affichage, et `data/validation_report.txt` documente la stabilité du scheduler sur différents splits.
