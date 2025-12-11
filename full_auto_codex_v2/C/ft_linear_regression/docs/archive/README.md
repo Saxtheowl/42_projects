@@ -24,3 +24,5 @@ Après avoir archivé un snapshot avec `scripts/preview_validation.py --archive`
 Si vous voulez tout automatiser (preview + archive + prune + verify + CSV export), exécutez `python3 scripts/refresh_validation_artifacts.py`.
 
 Pour comparer deux archives HTML, lancez `python3 scripts/diff_validation_archives.py validation_summary_<stamp1>.html validation_summary_<stamp2>.html`.
+
+Pour générer une table explicite des archives avec best/worst/average, exécutez `python3 scripts/index_validation_archives.py` et consultez `docs/archive/index.md`.
