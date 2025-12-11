@@ -50,6 +50,13 @@ pip install -r requirements.txt
 ```
 Les tests incluent un dataset synthétique (`y = 2x + 1`) pour vérifier la convergence de l’algorithme.
 
+## Validation
+- `scripts/validation.py` effectue des splits aléatoires (option `--test-size`, `--folds`, `--seed`), entraîne avec les options `--scheduler/--decay/--min-lr` et affiche le RMSE moyen par fold afin de comparer différentes stratégies; un rappel de commande typique :
+  ```
+  python3 scripts/validation.py data/data.csv --folds 5 --test-size 0.2 --learning-rate 0.1 --iterations 1000 --scheduler exponential --decay 0.95
+  ```
+  Ce script complète `scripts/reports/rmse_plot.py` en fournissant des métriques sur la validation croisée que la review ft_helpme doit examiner.
+
 ## Stratégie & métriques
 - De nouvelles options `--scheduler {constant,linear,exponential}`, `--decay`, `--min-lr` pilotent le comportement du learning rate pendant l’entraînement ; vous pouvez combiner `linear`/`exponential` avec la commande `./scripts/train.sh` pour voir l’impact sur la convergence.
 - Le flag `--history path` (automatiquement `data/history.json` via `scripts/train.sh`) enregistre l’historique RMSE/learning_rate par itération. Utilisez `scripts/reports/rmse_plot.py data/history.json [--png output.png]` pour synthétiser la courbe (résumé, sparkline ASCII, option PNG si `matplotlib` est installé).

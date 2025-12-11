@@ -23,6 +23,7 @@
 ## Étape 5 – Tests
 - [x] Dataset synthétique (généré) pour valider convergence (test unitaire).
 - [x] Tests usage CLI (script shell) + documentation `tests_realisation/COMMANDS.md`.
+- [ ] Ajouter `scripts/validation.py` : splits aléatoires, RMSE moyen, scheduler/validation config, utile pour la revue/coverage.
 
 ## Étape 6 – Bonus / Visualisation
 - [x] Script `scripts/plot.py` (matplotlib) pour afficher points + droite.
