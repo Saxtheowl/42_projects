@@ -21,4 +21,6 @@ Pour supprimer les snapshots vieillissants, lancez `python3 scripts/prune_valida
 
 Après avoir archivé un snapshot avec `scripts/preview_validation.py --archive`, lancez `python3 scripts/verify_archive_summary.py` pour confirmer que la dernière archive reflète les métriques `docs/validation_summary.json` (best/worst/average RMSE).
 
-Si vous voulez tout automatiser (preview + archive + prune + verify), exécutez `python3 scripts/refresh_validation_artifacts.py`.
+Si vous voulez tout automatiser (preview + archive + prune + verify + CSV export), exécutez `python3 scripts/refresh_validation_artifacts.py`.
+
+Pour comparer deux archives HTML, lancez `python3 scripts/diff_validation_archives.py validation_summary_<stamp1>.html validation_summary_<stamp2>.html`.
