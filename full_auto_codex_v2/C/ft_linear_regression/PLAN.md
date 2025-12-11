@@ -13,7 +13,8 @@
 - [x] implémenter `estimate_price(theta, mileage)`.
 - [x] implémenter `gradient_step` selon formules.
 - [x] Config learning rate, iterations ; support normalisation.
-- [ ] Ajouter un scheduler ajustant dynamiquement le learning rate et logger un historique RMSE/learning_rate (JSON) pour alimenter l’analyse post-review.
+- [x] Ajouter un scheduler ajustant dynamiquement le learning rate et logger un historique RMSE/learning_rate (JSON) pour alimenter l’analyse post-review.
+- [ ] Introduire early stopping (patience, min delta) pour interrompre les runs quand le RMSE ne s’améliore plus, ce qui est utile pour la revue ft_helpme.
 
 ## Étape 4 – Programmes
 - [x] `train.py` : parse dataset, exécuter gradient descent, sauvegarder `theta` + normalisation.

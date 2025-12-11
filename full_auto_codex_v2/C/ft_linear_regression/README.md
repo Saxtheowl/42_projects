@@ -32,7 +32,7 @@ pip install -r requirements.txt
 ## Entraînement & utilisation
 ```bash
 # Entraînement (met à jour data/theta.json)
-./scripts/train.sh --learning-rate 0.1 --iterations 1000 --scheduler linear --decay 0.95
+./scripts/train.sh --learning-rate 0.1 --iterations 1000 --scheduler exponential --decay 0.95 --early-stop --patience 50 --min-delta 0.0005
 
 # Prédiction (argument ou invite utilisateur)
 ./scripts/predict.sh --mileage 65000
@@ -57,8 +57,8 @@ Les tests incluent un dataset synthétique (`y = 2x + 1`) pour vérifier la conv
   ```
   Ce script complète `scripts/reports/rmse_plot.py` en fournissant des métriques sur la validation croisée que la review ft_helpme doit examiner.
 
-## Stratégie & métriques
-- De nouvelles options `--scheduler {constant,linear,exponential}`, `--decay`, `--min-lr` pilotent le comportement du learning rate pendant l’entraînement ; vous pouvez combiner `linear`/`exponential` avec la commande `./scripts/train.sh` pour voir l’impact sur la convergence.
+- ## Stratégie & métriques
+- Toutes les options `--scheduler`, `--decay`, `--min-lr`, `--early-stop`, `--patience` et `--min-delta` gouvernent la cadence d’apprentissage ; la configuration recommandée active `exponential` avec early stopping pour stabiliser le RMSE tout en donnant des signaux au script `scripts/validation.py`.
 - Le flag `--history path` (automatiquement `data/history.json` via `scripts/train.sh`) enregistre l’historique RMSE/learning_rate par itération. Utilisez `scripts/reports/rmse_plot.py data/history.json [--png output.png]` pour synthétiser la courbe (résumé, sparkline ASCII, option PNG si `matplotlib` est installé).
 
 ## Notes
