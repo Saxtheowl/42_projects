@@ -18,7 +18,7 @@
 ## Étape 4 – Passage de la review
 - [ ] Planifier l’échange (30 min) sur 42 Intra.
 - [ ] Pendant la session : partager questions, montrer code, prendre notes.
-- [ ] Après session : remplir `notes/debrief.md` (apprentissages, next steps).
+- [ ] Après session : remplir `notes/debrief.md`, compléter `notes/review_followup.md` et noter les décisions prises.
 
 ## Étape 5 – Suivi
 - [ ] Mettre à jour `progress.md` du projet principal en fonction des avancées.

@@ -171,3 +171,4 @@
 c++ -Wall -Wextra -Werror -std=c++98 -Iinclude -c src/Server.cpp -o src/Server.o
 c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/D pour captures, overlay et auto-exports ().
 2025-12-09 07:10:00 | Graphical/Graphical_Project | DONE | Projet terminé : rendu PPM + buffers depth/normal/id/albedo/position/export stats (texte/JSON/CSV/console) finalisés, `--mlx` preview activable (`make USE_MLX=1`) avec S/D pour captures, overlay et auto-exports (`--mlx-auto-*`).
+2025-12-11 10:04:53 | C/ft_helpme | IN_PROGRESS | Follow-up prêt : `notes/review_followup.md` liste les actions scheduler/validation/visualisation pour `C/ft_linear_regression`, script prepare_review.pl continue d’alerter si `notes/debrief.md` vide et la revue 30 min reste à planifier.

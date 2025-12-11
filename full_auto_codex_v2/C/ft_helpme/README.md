@@ -25,7 +25,11 @@ Projet d’accompagnement pédagogique : il ne s’agit pas de livrer du code, m
 2. Rédiger les questions en priorité (celles présentes dans `notes/questions.md` ciblent les hyperparamètres, la validation et la visualisation).
 3. Lancer `scripts/prepare_review.sh` pour vérifier la check-list (questions, contexte, éventuels extraits + débrief déjà rédigé) avant la review.
 4. Pendant la session 30 min : partager le contexte mentionné, les extraits listés et cocher chaque question avec le reviewer.
-5. Après la session : regarder `notes/debrief.md`, compléter les actions post-review et reporter les décisions dans `C/ft_linear_regression/progress.md`.
+5. Après la session : regarder `notes/debrief.md`, remplir `notes/review_followup.md`, puis reporter les décisions dans `C/ft_linear_regression/progress.md`.
+
+## Suivi post-review
+- `notes/review_followup.md` accueille les actions décidées (scheduler, validation, visualisation) pour garder la trace de ce qui doit être implémenté dans `C/ft_linear_regression`.
+- Documenter chaque changement (scripts/train, scripts/reports, docs) dans le follow-up pour accélérer la mise à jour du projet ciblé.
 
 ## Constat actuel
 - Projet ciblé : `C/ft_linear_regression`, gradient descent stable (RMSE ≈ 410) mais hyperparamètres encore empiriques.
