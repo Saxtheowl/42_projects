@@ -13,6 +13,7 @@
 - [x] implémenter `estimate_price(theta, mileage)`.
 - [x] implémenter `gradient_step` selon formules.
 - [x] Config learning rate, iterations ; support normalisation.
+- [ ] Ajouter un scheduler ajustant dynamiquement le learning rate et logger un historique RMSE/learning_rate (JSON) pour alimenter l’analyse post-review.
 
 ## Étape 4 – Programmes
 - [x] `train.py` : parse dataset, exécuter gradient descent, sauvegarder `theta` + normalisation.
@@ -26,4 +27,5 @@
 ## Étape 6 – Bonus / Visualisation
 - [x] Script `scripts/plot.py` (matplotlib) pour afficher points + droite.
 - [x] Calcul RMSE (scripts/evaluate.py).
+- [ ] Documenter `scripts/reports/rmse_plot.py` et l’intégrer dans la roadmap post-review.
 *** End Patch
