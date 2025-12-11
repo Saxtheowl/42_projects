@@ -25,7 +25,7 @@ Projet d’accompagnement pédagogique : il ne s’agit pas de livrer du code, m
 2. Rédiger les questions en priorité (celles présentes dans `notes/questions.md` ciblent les hyperparamètres, la validation et la visualisation).
 3. Lancer `scripts/prepare_review.sh` pour vérifier la check-list (questions, contexte, éventuels extraits + débrief déjà rédigé) avant la review.
 4. Pendant la session 30 min (planifiée 2025-12-12 15h avec reviewer 42Net) : partager le contexte, les extraits, cocher chaque question et noter les réponses dans `notes/debrief.md`.
-5. Après la session : remplir à jour `notes/review_followup.md`, reporter les décisions dans `C/ft_linear_regression/progress.md` et lancer les actions follow-up (scheduler, validation, visualisation).
+5. Après la session : remplir à jour `notes/review_followup.md`, reporter les décisions dans `C/ft_linear_regression/progress.md` et lancer les actions follow-up (scheduler, validation, visualisation) ; consigner les conclusions dans `notes/review_outcome.md` (exponentiel/decay, rmse plot, validation folds).
 
 -## Suivi post-review
 - `notes/review_followup.md` accueille les actions décidées (scheduler, validation, visualisation) pour garder la trace de ce qui doit être implémenté dans `C/ft_linear_regression`.
@@ -34,6 +34,8 @@ Projet d’accompagnement pédagogique : il ne s’agit pas de livrer du code, m
 - Pendant la revue 30 min, partager l’extrait `code/gradient_notes.md`, `src/train.py` et `scripts/evaluate.py` pour illustrer les hyperparamètres et la métrique RMSE.
 - Après avoir complété les réponses, valider le follow-up avec `scripts/validate_followup.sh` pour vérifier que les mots-clés scheduler/rmse_plot/validation sont bien présents et que `notes/debrief.md` n’est pas vide.
 - Visualisation RMSE : `scripts/reports/rmse_plot.py path/to/history.json [--png plot.png]` lit l’historique JSON du gradient descent, affiche un résumé (avg/best/worst RMSE), trace un sparkline ASCII et peut enregistrer un PNG si `matplotlib` est disponible.
+- Validation folds : `python3 C/ft_linear_regression/scripts/validation.py data/data.csv --folds 5 --test-size 0.2 --learning-rate 0.1 --iterations 1000 --scheduler exponential --decay 0.95` to show RMSE per split; the review concluded this configuration keeps RMSE stable and is now recorded in `notes/review_outcome.md`.
+- Validation folds : `python3 C/ft_linear_regression/scripts/validation.py data/data.csv --folds 5 --test-size 0.2 --learning-rate 0.1 --iterations 1000` démontre l’impact du scheduler/validation, et les RMSE par fold seront commentés pendant la review.
 
 ## Constat actuel
 - Projet ciblé : `C/ft_linear_regression`, gradient descent stable (RMSE ≈ 410) mais hyperparamètres encore empiriques.
