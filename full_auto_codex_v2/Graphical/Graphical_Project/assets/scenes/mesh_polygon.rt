@@ -1,0 +1,6 @@
+# Mesh avec face n-gone (pentagone) triangulée automatiquement
+camera 0 2 6 0 0 -1 60
+ambient 0.1 255 255 255
+light 2 4 2 1.0 255 255 255 0.2
+plane 0 -1 0 0 1 0 220 220 220 0.8 0.2 64 0.05 0 1.4 0 assets/textures/checker.ppm 4 4
+mesh assets/meshes/polygon.obj 200 220 255 0.9 0.3 64 0.1 0 1.5 0.0 0 0 0 1 1 1 0 0 0

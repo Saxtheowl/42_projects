@@ -1,0 +1,5 @@
+validation report: validation_report.txt (updated 2025-12-11T11:39:31.542313)
+fold count: 5
+best fold: 5 (RMSE=594.47)
+worst fold: 1 (RMSE=1520.42)
+average RMSE: 978.62

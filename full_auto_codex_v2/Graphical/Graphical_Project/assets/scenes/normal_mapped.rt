@@ -1,0 +1,7 @@
+# Plane texturé + normal map pour simuler du relief
+camera 0 1.2 6 0 0 -1 60
+ambient 0.1 255 255 255
+light 4 6 4 1.0 255 255 255 0.2
+light -4 5 1 0.6 255 210 180 0.2
+plane 0 -1 0 0 1 0 220 220 220 0.9 0.2 64 0.05 0.0 1.4 0.15 assets/textures/checker.ppm 4 4 assets/textures/tilt_normal.ppm
+sphere 0 0 0 1 180 200 255 0.8 0.4 128 0.1 0 1.5 0.0 assets/textures/checker.ppm 2 2

@@ -1,0 +1,6 @@
+fold 1: RMSE=1520.42, theta0=4102.6676, theta1=-364.0601, last_lr=0.000000
+fold 2: RMSE=751.49, theta0=4282.4658, theta1=-496.5299, last_lr=0.000000
+fold 3: RMSE=1276.72, theta0=4195.2909, theta1=-379.9206, last_lr=0.000000
+fold 4: RMSE=749.98, theta0=4347.8469, theta1=-400.1922, last_lr=0.000000
+fold 5: RMSE=594.47, theta0=4533.0935, theta1=-376.8332, last_lr=0.000000
+average RMSE across folds: 978.62

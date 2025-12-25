@@ -1,0 +1,98 @@
+{
+  "gate": {
+    "ok": 0,
+    "fail": 0,
+    "unknown": 20,
+    "total": 20,
+    "window": 20,
+    "ok_pct": 0.0,
+    "fail_pct": 0.0,
+    "unknown_pct": 100.0,
+    "delta": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 10,
+      "window": 20,
+      "delta_window": 10,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    },
+    "streak": {
+      "current": {
+        "result": "unknown",
+        "length": 20
+      },
+      "longest": {
+        "ok": 0,
+        "fail": 0,
+        "unknown": 20
+      },
+      "window": 20
+    }
+  },
+  "ok_streak": {
+    "ok": 0,
+    "fail": 0,
+    "unknown": 20,
+    "total": 20,
+    "window": 20,
+    "ok_pct": 0.0,
+    "fail_pct": 0.0,
+    "unknown_pct": 100.0,
+    "delta": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 10,
+      "window": 20,
+      "delta_window": 10,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    },
+    "streak": {
+      "current": {
+        "result": "unknown",
+        "length": 20
+      },
+      "longest": {
+        "ok": 0,
+        "fail": 0,
+        "unknown": 20
+      },
+      "window": 20
+    }
+  },
+  "no_regression": {
+    "ok": 0,
+    "fail": 0,
+    "unknown": 20,
+    "total": 20,
+    "window": 20,
+    "ok_pct": 0.0,
+    "fail_pct": 0.0,
+    "unknown_pct": 100.0,
+    "delta": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 10,
+      "window": 20,
+      "delta_window": 10,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    },
+    "streak": {
+      "current": {
+        "result": "unknown",
+        "length": 20
+      },
+      "longest": {
+        "ok": 0,
+        "fail": 0,
+        "unknown": 20
+      },
+      "window": 20
+    }
+  }
+}

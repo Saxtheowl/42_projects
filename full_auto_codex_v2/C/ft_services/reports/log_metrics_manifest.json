@@ -1,0 +1,224 @@
+{
+  "generated_at": "2025-12-25T11:25:15Z",
+  "suffix": "status_top2",
+  "paths": {
+    "csv": {
+      "path": "log_metrics_snapshot.status_top2.csv",
+      "exists": true,
+      "size": 180,
+      "sha256": "023b31326cc804e5e2c4bf0ab9497d075ad0e076d9361cd7a2b34a6bcfb703aa"
+    },
+    "json": {
+      "path": "log_metrics_snapshot.status_top2.json",
+      "exists": true,
+      "size": 298,
+      "sha256": "d021dbd64be5ae13b935165a6edb692c00bda14dc15961179a712fed843bcbdb"
+    },
+    "jsonl": {
+      "path": "log_metrics_snapshot.status_top2.jsonl",
+      "exists": true,
+      "size": 327,
+      "sha256": "f4a206e900eb42b9b950450cbf64f782b022ca9d94ccc3d0835ce0850d948113"
+    },
+    "md": {
+      "path": "log_metrics_snapshot.status_top2.md",
+      "exists": true,
+      "size": 374,
+      "sha256": "0b3d1711f65e7b7e7afec78f43081c40d8c83395436c50a0d1077b97eca66ad4"
+    },
+    "html": {
+      "path": "log_metrics_snapshot.status_top2.html",
+      "exists": true,
+      "size": 974,
+      "sha256": "2aaabae7b4c45bc3bc99a14517fe968c00a9f81d84bfc7852b6aca7be36587ba"
+    },
+    "summary": {
+      "path": "log_metrics_snapshot.status_top2.summary.md",
+      "exists": true,
+      "size": 255,
+      "sha256": "197c53ce1e161083e74e4bf80e9d5853d6f784328e4c15163a28b1372350e26f"
+    },
+    "history": {
+      "path": "log_metrics_history.csv",
+      "exists": true,
+      "size": 8631,
+      "sha256": "b84d9bfabf14f93600ce878f449a1412d41b1fe99baa45016a3f12935e0a472e"
+    },
+    "trend_md": {
+      "path": "log_metrics_trend.md",
+      "exists": true,
+      "size": 838,
+      "sha256": "165ac52a6d62ccc78fd87247beeaf491303bcdcf64041db892fd259dbf0765ed"
+    },
+    "trend_html": {
+      "path": "log_metrics_trend.html",
+      "exists": true,
+      "size": 2660,
+      "sha256": "dda945269d1a4e58451b69216bb9295bb8c38486854529e414fc05bad14a79be"
+    },
+    "stats_md": {
+      "path": "log_metrics_stats.md",
+      "exists": true,
+      "size": 277,
+      "sha256": "39c5a46205d16ec628eda73fb56148849b13f319bfc69d6d4cc88391e651096e"
+    },
+    "stats_html": {
+      "path": "log_metrics_stats.html",
+      "exists": true,
+      "size": 919,
+      "sha256": "bba62e1dd3b158ddd4c1d8b7c975094f33a54caaa358c05749e3d501008bcb58"
+    },
+    "anomalies_md": {
+      "path": "log_metrics_anomalies.md",
+      "exists": true,
+      "size": 456,
+      "sha256": "dbff626314a340ea63dd23f549ed64dd21e6904eee99af39d8641e3441e462cd"
+    },
+    "anomalies_html": {
+      "path": "log_metrics_anomalies.html",
+      "exists": true,
+      "size": 1088,
+      "sha256": "a50e1ea05499249d8269cac9710be912c44e0c6f36394e44d4f439e365fb4337"
+    },
+    "anomalies_json": {
+      "path": "log_metrics_anomalies.json",
+      "exists": true,
+      "size": 510,
+      "sha256": "15ed3290454c8e6657b052c5e0b255409b33479a9983703427258de14f15fe63"
+    },
+    "index_md": {
+      "path": "index.md",
+      "exists": true,
+      "size": 3352,
+      "sha256": "60b91af6e50bb5d0c661395c83d075bf1a1b1a341b2466e43f18db6c95684942"
+    },
+    "index_html": {
+      "path": "index.html",
+      "exists": true,
+      "size": 4797,
+      "sha256": "1ab3e50540bc9e995e6b044640c77d9093894c209d5fd6739193d88badcf91d3"
+    },
+    "portal": {
+      "path": "portal.html",
+      "exists": true,
+      "size": 69742,
+      "sha256": "6b7274463341cd03fd67951d341d79db154d79c6f5f2482085bad942ad975e11"
+    },
+    "bundle": {
+      "path": "log_metrics_bundle.tar.gz",
+      "exists": true,
+      "size": 20540,
+      "sha256": "9e7f7b0ac2411875eca4cdd51366ac23f95fe9a0b160dc18427bd53283818ebc"
+    },
+    "compare_md": {
+      "path": "log_metrics_compare.md",
+      "exists": true,
+      "size": 664,
+      "sha256": "0116943cd5ee70474fb79c0b7707100619a6042d1a7b98a6ca217d9aac51dac3"
+    },
+    "compare_html": {
+      "path": null,
+      "exists": false,
+      "size": 0
+    },
+    "overview": {
+      "path": "log_metrics_overview.md",
+      "exists": true,
+      "size": 1323,
+      "sha256": "a1c695f26498d1c46179612c06190fe24f72d817002c28bb55263c1f87e0d231"
+    },
+    "manifest": {
+      "path": "log_metrics_manifest.json",
+      "exists": true,
+      "size": 6934
+    },
+    "checksums": {
+      "path": "log_metrics_checksums.txt",
+      "exists": true,
+      "size": 0
+    },
+    "overview_md": {
+      "path": "log_metrics_overview.md",
+      "exists": true,
+      "size": 1323,
+      "sha256": "a1c695f26498d1c46179612c06190fe24f72d817002c28bb55263c1f87e0d231"
+    },
+    "overview_html": {
+      "path": "log_metrics_overview.html",
+      "exists": true,
+      "size": 3513,
+      "sha256": "411ab8f4c9911e9f45dcc0fe6ccdac3a0297c1c46dea754063157c3cf6c6cf6a"
+    },
+    "latest_json": {
+      "path": "log_metrics_latest.json",
+      "exists": true,
+      "size": 6499,
+      "sha256": "f36165274c3e8afcdca662c54bff034e903b7d4708127c4bdc7c1d34dd0eeec3"
+    },
+    "latest_html": {
+      "path": "log_metrics_latest.html",
+      "exists": true,
+      "size": 7428,
+      "sha256": "26d86a8c30b30afa46caca112b3f607c9c2252f60d08777810d41c83b57660d1"
+    },
+    "latest_md": {
+      "path": "log_metrics_latest.md",
+      "exists": true,
+      "size": 4569,
+      "sha256": "c86d96dde33d28fa0b2e47924aed64e7b103fa1f1f40a61ac3a075cc4aa5bc19"
+    },
+    "badge_svg": {
+      "path": "log_metrics_badge.svg",
+      "exists": true,
+      "size": 963,
+      "sha256": "5fdba4db883cb62fd791d3bc2563f754368d29535b6e0807f0413d93eb02e1c8"
+    },
+    "badge_history": {
+      "path": "log_metrics_badge_history.csv",
+      "exists": true,
+      "size": 5221,
+      "sha256": "704f36e23fb8283313eb94b43342dc343c8a1c5f7d94b712fd1ca9bafd43f6ce"
+    },
+    "badge_history_md": {
+      "path": "log_metrics_badge_history.md",
+      "exists": true,
+      "size": 2936,
+      "sha256": "ff632b7e6e9cc4926b0ca4ea7933fab130701d025f215ab4beb5887185a15ad4"
+    },
+    "badge_history_html": {
+      "path": "log_metrics_badge_history.html",
+      "exists": true,
+      "size": 7982,
+      "sha256": "4680248de99abef9951eec59a1370f62fe695661422e101f74573d9a3378e7d9"
+    },
+    "guard_summary_md": {
+      "path": "log_metrics_guard_summary.md",
+      "exists": true,
+      "size": 961,
+      "sha256": "206f99a5611a8b08ddf69aa5cba0bf1a9ea01d2529580c07cdaacbd881bc0f52"
+    },
+    "guard_summary_html": {
+      "path": "log_metrics_guard_summary.html",
+      "exists": true,
+      "size": 1860,
+      "sha256": "6e13e8c77de7cb5a3ea4fd8d19e0a5215d4076a9f559979eb2f818119fadafbe"
+    },
+    "guard_summary_json": {
+      "path": "log_metrics_guard_summary.json",
+      "exists": true,
+      "size": 1702,
+      "sha256": "efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938"
+    },
+    "guard_summary_csv": {
+      "path": "log_metrics_guard_summary.csv",
+      "exists": true,
+      "size": 463,
+      "sha256": "5b6b7dff4987da8bf7e3f280b5f0844f0681af6c47ca2b53b2479d597ecfaaf8"
+    },
+    "checksums_guard": {
+      "path": null,
+      "exists": false,
+      "size": 0
+    }
+  }
+}

@@ -1,0 +1,2 @@
+{"timestamp": "2025-12-25T11:25:10Z", "log_file": "tests/env/logs/status_special.log", "status_checks": "2", "connections": "1", "overloaded": "1", "overloaded_ratio": "50.00"}
+{"timestamp": "2025-12-25T11:25:10Z", "log_file": "Totals", "status_checks": "2", "connections": "1", "overloaded": "1", "overloaded_ratio": "50.00"}

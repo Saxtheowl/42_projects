@@ -1,0 +1,67 @@
+make[1]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build'
+/bin/bash ../binutils-2.43.1/mkinstalldirs /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools
+make[2]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/libsframe'
+make[3]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/libsframe'
+ /usr/bin/mkdir -p '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/share/info'
+ /usr/bin/install -c -m 644 ../../binutils-2.43.1/libsframe/doc/sframe-spec.info '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/share/info'
+ install-info --info-dir='/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/share/info' '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/share/info/sframe-spec.info'
+make[3]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/libsframe'
+make[2]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/libsframe'
+make[2]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd'
+make  install-recursive
+make[3]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd'
+Making install in po
+make[4]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd/po'
+make[4]: Nothing to be done for 'install'.
+make[4]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd/po'
+make[4]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd'
+  MAKEINFO doc/bfd.info
+make[5]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd'
+make[5]: Nothing to be done for 'install-exec-am'.
+  MAKEINFO doc/bfd.info
+ /usr/bin/mkdir -p '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/share/info'
+ /usr/bin/install -c -m 644 ../../binutils-2.43.1/bfd/doc/bfd.info '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/share/info'
+ install-info --info-dir='/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/share/info' '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/share/info/bfd.info'
+make[5]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd'
+make[4]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd'
+make[3]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd'
+make[2]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/bfd'
+make[2]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/opcodes'
+Making install in .
+make[3]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/opcodes'
+make[4]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/opcodes'
+make[4]: Nothing to be done for 'install-exec-am'.
+make[4]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/opcodes'
+make[3]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/opcodes'
+Making install in po
+make[3]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/opcodes/po'
+make[3]: Nothing to be done for 'install'.
+make[3]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/opcodes/po'
+make[2]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/opcodes'
+make[2]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/binutils'
+make  install-recursive
+make[3]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/binutils'
+Making install in po
+make[4]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/binutils/po'
+make[4]: Nothing to be done for 'install'.
+make[4]: Leaving directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/binutils/po'
+make[4]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/binutils'
+make[5]: Entering directory '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources/binutils-2.43.1-build/binutils'
+ /usr/bin/mkdir -p '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin'
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c size '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-size'
+libtool: install: /usr/bin/install -c size /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-size
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c objdump '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-objdump'
+libtool: install: /usr/bin/install -c objdump /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-objdump
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c ar '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-ar'
+libtool: install: /usr/bin/install -c ar /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-ar
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c strings '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-strings'
+libtool: install: /usr/bin/install -c strings /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-strings
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c ranlib '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-ranlib'
+libtool: install: /usr/bin/install -c ranlib /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-ranlib
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c objcopy '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-objcopy'
+libtool: install: /usr/bin/install -c objcopy /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-objcopy
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c addr2line '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-addr2line'
+libtool: install: /usr/bin/install -c addr2line /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-addr2line
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c readelf '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-readelf'
+libtool: install: /usr/bin/install -c readelf /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-readelf
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c elfedit '/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/./x86_64-lfs-linux-gnu-elfedit'

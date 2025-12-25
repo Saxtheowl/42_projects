@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-ft
+  namespace: ft-services
+  labels:
+    grafana_dashboard: "1"
+data:
+  ft-services.json: |
+    {
+      "id": null,
+      "title": "ft_services overview",
+      "tags": ["ft_services"],
+      "timezone": "browser",
+      "schemaVersion": 27,
+      "version": 1,
+      "refresh": "10s",
+      "panels": [
+        {
+          "type": "stat",
+          "title": "Ingress requests (simulated)",
+          "datasource": "InfluxDB",
+          "targets": [
+            {
+              "query": "SELECT last(value) FROM ingress_requests",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"x": 0, "y": 0, "w": 8, "h": 6}
+        },
+        {
+          "type": "graph",
+          "title": "MariaDB CPU (simulated)",
+          "datasource": "InfluxDB",
+          "targets": [
+            {
+              "query": "SELECT mean(value) FROM mariadb_cpu_usage GROUP BY time(10s)",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"x": 8, "y": 0, "w": 16, "h": 6}
+        }
+      ]
+    }

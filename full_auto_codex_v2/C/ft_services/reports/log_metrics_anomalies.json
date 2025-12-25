@@ -1,0 +1,34 @@
+[
+  {
+    "metric": "status_checks",
+    "prev": 2.0,
+    "curr": 2.0,
+    "delta": 0.0,
+    "pct": 0.0,
+    "status": "OK"
+  },
+  {
+    "metric": "connections",
+    "prev": 1.0,
+    "curr": 1.0,
+    "delta": 0.0,
+    "pct": 0.0,
+    "status": "OK"
+  },
+  {
+    "metric": "overloaded",
+    "prev": 1.0,
+    "curr": 1.0,
+    "delta": 0.0,
+    "pct": 0.0,
+    "status": "OK"
+  },
+  {
+    "metric": "overloaded_ratio",
+    "prev": 50.0,
+    "curr": 50.0,
+    "delta": 0.0,
+    "pct": 0.0,
+    "status": "OK"
+  }
+]

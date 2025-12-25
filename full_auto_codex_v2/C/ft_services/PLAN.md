@@ -3,24 +3,43 @@
 ## But
 Mettre en place un service robuste, documenté et testable (d'après le PDF). Le focus initial est sur la compréhension du sujet, la conformité des scripts, et la structuration des tests.
 
-## Phase 1 – Analyse
-- Extraire les exigences clés du sujet (fichiers attendus, contraintes de compilation, arguments CLI, options réseau).
-- Identifier les points de sécurité/résilience mentionnés (verrous, gestion des erreurs, logs).
-- Noter les artefacts demandés (scripts de configuration, fichier de tests, README) dans ce plan.
+## Approche dédiée à `status_top2`
+1. Décrire la chaîne entière `status_top2` : réglage du pattern/status, `topn=2`, exécution de `logs_metrics`, export des données, vérifications et inspection des snapshots.
+2. Répertorier la suite de scripts impliqués : alias `logmetrics`, `logs_metrics`, `logs_metrics_export.sh`, `logs_metrics_verify.sh`, `verify_snapshot.sh`, `log_summary*` (diff/multi/report) ainsi que les helpers (connexion, surcharge, replay, stress).
+3. Assurer la traçabilité des commandes d’export et de vérification avec `reports/log_metrics_snapshot.status_top2.csv`/`.json`.
 
-## Phase 2 – Documentation & scripts
-- Documenter l'architecture envisagée (services, modules, couches réseau) et les outils utilisés.
-- Préparer des scripts de démarrage/tests (ex: `scripts/run_tests.sh`, `scripts/check_env.sh`).
-- Documenter l’ajout du Makefile pour compilation/nettoyage et l’intégrer dans le pipeline des scripts, en rappelant que `src/main.c` lit `port/backlog/log_path`, crée les répertoires de log et enregistre start/stop via `src/log.c`, que `scripts/args.c` expose `--config`, que `scripts/validate_config.py` contrôle `port/backlog`, et que `scripts/gen_config.py` produit un exemplaire de config de test.
-- Noter les nouveaux helpers (`scripts/show_config.sh`, `scripts/clean_log.sh`, `scripts/monitor_status.sh`) et décrire leur rôle dans la démonstration : inspecter les paramètres, effacer les logs, puis enchaîner vérification de santé/COUNT/overload pour garantir un workflow reproductible.
-- Documenter aussi `scripts/demo_pipeline.sh`, qui encadre `show_config`, `clean_log` et `monitor_status` sur une liste de configurations pour automatiser la démonstration (toutes les valeurs, logdagen et vérifs). Relier ces notes à `docs/helpers.md` pour présenter la chaîne de bout en bout.
-- Citer `scripts/stress_max_connections.sh` et `scripts/log_summary.sh` pour compléter la boîte à outils et montrer les vérifications de la limite/s du log.
-- Ajouter `scripts/stress_max_connections.sh` et `scripts/replay_log.sh` à la liste afin de couvrir la stress-test de `max_connections` et la relecture des `status check` dans le log, complétant la boîte à outils des démonstrations FT Services.
-- `scripts/run_tests.sh` compilera `src/main.c` et validera l’environnement via `scripts/check_env.sh` avec des fichiers de test (tests/env/*) pour garder la qualité.
-- Préparer des scripts de démarrage/tests (ex: `scripts/run_tests.sh`, `scripts/check_env.sh`).
-- Ajouter un squelette `src/main.c` qui installe les signaux et reste en pause pour simuler un service.
+## Phase 2 – Documentation status_top2
+- Intégrer la commande d’export :
+  ```bash
+  ./scripts/logs_metrics_export.sh --pattern status --topn 2
+  ```
+  Décrire les colonnes produites (`timestamp`, `log_file`, `status_checks`, `connections`, `overloaded`, `overloaded_ratio`) et rappeler les formats CSV/JSON.
+- Détailler les vérifications suivantes :
+  ```bash
+  ./scripts/verify_snapshot.sh --format both
+  ./scripts/logs_metrics_verify.sh csv
+  ./scripts/logs_metrics_verify.sh json
+  ```
+  Ces commandes valident la création des snapshots `reports/log_metrics_snapshot.status_top2.{csv,json}`.
+- Documenter les contrôles rapides (`tail`/`jq`) après export pour confirmer la correspondance :
+  ```bash
+  tail -n 5 reports/log_metrics_snapshot.status_top2.csv
+  jq '.[-1]' reports/log_metrics_snapshot.status_top2.json
+  ```
+  Le helper échoue si l’entrée `Totals` est absente (CSV/JSON) pour garantir l’agrégation.
+- Expliquer le workflow complet :
+  - Préparer `alias logmetrics='./scripts/logs_metrics.sh'` et définir `LOG_METRICS_DIR`.
+  - Lancer `logmetrics pattern/status top_n=2` pour produire les données filtrées.
+  - Enchaîner avec `./scripts/log_summary_diff.sh ...`, `./scripts/log_summary_multi.sh ...`, et `./scripts/log_summary_report.sh` pour bâtir la synthèse des résultats.
+  - Terminer avec `./scripts/logs_metrics_export.sh --topn 2 --format csv` puis vérifier les snapshots (CSV/JSON) via `verify_snapshot` et `tail`/`jq`.
+- Fournir un exemple de commentaire d’exécution automatique indiquant que `./scripts/logs_metrics_export.sh --topn 2 --format csv` reprend les mêmes filtres `pattern=status` et `top_n=2`.
+- Mentionner que des scripts de stress/replay (`scripts/stress_max_connections.sh`, `scripts/replay_log.sh`) peuvent précéder le workflow `status_top2`, afin de générer les logs les plus chargés ou relancer des checks.
 
-## Phase 3 – Implémentation
-- Commencer par la structure du service (Makefile, dossiers src/include, gestion des arguments).
-- Ajouter les tests unitaires de base et la surveillance des logs.
-- Itérer sur les bonus (ex: auto-reload, configuration dynamique) si le temps le permet.
+## Phase 3 – Implémentation et vérification
+- Compiler via `scripts/run_tests.sh` (qui fait appel à `scripts/check_env.sh`) pour s’assurer que `status_top2` reste utilisable lors des tests.
+- Ajouter `src/main.c` (que le plan décrit comme en stall avec logs/arguments) pour fournir la base du service, tout en s’assurant que la génération de logs obéit aux colonnes attendues.
+- Utiliser `scripts/monitor_status.sh` pour surveiller continuellement `status_top2`, puis `scripts/logs_metrics.sh` et les exports afin de respecter la boîte à outils de démonstration.
+
+## Phase 4 – Démonstration et partage
+- Documenter `scripts/demo_pipeline.sh` pour automatiser la combinaison `show_config`, `clean_log`, `monitor_status`, la commande `logmetrics` avec `pattern=status`/`top_n=2`, les `log_summary` et la génération des snapshots via `logs_metrics_export`.
+- Mettre en évidence la possibilité de déclencher `scripts/health_report.sh` et `scripts/log_summary_report.sh` en complément pour résumer l’état de `status_top2` avant la diffusion des métriques.

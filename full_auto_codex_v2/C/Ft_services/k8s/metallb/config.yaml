@@ -1,0 +1,17 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  namespace: metallb-system
+  name: ft-services-pool
+spec:
+  addresses:
+    - ${LB_POOL:-192.168.49.240-192.168.49.250}
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  namespace: metallb-system
+  name: ft-services-l2
+spec:
+  ipAddressPools:
+    - ft-services-pool

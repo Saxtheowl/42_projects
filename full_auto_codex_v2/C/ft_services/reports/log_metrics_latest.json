@@ -1,0 +1,283 @@
+{
+  "generated_at": "2025-12-25T11:25:14Z",
+  "suffix": "status_top2",
+  "reports_dir": "reports",
+  "totals": {
+    "timestamp": "2025-12-25T11:25:10Z",
+    "status_checks": 2.0,
+    "connections": 1.0,
+    "overloaded": 1.0,
+    "overloaded_ratio": 50.0
+  },
+  "deltas": {
+    "status_checks": 0.0,
+    "connections": 0.0,
+    "overloaded": 0.0,
+    "overloaded_ratio": 0.0
+  },
+  "history_count": 129,
+  "anomalies_count": 4,
+  "anomalies": [
+    {
+      "metric": "status_checks",
+      "prev": 2.0,
+      "curr": 2.0,
+      "delta": 0.0,
+      "pct": 0.0,
+      "status": "OK"
+    },
+    {
+      "metric": "connections",
+      "prev": 1.0,
+      "curr": 1.0,
+      "delta": 0.0,
+      "pct": 0.0,
+      "status": "OK"
+    },
+    {
+      "metric": "overloaded",
+      "prev": 1.0,
+      "curr": 1.0,
+      "delta": 0.0,
+      "pct": 0.0,
+      "status": "OK"
+    },
+    {
+      "metric": "overloaded_ratio",
+      "prev": 50.0,
+      "curr": 50.0,
+      "delta": 0.0,
+      "pct": 0.0,
+      "status": "OK"
+    }
+  ],
+  "badge_state": "alert",
+  "badge_previous_state": "alert",
+  "badge_label": "uptime",
+  "badge_thresholds": {
+    "warn": 30.0,
+    "danger": 60.0
+  },
+  "badge_ok_streak_required": null,
+  "badge_guards": {
+    "gate": null,
+    "ok_streak": null,
+    "no_regression": false
+  },
+  "badge_guard_status": null,
+  "badge_history": {
+    "entries": 68,
+    "window": 20,
+    "delta_window": 10,
+    "counts": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20,
+      "total": 20,
+      "window": 20,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    },
+    "last": {
+      "generated_at": "2025-12-25T11:25:13Z",
+      "suffix": "status_top2",
+      "badge_label": "uptime",
+      "badge_state": "alert",
+      "badge_warn": "30.0",
+      "badge_danger": "60.0",
+      "overloaded_ratio": "50.0",
+      "anomalies_count": "4",
+      "guard_gate": "",
+      "guard_ok_streak": "",
+      "guard_no_regression": "False",
+      "guard_gate_result": "",
+      "guard_ok_result": "",
+      "guard_no_regression_result": ""
+    },
+    "current_streak": {
+      "state": "alert",
+      "length": 20
+    },
+    "longest_streaks": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20
+    },
+    "previous": {
+      "generated_at": "2025-12-25T11:24:27Z",
+      "suffix": "status_top2",
+      "badge_label": "uptime",
+      "badge_state": "alert",
+      "badge_warn": "30.0",
+      "badge_danger": "60.0",
+      "overloaded_ratio": "50.0",
+      "anomalies_count": "4",
+      "guard_gate": "",
+      "guard_ok_streak": "",
+      "guard_no_regression": "False",
+      "guard_gate_result": "",
+      "guard_ok_result": "",
+      "guard_no_regression_result": ""
+    },
+    "previous_state": "alert",
+    "last_transition": {
+      "from": "alert",
+      "to": "alert"
+    },
+    "path": "log_metrics_badge_history.csv"
+  },
+  "badge_guard_summary": {
+    "gate": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20,
+      "total": 20,
+      "window": 20,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    },
+    "ok_streak": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20,
+      "total": 20,
+      "window": 20,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    },
+    "no_regression": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20,
+      "total": 20,
+      "window": 20,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    }
+  },
+  "badge_guard_overall": {
+    "ok": 0,
+    "fail": 0,
+    "unknown": 60,
+    "total": 60,
+    "window": 20,
+    "ok_pct": 0.0,
+    "fail_pct": 0.0,
+    "unknown_pct": 100.0
+  },
+  "badge_guard_delta": {
+    "gate": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 10,
+      "window": 20,
+      "delta_window": 10,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    },
+    "ok_streak": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 10,
+      "window": 20,
+      "delta_window": 10,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    },
+    "no_regression": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 10,
+      "window": 20,
+      "delta_window": 10,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 100.0
+    }
+  },
+  "badge_guard_delta_overall": {
+    "ok": 0,
+    "fail": 0,
+    "unknown": 30,
+    "window": 20,
+    "delta_window": 10,
+    "total": 30,
+    "ok_pct": 0.0,
+    "fail_pct": 0.0,
+    "unknown_pct": 100.0
+  },
+  "badge_guard_streaks": {
+    "gate": {
+      "current": {
+        "result": "unknown",
+        "length": 20
+      },
+      "longest": {
+        "ok": 0,
+        "fail": 0,
+        "unknown": 20
+      },
+      "window": 20
+    },
+    "ok_streak": {
+      "current": {
+        "result": "unknown",
+        "length": 20
+      },
+      "longest": {
+        "ok": 0,
+        "fail": 0,
+        "unknown": 20
+      },
+      "window": 20
+    },
+    "no_regression": {
+      "current": {
+        "result": "unknown",
+        "length": 20
+      },
+      "longest": {
+        "ok": 0,
+        "fail": 0,
+        "unknown": 20
+      },
+      "window": 20
+    }
+  },
+  "artifacts": {
+    "csv": "log_metrics_snapshot.status_top2.csv",
+    "json": "log_metrics_snapshot.status_top2.json",
+    "jsonl": "log_metrics_snapshot.status_top2.jsonl",
+    "markdown": "log_metrics_snapshot.status_top2.md",
+    "html": "log_metrics_snapshot.status_top2.html",
+    "summary_md": "log_metrics_snapshot.status_top2.summary.md",
+    "summary_html": "log_metrics_snapshot.status_top2.summary.html",
+    "history": "log_metrics_history.csv",
+    "trend_md": "log_metrics_trend.md",
+    "trend_html": "log_metrics_trend.html",
+    "stats_md": "log_metrics_stats.md",
+    "stats_html": "log_metrics_stats.html",
+    "anomalies_md": "log_metrics_anomalies.md",
+    "anomalies_html": "log_metrics_anomalies.html",
+    "anomalies_json": "log_metrics_anomalies.json",
+    "overview_md": "log_metrics_overview.md",
+    "overview_html": "log_metrics_overview.html",
+    "manifest": "log_metrics_manifest.json",
+    "bundle": "log_metrics_bundle.tar.gz",
+    "checksums": "log_metrics_checksums.txt",
+    "portal": "portal.html",
+    "index_md": "index.md",
+    "index_html": "index.html",
+    "badge_svg": "log_metrics_badge.svg",
+    "guard_summary_md": "log_metrics_guard_summary.md",
+    "guard_summary_html": "log_metrics_guard_summary.html",
+    "guard_summary_json": "log_metrics_guard_summary.json",
+    "guard_summary_csv": "log_metrics_guard_summary.csv"
+  }
+}

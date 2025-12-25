@@ -1,0 +1,4 @@
+# OR de XOR avec negation croisee
+A => (B ^ C) | (!B ^ D)
+=B
+?BCD

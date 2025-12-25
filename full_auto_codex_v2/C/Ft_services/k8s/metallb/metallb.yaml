@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metallb-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: metallb-system
+  name: metallb-controller
+---
+# Placeholder: in pratique on installerait MetalLB via manifests officiels ou helm.
+# Garder ce fichier pour appliquer namespace/sa quand les manifests complets seront ajoutés.
