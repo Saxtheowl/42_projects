@@ -3,6 +3,6 @@ status check
 connections: 1
 connections: 2
 connections: 3
-overloaded
-overloaded
-overloaded
+load: normal
+load: normal
+load: normal

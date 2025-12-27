@@ -8,8 +8,8 @@
 | --- | ---: |
 | status_checks | 2 |
 | connections | 1 |
-| overloaded | 1 |
-| overloaded_ratio | 50.00 |
+| overloaded | 0 |
+| overloaded_ratio | 0.00 |
 
 ## Deltas vs précédent
 
@@ -30,9 +30,9 @@
 | overloaded_ratio | OK |  |  |  |
 
 ## Badge
-- Label : **uptime**
-- État : **alert** (warn ≥ 30.0, alert ≥ 60.0, précédent: alert)
-- Fenêtre historique: 20 (delta 10) — Comptage: {'ok': 0, 'fail': 0, 'unknown': 20, 'total': 20, 'window': 20, 'ok_pct': 0.0, 'fail_pct': 0.0, 'unknown_pct': 100.0} — Streak actuelle: 20 × alert
+- Label : **metrics**
+- État : **ok** (warn ≥ 50.0, alert ≥ 80.0, précédent: ok)
+- Fenêtre historique: 20 (delta 20) — Comptage: {'alert': 10, 'ok': 10} — Streak actuelle: 10 × ok
 - Synthèse gardes (ok/fail/unknown/total/window/%) :
   - gate: ok=0 (0.0%), fail=0 (0.0%), unknown=20 (100.0%), total=20, window=20
   - ok_streak: ok=0 (0.0%), fail=0 (0.0%), unknown=20 (100.0%), total=20, window=20
@@ -52,17 +52,20 @@
 | no_regression | unknown | 20 | 0 | 0 | 20 | 20 |
 
 ### Synthèse globale des gardes
-- Total fenêtre 20 : ok=0 (0.0%), fail=0 (0.0%), unknown=60 (100.0%), total=60
+- Total fenêtre 20 : ok=0 (0.0%), fail=0 (0.0%), unknown=20 (100.0%), total=20
+
+### Streak globale des gardes
+- Courante: unknown x 20 (fenêtre 20) — Longest ok=0, fail=0, unknown=20
 
 ### Évolution vs fenêtre précédente
 | guard | Δok | Δok% | Δfail | Δfail% | Δunknown | Δunknown% | window | delta_window |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| gate | +0 | 0.0% | +0 | 0.0% | +10 | 100.0% | 20 | 10 |
-| ok_streak | +0 | 0.0% | +0 | 0.0% | +10 | 100.0% | 20 | 10 |
-| no_regression | +0 | 0.0% | +0 | 0.0% | +10 | 100.0% | 20 | 10 |
+| gate | +0 | 0.0% | +0 | 0.0% | +0 | 0.0% | 20 | 20 |
+| ok_streak | +0 | 0.0% | +0 | 0.0% | +0 | 0.0% | 20 | 20 |
+| no_regression | +0 | 0.0% | +0 | 0.0% | +0 | 0.0% | 20 | 20 |
 
 ### Synthèse globale des deltas
-- Fenêtre 20 vs 10 précédents: ok=0 (0.0%), fail=0 (0.0%), unknown=30 (100.0%), total=30
+- Fenêtre 20 vs 20 précédents: ok=0 (0.0%), fail=0 (0.0%), unknown=0 (0.0%), total=0
 
 ## Artefacts
 

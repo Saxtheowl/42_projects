@@ -54,19 +54,37 @@ def build_manifest(reports: Path, suffix: str, output_path: Path, with_hashes: b
         "latest_json": reports / "log_metrics_latest.json",
         "latest_html": reports / "log_metrics_latest.html",
         "latest_md": reports / "log_metrics_latest.md",
+        "run_summary_html": reports / "log_metrics_run_summary.html",
+        "run_summary_md": reports / "log_metrics_run_summary.md",
+        "run_summary": reports / "log_metrics_run_summary.json",
+        "sitemap": reports / "log_metrics_sitemap.md",
+        "sitemap_html": reports / "log_metrics_sitemap.html",
+        "sitemap_json": reports / "log_metrics_sitemap.json",
         "badge_svg": reports / "log_metrics_badge.svg",
         "badge_history": reports / "log_metrics_badge_history.csv",
         "badge_history_md": reports / "log_metrics_badge_history.md",
         "badge_history_html": reports / "log_metrics_badge_history.html",
+        "status_badge": reports / "log_metrics_status_badge.svg",
+        "status_json": reports / "log_metrics_status.json",
+        "overall_history": reports / "log_metrics_overall_history.csv",
         "guard_summary_md": reports / "log_metrics_guard_summary.md",
         "guard_summary_html": reports / "log_metrics_guard_summary.html",
         "guard_summary_json": reports / "log_metrics_guard_summary.json",
         "guard_summary_csv": reports / "log_metrics_guard_summary.csv",
+        "guard_summary_streaks": reports / "log_metrics_guard_summary.json",
         "checksums_guard": reports / "log_metrics_guard_summary.md.sha256",
+        "run_summary_md": reports / "log_metrics_run_summary.md",
     }
     for name, path in files.items():
         exists = path.exists() or name == "manifest"
-        rel_path = str(path.relative_to(reports)) if (path.exists() or name == "manifest") else None
+        # Preserve relative paths when possible, otherwise fall back to absolute (e.g., --output outside reports dir)
+        if path.exists() or name == "manifest":
+            try:
+                rel_path = str(path.relative_to(reports))
+            except ValueError:
+                rel_path = str(path)
+        else:
+            rel_path = None
         size = path.stat().st_size if path.exists() else 0
         entry = {"path": rel_path, "exists": exists, "size": size}
         if with_hashes and path.exists() and name not in {"manifest", "checksums"}:

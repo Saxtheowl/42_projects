@@ -1,0 +1,4 @@
+[
+  {"timestamp":"2025-12-25T15:32:24Z","log_file":"/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/tests/env/logs/status_special.log","status_checks":2,"connections":1,"overloaded":1,"overloaded_ratio":50.00},
+  {"timestamp":"2025-12-25T15:32:24Z","log_file":"Totals","status_checks":2,"connections":1,"overloaded":1,"overloaded_ratio":50.00}
+]

@@ -39,8 +39,27 @@ run_case() {
     fi
 }
 
+run_here_doc() {
+    local limiter=$1
+    local cmd1=$2
+    local cmd2=$3
+    local outfile_pipex=$4
+    local outfile_shell=$5
+    local payload=$6
+
+    printf "%s\n%s\n" "$payload" "$limiter" | "$BIN" here_doc "$limiter" "$cmd1" "$cmd2" "$outfile_pipex"
+    printf "%s\n" "$payload" | sh -c "$cmd1 | $cmd2" > "$outfile_shell"
+    if ! diff -u "$outfile_shell" "$outfile_pipex"; then
+        echo "Here_doc test failed: $cmd1 | $cmd2" >&2
+        exit 1
+    fi
+}
+
 run_case "$tempdir/input.txt" "grep hello" "wc -l" "$tempdir/out1" "$tempdir/ref1"
 run_case "$tempdir/input2.txt" "tr a-z A-Z" "cut -d' ' -f1" "$tempdir/out2" "$tempdir/ref2"
 run_case "$tempdir/input2.txt" "cat" "sed 's/ /_/g'" "$tempdir/out3" "$tempdir/ref3"
+run_case "$tempdir/input2.txt" "tr a-z A-Z" "rev" "$tempdir/out4" "$tempdir/ref4"
+
+run_here_doc "EOF" "tr a-z A-Z" "rev" "$tempdir/out_hd" "$tempdir/ref_hd" $'hello world\npipex rocks'
 
 echo "All pipex tests passed."

@@ -172,6 +172,7 @@ def main():
                 f"| {name} | {current.get('result','?')} | {current.get('length','?')} | {longest.get('ok',0)} | {longest.get('fail',0)} | {longest.get('unknown',0)} | {streak.get('window','?')} |"
             )
     guard_overall = latest_data.get("badge_guard_overall") or {}
+    guard_overall_streak = latest_data.get("badge_guard_overall_streak") or {}
     if guard_overall:
         lines.append("")
         lines.append("### Synthèse globale des gardes")
@@ -180,6 +181,12 @@ def main():
         )
     guard_delta = latest_data.get("badge_guard_delta") or {}
     guard_delta_overall = latest_data.get("badge_guard_delta_overall") or {}
+    if guard_overall_streak:
+        lines.append("")
+        lines.append("### Streak globale des gardes")
+        lines.append(
+            f"- Courante: {guard_overall_streak.get('current',{}).get('result','?')} x {guard_overall_streak.get('current',{}).get('length','?')} (fenêtre {guard_overall_streak.get('window','?')}) — Longest ok={guard_overall_streak.get('longest',{}).get('ok',0)}, fail={guard_overall_streak.get('longest',{}).get('fail',0)}, unknown={guard_overall_streak.get('longest',{}).get('unknown',0)}"
+        )
     if guard_delta:
         lines.append("")
         lines.append("### Évolution vs fenêtre précédente")

@@ -1,0 +1,46 @@
+{
+  "badge_state": "ok",
+  "anomalies_count": 0,
+  "anomaly_threshold": null,
+  "overloaded_ratio": 0.0,
+  "guard_check": "ok",
+  "checksums": "ok",
+  "validation": {
+    "status": "skipped",
+    "mode": "full"
+  },
+  "compare": {
+    "status": "skipped",
+    "md": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_compare.md",
+    "html": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_compare.html"
+  },
+  "sitemap": {
+    "status": "ok",
+    "required": 44,
+    "present": 44,
+    "missing": 0,
+    "optional": [
+      "checksums_guard",
+      "compare_html",
+      "compare_md"
+    ],
+    "missing_paths": []
+  },
+  "manifest": {
+    "status": "ok",
+    "total": 44,
+    "present": 44,
+    "missing_count": 0,
+    "size_bytes": 235734,
+    "missing_paths": [],
+    "optional_skipped": [
+      "compare_html",
+      "checksums_guard"
+    ],
+    "optional_total": 3,
+    "optional_present": 1,
+    "optional_missing_count": 2,
+    "optional_coverage": 33.33
+  },
+  "overall_state": "ok"
+}

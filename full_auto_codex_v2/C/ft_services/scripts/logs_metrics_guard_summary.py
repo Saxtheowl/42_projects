@@ -133,6 +133,102 @@ def main():
         lines.append("| " + " | ".join(str(v) for v in row) + " |")
 
     lines.append("")
+    # Overall aggregated streak (any fail -> fail, all ok -> ok, else unknown)
+    aggregate_states = []
+    for r in rows:
+        vals = []
+        for _, field in guard_fields.items():
+            val = str(r.get(field, "") or "").lower()
+            if val not in ("ok", "fail"):
+                val = "unknown"
+            vals.append(val)
+        if any(v == "fail" for v in vals):
+            aggregate_states.append("fail")
+        elif all(v == "ok" for v in vals):
+            aggregate_states.append("ok")
+        else:
+            aggregate_states.append("unknown")
+    prev_aggregate_states = []
+    for r in prev_rows:
+        vals = []
+        for _, field in guard_fields.items():
+            val = str(r.get(field, "") or "").lower()
+            if val not in ("ok", "fail"):
+                val = "unknown"
+            vals.append(val)
+        if any(v == "fail" for v in vals):
+            prev_aggregate_states.append("fail")
+        elif all(v == "ok" for v in vals):
+            prev_aggregate_states.append("ok")
+        else:
+            prev_aggregate_states.append("unknown")
+    current_overall = None
+    current_overall_len = 0
+    for val in reversed(aggregate_states):
+        if current_overall is None:
+            current_overall = val
+            current_overall_len = 1
+        elif val == current_overall:
+            current_overall_len += 1
+        else:
+            break
+    running_overall = {"ok": 0, "fail": 0, "unknown": 0}
+    longest_overall = {"ok": 0, "fail": 0, "unknown": 0}
+    for val in aggregate_states:
+        for k in running_overall:
+            running_overall[k] = running_overall[k] + 1 if k == val else 0
+            longest_overall[k] = max(longest_overall[k], running_overall[k])
+    lines.append(f"- Streak globale: {current_overall or 'unknown'} × {current_overall_len} (fenêtre {len(rows)}); longest ok={longest_overall['ok']}, fail={longest_overall['fail']}, unknown={longest_overall['unknown']}")
+    lines.append("")
+    aggregate_counts = Counter(aggregate_states)
+    prev_aggregate_counts = Counter(prev_aggregate_states)
+    agg_total = sum(aggregate_counts.values())
+    prev_agg_total = sum(prev_aggregate_counts.values()) or 1
+    lines.append("### Streak globale (counts + pct)")
+    header = ["ok", "fail", "unknown", "total", "window", "ok%", "fail%", "unknown%"]
+    if prev_aggregate_states:
+        header += ["Δok", "Δfail", "Δunknown", "Δok%", "Δfail%", "Δunknown%", "Δwindow"]
+    lines.append("| " + " | ".join(header) + " |")
+    lines.append("| " + " | ".join("---:" for _ in header) + " |")
+    row = [
+        aggregate_counts.get("ok", 0),
+        aggregate_counts.get("fail", 0),
+        aggregate_counts.get("unknown", 0),
+        agg_total,
+        len(aggregate_states),
+        f"{(aggregate_counts.get('ok',0)/agg_total*100 if agg_total else 0):.1f}%",
+        f"{(aggregate_counts.get('fail',0)/agg_total*100 if agg_total else 0):.1f}%",
+        f"{(aggregate_counts.get('unknown',0)/agg_total*100 if agg_total else 0):.1f}%",
+    ]
+    if prev_aggregate_states:
+        delta_ok = aggregate_counts.get("ok", 0) - prev_aggregate_counts.get("ok", 0)
+        delta_fail = aggregate_counts.get("fail", 0) - prev_aggregate_counts.get("fail", 0)
+        delta_unknown = aggregate_counts.get("unknown", 0) - prev_aggregate_counts.get("unknown", 0)
+        row += [
+            delta_ok,
+            delta_fail,
+            delta_unknown,
+            f"{(delta_ok/prev_agg_total*100):.1f}%",
+            f"{(delta_fail/prev_agg_total*100):.1f}%",
+            f"{(delta_unknown/prev_agg_total*100):.1f}%",
+            len(prev_aggregate_states),
+        ]
+    lines.append("| " + " | ".join(str(v) for v in row) + " |")
+    lines.append("")
+    lines.append("### Streak globale (détail)")
+    lines.append("| current_result | current_len | longest_ok | longest_fail | longest_unknown | window |")
+    lines.append("| --- | ---: | ---: | ---: | ---: | ---: |")
+    lines.append(
+        "| {cur_res} | {cur_len} | {long_ok} | {long_fail} | {long_unknown} | {window} |".format(
+            cur_res=current_overall or "unknown",
+            cur_len=current_overall_len,
+            long_ok=longest_overall["ok"],
+            long_fail=longest_overall["fail"],
+            long_unknown=longest_overall["unknown"],
+            window=len(rows),
+        )
+    )
+    lines.append("")
     lines.append("## Guard streaks (courantes + longest par état)")
     lines.append("| guard | current_result | current_len | longest_ok | longest_fail | longest_unknown | window |")
     lines.append("| --- | --- | ---: | ---: | ---: | ---: | ---: |")

@@ -29,20 +29,46 @@
   ```
 - Colonnes exportées : `timestamp,log_file,status_checks,connections,overloaded,overloaded_ratio` (ratio = `overloaded/status_checks` si `status_checks>0` sinon 0). Une ligne finale `Totals` est ajoutée pour agréger l’ensemble des fichiers listés.
 
+## Run summary (JSON + Markdown + HTML)
+- La pipeline génère `reports/log_metrics_run_summary.json` (statuts guard/checksums/validation/compare + badge/anomalies/ratio), `reports/log_metrics_run_summary.md` (aperçu lisible) et `reports/log_metrics_run_summary.html` (vue HTML compacte).
+- Les trois fichiers sont inclus dans l’index, le portail HTML, le manifest et les checksums. Flags pour couper les rendus : `--no-run-summary-md`, `--no-run-summary-html`.
+- Après validation finale, la pipeline régénère JSON/MD/HTML puis les checksums pour refléter l’état définitif du run.
+- Un sitemap Markdown global `reports/log_metrics_sitemap.md` liste les artefacts (chemin, présence, taille, sha256 via le manifest) et ajoute un résumé (total/presents/manquants/poids) ; flag `--no-sitemap` pour le désactiver. La variante HTML `reports/log_metrics_sitemap.html` (flag `--no-sitemap-html`) inclut le même résumé et est lisible directement depuis le portail/index. La variante JSON `reports/log_metrics_sitemap.json` (flag `--no-sitemap-json`) expose les mêmes données pour les intégrations, avec la liste des chemins manquants et une option `--fail-on-missing` (ou `--fail-on-missing-sitemap` dans la pipeline). L’option `--optional <liste>` (pipeline : `--sitemap-optional`) ignore certains artefacts dans les totaux/manquants.
+
 ## Vérifier un snapshot (CSV + JSON)
 - Nouveau helper : `./scripts/verify_snapshot.sh [--format csv|json|both] [--pattern PATTERN] [--topn N] [--dir LOG_DIR]`.
 - Par défaut : `pattern=status`, `topn=2`, `dir=$LOG_METRICS_DIR` ou `tests/env/logs`.
 - Produit :
   - `reports/log_metrics_snapshot.status_top2.csv` (tail automatique des 5 dernières lignes).
   - `reports/log_metrics_snapshot.status_top2.json` (lecture `jq '.[-1]'` si disponible).
+- Vérification approfondie : `python3 ./scripts/logs_metrics_snapshot_check.py --reports reports --suffix status_top2` s’assure que CSV/JSON contiennent les mêmes lignes, que la ligne `Totals` est présente et que les sommes/ratios sont cohérents (`overloaded / connections`).
+- La pipeline (`logs_metrics_pipeline.sh`) et la validation (`logs_metrics_validate.py`) exécutent ce checker par défaut (désactivable via `--no-snapshot-check`, tolérance réglable via `--snapshot-tolerance`).
 - Le wrapper `./scripts/log_metrics_verify.sh [format]` reste disponible et s’appuie désormais sur `verify_snapshot.sh`.
 - Commande type pour vos notes de revue :
   ```
   ./scripts/verify_snapshot.sh --format both
   tail -n 5 reports/log_metrics_snapshot.status_top2.csv
   jq '.[-1]' reports/log_metrics_snapshot.status_top2.json
+  python3 ./scripts/logs_metrics_snapshot_check.py --reports reports --suffix status_top2
   ```
   Ces trois lignes prouvent que le même sous-ensemble `pattern=status/top_n=2` apparaît dans les deux formats et que la ligne `Totals` est obligatoire (le helper échoue si elle manque).
+
+Dans vos notes de revue, reprenez cette recette en mentionnant les deux vérifications explicites (`tail` + `jq`) et la source documentaire :
+```
+./scripts/verify_snapshot.sh --format both
+tail -n 5 reports/log_metrics_snapshot.status_top2.csv
+jq '.[-1]' reports/log_metrics_snapshot.status_top2.json
+```
+Expliquez que ces commandes illustrent la sélection `pattern=status`/`top_n=2` dans le CSV et le JSON, citant `C/ft_services/docs/logs_metrics.md` (cette page) pour rappeler que la séquence helper + tail/jq est la recette de référence. Précisez que les mêmes colonnes `timestamp,log_file,status_checks,connections,overloaded,overloaded_ratio` s’affichent dans les deux sorties, ce qui rassure les relecteurs qui ne relancent pas le helper.
+
+Exemple de note de revue :
+```
+./scripts/verify_snapshot.sh --format both
+tail -n 5 reports/log_metrics_snapshot.status_top2.csv
+jq '.[-1]' reports/log_metrics_snapshot.status_top2.json
+Voir C/ft_services/docs/logs_metrics.md pour la recette helper + tail/jq ; ces commandes confirment que `pattern=status`/`top_n=2` produit les colonnes attendues dans le CSV et le JSON simultanément.
+```
+Cela donne aux approbateurs un modèle simple à copier puis à valider manuellement si le helper n’est pas relancé.
 
 ## Générer un rapport Markdown
 - Commande : `./scripts/logs_metrics_report.sh --input reports/log_metrics_snapshot.status_top2.csv` (ou tout autre CSV exporté).
@@ -75,7 +101,7 @@
 ## Indexer les artefacts
 - Script : `python3 scripts/logs_metrics_index.py --reports reports --suffix status_top2 [--compare reports/log_metrics_compare.md]`
 - Vérifie la présence des artefacts CSV/JSON/MD/HTML pour le suffixe donné et génère `reports/index.md` avec des liens relatifs (snapshots CSV/JSON/JSONL/MD/HTML/summary, history, trend/stats/anomalies md+html+json, compare md+html si fourni, manifest, portal, bundle).
-- Pour une version HTML : `python3 scripts/logs_metrics_index_html.py --reports reports --suffix status_top2` (produit `reports/index.html` avec les liens CSV/JSON/JSONL/MD/HTML/summary/history/trend/bundle/compare si présents).
+- Pour une version HTML : `python3 scripts/logs_metrics_index_html.py --reports reports --suffix status_top2 [--output reports/index.html]` (produit `reports/index.html` avec les liens CSV/JSON/JSONL/MD/HTML/summary/history/trend/bundle/compare si présents; `--output` permet de cibler un autre chemin).
 
 ## Overview (totaux + deltas + liens)
 - Script Markdown : `python3 scripts/logs_metrics_overview.py --reports reports --suffix status_top2 --output reports/log_metrics_overview.md`
@@ -96,13 +122,19 @@
 - Script : `python3 scripts/logs_metrics_badge.py --reports reports --suffix status_top2 --output reports/log_metrics_badge.svg [--warn-overloaded-ratio 50] [--danger-overloaded-ratio 80] [--label metrics]`.
 - Contenu : badge SVG compact (état OK/WARN/ALERT en couleur) incluant le ratio `overloaded`, le nombre d’anomalies, le nombre de runs historisés et le delta de ratio vs run précédent si disponible.
 - Généré automatiquement par la pipeline (désactivable via `--no-badge`, profil CI minimal le coupe) et intégré à l’index md/html, au portail, au manifest/bundle/checksums et aux résumés latest (liens).
-- Validation full vérifie la présence du SVG et la cohérence manifest/checksums; `make metrics-badge` regénère uniquement le badge depuis les artefacts existants.
+- Validation full vérifie la présence du SVG et la cohérence manifest/checksums; `make metrics-badge` regénère uniquement le badge depuis les artefacts existants. La validation recalcule aussi guard_overall/delta en agrégation par ligne (aligné avec guard_summary/latest) et croise latest vs guard_summary (counts/pct/streaks).
 - Seuils/label configurables dans la pipeline/CI avec `--badge-warn`, `--badge-danger` et `--badge-label` pour coller aux SLO/SLA.
 - Les résumés latest (json/html/md) exposent l’état du badge (`badge_state`, `badge_previous_state`, `badge_label`, `badge_thresholds`), la fenêtre d’historique (counts/streak/transition) et les gardes activés (`badge_guards` : gate, ok-streak, no-regression) pour consommation programmatique et affichage (Badge).
 - Gate CI : `--badge-gate warn|alert / --badge-ok-streak N (streak OK minimale) et --badge-no-regression (refuse une dégradation vs run précédent via l’historique badge)` (pipeline) échoue si l’état du badge atteint le niveau indiqué (ordre ok < warn < alert), utile pour verrouiller la CI sur un SLO.
 - Historique badge (md/html) : la vue md/html affiche la transition précédente -> courante, la fenêtre considérée, les streaks/counts par état et les colonnes de garde (gate/ok/no-reg + résultats) issues de `log_metrics_badge_history.csv` (upgrade auto si ancien format, option `--badge-history-last`) + un tableau de synthèse des gardes (ok/fail/unknown).
-- Guard summary MD/HTML/JSON/CSV : `python3 scripts/logs_metrics_guard_summary.py --history reports/log_metrics_badge_history.csv --output reports/log_metrics_guard_summary.md [--last N] [--delta-last M]`, `python3 scripts/logs_metrics_guard_summary_html.py --history ... --output ...`, `python3 scripts/logs_metrics_guard_summary_json.py --history ... --output ...`, `python3 scripts/logs_metrics_guard_summary_csv.py --history ... --output ...` produisent un tableau ok/fail/unknown/total/window/pct par garde (gate/ok/no-reg) avec deltas (valeurs et %) vs une fenêtre précédente configurable (`--delta-last`, par défaut même taille que la fenêtre courante) et incluent aussi les streaks (courante + longest ok/fail/unknown) par garde. Généré par la pipeline (désactivable via `--no-guard-summary`, option `--guard-delta-last` propagée aux rendus et au latest), inclus dans bundle/manifest/checksums/index/portal/latest/validate. La validation recroise la version CSV/JSON avec badge_history et latest pour counts/pct/deltas/`delta_window` et vérifie également les streaks recalculées; portail/index/latest affichent pct + deltas (dont delta_overall) et streaks, avec la fenêtre delta utilisée.
-- Streaks des gardes : le latest JSON expose `badge_guard_streaks` (streak courante résultat/longueur + plus longues streaks ok/fail/unknown par garde sur la fenêtre) affiché dans latest md/html, index md/html et portal (table). Validation recalcule les streaks depuis `badge_history` et vérifie fenêtre/longueurs/résultats.
+- Guard summary MD/HTML/JSON/CSV : `python3 scripts/logs_metrics_guard_summary.py --history reports/log_metrics_badge_history.csv --output reports/log_metrics_guard_summary.md [--last N] [--delta-last M]`, `python3 scripts/logs_metrics_guard_summary_html.py --history ... --output ...`, `python3 scripts/logs_metrics_guard_summary_json.py --history ... --output ...`, `python3 scripts/logs_metrics_guard_summary_csv.py --history ... --output ...` produisent un tableau ok/fail/unknown/total/window/pct par garde (gate/ok/no-reg) avec deltas (valeurs et %) vs une fenêtre précédente configurable (`--delta-last`, par défaut même taille que la fenêtre courante) et incluent aussi les streaks (courante + longest ok/fail/unknown) par garde. La streak globale agrégée (fail si un garde fail, ok si tous ok, sinon unknown) est détaillée en tableau dans la version Markdown (counts/pct/deltas + streak current/longest) et en HTML (counts/pct/deltas + streak); le JSON exporte aussi un bloc `overall` (counts/pct/deltas) en plus de `overall_streak`. Le CSV ajoute désormais deux lignes spéciales : `__overall` (counts/pct/deltas agrégés) et `__overall_streak` (streak agrégée avec deltas), pour faciliter l’ingestion tabulaire. Généré par la pipeline (désactivable via `--no-guard-summary`, option `--guard-delta-last` propagée aux rendus et au latest), inclus dans bundle/manifest/checksums/index/portal/latest/validate. La validation recroise la version CSV/JSON avec badge_history et latest pour counts/pct/deltas/`delta_window` et vérifie également les streaks recalculées (par garde et globales); portail/index/latest affichent pct + deltas (dont delta_overall) et streaks, avec la fenêtre delta utilisée.
+- Vérification rapide : `python3 scripts/logs_metrics_guard_summary_check.py --csv reports/log_metrics_guard_summary.csv --json reports/log_metrics_guard_summary.json` compare les blocs agrégés/streak CSV/JSON (overall + overall_streak) et échoue en cas d’écart. Disponible aussi via `make metrics-guard-summary-check`.
+- Pipeline/CI : le pipeline lance ce check par défaut (désactivable via `--no-guard-check` sur `logs_metrics_pipeline.sh` ou `logs_metrics_ci.sh`), ce qui garantit que les rendus md/html/index/portal se basent sur des artefacts cohérents.
+- Les scripts pipeline/verify résolvent désormais les chemins `--dir/--reports` depuis la racine du dépôt et appellent les outils en absolu, ce qui permet de les lancer depuis n’importe quel répertoire.
+- Checksums : `logs_metrics_checksums.sh` normalise aussi `--reports` par rapport à la racine et ignore les artefacts optionnels (compare md/html) lorsqu’ils ne sont pas présents.
+- Quick check : `bash scripts/metrics_quick_check.sh --reports reports --suffix status_top2` (ou `make metrics-quick-check`) lance en une commande le check guard_summary CSV/JSON + la vérification des checksums quand les fichiers sont présents. `metrics_smoke.sh` enchaîne pipeline + validation (incluant la cohérence latest/guard_summary) + quick-check pour un smoke complet local.
+- Run summary : la pipeline génère `reports/log_metrics_run_summary.json` (guard_check/checksums/validation/badge/anomalies/ratio) pour un état synthétique; inclus dans le manifest.
+- Streaks des gardes : le latest JSON expose `badge_guard_streaks` (streak courante résultat/longueur + plus longues streaks ok/fail/unknown par garde sur la fenêtre) et `badge_guard_overall_streak` (agrégation : fail si un garde fail, ok si tous ok, sinon unknown), affichés dans latest md/html, index md/html et portal (table). Validation recalcule les streaks depuis `badge_history` et vérifie fenêtre/longueurs/résultats (par garde et global).
 - Latest JSON : expose aussi `badge_guard_summary` (counts ok/fail/unknown par garde) affiché dans latest HTML/MD/portail/index et vérifié par la validation contre badge_history. L’index HTML/md affichent un tableau récapitulatif des gardes et les liens guard_summary md/html.
 - Le runner CI relaye `--badge-gate` et les options `--badge-warn/--badge-danger/--badge-label`; les profils s’appliquent comme pour les autres artefacts (profil minimal coupe aussi le badge/gate).
 - Index : affiche le badge (lien svg) et l’état/les seuils lus depuis `log_metrics_latest.json`; l’index HTML inclut également l’état du badge.
@@ -120,9 +152,13 @@
 
 ## Valider les artefacts produits
 - Script : `python3 scripts/logs_metrics_validate.py --reports reports --suffix status_top2 [--mode full|standard|minimal]`
-- `--mode full` (défaut) vérifie la présence des artefacts clés (CSV/JSON/JSONL/MD/HTML/history/trend/trend HTML/index/bundle/summary/stats/stats HTML/anomalies/anomalies HTML/portal/overview md+html/manifeste/checksums) et contrôle la présence de la ligne/entrée `Totals` dans CSV/JSON; échoue si un élément manque ou si summary/stats/trend HTML/anomalies (md/html)/portal/overview sont incomplets.
+- `--mode full` (défaut) vérifie la présence des artefacts clés (CSV/JSON/JSONL/MD/HTML/history/trend/trend HTML/index/bundle/summary/stats/stats HTML/anomalies/anomalies HTML/portal/overview md+html/manifeste/checksums) et contrôle la présence de la ligne/entrée `Totals` dans CSV/JSON; échoue si un élément manque ou si summary/stats/trend HTML/anomalies (md/html)/portal/overview sont incomplets. La validation recalcule guard_overall/delta en agrégation par ligne et croise latest vs guard_summary (counts/pct/streaks) pour garantir badge_history → guard_summary → latest.
 - `--mode standard` tolère l’absence des rendus HTML optionnels (trend/stats/anomalies/summary/index/overview) mais exige le reste.
 - `--mode minimal` ne requiert pas les sorties HTML optionnelles ni le portail/bundle, pratique si la CI a utilisé un profil minimal.
+- Pipeline : `logs_metrics_pipeline.sh` accepte `--post-validate` (optionnel) pour lancer la validation en fin de pipeline (`--validate-mode full|standard|minimal`), utile en smoke/CI locale. Les flags `--fail-on-missing-sitemap` et `--sitemap-optional` permettent de faire échouer sur sitemap manquant (voir aussi `make metrics-sitemap-verify` / `python3 scripts/logs_metrics_sitemap_verify.py`).
+- CI : `logs_metrics_ci.sh` relaie `--post-validate/--validate-mode` vers la pipeline et peut lancer la validation après le bundle/compare. Le run summary est alors produit automatiquement.
+- Vérification sitemap : `python3 scripts/logs_metrics_sitemap_verify.py --reports reports --sitemap reports/log_metrics_sitemap.json [--manifest reports/log_metrics_manifest.json] [--optional compare_md,compare_html,checksums_guard] [--strict-summary]` échoue si des artefacts requis manquent (appelé par `make metrics-sitemap-verify` et `make metrics-quick-check`) ; `--optional` autorise un override ponctuel des artefacts ignorés et la vérification recalcule les manquants à partir du manifest si présent, en émettant un warning si les totaux sitemap vs manifest divergent (échec seulement avec `--strict-summary`). `make metrics-sitemap-verify` comprend `SITEMAP_OPTIONAL=...` / `SITEMAP_STRICT=1`, `metrics_quick_check.sh` accepte `--sitemap-optional` / `--sitemap-strict`, et la pipeline relaie `--sitemap-optional/--sitemap-manifest/--sitemap-strict/--fail-on-missing-sitemap` jusqu’à la vérification.
+- Statut condensé : `python3 scripts/logs_metrics_status.py --reports reports [--format json|text]` résume badge/anomalies/overload/guard/checksums/validation/compare/sitemap/manifest; utilisé par `make metrics-status` et `metrics_quick_check.sh`.
 
 ## Exporter en JSONL pour ingestion
 - Script : `python3 scripts/logs_metrics_snapshot_to_jsonl.py --input reports/log_metrics_snapshot.status_top2.csv --output reports/log_metrics_snapshot.status_top2.jsonl`
@@ -168,6 +204,12 @@
 - Version JSON : `python3 scripts/logs_metrics_anomalies.py --json-output reports/log_metrics_anomalies.json` (écrit automatiquement dans la pipeline).
 - Option stricte : `--strict` retourne un code non nul si des anomalies sont détectées (combinable avec `--anomaly-threshold`).
 - Appelé automatiquement par la pipeline (options `--no-anomalies`/`--no-anomalies-html`/`--no-anomalies-json`, `--anomaly-threshold` et `--anomalies-strict`) et intégré au portail/index/publish/validate.
+
+## Badge statut global
+- Script : `python3 scripts/logs_metrics_status.py --reports reports [--format json|text] [--optional compare_md,...] [--fail-on-badge warn|alert] [--fail-on-missing] [--allow-alert] [--output reports/log_metrics_status.json]` calcule l’état global (badge + sitemap + manifest) pour l’automatisation/CI.
+- Badge SVG : `python3 scripts/logs_metrics_status_badge.py --status-json reports/log_metrics_status.json --output reports/log_metrics_status_badge.svg [--label status] [--gate warn|alert]` synthétise l’overall/badge/anomalies/sitemap/manifest ; intégré à l’index/portal/manifest/checksums/bundle.
+- Pipeline : `logs_metrics_pipeline.sh` accepte `--fail-on-overall warn|alert` pour faire échouer le run si l’overall_state (issu de `log_metrics_status.json`) dépasse le seuil (warn ou alert). Utile pour verrouiller une CI stricte sur la santé globale.
+- Smoke complet : `bash scripts/metrics_smoke.sh --dir tests/env/logs --reports reports --threshold 60 --prune-keep 5 --sitemap-optional compare_md,compare_html,checksums_guard --fail-on-overall alert [--fail-on-badge warn] [--sitemap-strict]` enchaîne pipeline + quick-check avec les mêmes gates, et sort en erreur si l’état global dépasse le seuil.
 
 ## Préparer un bundle de publication
 - Script : `./scripts/logs_metrics_publish.sh --reports reports --suffix status_top2 --output reports/log_metrics_bundle.tar.gz`

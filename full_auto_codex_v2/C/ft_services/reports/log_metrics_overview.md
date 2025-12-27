@@ -6,8 +6,8 @@
 | --- | --- |
 | status_checks | 2 |
 | connections | 1 |
-| overloaded | 1 |
-| overloaded_ratio | 50.00 |
+| overloaded | 0 |
+| overloaded_ratio | 0.00 |
 
 ## Delta vs précédent
 
@@ -15,8 +15,8 @@
 | --- | --- | --- | --- |
 | status_checks | 2.00 | 2.00 | 0.00 |
 | connections | 1.00 | 1.00 | 0.00 |
-| overloaded | 1.00 | 1.00 | 0.00 |
-| overloaded_ratio | 50.00 | 50.00 | 0.00 |
+| overloaded | 0.00 | 0.00 | 0.00 |
+| overloaded_ratio | 0.00 | 0.00 | 0.00 |
 
 ## Liens utiles
 - CSV: log_metrics_snapshot.status_top2.csv

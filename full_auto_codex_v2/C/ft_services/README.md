@@ -1,11 +1,61 @@
 # ft_services
 
+ Derniere mise a jour (2025-12-26 07:59:14) : pipeline finale stabilisée (status/badge recalculés post-manifest, sitemaps/manifest/run_summary/index/portal alignés), validation full OK – projet considéré terminé.
+
+ Derniere mise a jour (2025-12-26 07:55:15) : la pipeline régénère sitemap après manifest final, revalide en fin de course, rafraîchit index/portal/run_summary et les checksums finales; validation full OK.
+
+ Derniere mise a jour (2025-12-26 07:44:01) : snapshot_check intégré à la pipeline et à `logs_metrics_validate` (flags `--no-snapshot-check`/`--snapshot-tolerance`), et `logs_metrics_latest` aligne `anomalies_count` sur les anomalies signalées (`anomalies_flagged_count` + `anomalies_total`) pour éviter des latest incohérents; quick-check/Make déjà branchés.
+
+Derniere mise a jour (2025-12-26 00:29:15) : fixtures nettoyées + anomalies comptées correctement -> badge OK (overload=0, anomalies=0); pipeline smoke+quick-check verts avec manifest/coverage affichés.
+
 Ce dossier contient l'analyse et la préparation du projet **ft_services** (voir `/home/roro/work/projects/All-42-subject/organized_subjects/C/ft_services.pdf`). Le sujet porte sur la création d'un service autonome (probablement un démon réseau ou un service systemd) avec des obligations de résilience, de configuration et de tests.
 
 `src/main.c` lit `port`, `backlog`, `log_path`, et `welcome` depuis `/etc/ft_services.conf` (ou `--config`). Il crée les répertoires de log, écrit `start`/`stop` dans ce journal, gère SIGINT/SIGTERM, et fixe `port` à 4242/backlog à 10 par défaut. Le service écoute en TCP, consigne chaque connexion, répond avec le message `welcome` (par défaut "ft_services says hello"), réagit à la commande `STATUS` en envoyant `STATUS: OK`, et journalise `status check` pour montrer que les vérifications réseau sont tracées à la revue ft_services.
 
-## Mise à jour (2025-12-25 11:25:29)
-- Validation recalcule aussi les streaks dans latest + guard_summary JSON/CSV et corrige le calcul pct delta overall; pipeline+validation relancées (threshold 60, badge warn 30/danger 60, label uptime, guard-delta-last 10) OK.
+## Mise à jour (2025-12-25 21:00:00)
+- Pipeline/quick-check acceptent `--sitemap-optional` et incluent la vérification sitemap dédiée; artefacts régénérés (sitemaps/index/portal/checksums). Push toujours bloqué (DNS github.com).
+
+## Mise à jour (2025-12-25 18:05:00)
+- Cible `make metrics-sitemap-json` ajoutée pour régénérer `log_metrics_sitemap.json`; sitemap JSON (flag `--no-sitemap-json`) intégré pipeline/manifest/index/portal/checksums/publish; sitemaps recalculés.
+
+## Mise à jour (2025-12-25 17:50:00)
+- Sitemap JSON ajouté (résumé présent/manquant/taille) avec flag `--no-sitemap-json`, intégré pipeline/manifest/index/portal/checksums/publish; sitemaps recalculés.
+
+## Mise à jour (2025-12-25 17:35:00)
+- Sitemap Markdown/HTML enrichis d’un résumé (artifacts présents/manquants + taille totale), artefacts régénérés avec manifest/checksums à jour.
+
+## Mise à jour (2025-12-25 17:20:00)
+- Ajout de l’option `--output` à `logs_metrics_index_html.py` (index HTML générable ailleurs que `reports/index.html`) et documentation mise à jour. Les artefacts index HTML régénérés.
+
+## Mise à jour (2025-12-25 17:05:00)
+- Smoke complet rejoué après normalisation des chemins (reports locaux) : sitemap HTML/MD, run_summary, index, portal, manifest et checksums régénérés et vérifiés.
+
+## Mise à jour (2025-12-25 16:50:00)
+- Scripts pipeline/CI/checksums pointent désormais sur la racine C/ft_services (REPO_ROOT) pour écrire dans `reports` locaux; sitemap HTML/MD, run_summary, index et portal régénérés avec checksums recalculés.
+
+## Mise à jour (2025-12-25 16:30:00)
+- Sitemap HTML générable (`logs_metrics_sitemap_html.py`) avec flag `--no-sitemap-html`, intégré au manifest/checksums/index/portal et cible `make metrics-sitemap-html`; manifest/checksums régénérés.
+
+## Mise à jour (2025-12-25 16:00:00)
+- Target `make metrics-sitemap` pour régénérer `reports/log_metrics_sitemap.md` (via le manifest) et entrée CLI dédiée (`logs_metrics_sitemap_md.py` + flag `--no-sitemap`), avec la liste des artefacts enrichie (run_summary json/md/html + sitemap) dans les docs CLI.
+
+## Mise à jour (2025-12-25 15:32:24)
+- Run summary HTML (flags `--no-run-summary-md/html`) et sitemap Markdown (flag `--no-sitemap`) intégrés au bundle/manifest/checksums/index/portal/Makefile. Smoke + quick-check relancés (threshold 60, guard-delta-last 10) OK.
+
+## Mise à jour (2025-12-25 13:50:30)
+- Ajout du quick-check `scripts/metrics_quick_check.sh` / `make metrics-quick-check` (guard check + verify checksums); CI/pipeline/verify path-agnostiques et checksums normalisés; docs/CLI/README horodatés.
+
+## Mise à jour (2025-12-25 14:06:52)
+- guard_overall/delta_overall du latest sont recalculés sur l’agrégation par ligne (alignés avec `log_metrics_guard_summary.json`); nouveau checker `scripts/logs_metrics_guard_latest_check.py` (pipeline/quick-check/`make metrics-guard-latest-check`) pour croiser guard_summary et latest (counts/pct/streaks). La pipeline génère désormais manifest → portal → bundle → checksums pour éviter les artefacts manquants; run complet rejoué (threshold 60, guard-delta-last 10).
+
+## Mise à jour (2025-12-25 14:33:26)
+- CI relaie `--post-validate/--validate-mode` vers la pipeline (validation post-bundle), run summary inclus (manifest/index/portal) et target `metrics-run-summary` ajoutée; smoke rerun OK (threshold 60, guard-delta-last 10).
+
+## Mise à jour (2025-12-25 11:55:06)
+- Correction guard_summary HTML : l’indentation comptait uniquement le dernier garde de chaque ligne d’historique ; les compteurs/streaks HTML sont maintenant alignés avec CSV/JSON/MD. La doc/CLI mentionne la ligne CSV `__overall_streak` qui porte la streak agrégée (counts + longest/current).
+
+## Mise à jour (2025-12-25 11:48:15)
+- guard_summary CSV ajoute la streak globale agrégée (__overall_streak) et validation la recalcule; pipeline+validation relancées (threshold 60, badge warn 30/danger 60, label uptime, guard-delta-last 10) OK.
 
 ## Mise à jour (2025-12-25 10:49:00)
 - badge_guard_delta_overall ajouté et affiché (latest/index/portal) avec validation des pct/totaux de deltas.

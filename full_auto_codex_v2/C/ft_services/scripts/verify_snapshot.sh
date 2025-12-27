@@ -7,6 +7,8 @@ PATTERN="status"
 TOPN=2
 LOG_DIR=${LOG_METRICS_DIR:-tests/env/logs}
 REPORTS_DIR=${REPORTS_DIR:-reports}
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 usage() {
   cat <<EOF
@@ -46,6 +48,13 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+if [[ "$LOG_DIR" != /* ]]; then
+  LOG_DIR="$REPO_ROOT/$LOG_DIR"
+fi
+if [[ "$REPORTS_DIR" != /* ]]; then
+  REPORTS_DIR="$REPO_ROOT/$REPORTS_DIR"
+fi
+
 if [ "$FORMAT" != "csv" ] && [ "$FORMAT" != "json" ] && [ "$FORMAT" != "both" ]; then
   echo "Unsupported format: $FORMAT" >&2
   exit 1
@@ -67,7 +76,7 @@ run_export() {
   local fmt="$1"
   local out="${base}.${fmt}"
   echo "Exporting ${fmt} snapshot -> ${out}"
-  ./scripts/logs_metrics_export.sh --dir "$LOG_DIR" --topn "$TOPN" --pattern "$PATTERN" --format "$fmt" > "$out"
+  "$SCRIPT_DIR/logs_metrics_export.sh" --dir "$LOG_DIR" --topn "$TOPN" --pattern "$PATTERN" --format "$fmt" > "$out"
   if [ "$fmt" = "csv" ]; then
     echo "[check] tail -n 5 ${out}"
     tail -n 5 "$out"

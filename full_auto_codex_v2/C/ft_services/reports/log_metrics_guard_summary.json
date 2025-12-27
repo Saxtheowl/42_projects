@@ -11,12 +11,12 @@
     "delta": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "streak": {
       "current": {
@@ -43,12 +43,12 @@
     "delta": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "streak": {
       "current": {
@@ -75,12 +75,12 @@
     "delta": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "streak": {
       "current": {
@@ -93,6 +93,38 @@
         "unknown": 20
       },
       "window": 20
+    }
+  },
+  "overall_streak": {
+    "current": {
+      "result": "unknown",
+      "length": 20
+    },
+    "longest": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20
+    },
+    "window": 20
+  },
+  "overall": {
+    "ok": 0,
+    "fail": 0,
+    "unknown": 20,
+    "total": 20,
+    "window": 20,
+    "ok_pct": 0.0,
+    "fail_pct": 0.0,
+    "unknown_pct": 100.0,
+    "delta": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 0,
+      "delta_window": 20,
+      "window": 20,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 0.0
     }
   }
 }

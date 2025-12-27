@@ -4,6 +4,8 @@ Generate an index (Markdown) linking to the latest metrics artifacts (snapshot, 
 Usage: logs_metrics_index.py --reports reports --suffix status_top2 [--compare reports/log_metrics_compare.md] [--output reports/index.md]
 """
 import argparse
+import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -41,12 +43,140 @@ def main():
 
     output = Path(args.output) if args.output else reports_dir / "index.md"
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    def load_json(path: Path, label: str) -> dict:
+        if not path.exists():
+            return {}
+        try:
+            return json.loads(path.read_text())
+        except Exception as exc:  # pragma: no cover - defensive guardrail
+            print(f"[index] warning: failed to read {label} at {path}: {exc}", file=sys.stderr)
+            return {}
+
+    run_summary_path = reports_dir / "log_metrics_run_summary.json"
+    latest_path = reports_dir / "log_metrics_latest.json"
+    status_json_path = reports_dir / "log_metrics_status.json"
+
+    run_summary = load_json(run_summary_path, "run_summary")
+    latest = load_json(latest_path, "latest")
+    status_data = load_json(status_json_path, "status")
+    overall_history_path = reports_dir / "log_metrics_overall_history.csv"
+    overall_history_rows = []
+    if overall_history_path.exists():
+        try:
+            import csv
+            with overall_history_path.open(newline="") as f:
+                overall_history_rows = list(csv.DictReader(f))[-10:]
+        except Exception:
+            overall_history_rows = []
+    manifest_path = reports_dir / "log_metrics_manifest.json"
+    manifest_data = {}
+    manifest_summary = None
+    optional_manifest = {"compare_html", "compare_md", "checksums_guard"}
+    sitemap_summary = None
+    sitemap_path = reports_dir / "log_metrics_sitemap.json"
+    if manifest_path.exists():
+        try:
+            manifest_data = json.loads(manifest_path.read_text())
+            paths = manifest_data.get("paths") or {}
+            total = len(paths)
+            present = sum(1 for name, info in paths.items() if info.get("exists") and name not in optional_manifest)
+            missing = sum(1 for name, info in paths.items() if not info.get("exists") and name not in optional_manifest)
+            size_total = sum(info.get("size") or 0 for name, info in paths.items() if info.get("exists") and name not in optional_manifest)
+            manifest_summary = (total, present, missing, size_total)
+        except Exception:
+            manifest_data = {}
+    if sitemap_path.exists():
+        try:
+            sitemap_data = json.loads(sitemap_path.read_text())
+            summary = sitemap_data.get("summary") or {}
+            sitemap_summary = summary
+        except Exception:
+            sitemap_summary = None
 
     lines = [
         "# Log Metrics Index",
         "",
         f"- Generated: {generated}",
         f"- Suffix: `{args.suffix}`",
+        "",
+        "## Status",
+    ]
+    def status_line(label, value):
+        lines.append(f"- {label}: **{value}**")
+
+    badge_state = run_summary.get("badge_state") or status_data.get("badge_state") or latest.get("badge_state") or "n/a"
+    guard_state = run_summary.get("guard_check") or status_data.get("guard_check") or "n/a"
+    checksums_state = run_summary.get("checksums") or status_data.get("checksums") or "n/a"
+    status_line("Badge", badge_state)
+    status_line("Guard check", guard_state)
+    status_line("Checksums", checksums_state)
+    validation = run_summary.get("validation") or status_data.get("validation") or {}
+    validation_text = validation.get("status", "n/a")
+    if validation.get("mode"):
+        validation_text = f"{validation_text} (mode: {validation.get('mode')})"
+    status_line("Validation", validation_text)
+    status_line("Compare", (status_data.get("compare") or run_summary.get("compare") or {}).get("status", "n/a"))
+    status_line("Sitemap", (status_data.get("sitemap") or run_summary.get("sitemap") or {}).get("status", "skipped"))
+    manifest_info = status_data.get("manifest") or {}
+    manifest_optional = manifest_info.get("optional_skipped") or []
+    manifest_optional_total = manifest_info.get("optional_total")
+    manifest_optional_present = manifest_info.get("optional_present")
+    manifest_optional_missing = manifest_info.get("optional_missing_count")
+    manifest_optional_coverage = manifest_info.get("optional_coverage")
+    if manifest_summary:
+        status_line("Manifest", "ok" if manifest_summary[2] == 0 else "missing")
+    if manifest_summary:
+        total, present, missing, size_total = manifest_summary
+        lines.append("")
+        lines.append("## Manifest")
+        lines.append(f"- Total: **{total}**, Present: **{present}**, Missing: **{missing}**, Size: **{size_total} bytes**")
+        if manifest_optional_total is not None:
+            opt_present = manifest_optional_present if manifest_optional_present is not None else "n/a"
+            opt_total = manifest_optional_total if manifest_optional_total is not None else "n/a"
+            opt_missing = manifest_optional_missing if manifest_optional_missing is not None else "n/a"
+            lines.append(f"- Optional: **{opt_present}/{opt_total}** (ignored: {opt_missing})")
+            if manifest_optional_coverage is not None:
+                lines.append(f"- Optional coverage: **{manifest_optional_coverage}%**")
+        if manifest_optional:
+            lines.append(f"- Optional ignored: {', '.join(manifest_optional)}")
+    status_json = reports_dir / "log_metrics_status.json"
+    lines.append("")
+    lines.append("## Key links")
+    if (reports_dir / "log_metrics_run_summary.json").exists():
+        lines.append(f"- Run summary (json): [{(reports_dir / 'log_metrics_run_summary.json').name}]({(reports_dir / 'log_metrics_run_summary.json').name})")
+    if (reports_dir / "log_metrics_run_summary.md").exists():
+        lines.append(f"- Run summary (md): [{(reports_dir / 'log_metrics_run_summary.md').name}]({(reports_dir / 'log_metrics_run_summary.md').name})")
+    if (reports_dir / "log_metrics_run_summary.html").exists():
+        lines.append(f"- Run summary (html): [{(reports_dir / 'log_metrics_run_summary.html').name}]({(reports_dir / 'log_metrics_run_summary.html').name})")
+    if status_json.exists():
+        lines.append(f"- Status (json): [{status_json.name}]({status_json.name})")
+    if overall_history_path.exists():
+        rel = overall_history_path.relative_to(reports_dir)
+        lines.append(f"- Overall history (csv): [{rel}]({rel})")
+    if (reports_dir / "portal.html").exists():
+        lines.append(f"- Portal: [portal.html](portal.html)")
+    if (reports_dir / "log_metrics_bundle.tar.gz").exists():
+        lines.append(f"- Bundle: [log_metrics_bundle.tar.gz](log_metrics_bundle.tar.gz)")
+    if (reports_dir / "log_metrics_manifest.json").exists():
+        lines.append(f"- Manifest: [log_metrics_manifest.json](log_metrics_manifest.json)")
+    if sitemap_summary:
+        lines.append("")
+        lines.append("## Sitemap")
+        lines.append(f"- Required: **{sitemap_summary.get('artifacts','n/a')}**, Present: **{sitemap_summary.get('present','n/a')}**, Missing: **{sitemap_summary.get('missing','n/a')}**")
+        if sitemap_summary.get("optional_artifacts"):
+            lines.append(f"- Optional: {', '.join(sitemap_summary.get('optional_artifacts'))}")
+    totals = latest.get("totals") or {}
+    if totals or latest.get("anomalies_count") is not None:
+        lines.append("")
+        lines.append("## Quick stats")
+        if totals:
+            lines.append(f"- Overloaded ratio: **{totals.get('overloaded_ratio','n/a')}%**")
+            lines.append(f"- Status checks: **{totals.get('status_checks','n/a')}**")
+            lines.append(f"- Connections: **{totals.get('connections','n/a')}**")
+            lines.append(f"- Overloaded: **{totals.get('overloaded','n/a')}**")
+        if latest.get("anomalies_count") is not None:
+            lines.append(f"- Anomalies: **{latest.get('anomalies_count')}**")
+    lines += [
         "",
         "## Snapshots",
     ]
@@ -60,7 +190,6 @@ def main():
         lines.append("## History")
         rel = history.relative_to(reports_dir)
         lines.append(f"- History CSV: [{rel}]({rel})")
-
     trend_md = reports_dir / "log_metrics_trend.md"
     trend_html = reports_dir / "log_metrics_trend.html"
     if trend_md.exists() or trend_html.exists():
@@ -107,6 +236,75 @@ def main():
         lines.append("")
         lines.append("## Manifest")
         lines.append(f"- Manifest (json): [{manifest.relative_to(reports_dir)}]({manifest.relative_to(reports_dir)})")
+        sitemap_md = reports_dir / "log_metrics_sitemap.md"
+        sitemap_html = reports_dir / "log_metrics_sitemap.html"
+        sitemap_json = reports_dir / "log_metrics_sitemap.json"
+        if sitemap_md.exists():
+            lines.append(f"- Sitemap: [{sitemap_md.relative_to(reports_dir)}]({sitemap_md.relative_to(reports_dir)})")
+        if sitemap_html.exists():
+            lines.append(f"- Sitemap (html): [{sitemap_html.relative_to(reports_dir)}]({sitemap_html.relative_to(reports_dir)})")
+        if sitemap_json.exists():
+            lines.append(f"- Sitemap (json): [{sitemap_json.relative_to(reports_dir)}]({sitemap_json.relative_to(reports_dir)})")
+            try:
+                data = json.loads(sitemap_json.read_text())
+                summary = data.get("summary") or {}
+                lines.append("  - Sitemap summary:")
+                lines.append(f"    - Artifacts: {summary.get('artifacts', 'n/a')}")
+                lines.append(f"    - Present: {summary.get('present', 'n/a')}")
+                lines.append(f"    - Missing: {summary.get('missing', 'n/a')}")
+                lines.append(f"    - Total size (bytes): {summary.get('total_size_bytes', 'n/a')}")
+                optional_artifacts = summary.get("optional_artifacts") or []
+                if optional_artifacts:
+                    lines.append("    - Optional (ignored):")
+                    for opt in optional_artifacts:
+                        lines.append(f"      - {opt}")
+                missing_paths = summary.get("missing_paths") or []
+                if missing_paths:
+                    lines.append("    - Missing paths:")
+                    for mp in missing_paths:
+                        lines.append(f"      - {mp}")
+            except Exception:
+                lines.append("  - Sitemap summary: unreadable JSON")
+
+    run_summary = reports_dir / "log_metrics_run_summary.json"
+    run_summary_md = reports_dir / "log_metrics_run_summary.md"
+    run_summary_html = reports_dir / "log_metrics_run_summary.html"
+    if run_summary.exists() or run_summary_md.exists() or run_summary_html.exists():
+        lines.append("")
+        lines.append("## Run summary")
+        if run_summary.exists():
+            try:
+                summary = json.loads(run_summary.read_text())
+                guard_check = summary.get("guard_check")
+                checksums = summary.get("checksums")
+                validation = (summary.get("validation") or {}).get("status")
+                compare_status = (summary.get("compare") or {}).get("status")
+                badge_state = summary.get("badge_state")
+                anomalies_count = summary.get("anomalies_count")
+                overloaded_ratio = summary.get("overloaded_ratio")
+                lines.append(f"- Run summary (json): [{run_summary.relative_to(reports_dir)}]({run_summary.relative_to(reports_dir)})")
+                lines.append(
+                    f"- Badge={badge_state}, anomalies={anomalies_count}, overloaded_ratio={overloaded_ratio}, guard_check={guard_check}, checksums={checksums}, validation={validation}, compare={compare_status}"
+                )
+            except Exception:
+                lines.append(f"- Run summary (json): [{run_summary.relative_to(reports_dir)}]({run_summary.relative_to(reports_dir)}) (unreadable)")
+        if run_summary_md.exists():
+            lines.append(f"- Run summary (md): [{run_summary_md.relative_to(reports_dir)}]({run_summary_md.relative_to(reports_dir)})")
+        if run_summary_html.exists():
+            lines.append(f"- Run summary (html): [{run_summary_html.relative_to(reports_dir)}]({run_summary_html.relative_to(reports_dir)})")
+
+    if overall_history_path.exists():
+        lines.append("")
+        lines.append("## Overall history")
+        lines.append(f"- Overall history (csv): [{overall_history_path.relative_to(reports_dir)}]({overall_history_path.relative_to(reports_dir)})")
+        if overall_history_rows:
+            headers = ["run_timestamp","overall_state","badge_state","anomalies_count","overloaded_ratio","sitemap_status","manifest_status","guard_check","checksums","validation_status"]
+            lines.append("")
+            # markdown table
+            lines.append("| " + " | ".join(headers) + " |")
+            lines.append("| " + " | ".join("---" for _ in headers) + " |")
+            for row in overall_history_rows:
+                lines.append("| " + " | ".join(str(row.get(h, "")) for h in headers) + " |")
 
     overview = reports_dir / "log_metrics_overview.md"
     if overview.exists():
@@ -133,8 +331,6 @@ def main():
         lines.append("## Badge")
         if latest_json.exists():
             try:
-                import json
-
                 data = json.loads(latest_json.read_text())
                 state = data.get("badge_state", "n/a")
                 thresholds = data.get("badge_thresholds", {})
@@ -189,6 +385,13 @@ def main():
                         lines.append(
                             f"| {overall.get('window','?')} | {overall.get('ok',0)} | {overall.get('ok_pct','0')}% | {overall.get('fail',0)} | {overall.get('fail_pct','0')}% | {overall.get('unknown',0)} | {overall.get('unknown_pct','0')}% | {overall.get('total',0)} |"
                         )
+                overall_streak = data.get("badge_guard_overall_streak") or {}
+                if overall_streak:
+                    lines.append("")
+                    lines.append("Streak globale (tous gardes combinés) :")
+                    lines.append(
+                        f"- Courante: {overall_streak.get('current',{}).get('result','?')} x {overall_streak.get('current',{}).get('length','?')} (fenêtre {overall_streak.get('window','?')}); longest ok={overall_streak.get('longest',{}).get('ok',0)}, fail={overall_streak.get('longest',{}).get('fail',0)}, unknown={overall_streak.get('longest',{}).get('unknown',0)}"
+                    )
                 if guard_streaks:
                     lines.append("")
                     lines.append("| guard | current_result | current_len | longest_ok | longest_fail | longest_unknown | window |")
@@ -209,18 +412,58 @@ def main():
             lines.append(f"- Badge history (md): [{badge_history_md.relative_to(reports_dir)}]({badge_history_md.relative_to(reports_dir)})")
         if badge_history_html.exists():
             lines.append(f"- Badge history (html): [{badge_history_html.relative_to(reports_dir)}]({badge_history_html.relative_to(reports_dir)})")
-        guard_summary_md = reports_dir / "log_metrics_guard_summary.md"
-        guard_summary_html = reports_dir / "log_metrics_guard_summary.html"
-        guard_summary_json = reports_dir / "log_metrics_guard_summary.json"
-        guard_summary_csv = reports_dir / "log_metrics_guard_summary.csv"
-        if guard_summary_md.exists():
-            lines.append(f"- Guard summary (md): [{guard_summary_md.relative_to(reports_dir)}]({guard_summary_md.relative_to(reports_dir)})")
-        if guard_summary_html.exists():
-            lines.append(f"- Guard summary (html): [{guard_summary_html.relative_to(reports_dir)}]({guard_summary_html.relative_to(reports_dir)})")
-        if guard_summary_json.exists():
-            lines.append(f"- Guard summary (json): [{guard_summary_json.relative_to(reports_dir)}]({guard_summary_json.relative_to(reports_dir)})")
-        if guard_summary_csv.exists():
-            lines.append(f"- Guard summary (csv): [{guard_summary_csv.relative_to(reports_dir)}]({guard_summary_csv.relative_to(reports_dir)})")
+    guard_summary_md = reports_dir / "log_metrics_guard_summary.md"
+    guard_summary_html = reports_dir / "log_metrics_guard_summary.html"
+    guard_summary_json = reports_dir / "log_metrics_guard_summary.json"
+    guard_summary_csv = reports_dir / "log_metrics_guard_summary.csv"
+    guard_summary_json_data = {}
+    if guard_summary_json.exists():
+        try:
+            guard_summary_json_data = json.loads(guard_summary_json.read_text())
+        except Exception:
+            guard_summary_json_data = {}
+    if guard_summary_md.exists():
+        lines.append(f"- Guard summary (md): [{guard_summary_md.relative_to(reports_dir)}]({guard_summary_md.relative_to(reports_dir)})")
+    if guard_summary_html.exists():
+        lines.append(f"- Guard summary (html): [{guard_summary_html.relative_to(reports_dir)}]({guard_summary_html.relative_to(reports_dir)})")
+    if guard_summary_json.exists():
+        lines.append(f"- Guard summary (json): [{guard_summary_json.relative_to(reports_dir)}]({guard_summary_json.relative_to(reports_dir)})")
+    if guard_summary_csv.exists():
+        lines.append(f"- Guard summary (csv): [{guard_summary_csv.relative_to(reports_dir)}]({guard_summary_csv.relative_to(reports_dir)})")
+    if guard_summary_json_data:
+        overall_json = guard_summary_json_data.get("overall") or {}
+        overall_streak_json = guard_summary_json_data.get("overall_streak") or {}
+        if overall_json:
+            lines.append("")
+            lines.append("Guard summary (overall, guard_summary.json) :")
+            lines.append("| ok | fail | unknown | total | window | ok% | fail% | unknown% | Δok | Δok% | Δfail | Δfail% | Δunknown | Δunknown% | Δwindow |")
+            lines.append("| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
+            delta = overall_json.get("delta") or {}
+            lines.append(
+                "| {ok} | {fail} | {unknown} | {total} | {window} | {ok_pct}% | {fail_pct}% | {unknown_pct}% | {dok} | {dokpct}% | {dfail} | {dfailpct}% | {dunk} | {dunkpct}% | {dwin} |".format(
+                    ok=overall_json.get("ok", 0),
+                    fail=overall_json.get("fail", 0),
+                    unknown=overall_json.get("unknown", 0),
+                    total=overall_json.get("total", 0),
+                    window=overall_json.get("window", "?"),
+                    ok_pct=overall_json.get("ok_pct", "0"),
+                    fail_pct=overall_json.get("fail_pct", "0"),
+                    unknown_pct=overall_json.get("unknown_pct", "0"),
+                    dok=delta.get("ok", 0),
+                    dokpct=delta.get("ok_pct", "0"),
+                    dfail=delta.get("fail", 0),
+                    dfailpct=delta.get("fail_pct", "0"),
+                    dunk=delta.get("unknown", 0),
+                    dunkpct=delta.get("unknown_pct", "0"),
+                    dwin=delta.get("delta_window", "?"),
+                )
+            )
+        if overall_streak_json:
+            lines.append("")
+            lines.append("Streak globale (guard_summary.json) :")
+            lines.append(
+                f"- Courante: {overall_streak_json.get('current',{}).get('result','?')} x {overall_streak_json.get('current',{}).get('length','?')} (fenêtre {overall_streak_json.get('window','?')}); longest ok={overall_streak_json.get('longest',{}).get('ok',0)}, fail={overall_streak_json.get('longest',{}).get('fail',0)}, unknown={overall_streak_json.get('longest',{}).get('unknown',0)}"
+            )
         guard_delta = data.get("badge_guard_delta") or {}
         if guard_delta:
             lines.append("")

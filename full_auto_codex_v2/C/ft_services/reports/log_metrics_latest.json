@@ -1,13 +1,13 @@
 {
-  "generated_at": "2025-12-25T11:25:14Z",
+  "generated_at": "2025-12-26T07:57:59Z",
   "suffix": "status_top2",
-  "reports_dir": "reports",
+  "reports_dir": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports",
   "totals": {
-    "timestamp": "2025-12-25T11:25:10Z",
+    "timestamp": "2025-12-26T07:57:54Z",
     "status_checks": 2.0,
     "connections": 1.0,
-    "overloaded": 1.0,
-    "overloaded_ratio": 50.0
+    "overloaded": 0.0,
+    "overloaded_ratio": 0.0
   },
   "deltas": {
     "status_checks": 0.0,
@@ -15,8 +15,10 @@
     "overloaded": 0.0,
     "overloaded_ratio": 0.0
   },
-  "history_count": 129,
-  "anomalies_count": 4,
+  "history_count": 12,
+  "anomalies_count": 0,
+  "anomalies_flagged_count": 0,
+  "anomalies_total": 4,
   "anomalies": [
     {
       "metric": "status_checks",
@@ -36,27 +38,27 @@
     },
     {
       "metric": "overloaded",
-      "prev": 1.0,
-      "curr": 1.0,
+      "prev": 0.0,
+      "curr": 0.0,
       "delta": 0.0,
       "pct": 0.0,
       "status": "OK"
     },
     {
       "metric": "overloaded_ratio",
-      "prev": 50.0,
-      "curr": 50.0,
+      "prev": 0.0,
+      "curr": 0.0,
       "delta": 0.0,
       "pct": 0.0,
       "status": "OK"
     }
   ],
-  "badge_state": "alert",
-  "badge_previous_state": "alert",
-  "badge_label": "uptime",
+  "badge_state": "ok",
+  "badge_previous_state": "ok",
+  "badge_label": "metrics",
   "badge_thresholds": {
-    "warn": 30.0,
-    "danger": 60.0
+    "warn": 50.0,
+    "danger": 80.0
   },
   "badge_ok_streak_required": null,
   "badge_guards": {
@@ -66,28 +68,22 @@
   },
   "badge_guard_status": null,
   "badge_history": {
-    "entries": 68,
+    "entries": 120,
     "window": 20,
-    "delta_window": 10,
+    "delta_window": 20,
     "counts": {
-      "ok": 0,
-      "fail": 0,
-      "unknown": 20,
-      "total": 20,
-      "window": 20,
-      "ok_pct": 0.0,
-      "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "alert": 10,
+      "ok": 10
     },
     "last": {
-      "generated_at": "2025-12-25T11:25:13Z",
+      "generated_at": "2025-12-26T07:57:57Z",
       "suffix": "status_top2",
-      "badge_label": "uptime",
-      "badge_state": "alert",
-      "badge_warn": "30.0",
-      "badge_danger": "60.0",
-      "overloaded_ratio": "50.0",
-      "anomalies_count": "4",
+      "badge_label": "metrics",
+      "badge_state": "ok",
+      "badge_warn": "50.0",
+      "badge_danger": "80.0",
+      "overloaded_ratio": "0.0",
+      "anomalies_count": "0",
       "guard_gate": "",
       "guard_ok_streak": "",
       "guard_no_regression": "False",
@@ -96,8 +92,8 @@
       "guard_no_regression_result": ""
     },
     "current_streak": {
-      "state": "alert",
-      "length": 20
+      "state": "ok",
+      "length": 10
     },
     "longest_streaks": {
       "ok": 0,
@@ -105,14 +101,14 @@
       "unknown": 20
     },
     "previous": {
-      "generated_at": "2025-12-25T11:24:27Z",
+      "generated_at": "2025-12-26T07:54:56Z",
       "suffix": "status_top2",
-      "badge_label": "uptime",
-      "badge_state": "alert",
-      "badge_warn": "30.0",
-      "badge_danger": "60.0",
-      "overloaded_ratio": "50.0",
-      "anomalies_count": "4",
+      "badge_label": "metrics",
+      "badge_state": "ok",
+      "badge_warn": "50.0",
+      "badge_danger": "80.0",
+      "overloaded_ratio": "0.0",
+      "anomalies_count": "0",
       "guard_gate": "",
       "guard_ok_streak": "",
       "guard_no_regression": "False",
@@ -120,10 +116,10 @@
       "guard_ok_result": "",
       "guard_no_regression_result": ""
     },
-    "previous_state": "alert",
+    "previous_state": "ok",
     "last_transition": {
-      "from": "alert",
-      "to": "alert"
+      "from": "ok",
+      "to": "ok"
     },
     "path": "log_metrics_badge_history.csv"
   },
@@ -162,8 +158,8 @@
   "badge_guard_overall": {
     "ok": 0,
     "fail": 0,
-    "unknown": 60,
-    "total": 60,
+    "unknown": 20,
+    "total": 20,
     "window": 20,
     "ok_pct": 0.0,
     "fail_pct": 0.0,
@@ -173,44 +169,44 @@
     "gate": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "ok_streak": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "no_regression": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     }
   },
   "badge_guard_delta_overall": {
     "ok": 0,
     "fail": 0,
-    "unknown": 30,
+    "unknown": 0,
     "window": 20,
-    "delta_window": 10,
-    "total": 30,
+    "delta_window": 20,
+    "total": 0,
     "ok_pct": 0.0,
     "fail_pct": 0.0,
-    "unknown_pct": 100.0
+    "unknown_pct": 0.0
   },
   "badge_guard_streaks": {
     "gate": {
@@ -249,6 +245,18 @@
       },
       "window": 20
     }
+  },
+  "badge_guard_overall_streak": {
+    "current": {
+      "result": "unknown",
+      "length": 20
+    },
+    "longest": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20
+    },
+    "window": 20
   },
   "artifacts": {
     "csv": "log_metrics_snapshot.status_top2.csv",

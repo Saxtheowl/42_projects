@@ -4,163 +4,85 @@
   <meta charset='UTF-8'>
   <title>Log Metrics Portal</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 24px; }
+    body { font-family: Arial, sans-serif; margin: 24px; background: #f7f9fb; color: #1c1f23; }
     h1, h2 { margin-bottom: 8px; }
-    table { border-collapse: collapse; width: 100%; margin-bottom: 16px; }
-    th, td { border: 1px solid #ddd; padding: 6px; text-align: left; }
-    th { background: #f4f4f4; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 16px; background: #fff; }
+    th, td { border: 1px solid #e6e9ed; padding: 6px; text-align: left; }
+    th { background: #eef2f6; }
     .meta { color: #555; margin-bottom: 16px; }
-    pre { background: #f9f9f9; padding: 8px; border: 1px solid #eee; }
-    iframe { width: 100%; height: 320px; border: 1px solid #eee; }
+    pre { background: #fff; padding: 8px; border: 1px solid #e6e9ed; }
+    iframe { width: 100%; height: 320px; border: 1px solid #e6e9ed; background: #fff; }
+    .card { border: 1px solid #e1e6ed; padding: 12px; border-radius: 10px; margin: 12px 0; max-width: 620px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .status-bar { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 18px; }
+    .status-badge { border-radius: 14px; padding: 8px 12px; font-size: 0.92em; border: 1px solid #d5dce5; background: #f4f6f9; }
+    .status-badge.ok { border-color: #8cc152; background: #e5f5d9; color: #2c6c1a; }
+    .status-badge.fail { border-color: #da4453; background: #fbe3e6; color: #a51629; }
+    .status-badge.neutral { color: #4a4f55; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 12px 0; }
+    .card h3 { margin-top: 0; }
   </style>
 </head>
 <body>
 <h1>Log Metrics Portal</h1>
-<div class='meta'>Suffix: status_top2 | Generated: 2025-12-25T11:25:15Z</div>
+<div class='meta'>Suffix: status_top2 | Generated: 2025-12-26T07:58:07Z</div>
+<div class='status-bar'>
+<span class='status-badge ok'>Badge: ok</span>
+<span class='status-badge ok'>Guard: ok</span>
+<span class='status-badge ok'>Checksums: ok</span>
+<span class='status-badge neutral'>Validation: skipped (full)</span>
+<span class='status-badge neutral'>Compare: skipped</span>
+<span class='status-badge ok'>Sitemap: ok</span>
+<span class='status-badge ok'>Manifest: ok</span>
+<span class='status-badge ok'>Overall: ok</span>
+</div>
 <h2>Latest snapshot (Totals)</h2>
 <table>
 <tr><th>timestamp</th><th>status_checks</th><th>connections</th><th>overloaded</th><th>overloaded_ratio</th></tr>
-<tr><td>2025-12-25T11:25:10Z</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
+<tr><td>2025-12-26T07:57:54Z</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
 </table>
 <h2>Snapshot entries</h2>
 <table>
 <tr><th>timestamp</th><th>log_file</th><th>status_checks</th><th>connections</th><th>overloaded</th><th>overloaded_ratio</th></tr>
-<tr><td>2025-12-25T11:25:10Z</td><td>tests/env/logs/status_special.log</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T11:25:10Z</td><td>Totals</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
+<tr><td>2025-12-26T07:57:54Z</td><td>/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/tests/env/logs/status_special.log</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:57:54Z</td><td>Totals</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
 </table>
 <h2>History</h2>
 <table>
 <tr><th>run_timestamp</th><th>pattern</th><th>topn</th><th>snapshot_timestamp</th><th>log_files_count</th><th>status_checks</th><th>connections</th><th>overloaded</th><th>overloaded_ratio</th></tr>
-<tr><td>2025-12-25T00:27:34Z</td><td>status</td><td>2</td><td>2025-12-25T00:27:34Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T00:32:33Z</td><td>status</td><td>2</td><td>2025-12-25T00:32:32Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T00:37:11Z</td><td>status</td><td>2</td><td>2025-12-25T00:37:10Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T00:42:52Z</td><td>status</td><td>2</td><td>2025-12-25T00:42:51Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T00:57:28Z</td><td>status</td><td>2</td><td>2025-12-25T00:57:27Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T00:58:04Z</td><td>status</td><td>2</td><td>2025-12-25T00:58:03Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T01:07:40Z</td><td>status</td><td>2</td><td>2025-12-25T01:07:40Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T01:32:55Z</td><td>status</td><td>2</td><td>2025-12-25T01:32:54Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T01:42:54Z</td><td>status</td><td>2</td><td>2025-12-25T01:42:53Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T01:59:17Z</td><td>status</td><td>2</td><td>2025-12-25T01:59:16Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:04:07Z</td><td>status</td><td>2</td><td>2025-12-25T02:04:06Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:08:53Z</td><td>status</td><td>2</td><td>2025-12-25T02:08:52Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:13:23Z</td><td>status</td><td>2</td><td>2025-12-25T02:13:22Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:18:41Z</td><td>status</td><td>2</td><td>2025-12-25T02:18:40Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:22:21Z</td><td>status</td><td>2</td><td>2025-12-25T02:22:20Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:28:20Z</td><td>status</td><td>2</td><td>2025-12-25T02:28:19Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:32:17Z</td><td>status</td><td>2</td><td>2025-12-25T02:32:16Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:44:05Z</td><td>status</td><td>2</td><td>2025-12-25T02:44:04Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:52:51Z</td><td>status</td><td>2</td><td>2025-12-25T02:52:50Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T02:57:38Z</td><td>status</td><td>2</td><td>2025-12-25T02:57:37Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:03:08Z</td><td>status</td><td>2</td><td>2025-12-25T03:03:07Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:09:45Z</td><td>status</td><td>2</td><td>2025-12-25T03:09:44Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:10:00Z</td><td>status</td><td>2</td><td>2025-12-25T03:09:59Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:10:17Z</td><td>status</td><td>2</td><td>2025-12-25T03:10:16Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:10:40Z</td><td>status</td><td>2</td><td>2025-12-25T03:10:38Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:12:26Z</td><td>status</td><td>2</td><td>2025-12-25T03:12:25Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:22:26Z</td><td>status</td><td>2</td><td>2025-12-25T03:22:25Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:22:45Z</td><td>status</td><td>2</td><td>2025-12-25T03:22:44Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:23:03Z</td><td>status</td><td>2</td><td>2025-12-25T03:23:02Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:23:37Z</td><td>status</td><td>2</td><td>2025-12-25T03:23:36Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:23:59Z</td><td>status</td><td>2</td><td>2025-12-25T03:23:58Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:24:33Z</td><td>status</td><td>2</td><td>2025-12-25T03:24:32Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:37:19Z</td><td>status</td><td>2</td><td>2025-12-25T03:37:18Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T03:49:29Z</td><td>status</td><td>2</td><td>2025-12-25T03:49:28Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:08:51Z</td><td>status</td><td>2</td><td>2025-12-25T04:08:50Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:09:13Z</td><td>status</td><td>2</td><td>2025-12-25T04:09:12Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:11:48Z</td><td>status</td><td>2</td><td>2025-12-25T04:11:47Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:13:13Z</td><td>status</td><td>2</td><td>2025-12-25T04:13:12Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:17:57Z</td><td>status</td><td>2</td><td>2025-12-25T04:17:56Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:22:56Z</td><td>status</td><td>2</td><td>2025-12-25T04:22:55Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:28:02Z</td><td>status</td><td>2</td><td>2025-12-25T04:28:01Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:34:08Z</td><td>status</td><td>2</td><td>2025-12-25T04:34:07Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:40:46Z</td><td>status</td><td>2</td><td>2025-12-25T04:40:45Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:44:37Z</td><td>status</td><td>2</td><td>2025-12-25T04:44:36Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:45:43Z</td><td>status</td><td>2</td><td>2025-12-25T04:45:41Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:46:01Z</td><td>status</td><td>2</td><td>2025-12-25T04:46:00Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:46:31Z</td><td>status</td><td>2</td><td>2025-12-25T04:46:30Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T04:52:01Z</td><td>status</td><td>2</td><td>2025-12-25T04:52:00Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:03:16Z</td><td>status</td><td>2</td><td>2025-12-25T05:03:15Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:08:18Z</td><td>status</td><td>2</td><td>2025-12-25T05:08:17Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:14:03Z</td><td>status</td><td>2</td><td>2025-12-25T05:14:01Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:18:57Z</td><td>status</td><td>2</td><td>2025-12-25T05:18:56Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:22:58Z</td><td>status</td><td>2</td><td>2025-12-25T05:22:57Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:28:57Z</td><td>status</td><td>2</td><td>2025-12-25T05:28:56Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:39:15Z</td><td>status</td><td>2</td><td>2025-12-25T05:39:14Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:48:19Z</td><td>status</td><td>2</td><td>2025-12-25T05:48:18Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:52:39Z</td><td>status</td><td>2</td><td>2025-12-25T05:52:38Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:55:14Z</td><td>status</td><td>2</td><td>2025-12-25T05:55:13Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:59:00Z</td><td>status</td><td>2</td><td>2025-12-25T05:58:59Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T05:59:09Z</td><td>status</td><td>2</td><td>2025-12-25T05:59:08Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T06:07:47Z</td><td>status</td><td>2</td><td>2025-12-25T06:07:46Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T06:14:25Z</td><td>status</td><td>2</td><td>2025-12-25T06:14:24Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T06:19:22Z</td><td>status</td><td>2</td><td>2025-12-25T06:19:21Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T06:22:50Z</td><td>status</td><td>2</td><td>2025-12-25T06:22:49Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T06:27:37Z</td><td>status</td><td>2</td><td>2025-12-25T06:27:36Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T06:33:02Z</td><td>status</td><td>2</td><td>2025-12-25T06:33:01Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:04:18Z</td><td>status</td><td>2</td><td>2025-12-25T07:04:17Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:04:44Z</td><td>status</td><td>2</td><td>2025-12-25T07:04:43Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:07:37Z</td><td>status</td><td>2</td><td>2025-12-25T07:07:36Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:18:28Z</td><td>status</td><td>2</td><td>2025-12-25T07:18:27Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:23:18Z</td><td>status</td><td>2</td><td>2025-12-25T07:23:17Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:30:05Z</td><td>status</td><td>2</td><td>2025-12-25T07:30:04Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:32:46Z</td><td>status</td><td>2</td><td>2025-12-25T07:32:45Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:34:49Z</td><td>status</td><td>2</td><td>2025-12-25T07:34:48Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:35:05Z</td><td>status</td><td>2</td><td>2025-12-25T07:35:04Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:37:37Z</td><td>status</td><td>2</td><td>2025-12-25T07:37:35Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:43:38Z</td><td>status</td><td>2</td><td>2025-12-25T07:43:37Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:43:56Z</td><td>status</td><td>2</td><td>2025-12-25T07:43:55Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:47:46Z</td><td>status</td><td>2</td><td>2025-12-25T07:47:45Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:48:14Z</td><td>status</td><td>2</td><td>2025-12-25T07:48:13Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:48:46Z</td><td>status</td><td>2</td><td>2025-12-25T07:48:45Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T07:52:32Z</td><td>status</td><td>2</td><td>2025-12-25T07:52:31Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:02:34Z</td><td>status</td><td>2</td><td>2025-12-25T08:02:33Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:08:03Z</td><td>status</td><td>2</td><td>2025-12-25T08:08:02Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:12:31Z</td><td>status</td><td>2</td><td>2025-12-25T08:12:30Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:17:38Z</td><td>status</td><td>2</td><td>2025-12-25T08:17:37Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:22:27Z</td><td>status</td><td>2</td><td>2025-12-25T08:22:26Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:27:21Z</td><td>status</td><td>2</td><td>2025-12-25T08:27:19Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:34:36Z</td><td>status</td><td>2</td><td>2025-12-25T08:34:34Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:34:56Z</td><td>status</td><td>2</td><td>2025-12-25T08:34:55Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:38:38Z</td><td>status</td><td>2</td><td>2025-12-25T08:38:37Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:43:28Z</td><td>status</td><td>2</td><td>2025-12-25T08:43:26Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:47:29Z</td><td>status</td><td>2</td><td>2025-12-25T08:47:28Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:52:31Z</td><td>status</td><td>2</td><td>2025-12-25T08:52:30Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T08:57:39Z</td><td>status</td><td>2</td><td>2025-12-25T08:57:38Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:03:43Z</td><td>status</td><td>2</td><td>2025-12-25T09:03:42Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:10:03Z</td><td>status</td><td>2</td><td>2025-12-25T09:10:02Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:14:45Z</td><td>status</td><td>2</td><td>2025-12-25T09:14:43Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:17:42Z</td><td>status</td><td>2</td><td>2025-12-25T09:17:41Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:22:31Z</td><td>status</td><td>2</td><td>2025-12-25T09:22:30Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:27:59Z</td><td>status</td><td>2</td><td>2025-12-25T09:27:57Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:33:07Z</td><td>status</td><td>2</td><td>2025-12-25T09:33:06Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:37:57Z</td><td>status</td><td>2</td><td>2025-12-25T09:37:56Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:43:16Z</td><td>status</td><td>2</td><td>2025-12-25T09:43:15Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:47:45Z</td><td>status</td><td>2</td><td>2025-12-25T09:47:44Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:53:02Z</td><td>status</td><td>2</td><td>2025-12-25T09:53:01Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:53:39Z</td><td>status</td><td>2</td><td>2025-12-25T09:53:38Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:54:37Z</td><td>status</td><td>2</td><td>2025-12-25T09:54:36Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T09:57:52Z</td><td>status</td><td>2</td><td>2025-12-25T09:57:50Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:02:43Z</td><td>status</td><td>2</td><td>2025-12-25T10:02:41Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:08:38Z</td><td>status</td><td>2</td><td>2025-12-25T10:08:37Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:13:09Z</td><td>status</td><td>2</td><td>2025-12-25T10:13:08Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:17:49Z</td><td>status</td><td>2</td><td>2025-12-25T10:17:48Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:23:32Z</td><td>status</td><td>2</td><td>2025-12-25T10:23:30Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:28:07Z</td><td>status</td><td>2</td><td>2025-12-25T10:28:06Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:33:09Z</td><td>status</td><td>2</td><td>2025-12-25T10:33:08Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:38:01Z</td><td>status</td><td>2</td><td>2025-12-25T10:38:00Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:42:51Z</td><td>status</td><td>2</td><td>2025-12-25T10:42:50Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:48:47Z</td><td>status</td><td>2</td><td>2025-12-25T10:48:45Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:53:28Z</td><td>status</td><td>2</td><td>2025-12-25T10:53:27Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:54:00Z</td><td>status</td><td>2</td><td>2025-12-25T10:53:59Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T10:54:34Z</td><td>status</td><td>2</td><td>2025-12-25T10:54:33Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T11:10:39Z</td><td>status</td><td>2</td><td>2025-12-25T11:10:38Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T11:13:23Z</td><td>status</td><td>2</td><td>2025-12-25T11:13:22Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T11:17:17Z</td><td>status</td><td>2</td><td>2025-12-25T11:17:16Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T11:19:37Z</td><td>status</td><td>2</td><td>2025-12-25T11:19:35Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T11:23:35Z</td><td>status</td><td>2</td><td>2025-12-25T11:23:34Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T11:24:25Z</td><td>status</td><td>2</td><td>2025-12-25T11:24:24Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
-<tr><td>2025-12-25T11:25:11Z</td><td>status</td><td>2</td><td>2025-12-25T11:25:10Z</td><td>1</td><td>2</td><td>1</td><td>1</td><td>50.00</td></tr>
+<tr><td>2025-12-26T00:27:56Z</td><td>status</td><td>2</td><td>2025-12-26T00:27:56Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T00:28:27Z</td><td>status</td><td>2</td><td>2025-12-26T00:28:26Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T00:29:10Z</td><td>status</td><td>2</td><td>2025-12-26T00:29:09Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:41:02Z</td><td>status</td><td>2</td><td>2025-12-26T07:41:01Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:42:56Z</td><td>status</td><td>2</td><td>2025-12-26T07:42:55Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:44:02Z</td><td>status</td><td>2</td><td>2025-12-26T07:44:01Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:48:44Z</td><td>status</td><td>2</td><td>2025-12-26T07:48:43Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:49:48Z</td><td>status</td><td>2</td><td>2025-12-26T07:49:47Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:50:26Z</td><td>status</td><td>2</td><td>2025-12-26T07:50:24Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:54:00Z</td><td>status</td><td>2</td><td>2025-12-26T07:53:59Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:54:54Z</td><td>status</td><td>2</td><td>2025-12-26T07:54:53Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
+<tr><td>2025-12-26T07:57:56Z</td><td>status</td><td>2</td><td>2025-12-26T07:57:54Z</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0.00</td></tr>
 </table>
+<h2>Run summary</h2>
+<div class='grid'>
+<div class='card'><h3>Badge</h3><p><strong>ok</strong></p><p class='meta'>Label: metrics</p></div><div class='card'><h3>Guard check</h3><p><strong>ok</strong></p></div><div class='card'><h3>Checksums</h3><p><strong>ok</strong></p></div><div class='card'><h3>Validation</h3><p><strong>skipped (mode: full)</strong></p></div><div class='card'><h3>Compare</h3><p><strong>skipped</strong></p></div><div class='card'><h3>Latest totals</h3><p><strong>Overloaded ratio:</strong> 0.0%</p><p><strong>Status checks:</strong> 2.0</p><p><strong>Connections:</strong> 1.0</p><p><strong>Overloaded:</strong> 0.0</p><p><strong>Anomalies:</strong> 0</p><div class='card'><h3>Anomalies</h3><p><strong>Count:</strong> 0</p><p><strong>Strict:</strong> n/a</p>
+<div class='card'><h3>Manifest</h3><p><strong>Total:</strong> 44</p><p><strong>Present:</strong> 44</p><p><strong>Missing:</strong> 0</p><p><strong>Total size:</strong> 224977 bytes</p><p><strong>Optional:</strong> 1/3 (ignored: 2)</p><p class='meta'>Optional coverage: 33.33%</p><p class='meta'>Optional ignored:<br/>compare_html<br/>checksums_guard</p></div>
+<div class='card'><h3>Sitemap</h3><p>Status: <strong>ok</strong></p><p>JSON: <code>/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_sitemap.json</code></p><p>Markdown: <code>/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_sitemap.md</code></p><p>HTML: <code>/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_sitemap.html</code></p></div>
+<div class='card'><h3>Downloads</h3><ul><li><a href='log_metrics_manifest.json'>Manifest</a></li><li><a href='log_metrics_bundle.tar.gz'>Bundle (tar.gz)</a></li><li><a href='log_metrics_checksums.txt'>Checksums (sha256)</a></li><li><a href='log_metrics_run_summary.json'>Run summary (json)</a></li><li><a href='log_metrics_run_summary.md'>Run summary (md)</a></li><li><a href='log_metrics_run_summary.html'>Run summary (html)</a></li><li><a href='log_metrics_status.json'>Status (json)</a></li><li><a href='log_metrics_status_badge.svg'>Status badge (svg)</a></li><li><a href='log_metrics_overall_history.csv'>Overall history (csv)</a></li></ul></div>
+<div class='card'><h3>Status badge</h3><img src='log_metrics_status_badge.svg' alt='Status badge' style='max-width:320px;'></div>
+<div class='card'><h3>Overall history (last 10)</h3><table>
+<tr><th>run_timestamp</th><th>overall_state</th><th>badge_state</th><th>anomalies_count</th><th>overloaded_ratio</th><th>sitemap_status</th><th>manifest_status</th></tr>
+<tr><td>2025-12-26T00:29:16Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:41:09Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:43:03Z</td><td>ok</td><td>ok</td><td>4</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:44:09Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:48:51Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:49:55Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:50:33Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:54:07Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:55:01Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+<tr><td>2025-12-26T07:58:03Z</td><td>ok</td><td>ok</td><td>0</td><td>0.0</td><td>ok</td><td>ok</td></tr>
+</table></div>
+</div>
 <h2>Trend (HTML)</h2>
 <iframe src='log_metrics_trend.html' title='Trend HTML'></iframe>
 <h2>Trend (Markdown)</h2>
@@ -168,11 +90,11 @@
 
 | run_timestamp | pattern | topn | snapshot_timestamp | log_files | status_checks | Δstatus | connections | Δconnections | overloaded | Δoverloaded | ratio | Δratio |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2025-12-25T11:17:17Z | status | 2 | 2025-12-25T11:17:16Z | 1 | 2 | 2.00 | 1 | 1.00 | 1 | 1.00 | 50.00 | 50.00 |
-| 2025-12-25T11:19:37Z | status | 2 | 2025-12-25T11:19:35Z | 1 | 2 | 0.00 | 1 | 0.00 | 1 | 0.00 | 50.00 | 0.00 |
-| 2025-12-25T11:23:35Z | status | 2 | 2025-12-25T11:23:34Z | 1 | 2 | 0.00 | 1 | 0.00 | 1 | 0.00 | 50.00 | 0.00 |
-| 2025-12-25T11:24:25Z | status | 2 | 2025-12-25T11:24:24Z | 1 | 2 | 0.00 | 1 | 0.00 | 1 | 0.00 | 50.00 | 0.00 |
-| 2025-12-25T11:25:11Z | status | 2 | 2025-12-25T11:25:10Z | 1 | 2 | 0.00 | 1 | 0.00 | 1 | 0.00 | 50.00 | 0.00 |
+| 2025-12-26T07:49:48Z | status | 2 | 2025-12-26T07:49:47Z | 1 | 2 | 2.00 | 1 | 1.00 | 0 | 0.00 | 0.00 | 0.00 |
+| 2025-12-26T07:50:26Z | status | 2 | 2025-12-26T07:50:24Z | 1 | 2 | 0.00 | 1 | 0.00 | 0 | 0.00 | 0.00 | 0.00 |
+| 2025-12-26T07:54:00Z | status | 2 | 2025-12-26T07:53:59Z | 1 | 2 | 0.00 | 1 | 0.00 | 0 | 0.00 | 0.00 | 0.00 |
+| 2025-12-26T07:54:54Z | status | 2 | 2025-12-26T07:54:53Z | 1 | 2 | 0.00 | 1 | 0.00 | 0 | 0.00 | 0.00 | 0.00 |
+| 2025-12-26T07:57:56Z | status | 2 | 2025-12-26T07:57:54Z | 1 | 2 | 0.00 | 1 | 0.00 | 0 | 0.00 | 0.00 | 0.00 |
 </pre>
 <h2>Stats (HTML)</h2>
 <iframe src='log_metrics_stats.html' title='Stats HTML'></iframe>
@@ -183,22 +105,22 @@
 | --- | --- | --- | --- | --- |
 | status_checks | 2.00 | 2.00 | 2.00 | 2.00 |
 | connections | 1.00 | 1.00 | 1.00 | 1.00 |
-| overloaded | 1.00 | 1.00 | 1.00 | 1.00 |
-| overloaded_ratio | 50.00 | 50.00 | 50.00 | 50.00 |
+| overloaded | 0.00 | 0.00 | 0.00 | 0.00 |
+| overloaded_ratio | 0.00 | 0.00 | 0.00 | 0.00 |
 </pre>
 <h2>Anomalies (HTML)</h2>
 <iframe src='log_metrics_anomalies.html' title='Anomalies HTML'></iframe>
 <h2>Anomalies (Markdown)</h2>
 <pre># Log Metrics Anomalies
 
-Comparing last run (`2025-12-25T11:25:11Z`) against previous (`2025-12-25T11:24:25Z`) with threshold 20%.
+Comparing last run (`2025-12-26T07:57:56Z`) against previous (`2025-12-26T07:54:54Z`) with threshold 20%.
 
 | metric | previous | current | delta | delta% | status |
 | --- | --- | --- | --- | --- | --- |
 | status_checks | 2.00 | 2.00 | 0.00 | 0.0% | OK |
 | connections | 1.00 | 1.00 | 0.00 | 0.0% | OK |
-| overloaded | 1.00 | 1.00 | 0.00 | 0.0% | OK |
-| overloaded_ratio | 50.00 | 50.00 | 0.00 | 0.0% | OK |
+| overloaded | 0.00 | 0.00 | 0.00 | 0.0% | OK |
+| overloaded_ratio | 0.00 | 0.00 | 0.00 | 0.0% | OK |
 
 No anomalies detected.
 </pre>
@@ -222,16 +144,16 @@ No anomalies detected.
   },
   {
     "metric": "overloaded",
-    "prev": 1.0,
-    "curr": 1.0,
+    "prev": 0.0,
+    "curr": 0.0,
     "delta": 0.0,
     "pct": 0.0,
     "status": "OK"
   },
   {
     "metric": "overloaded_ratio",
-    "prev": 50.0,
-    "curr": 50.0,
+    "prev": 0.0,
+    "curr": 0.0,
     "delta": 0.0,
     "pct": 0.0,
     "status": "OK"
@@ -242,15 +164,15 @@ No anomalies detected.
 <h2>Summary (Markdown)</h2>
 <pre># Log Metrics Summary
 
-- Snapshot: `reports/log_metrics_snapshot.status_top2.csv`
-- Snapshot timestamp (UTC): 2025-12-25T11:25:10Z
+- Snapshot: `/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_snapshot.status_top2.csv`
+- Snapshot timestamp (UTC): 2025-12-26T07:57:54Z
 
 | metric | value |
 | --- | --- |
 | status_checks | 2 |
 | connections | 1 |
-| overloaded | 1 |
-| overloaded_ratio | 50.00 |
+| overloaded | 0 |
+| overloaded_ratio | 0.00 |
 </pre>
 <h2>Compare (si présent)</h2>
 <pre># Log Metrics Diff
@@ -268,116 +190,116 @@ No anomalies detected.
 <p>Compare HTML non généré.</p>
 <h2>Manifest (JSON)</h2>
 <pre>{
-  "generated_at": "2025-12-25T11:24:29Z",
+  "generated_at": "2025-12-26T07:58:05Z",
   "suffix": "status_top2",
   "paths": {
     "csv": {
       "path": "log_metrics_snapshot.status_top2.csv",
       "exists": true,
-      "size": 180,
-      "sha256": "57991771ed87f49ecd6b21dd9d29e08e665833fd3b588c07c3eb30d8c5592ff8"
+      "size": 251,
+      "sha256": "46ebf8643bb585ffb016fbd6a798c8559a032df192e54f8bf06bc112c464f102"
     },
     "json": {
       "path": "log_metrics_snapshot.status_top2.json",
       "exists": true,
-      "size": 298,
-      "sha256": "f60b7d4069cfa6e692c59983cec518a50aee50275b79d2d7cd4f142c135b9082"
+      "size": 369,
+      "sha256": "1ac996d2468ca148a9c77ff818d13405f9fc1f2237268fc5e034d426f9d2628c"
     },
     "jsonl": {
       "path": "log_metrics_snapshot.status_top2.jsonl",
       "exists": true,
-      "size": 327,
-      "sha256": "5b96893b9933bbd9fbcc36c0f49015f305589989aea9f2a5b8c04ff16dfeb1b5"
+      "size": 398,
+      "sha256": "e78ab9eaf4ebebe501938c88a37ae0f9606731801107e31e50bb36dd19d32435"
     },
     "md": {
       "path": "log_metrics_snapshot.status_top2.md",
       "exists": true,
-      "size": 374,
-      "sha256": "0d5de91975d271dc8fc44fceaf9c3d478ed639f76be23d9bf0885ece3bb61051"
+      "size": 518,
+      "sha256": "7daf51218959106145447fa18996c662aa0ae943254ca25d986163adb49c1df9"
     },
     "html": {
       "path": "log_metrics_snapshot.status_top2.html",
       "exists": true,
-      "size": 974,
-      "sha256": "d00dcfc705727b7528255576668c1173d3d3e4ea85c4d39950f9ca993ad01438"
+      "size": 1118,
+      "sha256": "fcefd834f654b1ce965522e94b0b8bf5b8adf4f3a6e74c5faff39642020f89b1"
     },
     "summary": {
       "path": "log_metrics_snapshot.status_top2.summary.md",
       "exists": true,
-      "size": 255,
-      "sha256": "c63233af1789c392ed3828fa4bb172b3394c7c0c9d9fa77ccefa8adc9be11730"
+      "size": 327,
+      "sha256": "fecc1902c33d0253e4bbc7647e9d7467583769dcebfdde7d632fea82ed8ae6e7"
     },
     "history": {
       "path": "log_metrics_history.csv",
       "exists": true,
-      "size": 8565,
-      "sha256": "f6cb3fd503dfe5723692cbc5efd8a9bee60afb00b6a4f72ea69fa90e5274ac57"
+      "size": 895,
+      "sha256": "650707fae011b6f229b76eb3504b6c7b4a14d8fc9b237884518427b41dc59329"
     },
     "trend_md": {
       "path": "log_metrics_trend.md",
       "exists": true,
-      "size": 838,
-      "sha256": "18a48b0a262dd475a55dcc993a5b2b90054ccc759dc27ac7c148c5058008941f"
+      "size": 832,
+      "sha256": "286a271ac574ddfe626365d14661a0a084d95e2822db9d36584750475c10f69b"
     },
     "trend_html": {
       "path": "log_metrics_trend.html",
       "exists": true,
-      "size": 2660,
-      "sha256": "4f374cf6ad7aa755199f9c067e246ef43fa5ac992d7a801272557443196ae947"
+      "size": 2650,
+      "sha256": "eb5a92cb79d8aceb30254ad0e22d5dd43f3119b6ca5435f76f7b8015048016a9"
     },
     "stats_md": {
       "path": "log_metrics_stats.md",
       "exists": true,
-      "size": 277,
-      "sha256": "39c5a46205d16ec628eda73fb56148849b13f319bfc69d6d4cc88391e651096e"
+      "size": 273,
+      "sha256": "d306980a76d71e4c3e189c25f0575280284b2a7127abd1dcda031e846a001ab7"
     },
     "stats_html": {
       "path": "log_metrics_stats.html",
       "exists": true,
-      "size": 919,
-      "sha256": "bba62e1dd3b158ddd4c1d8b7c975094f33a54caaa358c05749e3d501008bcb58"
+      "size": 915,
+      "sha256": "3709ad9d19de01cc2f6289824564d0529e403e2ebe4615a4d5b1796282b77dc4"
     },
     "anomalies_md": {
       "path": "log_metrics_anomalies.md",
       "exists": true,
-      "size": 456,
-      "sha256": "a68b240737ca760f673c164f206e602737091b801072228e7ddd252635dbef98"
+      "size": 454,
+      "sha256": "47f0c0d0990a9fa1968b685b3ec2614650b8d3423d009a68b89bd244009c2822"
     },
     "anomalies_html": {
       "path": "log_metrics_anomalies.html",
       "exists": true,
-      "size": 1088,
-      "sha256": "32ea2ef19af369992048fa9d0ec15dde3e4333296cba177ad1c3e7ff0d57cf6f"
+      "size": 1086,
+      "sha256": "c2a8ea2d8f43ec41f3df8e3974edf4107751cb2ab7d830fa9f211665482805fe"
     },
     "anomalies_json": {
       "path": "log_metrics_anomalies.json",
       "exists": true,
-      "size": 510,
-      "sha256": "15ed3290454c8e6657b052c5e0b255409b33479a9983703427258de14f15fe63"
+      "size": 508,
+      "sha256": "de36bc20e39753b4018362b9ff75914597433db880eaa2c332b8660964fab2ba"
     },
     "index_md": {
       "path": "index.md",
       "exists": true,
-      "size": 3352,
-      "sha256": "1870dbd56f6f1fb574fa11a70ddad4d155a4457e86aba8cd0b78aa668de08902"
+      "size": 6896,
+      "sha256": "91baf09aca4165eac8c9284af9e7a8e2c8a95c65608b5afb585db31446136281"
     },
     "index_html": {
       "path": "index.html",
       "exists": true,
-      "size": 4797,
-      "sha256": "25b8c2acce4c561197a290e4b2ec7cb30b51c5549fb4fefb0059d16b95d5c7ce"
+      "size": 10012,
+      "sha256": "cba4ad178f1e1214c134829fa88dc198c0a85a7a48b0283ad4718d73ca488781"
     },
     "portal": {
       "path": "portal.html",
       "exists": true,
-      "size": 69399,
-      "sha256": "1e9a3a17bf0193016cdbdb747cefe00bcfb36aa5a7236f2354d59a496cbbfd7a"
+      "size": 74562,
+      "sha256": "7012fdabe97acc1d678734895ee636303a14a939ea74be31d2a811bb70e3bad0"
     },
     "bundle": {
       "path": "log_metrics_bundle.tar.gz",
       "exists": true,
-      "size": 20478,
-      "sha256": "8fcdecb26e09ed590755422da7b31f16ca40749a7ec5da460c119c2d3f3693e2"
+      "size": 30685,
+      "sha256": "882743cca81a1931e9f28479ef629628cf7e76180ad725a500d1cc13e94f8bc4"
     },
     "compare_md": {
       "path": "log_metrics_compare.md",
@@ -393,96 +315,156 @@ No anomalies detected.
     "overview": {
       "path": "log_metrics_overview.md",
       "exists": true,
-      "size": 1323,
-      "sha256": "a1c695f26498d1c46179612c06190fe24f72d817002c28bb55263c1f87e0d231"
+      "size": 1320,
+      "sha256": "517da66769824763113a40a88682efc488f9872d782192a3a89e27de1430e449"
     },
     "manifest": {
       "path": "log_metrics_manifest.json",
       "exists": true,
-      "size": 6934
+      "size": 8935
     },
     "checksums": {
       "path": "log_metrics_checksums.txt",
       "exists": true,
-      "size": 0
+      "size": 4034
     },
     "overview_md": {
       "path": "log_metrics_overview.md",
       "exists": true,
-      "size": 1323,
-      "sha256": "a1c695f26498d1c46179612c06190fe24f72d817002c28bb55263c1f87e0d231"
+      "size": 1320,
+      "sha256": "517da66769824763113a40a88682efc488f9872d782192a3a89e27de1430e449"
     },
     "overview_html": {
       "path": "log_metrics_overview.html",
       "exists": true,
-      "size": 3513,
-      "sha256": "411ab8f4c9911e9f45dcc0fe6ccdac3a0297c1c46dea754063157c3cf6c6cf6a"
+      "size": 3510,
+      "sha256": "749772e97c84db0ff6d2580ed0de3719b2db79df884f6b7acbb007fcc6f9d8fe"
     },
     "latest_json": {
       "path": "log_metrics_latest.json",
       "exists": true,
-      "size": 6499,
-      "sha256": "ecb4c3801f66c1193fe60eab84a6591e203b6f6bda29cb5b8c313ca407aaec78"
+      "size": 6662,
+      "sha256": "4ba7f3797807a8ffbd7b0c5aea38cc601063ef075efc5c3be85e0324dc267091"
     },
     "latest_html": {
       "path": "log_metrics_latest.html",
       "exists": true,
-      "size": 7428,
-      "sha256": "26d86a8c30b30afa46caca112b3f607c9c2252f60d08777810d41c83b57660d1"
+      "size": 7610,
+      "sha256": "a041aaa4c6d7a4364c7fc2d9d3bb4ac42c2ab96406e5b4a8e690d770da9c69bf"
     },
     "latest_md": {
       "path": "log_metrics_latest.md",
       "exists": true,
-      "size": 4569,
-      "sha256": "c86d96dde33d28fa0b2e47924aed64e7b103fa1f1f40a61ac3a075cc4aa5bc19"
+      "size": 4561,
+      "sha256": "d7c7638946f9327b569df94fcb7915fcb44622f0d26ba9743a2f3079f9a7d446"
+    },
+    "run_summary_html": {
+      "path": "log_metrics_run_summary.html",
+      "exists": true,
+      "size": 3059,
+      "sha256": "b368c537c520e2b243f539878637a9d3c0477207d8855b606a7706c16d324aed"
+    },
+    "run_summary_md": {
+      "path": "log_metrics_run_summary.md",
+      "exists": true,
+      "size": 1910,
+      "sha256": "d1819d4750cb490bea64ebd387dfc3a89f537799e95e866b1096cd1f5243a426"
+    },
+    "run_summary": {
+      "path": "log_metrics_run_summary.json",
+      "exists": true,
+      "size": 2399,
+      "sha256": "85454e6b8875c872c38cc08847a3f4ec967e9569c82ba82d9de1bf0f8a8fb4d4"
+    },
+    "sitemap": {
+      "path": "log_metrics_sitemap.md",
+      "exists": true,
+      "size": 4867,
+      "sha256": "024a1d038bf2a4702bfde5bd1deafa267910664721d8df34413b8a44560a6a1a"
+    },
+    "sitemap_html": {
+      "path": "log_metrics_sitemap.html",
+      "exists": true,
+      "size": 7404,
+      "sha256": "60a4ca72947cde5bd41a511b25f27320bbc7d817f0a94cdc0b7c2a87ae2124e5"
+    },
+    "sitemap_json": {
+      "path": "log_metrics_sitemap.json",
+      "exists": true,
+      "size": 10126,
+      "sha256": "1044cbce887b1b03842b0b409db64e27bffcaa7e686db2f64184d749c05c54e3"
     },
     "badge_svg": {
       "path": "log_metrics_badge.svg",
       "exists": true,
-      "size": 963,
-      "sha256": "1a5f736348273e2057080bf2af87427d3e7cb2f5fc53cd613819df2b98c923fe"
+      "size": 961,
+      "sha256": "8c390b5a81ba66ff36bc4924649cf9a1ef2637fb318407958622483c6b190d77"
     },
     "badge_history": {
       "path": "log_metrics_badge_history.csv",
       "exists": true,
-      "size": 5146,
-      "sha256": "643b9a9f5a0e8657266b759a3d948b68afe07202d5f65593085126f2245ee560"
+      "size": 9124,
+      "sha256": "b09e9a65c61096aa448945e1293bf215bd69c82d0c611baba31f69f064f203d3"
     },
     "badge_history_md": {
       "path": "log_metrics_badge_history.md",
       "exists": true,
-      "size": 2936,
-      "sha256": "13753ef0313895338e134be088a65e0d14189286baeab4d005d01f6a9a2de6d1"
+      "size": 2927,
+      "sha256": "f730f78f28d3eb03fec8942a2d6c60bcef8929c0df189d0f9d513b1887e36971"
     },
     "badge_history_html": {
       "path": "log_metrics_badge_history.html",
       "exists": true,
-      "size": 7982,
-      "sha256": "3eaa5603214e1d0b21c13ab4aa2772291fa7c3a21d5b13a3670e0ab46a5db8ae"
+      "size": 7937,
+      "sha256": "f9a570928eba77cfb70665cac0d7cd900dee127900fc2f97c5e1169f5cde1033"
+    },
+    "status_badge": {
+      "path": "log_metrics_status_badge.svg",
+      "exists": true,
+      "size": 1052,
+      "sha256": "f2c3c5fa4af616f7227e96c10c1bfe0ead96b9ceae111569c91ac6a8915ee212"
+    },
+    "status_json": {
+      "path": "log_metrics_status.json",
+      "exists": true,
+      "size": 1082,
+      "sha256": "48d661b7f96a37a4afe85219c52dc4490754702644209bdeb33cd3e4f922770b"
+    },
+    "overall_history": {
+      "path": "log_metrics_overall_history.csv",
+      "exists": true,
+      "size": 2217,
+      "sha256": "a5c6cda7fbf2fe123824a9d41aef7f48e260472d5ec037d80b8085698c0b4e79"
     },
     "guard_summary_md": {
       "path": "log_metrics_guard_summary.md",
       "exists": true,
-      "size": 961,
-      "sha256": "206f99a5611a8b08ddf69aa5cba0bf1a9ea01d2529580c07cdaacbd881bc0f52"
+      "size": 1593,
+      "sha256": "f895c3c6adb71fe732bf50797ece26d96e58a4b0effc685497ed7e279b91daac"
     },
     "guard_summary_html": {
       "path": "log_metrics_guard_summary.html",
       "exists": true,
-      "size": 1860,
-      "sha256": "6e13e8c77de7cb5a3ea4fd8d19e0a5215d4076a9f559979eb2f818119fadafbe"
+      "size": 2631,
+      "sha256": "9c313dc1469744f5c3fa69bea67f16bd4334704cb08914047caaa075d73ce83f"
     },
     "guard_summary_json": {
       "path": "log_metrics_guard_summary.json",
       "exists": true,
-      "size": 1702,
-      "sha256": "efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938"
+      "size": 2239,
+      "sha256": "ee7e33c5aa4d7ad24f9104ca1da4d0dc74b4a49256c7873f53b53af64aa87db8"
     },
     "guard_summary_csv": {
       "path": "log_metrics_guard_summary.csv",
       "exists": true,
-      "size": 463,
-      "sha256": "5b6b7dff4987da8bf7e3f280b5f0844f0681af6c47ca2b53b2479d597ecfaaf8"
+      "size": 602,
+      "sha256": "72e4bb702fea178fb1adf16ed9c7a4b92bb4aefd88126374bebfb0e4ec02cad7"
+    },
+    "guard_summary_streaks": {
+      "path": "log_metrics_guard_summary.json",
+      "exists": true,
+      "size": 2239,
+      "sha256": "ee7e33c5aa4d7ad24f9104ca1da4d0dc74b4a49256c7873f53b53af64aa87db8"
     },
     "checksums_guard": {
       "path": null,
@@ -491,42 +473,59 @@ No anomalies detected.
     }
   }
 }</pre>
+<h2>Run summary</h2>
+<p>Run summary JSON: <a href='log_metrics_run_summary.json'>log_metrics_run_summary.json</a></p>
+<p>Run summary MD: <a href='log_metrics_run_summary.md'>log_metrics_run_summary.md</a></p>
+<p>Run summary HTML: <a href='log_metrics_run_summary.html'>log_metrics_run_summary.html</a></p>
+<p>Sitemap: <a href='log_metrics_sitemap.md'>log_metrics_sitemap.md</a></p>
+<p>Sitemap HTML: <a href='log_metrics_sitemap.html'>log_metrics_sitemap.html</a></p>
+<p>Sitemap JSON: <a href='log_metrics_sitemap.json'>log_metrics_sitemap.json</a></p>
+<div><h3>Sitemap summary</h3><ul><li>Artifacts: 44</li><li>Present: 44</li><li>Missing: 0</li><li>Total size (bytes): 235070</li><li>Optional (ignored): checksums_guard</li><li>Optional (ignored): compare_html</li><li>Optional (ignored): compare_md</li></ul></div>
 <h2>Checksums (sha256)</h2>
 <pre># log_metrics checksums
-57991771ed87f49ecd6b21dd9d29e08e665833fd3b588c07c3eb30d8c5592ff8  log_metrics_snapshot.status_top2.csv
-f60b7d4069cfa6e692c59983cec518a50aee50275b79d2d7cd4f142c135b9082  log_metrics_snapshot.status_top2.json
-5b96893b9933bbd9fbcc36c0f49015f305589989aea9f2a5b8c04ff16dfeb1b5  log_metrics_snapshot.status_top2.jsonl
-0d5de91975d271dc8fc44fceaf9c3d478ed639f76be23d9bf0885ece3bb61051  log_metrics_snapshot.status_top2.md
-d00dcfc705727b7528255576668c1173d3d3e4ea85c4d39950f9ca993ad01438  log_metrics_snapshot.status_top2.html
-c63233af1789c392ed3828fa4bb172b3394c7c0c9d9fa77ccefa8adc9be11730  log_metrics_snapshot.status_top2.summary.md
-a87272e2b1867b2b4019c8ba22811f0245365a10e34a6300466832c790aa4034  log_metrics_snapshot.status_top2.summary.html
-1870dbd56f6f1fb574fa11a70ddad4d155a4457e86aba8cd0b78aa668de08902  index.md
-25b8c2acce4c561197a290e4b2ec7cb30b51c5549fb4fefb0059d16b95d5c7ce  index.html
-f6cb3fd503dfe5723692cbc5efd8a9bee60afb00b6a4f72ea69fa90e5274ac57  log_metrics_history.csv
-18a48b0a262dd475a55dcc993a5b2b90054ccc759dc27ac7c148c5058008941f  log_metrics_trend.md
-4f374cf6ad7aa755199f9c067e246ef43fa5ac992d7a801272557443196ae947  log_metrics_trend.html
-39c5a46205d16ec628eda73fb56148849b13f319bfc69d6d4cc88391e651096e  log_metrics_stats.md
-bba62e1dd3b158ddd4c1d8b7c975094f33a54caaa358c05749e3d501008bcb58  log_metrics_stats.html
-a68b240737ca760f673c164f206e602737091b801072228e7ddd252635dbef98  log_metrics_anomalies.md
-32ea2ef19af369992048fa9d0ec15dde3e4333296cba177ad1c3e7ff0d57cf6f  log_metrics_anomalies.html
-15ed3290454c8e6657b052c5e0b255409b33479a9983703427258de14f15fe63  log_metrics_anomalies.json
+46ebf8643bb585ffb016fbd6a798c8559a032df192e54f8bf06bc112c464f102  log_metrics_snapshot.status_top2.csv
+1ac996d2468ca148a9c77ff818d13405f9fc1f2237268fc5e034d426f9d2628c  log_metrics_snapshot.status_top2.json
+e78ab9eaf4ebebe501938c88a37ae0f9606731801107e31e50bb36dd19d32435  log_metrics_snapshot.status_top2.jsonl
+7daf51218959106145447fa18996c662aa0ae943254ca25d986163adb49c1df9  log_metrics_snapshot.status_top2.md
+fcefd834f654b1ce965522e94b0b8bf5b8adf4f3a6e74c5faff39642020f89b1  log_metrics_snapshot.status_top2.html
+fecc1902c33d0253e4bbc7647e9d7467583769dcebfdde7d632fea82ed8ae6e7  log_metrics_snapshot.status_top2.summary.md
+54aef7864c2ff7d213b3e198c8c74a390d9757755461f808dd31a5e588361e93  log_metrics_snapshot.status_top2.summary.html
+b09645fb1b90dae751bd099c6935e51ecbbff0fb881fd648e4efbe890e8319b4  index.md
+cf810a781c9ac4302f90944e6ac69cf939a8445dbb2b3255e5954e858f57a221  index.html
+650707fae011b6f229b76eb3504b6c7b4a14d8fc9b237884518427b41dc59329  log_metrics_history.csv
+286a271ac574ddfe626365d14661a0a084d95e2822db9d36584750475c10f69b  log_metrics_trend.md
+eb5a92cb79d8aceb30254ad0e22d5dd43f3119b6ca5435f76f7b8015048016a9  log_metrics_trend.html
+d306980a76d71e4c3e189c25f0575280284b2a7127abd1dcda031e846a001ab7  log_metrics_stats.md
+3709ad9d19de01cc2f6289824564d0529e403e2ebe4615a4d5b1796282b77dc4  log_metrics_stats.html
+47f0c0d0990a9fa1968b685b3ec2614650b8d3423d009a68b89bd244009c2822  log_metrics_anomalies.md
+c2a8ea2d8f43ec41f3df8e3974edf4107751cb2ab7d830fa9f211665482805fe  log_metrics_anomalies.html
+de36bc20e39753b4018362b9ff75914597433db880eaa2c332b8660964fab2ba  log_metrics_anomalies.json
+48d63e59f74222e9e1264388464618e6292917372c44ed1829a31fa678d209cd  log_metrics_manifest.json
+7012fdabe97acc1d678734895ee636303a14a939ea74be31d2a811bb70e3bad0  portal.html
+882743cca81a1931e9f28479ef629628cf7e76180ad725a500d1cc13e94f8bc4  log_metrics_bundle.tar.gz
+517da66769824763113a40a88682efc488f9872d782192a3a89e27de1430e449  log_metrics_overview.md
+749772e97c84db0ff6d2580ed0de3719b2db79df884f6b7acbb007fcc6f9d8fe  log_metrics_overview.html
+4ba7f3797807a8ffbd7b0c5aea38cc601063ef075efc5c3be85e0324dc267091  log_metrics_latest.json
+a041aaa4c6d7a4364c7fc2d9d3bb4ac42c2ab96406e5b4a8e690d770da9c69bf  log_metrics_latest.html
+d7c7638946f9327b569df94fcb7915fcb44622f0d26ba9743a2f3079f9a7d446  log_metrics_latest.md
+dd7090c64fe0b70ff074874fb1d38a7a5a9717bbb778f7b078bf1b17042addd1  log_metrics_run_summary.md
+043db76c834e0baefb66620732ccd56884e748d25aaa6ef895e28ef3e853cecc  log_metrics_run_summary.html
+5f38bae6e0dd903c8f4c5348405373017246a00c66916bcb4179bf621142fa2f  log_metrics_run_summary.json
+8fa7e5ba9a5b45c5c5efd66990258d023632c6da2be5ff5709759c3a6de90174  log_metrics_sitemap.md
+57a528f02c009b575e7ec32e63b8548e867b197561cfff4cb746af3844650892  log_metrics_sitemap.html
+81cc12595f09c264ca0300df8d63b03f826487c2bda0b877286415ca215d64d5  log_metrics_sitemap.json
+8c390b5a81ba66ff36bc4924649cf9a1ef2637fb318407958622483c6b190d77  log_metrics_badge.svg
+f2c3c5fa4af616f7227e96c10c1bfe0ead96b9ceae111569c91ac6a8915ee212  log_metrics_status_badge.svg
+48d661b7f96a37a4afe85219c52dc4490754702644209bdeb33cd3e4f922770b  log_metrics_status.json
+a5c6cda7fbf2fe123824a9d41aef7f48e260472d5ec037d80b8085698c0b4e79  log_metrics_overall_history.csv
+b09e9a65c61096aa448945e1293bf215bd69c82d0c611baba31f69f064f203d3  log_metrics_badge_history.csv
+f730f78f28d3eb03fec8942a2d6c60bcef8929c0df189d0f9d513b1887e36971  log_metrics_badge_history.md
+f9a570928eba77cfb70665cac0d7cd900dee127900fc2f97c5e1169f5cde1033  log_metrics_badge_history.html
+f895c3c6adb71fe732bf50797ece26d96e58a4b0effc685497ed7e279b91daac  log_metrics_guard_summary.md
+9c313dc1469744f5c3fa69bea67f16bd4334704cb08914047caaa075d73ce83f  log_metrics_guard_summary.html
+ee7e33c5aa4d7ad24f9104ca1da4d0dc74b4a49256c7873f53b53af64aa87db8  log_metrics_guard_summary.json
+72e4bb702fea178fb1adf16ed9c7a4b92bb4aefd88126374bebfb0e4ec02cad7  log_metrics_guard_summary.csv
 0116943cd5ee70474fb79c0b7707100619a6042d1a7b98a6ca217d9aac51dac3  log_metrics_compare.md
-29d940abb874d66f4fb8ea59bd2caf9c56ab2150b7d40829ade6ab8a91c0eff3  log_metrics_manifest.json
-1e9a3a17bf0193016cdbdb747cefe00bcfb36aa5a7236f2354d59a496cbbfd7a  portal.html
-8fcdecb26e09ed590755422da7b31f16ca40749a7ec5da460c119c2d3f3693e2  log_metrics_bundle.tar.gz
-a1c695f26498d1c46179612c06190fe24f72d817002c28bb55263c1f87e0d231  log_metrics_overview.md
-411ab8f4c9911e9f45dcc0fe6ccdac3a0297c1c46dea754063157c3cf6c6cf6a  log_metrics_overview.html
-ecb4c3801f66c1193fe60eab84a6591e203b6f6bda29cb5b8c313ca407aaec78  log_metrics_latest.json
-26d86a8c30b30afa46caca112b3f607c9c2252f60d08777810d41c83b57660d1  log_metrics_latest.html
-c86d96dde33d28fa0b2e47924aed64e7b103fa1f1f40a61ac3a075cc4aa5bc19  log_metrics_latest.md
-1a5f736348273e2057080bf2af87427d3e7cb2f5fc53cd613819df2b98c923fe  log_metrics_badge.svg
-643b9a9f5a0e8657266b759a3d948b68afe07202d5f65593085126f2245ee560  log_metrics_badge_history.csv
-13753ef0313895338e134be088a65e0d14189286baeab4d005d01f6a9a2de6d1  log_metrics_badge_history.md
-3eaa5603214e1d0b21c13ab4aa2772291fa7c3a21d5b13a3670e0ab46a5db8ae  log_metrics_badge_history.html
-206f99a5611a8b08ddf69aa5cba0bf1a9ea01d2529580c07cdaacbd881bc0f52  log_metrics_guard_summary.md
-6e13e8c77de7cb5a3ea4fd8d19e0a5215d4076a9f559979eb2f818119fadafbe  log_metrics_guard_summary.html
-efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_guard_summary.json
-5b6b7dff4987da8bf7e3f280b5f0844f0681af6c47ca2b53b2479d597ecfaaf8  log_metrics_guard_summary.csv
 </pre>
 <h2>Overview (Markdown)</h2>
 <pre># Log Metrics Overview
@@ -537,8 +536,8 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 | --- | --- |
 | status_checks | 2 |
 | connections | 1 |
-| overloaded | 1 |
-| overloaded_ratio | 50.00 |
+| overloaded | 0 |
+| overloaded_ratio | 0.00 |
 
 ## Delta vs précédent
 
@@ -546,8 +545,8 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 | --- | --- | --- | --- |
 | status_checks | 2.00 | 2.00 | 0.00 |
 | connections | 1.00 | 1.00 | 0.00 |
-| overloaded | 1.00 | 1.00 | 0.00 |
-| overloaded_ratio | 50.00 | 50.00 | 0.00 |
+| overloaded | 0.00 | 0.00 | 0.00 |
+| overloaded_ratio | 0.00 | 0.00 | 0.00 |
 
 ## Liens utiles
 - CSV: log_metrics_snapshot.status_top2.csv
@@ -576,9 +575,9 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 <h2>Overview (HTML)</h2>
 <iframe src='log_metrics_overview.html' title='Overview HTML'></iframe>
 <h2>Badge</h2>
-<p>Label : <strong>uptime</strong> — État : <strong>alert</strong> — Précédent : <strong>alert</strong> — Seuils : warn ≥ 30.0, alert ≥ 60.0</p>
-<p>Comptage (fenêtre 20, delta 10): {'ok': 0, 'fail': 0, 'unknown': 20, 'total': 20, 'window': 20, 'ok_pct': 0.0, 'fail_pct': 0.0, 'unknown_pct': 100.0}</p>
-<p>Current streak: 20 × alert</p>
+<p>Label : <strong>metrics</strong> — État : <strong>ok</strong> — Précédent : <strong>ok</strong> — Seuils : warn ≥ 50.0, alert ≥ 80.0</p>
+<p>Comptage (fenêtre 20, delta 20): {'alert': 10, 'ok': 10}</p>
+<p>Current streak: 10 × ok</p>
 
 
 
@@ -586,9 +585,9 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 <h4>Guards summary (history window)</h4>
 <table>
 <tr><th>guard</th><th>ok</th><th>fail</th><th>unknown</th></tr>
-<tr><td>gate</td><td>0</td><td>0</td><td>68</td></tr>
-<tr><td>ok_streak</td><td>0</td><td>0</td><td>68</td></tr>
-<tr><td>no_regression</td><td>0</td><td>0</td><td>68</td></tr>
+<tr><td>gate</td><td>0</td><td>0</td><td>120</td></tr>
+<tr><td>ok_streak</td><td>0</td><td>0</td><td>120</td></tr>
+<tr><td>no_regression</td><td>0</td><td>0</td><td>120</td></tr>
 </table>
 <h4>Guards summary (latest JSON)</h4>
 <table>
@@ -603,6 +602,11 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 <tr><td>gate</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>20</td></tr>
 <tr><td>ok_streak</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>20</td></tr>
 <tr><td>no_regression</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>20</td></tr>
+</table>
+<h4>Guard streak globale (latest)</h4>
+<table>
+<tr><th>current_result</th><th>current_len</th><th>longest_ok</th><th>longest_fail</th><th>longest_unknown</th><th>window</th></tr>
+<tr><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>20</td></tr>
 </table>
 <img src='log_metrics_badge.svg' alt='Metrics badge' style='max-width:240px;'/>
 <h3>Badge history</h3>
@@ -676,6 +680,58 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 <tr><td>2025-12-25T11:23:36Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
 <tr><td>2025-12-25T11:24:27Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
 <tr><td>2025-12-25T11:25:13Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T11:38:42Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T11:39:10Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T11:41:56Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T11:43:34Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T11:48:02Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T11:52:45Z</td><td>status_top2</td><td>uptime</td><td>alert</td><td>30.0</td><td>60.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T13:17:32Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T13:25:42Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T16:02:34Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T20:13:23Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T20:13:52Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T20:32:56Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T20:33:35Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:02:02Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:06:16Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:07:13Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:38:24Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:40:18Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:42:07Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:48:55Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:53:10Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T21:57:43Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:02:53Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:03:32Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:03:49Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:04:23Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:07:25Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:09:25Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:09:41Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:10:30Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:11:28Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:13:17Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:18:28Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:18:49Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:22:59Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T22:26:06Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T23:22:56Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T23:23:16Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-25T23:53:43Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>50.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T00:18:15Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>0.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T00:27:59Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>0.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T00:28:28Z</td><td>status_top2</td><td>metrics</td><td>alert</td><td>50.0</td><td>80.0</td><td>0.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T00:29:11Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:41:04Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:42:58Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>4</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:44:03Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:48:46Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:49:50Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:50:27Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:54:02Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:54:56Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
+<tr><td>2025-12-26T07:57:57Z</td><td>status_top2</td><td>metrics</td><td>ok</td><td>50.0</td><td>80.0</td><td>0.0</td><td>0</td><td></td><td></td><td>False</td><td></td><td></td><td></td></tr>
 </table>
 <pre># Badge History
 
@@ -685,44 +741,46 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 
 | state | count |
 | --- | ---: |
-| alert | 20 |
+| alert | 10 |
+| ok | 10 |
 
 ## Latest entries
 
 | generated_at | suffix | badge_label | badge_state | badge_warn | badge_danger | overloaded_ratio | anomalies_count | guard_gate | guard_ok_streak | guard_no_regression | guard_gate_result | guard_ok_result | guard_no_regression_result |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2025-12-25T10:02:44Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:08:40Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:13:11Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:17:51Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:23:33Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:28:09Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:33:10Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:38:03Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:42:52Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:48:48Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:53:30Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:54:02Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T10:54:36Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T11:10:40Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T11:13:24Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T11:17:18Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T11:19:38Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T11:23:36Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T11:24:27Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
-| 2025-12-25T11:25:13Z | status_top2 | uptime | alert | 30.0 | 60.0 | 50.0 | 4 |  |  | False |  |  |  |
+| 2025-12-25T22:18:28Z | status_top2 | metrics | alert | 50.0 | 80.0 | 50.0 | 4 |  |  | False |  |  |  |
+| 2025-12-25T22:18:49Z | status_top2 | metrics | alert | 50.0 | 80.0 | 50.0 | 4 |  |  | False |  |  |  |
+| 2025-12-25T22:22:59Z | status_top2 | metrics | alert | 50.0 | 80.0 | 50.0 | 4 |  |  | False |  |  |  |
+| 2025-12-25T22:26:06Z | status_top2 | metrics | alert | 50.0 | 80.0 | 50.0 | 4 |  |  | False |  |  |  |
+| 2025-12-25T23:22:56Z | status_top2 | metrics | alert | 50.0 | 80.0 | 50.0 | 4 |  |  | False |  |  |  |
+| 2025-12-25T23:23:16Z | status_top2 | metrics | alert | 50.0 | 80.0 | 50.0 | 4 |  |  | False |  |  |  |
+| 2025-12-25T23:53:43Z | status_top2 | metrics | alert | 50.0 | 80.0 | 50.0 | 4 |  |  | False |  |  |  |
+| 2025-12-26T00:18:15Z | status_top2 | metrics | alert | 50.0 | 80.0 | 0.0 | 4 |  |  | False |  |  |  |
+| 2025-12-26T00:27:59Z | status_top2 | metrics | alert | 50.0 | 80.0 | 0.0 | 4 |  |  | False |  |  |  |
+| 2025-12-26T00:28:28Z | status_top2 | metrics | alert | 50.0 | 80.0 | 0.0 | 4 |  |  | False |  |  |  |
+| 2025-12-26T00:29:11Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
+| 2025-12-26T07:41:04Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
+| 2025-12-26T07:42:58Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 4 |  |  | False |  |  |  |
+| 2025-12-26T07:44:03Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
+| 2025-12-26T07:48:46Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
+| 2025-12-26T07:49:50Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
+| 2025-12-26T07:50:27Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
+| 2025-12-26T07:54:02Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
+| 2025-12-26T07:54:56Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
+| 2025-12-26T07:57:57Z | status_top2 | metrics | ok | 50.0 | 80.0 | 0.0 | 0 |  |  | False |  |  |  |
 
 ## Timeline (last entries)
 
-🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 
 ## Streaks
 
 - Window: 20 entrées (last 20)
-- Transition: alert -> alert
-- Current streak: 20 × `alert`
+- Transition: ok -> ok
+- Current streak: 10 × `ok`
 - Longest streaks:
-  - alert: 20
+  - alert: 10
+  - ok: 10
 
 ## Guards summary
 
@@ -748,12 +806,12 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
     "delta": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "streak": {
       "current": {
@@ -780,12 +838,12 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
     "delta": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "streak": {
       "current": {
@@ -812,12 +870,12 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
     "delta": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "streak": {
       "current": {
@@ -831,40 +889,92 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
       },
       "window": 20
     }
+  },
+  "overall_streak": {
+    "current": {
+      "result": "unknown",
+      "length": 20
+    },
+    "longest": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20
+    },
+    "window": 20
+  },
+  "overall": {
+    "ok": 0,
+    "fail": 0,
+    "unknown": 20,
+    "total": 20,
+    "window": 20,
+    "ok_pct": 0.0,
+    "fail_pct": 0.0,
+    "unknown_pct": 100.0,
+    "delta": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 0,
+      "delta_window": 20,
+      "window": 20,
+      "ok_pct": 0.0,
+      "fail_pct": 0.0,
+      "unknown_pct": 0.0
+    }
   }
 }</pre>
 <p>Guard summary (csv): <a href='log_metrics_guard_summary.csv'>log_metrics_guard_summary.csv</a></p>
 <table>
 <tr><th>guard</th><th>ok</th><th>fail</th><th>unknown</th><th>total</th><th>window</th><th>ok_pct</th><th>fail_pct</th><th>unknown_pct</th><th>current_result</th><th>current_len</th><th>longest_ok</th><th>longest_fail</th><th>longest_unknown</th><th>delta_ok</th><th>delta_fail</th><th>delta_unknown</th><th>delta_ok_pct</th><th>delta_fail_pct</th><th>delta_unknown_pct</th><th>delta_window</th></tr>
-<tr><td>gate</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>10</td><td>0.0</td><td>0.0</td><td>100.0</td><td>10</td></tr>
-<tr><td>ok_streak</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>10</td><td>0.0</td><td>0.0</td><td>100.0</td><td>10</td></tr>
-<tr><td>no_regression</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>10</td><td>0.0</td><td>0.0</td><td>100.0</td><td>10</td></tr>
+<tr><td>gate</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>20</td></tr>
+<tr><td>ok_streak</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>20</td></tr>
+<tr><td>no_regression</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>20</td></tr>
+<tr><td>__overall</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td></td><td></td><td></td><td></td><td></td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>20</td></tr>
+<tr><td>__overall_streak</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>20</td></tr>
+</table>
+<table>
+<tr><th>guard</th><th>ok</th><th>fail</th><th>unknown</th><th>total</th><th>window</th><th>ok_pct</th><th>fail_pct</th><th>unknown_pct</th><th>current_result</th><th>current_len</th><th>longest_ok</th><th>longest_fail</th><th>longest_unknown</th><th>delta_ok</th><th>delta_fail</th><th>delta_unknown</th><th>delta_ok_pct</th><th>delta_fail_pct</th><th>delta_unknown_pct</th><th>delta_window</th></tr>
+<tr><td>__overall</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td></td><td></td><td></td><td></td><td></td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>20</td></tr>
+</table>
+<table>
+<tr><th>guard</th><th>ok</th><th>fail</th><th>unknown</th><th>total</th><th>window</th><th>ok_pct</th><th>fail_pct</th><th>unknown_pct</th><th>current_result</th><th>current_len</th><th>longest_ok</th><th>longest_fail</th><th>longest_unknown</th><th>delta_ok</th><th>delta_fail</th><th>delta_unknown</th><th>delta_ok_pct</th><th>delta_fail_pct</th><th>delta_unknown_pct</th><th>delta_window</th></tr>
+<tr><td>__overall_streak</td><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>20</td></tr>
 </table>
 <table>
 <tr><th>ok</th><th>fail</th><th>unknown</th><th>total</th><th>window</th><th>ok_pct</th><th>fail_pct</th><th>unknown_pct</th></tr>
-<tr><td>0</td><td>0</td><td>60</td><td>60</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td></tr>
+<tr><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td></tr>
+</table>
+<h4>Guard summary (overall JSON)</h4>
+<table>
+<tr><th>ok</th><th>fail</th><th>unknown</th><th>total</th><th>window</th><th>ok_pct</th><th>fail_pct</th><th>unknown_pct</th><th>delta_ok</th><th>delta_ok_pct</th><th>delta_fail</th><th>delta_fail_pct</th><th>delta_unknown</th><th>delta_unknown_pct</th><th>delta_window</th></tr>
+<tr><td>0</td><td>0</td><td>20</td><td>20</td><td>20</td><td>0.0</td><td>0.0</td><td>100.0</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>20</td></tr>
+</table>
+<h4>Guard summary (overall streak JSON)</h4>
+<table>
+<tr><th>current_result</th><th>current_len</th><th>longest_ok</th><th>longest_fail</th><th>longest_unknown</th><th>window</th></tr>
+<tr><td>unknown</td><td>20</td><td>0</td><td>0</td><td>20</td><td>20</td></tr>
 </table>
 <table>
 <tr><th>guard</th><th>delta_ok</th><th>delta_ok_pct</th><th>delta_fail</th><th>delta_fail_pct</th><th>delta_unknown</th><th>delta_unknown_pct</th><th>window</th><th>delta_window</th></tr>
-<tr><td>gate</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>10</td><td>100.0</td><td>20</td><td>10</td></tr>
-<tr><td>ok_streak</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>10</td><td>100.0</td><td>20</td><td>10</td></tr>
-<tr><td>no_regression</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>10</td><td>100.0</td><td>20</td><td>10</td></tr>
+<tr><td>gate</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>20</td><td>20</td></tr>
+<tr><td>ok_streak</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>20</td><td>20</td></tr>
+<tr><td>no_regression</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>20</td><td>20</td></tr>
 </table>
 <table>
 <tr><th>window</th><th>delta_window</th><th>delta_ok</th><th>delta_ok_pct</th><th>delta_fail</th><th>delta_fail_pct</th><th>delta_unknown</th><th>delta_unknown_pct</th><th>delta_total</th></tr>
-<tr><td>20</td><td>10</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>30</td><td>100.0</td><td>30</td></tr>
+<tr><td>20</td><td>20</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>0</td><td>0.0</td><td>0</td></tr>
 </table>
 <h2>Latest summary (JSON)</h2>
 <pre>{
-  "generated_at": "2025-12-25T11:25:14Z",
+  "generated_at": "2025-12-26T07:57:59Z",
   "suffix": "status_top2",
-  "reports_dir": "reports",
+  "reports_dir": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports",
   "totals": {
-    "timestamp": "2025-12-25T11:25:10Z",
+    "timestamp": "2025-12-26T07:57:54Z",
     "status_checks": 2.0,
     "connections": 1.0,
-    "overloaded": 1.0,
-    "overloaded_ratio": 50.0
+    "overloaded": 0.0,
+    "overloaded_ratio": 0.0
   },
   "deltas": {
     "status_checks": 0.0,
@@ -872,8 +982,10 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
     "overloaded": 0.0,
     "overloaded_ratio": 0.0
   },
-  "history_count": 129,
-  "anomalies_count": 4,
+  "history_count": 12,
+  "anomalies_count": 0,
+  "anomalies_flagged_count": 0,
+  "anomalies_total": 4,
   "anomalies": [
     {
       "metric": "status_checks",
@@ -893,27 +1005,27 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
     },
     {
       "metric": "overloaded",
-      "prev": 1.0,
-      "curr": 1.0,
+      "prev": 0.0,
+      "curr": 0.0,
       "delta": 0.0,
       "pct": 0.0,
       "status": "OK"
     },
     {
       "metric": "overloaded_ratio",
-      "prev": 50.0,
-      "curr": 50.0,
+      "prev": 0.0,
+      "curr": 0.0,
       "delta": 0.0,
       "pct": 0.0,
       "status": "OK"
     }
   ],
-  "badge_state": "alert",
-  "badge_previous_state": "alert",
-  "badge_label": "uptime",
+  "badge_state": "ok",
+  "badge_previous_state": "ok",
+  "badge_label": "metrics",
   "badge_thresholds": {
-    "warn": 30.0,
-    "danger": 60.0
+    "warn": 50.0,
+    "danger": 80.0
   },
   "badge_ok_streak_required": null,
   "badge_guards": {
@@ -923,28 +1035,22 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
   },
   "badge_guard_status": null,
   "badge_history": {
-    "entries": 68,
+    "entries": 120,
     "window": 20,
-    "delta_window": 10,
+    "delta_window": 20,
     "counts": {
-      "ok": 0,
-      "fail": 0,
-      "unknown": 20,
-      "total": 20,
-      "window": 20,
-      "ok_pct": 0.0,
-      "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "alert": 10,
+      "ok": 10
     },
     "last": {
-      "generated_at": "2025-12-25T11:25:13Z",
+      "generated_at": "2025-12-26T07:57:57Z",
       "suffix": "status_top2",
-      "badge_label": "uptime",
-      "badge_state": "alert",
-      "badge_warn": "30.0",
-      "badge_danger": "60.0",
-      "overloaded_ratio": "50.0",
-      "anomalies_count": "4",
+      "badge_label": "metrics",
+      "badge_state": "ok",
+      "badge_warn": "50.0",
+      "badge_danger": "80.0",
+      "overloaded_ratio": "0.0",
+      "anomalies_count": "0",
       "guard_gate": "",
       "guard_ok_streak": "",
       "guard_no_regression": "False",
@@ -953,8 +1059,8 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
       "guard_no_regression_result": ""
     },
     "current_streak": {
-      "state": "alert",
-      "length": 20
+      "state": "ok",
+      "length": 10
     },
     "longest_streaks": {
       "ok": 0,
@@ -962,14 +1068,14 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
       "unknown": 20
     },
     "previous": {
-      "generated_at": "2025-12-25T11:24:27Z",
+      "generated_at": "2025-12-26T07:54:56Z",
       "suffix": "status_top2",
-      "badge_label": "uptime",
-      "badge_state": "alert",
-      "badge_warn": "30.0",
-      "badge_danger": "60.0",
-      "overloaded_ratio": "50.0",
-      "anomalies_count": "4",
+      "badge_label": "metrics",
+      "badge_state": "ok",
+      "badge_warn": "50.0",
+      "badge_danger": "80.0",
+      "overloaded_ratio": "0.0",
+      "anomalies_count": "0",
       "guard_gate": "",
       "guard_ok_streak": "",
       "guard_no_regression": "False",
@@ -977,10 +1083,10 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
       "guard_ok_result": "",
       "guard_no_regression_result": ""
     },
-    "previous_state": "alert",
+    "previous_state": "ok",
     "last_transition": {
-      "from": "alert",
-      "to": "alert"
+      "from": "ok",
+      "to": "ok"
     },
     "path": "log_metrics_badge_history.csv"
   },
@@ -1019,8 +1125,8 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
   "badge_guard_overall": {
     "ok": 0,
     "fail": 0,
-    "unknown": 60,
-    "total": 60,
+    "unknown": 20,
+    "total": 20,
     "window": 20,
     "ok_pct": 0.0,
     "fail_pct": 0.0,
@@ -1030,44 +1136,44 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
     "gate": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "ok_streak": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     },
     "no_regression": {
       "ok": 0,
       "fail": 0,
-      "unknown": 10,
+      "unknown": 0,
       "window": 20,
-      "delta_window": 10,
+      "delta_window": 20,
       "ok_pct": 0.0,
       "fail_pct": 0.0,
-      "unknown_pct": 100.0
+      "unknown_pct": 0.0
     }
   },
   "badge_guard_delta_overall": {
     "ok": 0,
     "fail": 0,
-    "unknown": 30,
+    "unknown": 0,
     "window": 20,
-    "delta_window": 10,
-    "total": 30,
+    "delta_window": 20,
+    "total": 0,
     "ok_pct": 0.0,
     "fail_pct": 0.0,
-    "unknown_pct": 100.0
+    "unknown_pct": 0.0
   },
   "badge_guard_streaks": {
     "gate": {
@@ -1106,6 +1212,18 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
       },
       "window": 20
     }
+  },
+  "badge_guard_overall_streak": {
+    "current": {
+      "result": "unknown",
+      "length": 20
+    },
+    "longest": {
+      "ok": 0,
+      "fail": 0,
+      "unknown": 20
+    },
+    "window": 20
   },
   "artifacts": {
     "csv": "log_metrics_snapshot.status_top2.csv",
@@ -1151,8 +1269,8 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 | --- | ---: |
 | status_checks | 2 |
 | connections | 1 |
-| overloaded | 1 |
-| overloaded_ratio | 50.00 |
+| overloaded | 0 |
+| overloaded_ratio | 0.00 |
 
 ## Deltas vs précédent
 
@@ -1173,9 +1291,9 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 | overloaded_ratio | OK |  |  |  |
 
 ## Badge
-- Label : **uptime**
-- État : **alert** (warn ≥ 30.0, alert ≥ 60.0, précédent: alert)
-- Fenêtre historique: 20 (delta 10) — Comptage: {'ok': 0, 'fail': 0, 'unknown': 20, 'total': 20, 'window': 20, 'ok_pct': 0.0, 'fail_pct': 0.0, 'unknown_pct': 100.0} — Streak actuelle: 20 × alert
+- Label : **metrics**
+- État : **ok** (warn ≥ 50.0, alert ≥ 80.0, précédent: ok)
+- Fenêtre historique: 20 (delta 20) — Comptage: {'alert': 10, 'ok': 10} — Streak actuelle: 10 × ok
 - Synthèse gardes (ok/fail/unknown/total/window/%) :
   - gate: ok=0 (0.0%), fail=0 (0.0%), unknown=20 (100.0%), total=20, window=20
   - ok_streak: ok=0 (0.0%), fail=0 (0.0%), unknown=20 (100.0%), total=20, window=20
@@ -1195,17 +1313,20 @@ efc8676c19094af2b23a2269c0b7db94c1e21c0664e075e9916891003224b938  log_metrics_gu
 | no_regression | unknown | 20 | 0 | 0 | 20 | 20 |
 
 ### Synthèse globale des gardes
-- Total fenêtre 20 : ok=0 (0.0%), fail=0 (0.0%), unknown=60 (100.0%), total=60
+- Total fenêtre 20 : ok=0 (0.0%), fail=0 (0.0%), unknown=20 (100.0%), total=20
+
+### Streak globale des gardes
+- Courante: unknown x 20 (fenêtre 20) — Longest ok=0, fail=0, unknown=20
 
 ### Évolution vs fenêtre précédente
 | guard | Δok | Δok% | Δfail | Δfail% | Δunknown | Δunknown% | window | delta_window |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| gate | +0 | 0.0% | +0 | 0.0% | +10 | 100.0% | 20 | 10 |
-| ok_streak | +0 | 0.0% | +0 | 0.0% | +10 | 100.0% | 20 | 10 |
-| no_regression | +0 | 0.0% | +0 | 0.0% | +10 | 100.0% | 20 | 10 |
+| gate | +0 | 0.0% | +0 | 0.0% | +0 | 0.0% | 20 | 20 |
+| ok_streak | +0 | 0.0% | +0 | 0.0% | +0 | 0.0% | 20 | 20 |
+| no_regression | +0 | 0.0% | +0 | 0.0% | +0 | 0.0% | 20 | 20 |
 
 ### Synthèse globale des deltas
-- Fenêtre 20 vs 10 précédents: ok=0 (0.0%), fail=0 (0.0%), unknown=30 (100.0%), total=30
+- Fenêtre 20 vs 20 précédents: ok=0 (0.0%), fail=0 (0.0%), unknown=0 (0.0%), total=0
 
 ## Artefacts
 

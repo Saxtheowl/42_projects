@@ -1,0 +1,6 @@
+guard,ok,fail,unknown,total,window,ok_pct,fail_pct,unknown_pct,current_result,current_len,longest_ok,longest_fail,longest_unknown
+gate,0,0,20,20,20,0.0,0.0,100.0,unknown,20,0,0,20
+ok_streak,0,0,20,20,20,0.0,0.0,100.0,unknown,20,0,0,20
+no_regression,0,0,20,20,20,0.0,0.0,100.0,unknown,20,0,0,20
+__overall,0,0,20,20,20,0.0,0.0,100.0,,,,,
+__overall_streak,0,0,20,20,20,0.0,0.0,100.0,unknown,20,0,0,20

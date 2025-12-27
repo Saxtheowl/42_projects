@@ -63,6 +63,14 @@ files=(
 [ -f "${REPORTS_DIR}/log_metrics_guard_summary.csv" ] && files+=("${REPORTS_DIR}/log_metrics_guard_summary.csv")
 [ -f "${REPORTS_DIR}/log_metrics_compare.md" ] && files+=("${REPORTS_DIR}/log_metrics_compare.md")
 [ -f "${REPORTS_DIR}/log_metrics_compare.html" ] && files+=("${REPORTS_DIR}/log_metrics_compare.html")
+[ -f "${REPORTS_DIR}/log_metrics_run_summary.md" ] && files+=("${REPORTS_DIR}/log_metrics_run_summary.md")
+[ -f "${REPORTS_DIR}/log_metrics_run_summary.html" ] && files+=("${REPORTS_DIR}/log_metrics_run_summary.html")
+[ -f "${REPORTS_DIR}/log_metrics_sitemap.md" ] && files+=("${REPORTS_DIR}/log_metrics_sitemap.md")
+[ -f "${REPORTS_DIR}/log_metrics_sitemap.html" ] && files+=("${REPORTS_DIR}/log_metrics_sitemap.html")
+[ -f "${REPORTS_DIR}/log_metrics_sitemap.json" ] && files+=("${REPORTS_DIR}/log_metrics_sitemap.json")
+[ -f "${REPORTS_DIR}/log_metrics_status.json" ] && files+=("${REPORTS_DIR}/log_metrics_status.json")
+[ -f "${REPORTS_DIR}/log_metrics_status_badge.svg" ] && files+=("${REPORTS_DIR}/log_metrics_status_badge.svg")
+[ -f "${REPORTS_DIR}/log_metrics_overall_history.csv" ] && files+=("${REPORTS_DIR}/log_metrics_overall_history.csv")
 
 missing=()
 for f in "${files[@]}"; do

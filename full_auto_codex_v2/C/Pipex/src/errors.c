@@ -17,8 +17,13 @@ void px_cleanup(t_pipex *px)
 {
     if (!px)
         return ;
-    px_free_split(px->cmd1);
-    px_free_split(px->cmd2);
-    free(px->cmd1_path);
-    free(px->cmd2_path);
+    if (px->cmds)
+    {
+        for (int i = 0; i < px->cmd_count; ++i)
+        {
+            px_free_split(px->cmds[i].argv);
+            free(px->cmds[i].path);
+        }
+        free(px->cmds);
+    }
 }

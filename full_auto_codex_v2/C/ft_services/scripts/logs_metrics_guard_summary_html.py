@@ -51,13 +51,23 @@ def main():
     }
     guard_counts = {k: Counter() for k in guard_fields}
     guard_streaks = {}
+    aggregate_states = []
+    prev_aggregate_states = []
     prev_counts = {k: Counter() for k in guard_fields}
     for r in rows:
+        vals_row = []
         for name, field in guard_fields.items():
             val = str(r.get(field, "") or "").lower()
             if val not in ("ok", "fail"):
                 val = "unknown"
             guard_counts[name][val] += 1
+            vals_row.append(val)
+        if any(v == "fail" for v in vals_row):
+            aggregate_states.append("fail")
+        elif all(v == "ok" for v in vals_row):
+            aggregate_states.append("ok")
+        else:
+            aggregate_states.append("unknown")
     for name, field in guard_fields.items():
         current_result = None
         current_len = 0
@@ -86,12 +96,51 @@ def main():
             "longest": longest,
             "window": len(rows),
         }
+    # Overall streak
+    current_overall = None
+    current_overall_len = 0
+    for val in reversed(aggregate_states):
+        if current_overall is None:
+            current_overall = val
+            current_overall_len = 1
+        elif val == current_overall:
+            current_overall_len += 1
+        else:
+            break
+    running_overall = {"ok": 0, "fail": 0, "unknown": 0}
+    longest_overall = {"ok": 0, "fail": 0, "unknown": 0}
+    for val in aggregate_states:
+        for k in running_overall:
+            running_overall[k] = running_overall[k] + 1 if k == val else 0
+            longest_overall[k] = max(longest_overall[k], running_overall[k])
+    overall_streak_html = render_table(
+        [
+            {
+                "current_result": current_overall or "unknown",
+                "current_len": current_overall_len,
+                "longest_ok": longest_overall["ok"],
+                "longest_fail": longest_overall["fail"],
+                "longest_unknown": longest_overall["unknown"],
+                "window": len(rows),
+            }
+        ],
+        ["current_result", "current_len", "longest_ok", "longest_fail", "longest_unknown", "window"],
+    )
     for r in prev_rows:
+        vals_row = []
         for name, field in guard_fields.items():
             val = str(r.get(field, "") or "").lower()
             if val not in ("ok", "fail"):
                 val = "unknown"
             prev_counts[name][val] += 1
+            vals_row.append(val)
+        if vals_row:
+            if any(v == "fail" for v in vals_row):
+                prev_aggregate_states.append("fail")
+            elif all(v == "ok" for v in vals_row):
+                prev_aggregate_states.append("ok")
+            else:
+                prev_aggregate_states.append("unknown")
 
     guard_rows = []
     has_delta = len(prev_rows) > 0
@@ -127,6 +176,34 @@ def main():
                 }
             )
 
+    aggregate_counts = Counter(aggregate_states)
+    prev_aggregate_counts = Counter(prev_aggregate_states)
+    agg_rows = [
+        {
+            "ok": aggregate_counts.get("ok", 0),
+            "fail": aggregate_counts.get("fail", 0),
+            "unknown": aggregate_counts.get("unknown", 0),
+            "total": sum(aggregate_counts.values()),
+            "window": len(aggregate_states),
+            "ok_pct": f"{(aggregate_counts.get('ok',0)/(sum(aggregate_counts.values()) or 1)*100):.1f}%",
+            "fail_pct": f"{(aggregate_counts.get('fail',0)/(sum(aggregate_counts.values()) or 1)*100):.1f}%",
+            "unknown_pct": f"{(aggregate_counts.get('unknown',0)/(sum(aggregate_counts.values()) or 1)*100):.1f}%",
+        }
+    ]
+    if prev_aggregate_states:
+        prev_total = sum(prev_aggregate_counts.values()) or 1
+        agg_rows[-1].update(
+            {
+                "delta_ok": aggregate_counts.get("ok", 0) - prev_aggregate_counts.get("ok", 0),
+                "delta_fail": aggregate_counts.get("fail", 0) - prev_aggregate_counts.get("fail", 0),
+                "delta_unknown": aggregate_counts.get("unknown", 0) - prev_aggregate_counts.get("unknown", 0),
+                "delta_ok_pct": f"{(aggregate_counts.get('ok',0) - prev_aggregate_counts.get('ok',0))/prev_total*100:.1f}%",
+                "delta_fail_pct": f"{(aggregate_counts.get('fail',0) - prev_aggregate_counts.get('fail',0))/prev_total*100:.1f}%",
+                "delta_unknown_pct": f"{(aggregate_counts.get('unknown',0) - prev_aggregate_counts.get('unknown',0))/prev_total*100:.1f}%",
+                "delta_window": len(prev_aggregate_states),
+            }
+        )
+
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,8 +220,12 @@ def main():
   <h1>Badge Guard Summary</h1>
   <p>Entries: {len(rows)} (window {window_len}, delta window {len(prev_rows) if has_delta else 0})</p>
   {render_table(guard_rows, ["guard","window","ok","fail","unknown","total","ok_pct","fail_pct","unknown_pct"] + (["delta_ok","delta_fail","delta_unknown","delta_ok_pct","delta_fail_pct","delta_unknown_pct","delta_window"] if {has_delta} else []))}
+  <h2>Streak globale</h2>
+  {overall_streak_html}
   <h2>Guard streaks</h2>
   {render_table([{"guard": name, "current_result": (streak.get("current",{}) or {}).get("result","unknown"), "current_len": (streak.get("current",{}) or {}).get("length",0), "longest_ok": (streak.get("longest",{}) or {}).get("ok",0), "longest_fail": (streak.get("longest",{}) or {}).get("fail",0), "longest_unknown": (streak.get("longest",{}) or {}).get("unknown",0), "window": streak.get("window",0)} for name, streak in guard_streaks.items()], ["guard","current_result","current_len","longest_ok","longest_fail","longest_unknown","window"]) if guard_streaks else "<p>No streaks.</p>"}
+  <h2>Streak globale (counts + pct)</h2>
+  {render_table(agg_rows, ["ok","fail","unknown","total","window","ok_pct","fail_pct","unknown_pct"] + (["delta_ok","delta_fail","delta_unknown","delta_ok_pct","delta_fail_pct","delta_unknown_pct","delta_window"] if prev_aggregate_states else []))}
 </body>
 </html>
 """

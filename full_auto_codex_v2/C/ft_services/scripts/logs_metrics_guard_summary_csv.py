@@ -46,12 +46,26 @@ def main():
     guard_counts = {k: Counter() for k in guard_fields}
     guard_streaks = {}
     prev_counts = {k: Counter() for k in guard_fields}
+    aggregate_states = []
+    prev_aggregate_states = []
     for r in rows:
         for name, field in guard_fields.items():
             val = str(r.get(field, "") or "").lower()
             if val not in ("ok", "fail"):
                 val = "unknown"
             guard_counts[name][val] += 1
+        vals_row = []
+        for _, field in guard_fields.items():
+            v = str(r.get(field, "") or "").lower()
+            if v not in ("ok", "fail"):
+                v = "unknown"
+            vals_row.append(v)
+        if any(v == "fail" for v in vals_row):
+            aggregate_states.append("fail")
+        elif all(v == "ok" for v in vals_row):
+            aggregate_states.append("ok")
+        else:
+            aggregate_states.append("unknown")
     for name, field in guard_fields.items():
         current_result = None
         current_len = 0
@@ -81,11 +95,20 @@ def main():
             "window": len(rows),
         }
     for r in prev_rows:
+        vals_row = []
         for name, field in guard_fields.items():
             val = str(r.get(field, "") or "").lower()
             if val not in ("ok", "fail"):
                 val = "unknown"
             prev_counts[name][val] += 1
+            vals_row.append(val)
+        if vals_row:
+            if any(v == "fail" for v in vals_row):
+                prev_aggregate_states.append("fail")
+            elif all(v == "ok" for v in vals_row):
+                prev_aggregate_states.append("ok")
+            else:
+                prev_aggregate_states.append("unknown")
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -155,6 +178,88 @@ def main():
                     ),
                 }
             )
+        # Overall counts row (guard="__overall")
+        aggregate_counts = Counter(aggregate_states)
+        overall_total = sum(aggregate_counts.values())
+        overall_row = {
+            "guard": "__overall",
+            "ok": aggregate_counts.get("ok", 0),
+            "fail": aggregate_counts.get("fail", 0),
+            "unknown": aggregate_counts.get("unknown", 0),
+            "total": overall_total,
+            "window": window_len,
+            "ok_pct": f"{(aggregate_counts.get('ok',0)/overall_total*100) if overall_total else 0:.1f}",
+            "fail_pct": f"{(aggregate_counts.get('fail',0)/overall_total*100) if overall_total else 0:.1f}",
+            "unknown_pct": f"{(aggregate_counts.get('unknown',0)/overall_total*100) if overall_total else 0:.1f}",
+            "current_result": "",
+            "current_len": "",
+            "longest_ok": "",
+            "longest_fail": "",
+            "longest_unknown": "",
+        }
+        if prev_rows:
+            prev_counts_agg = Counter(prev_aggregate_states)
+            prev_total = sum(prev_counts_agg.values()) or 1
+            overall_row.update(
+                {
+                    "delta_ok": aggregate_counts.get("ok", 0) - prev_counts_agg.get("ok", 0),
+                    "delta_fail": aggregate_counts.get("fail", 0) - prev_counts_agg.get("fail", 0),
+                    "delta_unknown": aggregate_counts.get("unknown", 0) - prev_counts_agg.get("unknown", 0),
+                    "delta_ok_pct": f"{((aggregate_counts.get('ok',0) - prev_counts_agg.get('ok',0)) / prev_total * 100):.1f}",
+                    "delta_fail_pct": f"{((aggregate_counts.get('fail',0) - prev_counts_agg.get('fail',0)) / prev_total * 100):.1f}",
+                    "delta_unknown_pct": f"{((aggregate_counts.get('unknown',0) - prev_counts_agg.get('unknown',0)) / prev_total * 100):.1f}",
+                    "delta_window": len(prev_aggregate_states),
+                }
+            )
+        writer.writerow(overall_row)
+        # Overall streak row (guard="__overall_streak")
+        running_overall = {"ok": 0, "fail": 0, "unknown": 0}
+        longest_overall = {"ok": 0, "fail": 0, "unknown": 0}
+        for v in aggregate_states:
+            for k in running_overall:
+                running_overall[k] = running_overall[k] + 1 if k == v else 0
+                longest_overall[k] = max(longest_overall[k], running_overall[k])
+        current_res = None
+        current_len = 0
+        for v in reversed(aggregate_states):
+            if current_res is None:
+                current_res = v
+                current_len = 1
+            elif v == current_res:
+                current_len += 1
+            else:
+                break
+        overall_row = {
+            "guard": "__overall_streak",
+            "ok": aggregate_counts.get("ok", 0),
+            "fail": aggregate_counts.get("fail", 0),
+            "unknown": aggregate_counts.get("unknown", 0),
+            "total": overall_total,
+            "window": window_len,
+            "ok_pct": f"{(aggregate_counts.get('ok',0)/overall_total*100) if overall_total else 0:.1f}",
+            "fail_pct": f"{(aggregate_counts.get('fail',0)/overall_total*100) if overall_total else 0:.1f}",
+            "unknown_pct": f"{(aggregate_counts.get('unknown',0)/overall_total*100) if overall_total else 0:.1f}",
+            "current_result": current_res or "unknown",
+            "current_len": current_len,
+            "longest_ok": longest_overall["ok"],
+            "longest_fail": longest_overall["fail"],
+            "longest_unknown": longest_overall["unknown"],
+        }
+        if prev_rows:
+            prev_agg_counts = Counter(prev_aggregate_states)
+            prev_total = sum(prev_agg_counts.values()) or 1
+            overall_row.update(
+                {
+                    "delta_ok": aggregate_counts.get("ok", 0) - prev_agg_counts.get("ok", 0),
+                    "delta_fail": aggregate_counts.get("fail", 0) - prev_agg_counts.get("fail", 0),
+                    "delta_unknown": aggregate_counts.get("unknown", 0) - prev_agg_counts.get("unknown", 0),
+                    "delta_ok_pct": f"{((aggregate_counts.get('ok',0) - prev_agg_counts.get('ok',0)) / prev_total * 100):.1f}",
+                    "delta_fail_pct": f"{((aggregate_counts.get('fail',0) - prev_agg_counts.get('fail',0)) / prev_total * 100):.1f}",
+                    "delta_unknown_pct": f"{((aggregate_counts.get('unknown',0) - prev_agg_counts.get('unknown',0)) / prev_total * 100):.1f}",
+                    "delta_window": len(prev_aggregate_states),
+                }
+            )
+        writer.writerow(overall_row)
     print(f"Guard summary CSV written to {output}")
 
 

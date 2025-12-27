@@ -7,6 +7,7 @@ Exits 1 on missing artifacts or missing Totals.
 import argparse
 import csv
 import json
+from collections import Counter
 from pathlib import Path
 
 
@@ -188,9 +189,12 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
                     raise SystemExit(f"{latest_path}: delta mismatch for {key} (history={expected_delta}, latest={actual_delta})")
 
     anomalies = data.get("anomalies", [])
+    flagged_anomalies = [a for a in anomalies if str(a.get("status", "")).upper() != "OK"]
     anomalies_count = data.get("anomalies_count")
-    if anomalies_count is not None and anomalies_count != len(anomalies):
-        raise SystemExit(f"{latest_path}: anomalies_count mismatch (declared {anomalies_count}, got {len(anomalies)})")
+    if anomalies_count is not None and anomalies_count != len(flagged_anomalies):
+        raise SystemExit(
+            f"{latest_path}: anomalies_count mismatch (declared {anomalies_count}, flagged={len(flagged_anomalies)})"
+        )
 
     guards = data.get("badge_guards") or {}
     if guards:
@@ -209,6 +213,8 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
     guard_overall = data.get("badge_guard_overall") or {}
     guard_delta = data.get("badge_guard_delta") or {}
     guard_delta_overall = data.get("badge_guard_delta_overall") or {}
+    guard_streaks = data.get("badge_guard_streaks") or {}
+    guard_overall_streak = data.get("badge_guard_overall_streak") or {}
     badge_history_path = reports_dir / "log_metrics_badge_history.csv"
     if guard_summary and badge_history_path.exists():
         with badge_history_path.open(newline="") as f:
@@ -234,6 +240,7 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
             else []
         )
         prev_counts = {k: {"ok": 0, "fail": 0, "unknown": 0} for k in guard_fields}
+        prev_aggregate_states = []
         for r in subset:
             for name, field in guard_fields.items():
                 val = str(r.get(field, "") or "").lower()
@@ -241,17 +248,25 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
                     val = "unknown"
                 recomputed[name][val] = recomputed[name].get(val, 0) + 1
         for r in prev_subset:
+            vals_prev = []
             for name, field in guard_fields.items():
                 val = str(r.get(field, "") or "").lower()
                 if val not in ("ok", "fail"):
                     val = "unknown"
                 prev_counts[name][val] = prev_counts[name].get(val, 0) + 1
+                vals_prev.append(val)
+            if vals_prev:
+                if any(v == "fail" for v in vals_prev):
+                    prev_aggregate_states.append("fail")
+                elif all(v == "ok" for v in vals_prev):
+                    prev_aggregate_states.append("ok")
+                else:
+                    prev_aggregate_states.append("unknown")
         totals_guard = {"ok": 0, "fail": 0, "unknown": 0}
         totals_delta = {"ok": 0, "fail": 0, "unknown": 0}
-        # Guard streaks validation
-        guard_streaks = data.get("badge_guard_streaks") or {}
         # Recompute streaks from history subset
         recomputed_streaks = {}
+        aggregate_states = []
         for name, field in guard_fields.items():
             current_result = None
             current_len = 0
@@ -280,6 +295,19 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
                 "longest": longest,
                 "window": window_len,
             }
+        for r in subset:
+            vals = []
+            for _, field in guard_fields.items():
+                val = str(r.get(field, "") or "").lower()
+                if val not in ("ok", "fail"):
+                    val = "unknown"
+                vals.append(val)
+            if any(v == "fail" for v in vals):
+                aggregate_states.append("fail")
+            elif all(v == "ok" for v in vals):
+                aggregate_states.append("ok")
+            else:
+                aggregate_states.append("unknown")
 
         for name, counts in recomputed.items():
             expected = guard_summary.get(name) or {}
@@ -374,6 +402,92 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
                         raise SystemExit(
                             f"{latest_path}: guard streak longest {key} mismatch for {name} (latest={longest_latest.get(key)}, expected={longest_calc.get(key)})"
                         )
+        # Guard overall streak validation (aggregate: any fail -> fail, all ok -> ok, else unknown)
+        if guard_overall_streak:
+            current_res = None
+            current_len = 0
+            for val in reversed(aggregate_states):
+                if current_res is None:
+                    current_res = val
+                    current_len = 1
+                elif val == current_res:
+                    current_len += 1
+                else:
+                    break
+            running = {"ok": 0, "fail": 0, "unknown": 0}
+            longest = {"ok": 0, "fail": 0, "unknown": 0}
+            for val in aggregate_states:
+                for k in running:
+                    running[k] = running[k] + 1 if k == val else 0
+                    longest[k] = max(longest[k], running[k])
+            if int(guard_overall_streak.get("window", window_len) or 0) != window_len:
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak window mismatch (latest={guard_overall_streak.get('window')}, expected={window_len})"
+                )
+            if (guard_overall_streak.get("current", {}) or {}).get("result", "unknown").lower() != (current_res or "unknown"):
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak current result mismatch (latest={guard_overall_streak.get('current',{}).get('result')}, expected={current_res})"
+                )
+            if int((guard_overall_streak.get("current", {}) or {}).get("length", 0) or 0) != current_len:
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak current length mismatch (latest={guard_overall_streak.get('current',{}).get('length')}, expected={current_len})"
+                )
+            longest_expected = guard_overall_streak.get("longest", {}) or {}
+            for key in ("ok", "fail", "unknown"):
+                if int(longest_expected.get(key, 0) or 0) != longest.get(key, 0):
+                    raise SystemExit(
+                        f"{latest_path}: guard overall streak longest {key} mismatch (latest={longest_expected.get(key)}, expected={longest.get(key)})"
+                    )
+        # Guard overall streak validation (aggregate: any fail -> fail, all ok -> ok, else unknown)
+        if guard_overall_streak:
+            aggregate_states = []
+            for r in subset:
+                vals = []
+                for _, field in guard_fields.items():
+                    val = str(r.get(field, "") or "").lower()
+                    if val not in ("ok", "fail"):
+                        val = "unknown"
+                    vals.append(val)
+                if any(v == "fail" for v in vals):
+                    aggregate_states.append("fail")
+                elif all(v == "ok" for v in vals):
+                    aggregate_states.append("ok")
+                else:
+                    aggregate_states.append("unknown")
+            current_res = None
+            current_len = 0
+            for val in reversed(aggregate_states):
+                if current_res is None:
+                    current_res = val
+                    current_len = 1
+                elif val == current_res:
+                    current_len += 1
+                else:
+                    break
+            running = {"ok": 0, "fail": 0, "unknown": 0}
+            longest = {"ok": 0, "fail": 0, "unknown": 0}
+            for val in aggregate_states:
+                for k in running:
+                    running[k] = running[k] + 1 if k == val else 0
+                    longest[k] = max(longest[k], running[k])
+            if int(guard_overall_streak.get("window", window_len) or 0) != window_len:
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak window mismatch (latest={guard_overall_streak.get('window')}, expected={window_len})"
+                )
+            if (guard_overall_streak.get("current", {}) or {}).get("result", "unknown").lower() != (current_res or "unknown"):
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak current result mismatch (latest={guard_overall_streak.get('current',{}).get('result')}, expected={current_res})"
+                )
+            if int((guard_overall_streak.get("current", {}) or {}).get("length", 0) or 0) != current_len:
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak current length mismatch (latest={guard_overall_streak.get('current',{}).get('length')}, expected={current_len})"
+                )
+            longest_expected = guard_overall_streak.get("longest", {}) or {}
+            for key in ("ok", "fail", "unknown"):
+                if int(longest_expected.get(key, 0) or 0) != longest.get(key, 0):
+                    raise SystemExit(
+                        f"{latest_path}: guard overall streak longest {key} mismatch (latest={longest_expected.get(key)}, expected={longest.get(key)})"
+                    )
             # Delta check vs previous window when available
             if prev_subset and guard_delta:
                 delta_expected = guard_delta.get(name) or {}
@@ -405,17 +519,18 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
                             raise SystemExit(
                                 f"{latest_path}: guard delta percent mismatch for {name}/{pct_key} (latest={latest_pct}, hist_delta_pct={recomputed_pct})"
                             )
-        # Overall check (counts and pct)
-        total_all = totals_guard["ok"] + totals_guard["fail"] + totals_guard["unknown"]
+        # Overall check (row-level aggregation)
+        aggregate_counts = Counter(aggregate_states)
+        total_all = sum(aggregate_counts.values())
         if guard_overall:
             if int(guard_overall.get("window", window_len) or 0) != window_len:
                 raise SystemExit(
                     f"{latest_path}: guard overall window mismatch (latest={guard_overall.get('window')}, expected={window_len})"
                 )
             for key in ("ok", "fail", "unknown"):
-                if int(guard_overall.get(key, 0) or 0) != totals_guard.get(key, 0):
+                if int(guard_overall.get(key, 0) or 0) != aggregate_counts.get(key, 0):
                     raise SystemExit(
-                        f"{latest_path}: guard overall mismatch for {key} (latest={guard_overall.get(key)}, hist={totals_guard.get(key)})"
+                        f"{latest_path}: guard overall mismatch for {key} (latest={guard_overall.get(key)}, hist={aggregate_counts.get(key)})"
                     )
             if int(guard_overall.get("total", 0) or 0) != total_all:
                 raise SystemExit(
@@ -424,7 +539,7 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
             pct_sum_overall = 0.0
             for pct_key, num_key in (("ok_pct", "ok"), ("fail_pct", "fail"), ("unknown_pct", "unknown")):
                 latest_pct = float(guard_overall.get(pct_key, 0) or 0)
-                recomputed_pct = round((totals_guard.get(num_key, 0) / total_all * 100) if total_all else 0.0, 1)
+                recomputed_pct = round((aggregate_counts.get(num_key, 0) / total_all * 100) if total_all else 0.0, 1)
                 pct_sum_overall += latest_pct
                 if abs(latest_pct - recomputed_pct) > 0.05:
                     raise SystemExit(
@@ -432,16 +547,16 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
                     )
             if pct_sum_overall > 100.2 or pct_sum_overall < 99.8:
                 raise SystemExit(f"{latest_path}: guard overall percentages do not sum to 100 (got {pct_sum_overall})")
-        # Delta overall check
+        # Delta overall check (row-level aggregation)
         if guard_delta_overall and prev_subset:
-            prev_total_all = sum(sum(prev_counts[name].values()) for name in prev_counts) or 1
-            # Recompute delta totals to avoid drift if loop skipped entries
-            delta_totals = {"ok": 0, "fail": 0, "unknown": 0}
-            for name in guard_fields:
-                delta_totals["ok"] += (recomputed[name].get("ok", 0) - prev_counts.get(name, {}).get("ok", 0))
-                delta_totals["fail"] += (recomputed[name].get("fail", 0) - prev_counts.get(name, {}).get("fail", 0))
-                delta_totals["unknown"] += (recomputed[name].get("unknown", 0) - prev_counts.get(name, {}).get("unknown", 0))
-            delta_total_all = delta_totals["ok"] + delta_totals["fail"] + delta_totals["unknown"]
+            prev_counts_agg = Counter(prev_aggregate_states)
+            delta_totals = {
+                "ok": aggregate_counts.get("ok", 0) - prev_counts_agg.get("ok", 0),
+                "fail": aggregate_counts.get("fail", 0) - prev_counts_agg.get("fail", 0),
+                "unknown": aggregate_counts.get("unknown", 0) - prev_counts_agg.get("unknown", 0),
+            }
+            delta_total_all = sum(delta_totals.values())
+            prev_total_all = sum(prev_counts_agg.values()) or 1
             if int(guard_delta_overall.get("window", window_len) or 0) != window_len:
                 raise SystemExit(
                     f"{latest_path}: guard delta overall window mismatch (latest={guard_delta_overall.get('window')}, expected={window_len})"
@@ -476,9 +591,17 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
             with guard_summary_csv.open(newline="") as f:
                 csv_rows = list(csv.DictReader(f))
             csv_counts = {}
+            csv_overall_streak = None
+            csv_overall_counts = None
             for r in csv_rows:
                 name = r.get("guard")
                 if not name:
+                    continue
+                if name == "__overall_streak":
+                    csv_overall_streak = r
+                    continue
+                if name == "__overall":
+                    csv_overall_counts = r
                     continue
                 window_csv = int(r.get("window", 0) or 0)
                 csv_counts[name] = {
@@ -566,6 +689,106 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
                             raise SystemExit(
                                 f"{guard_summary_csv}: delta percent mismatch for {name}/{pct_key} (csv={expected.get(pct_key)}, hist_delta_pct={recomputed_pct})"
                             )
+            if csv_overall_streak:
+                # Validate aggregate streak row
+                current_res = None
+                current_len = 0
+                for val in reversed(aggregate_states):
+                    if current_res is None:
+                        current_res = val
+                        current_len = 1
+                    elif val == current_res:
+                        current_len += 1
+                    else:
+                        break
+                running = {"ok": 0, "fail": 0, "unknown": 0}
+                longest = {"ok": 0, "fail": 0, "unknown": 0}
+                for val in aggregate_states:
+                    for k in running:
+                        running[k] = running[k] + 1 if k == val else 0
+                        longest[k] = max(longest[k], running[k])
+                if int(csv_overall_streak.get("window", 0) or 0) != window_len:
+                    raise SystemExit(
+                        f"{guard_summary_csv}: overall streak window mismatch (csv={csv_overall_streak.get('window')}, expected={window_len})"
+                    )
+                if (csv_overall_streak.get("current_result") or "unknown").lower() != (current_res or "unknown"):
+                    raise SystemExit(
+                        f"{guard_summary_csv}: overall streak current result mismatch (csv={csv_overall_streak.get('current_result')}, expected={current_res})"
+                    )
+                if int(csv_overall_streak.get("current_len", 0) or 0) != current_len:
+                    raise SystemExit(
+                        f"{guard_summary_csv}: overall streak current length mismatch (csv={csv_overall_streak.get('current_len')}, expected={current_len})"
+                    )
+                for key, csv_key in (("ok", "longest_ok"), ("fail", "longest_fail"), ("unknown", "longest_unknown")):
+                    if int(csv_overall_streak.get(csv_key, 0) or 0) != longest.get(key, 0):
+                        raise SystemExit(
+                            f"{guard_summary_csv}: overall streak longest {key} mismatch (csv={csv_overall_streak.get(csv_key)}, expected={longest.get(key,0)})"
+                        )
+                agg_counts = Counter(aggregate_states)
+                for key in ("ok", "fail", "unknown"):
+                    if int(csv_overall_streak.get(key, 0) or 0) != agg_counts.get(key, 0):
+                        raise SystemExit(
+                            f"{guard_summary_csv}: overall streak counts mismatch for {key} (csv={csv_overall_streak.get(key)}, expected={agg_counts.get(key,0)})"
+                        )
+                if prev_aggregate_states:
+                    prev_counts_agg = Counter(prev_aggregate_states)
+                    prev_total = sum(prev_counts_agg.values()) or 1
+                    for key, csv_key in (("ok", "delta_ok"), ("fail", "delta_fail"), ("unknown", "delta_unknown")):
+                        expected_delta = agg_counts.get(key, 0) - prev_counts_agg.get(key, 0)
+                        if int(csv_overall_streak.get(csv_key, 0) or 0) != expected_delta:
+                            raise SystemExit(
+                                f"{guard_summary_csv}: overall streak delta {key} mismatch (csv={csv_overall_streak.get(csv_key)}, expected={expected_delta})"
+                            )
+                    for pct_key, num_key in (("delta_ok_pct", "delta_ok"), ("delta_fail_pct", "delta_fail"), ("delta_unknown_pct", "delta_unknown")):
+                        csv_val = float(csv_overall_streak.get(pct_key, 0) or 0)
+                        expected_pct = round((float(csv_overall_streak.get(num_key, 0) or 0) / prev_total * 100), 1)
+                        if abs(csv_val - expected_pct) > 0.05:
+                            raise SystemExit(
+                                f"{guard_summary_csv}: overall streak delta percent mismatch for {pct_key} (csv={csv_val}, expected={expected_pct})"
+                            )
+                    if int(csv_overall_streak.get("delta_window", 0) or 0) != len(prev_subset):
+                        raise SystemExit(
+                            f"{guard_summary_csv}: overall streak delta window mismatch (csv={csv_overall_streak.get('delta_window')}, expected={len(prev_subset)})"
+                        )
+            if csv_overall_counts:
+                agg_counts = Counter(aggregate_states)
+                if int(csv_overall_counts.get("window", 0) or 0) != window_len:
+                    raise SystemExit(
+                        f"{guard_summary_csv}: overall window mismatch (csv={csv_overall_counts.get('window')}, expected={window_len})"
+                    )
+                for key in ("ok", "fail", "unknown"):
+                    if int(csv_overall_counts.get(key, 0) or 0) != agg_counts.get(key, 0):
+                        raise SystemExit(
+                            f"{guard_summary_csv}: overall count mismatch for {key} (csv={csv_overall_counts.get(key)}, expected={agg_counts.get(key,0)})"
+                        )
+                total_agg = sum(agg_counts.values())
+                for pct_key, num_key in (("ok_pct", "ok"), ("fail_pct", "fail"), ("unknown_pct", "unknown")):
+                    csv_val = float(csv_overall_counts.get(pct_key, 0) or 0)
+                    expected_pct = round((agg_counts.get(num_key, 0) / total_agg * 100) if total_agg else 0.0, 1)
+                    if abs(csv_val - expected_pct) > 0.05:
+                        raise SystemExit(
+                            f"{guard_summary_csv}: overall percent mismatch for {pct_key} (csv={csv_val}, expected={expected_pct})"
+                        )
+                if prev_aggregate_states:
+                    prev_counts_agg = Counter(prev_aggregate_states)
+                    prev_total = sum(prev_counts_agg.values()) or 1
+                    for key, csv_key in (("ok", "delta_ok"), ("fail", "delta_fail"), ("unknown", "delta_unknown")):
+                        expected_delta = agg_counts.get(key, 0) - prev_counts_agg.get(key, 0)
+                        if int(csv_overall_counts.get(csv_key, 0) or 0) != expected_delta:
+                            raise SystemExit(
+                                f"{guard_summary_csv}: overall delta mismatch for {key} (csv={csv_overall_counts.get(csv_key)}, expected={expected_delta})"
+                            )
+                    for pct_key, num_key in (("delta_ok_pct", "delta_ok"), ("delta_fail_pct", "delta_fail"), ("delta_unknown_pct", "delta_unknown")):
+                        csv_val = float(csv_overall_counts.get(pct_key, 0) or 0)
+                        expected_pct = round((float(csv_overall_counts.get(num_key, 0) or 0) / prev_total * 100), 1)
+                        if abs(csv_val - expected_pct) > 0.05:
+                            raise SystemExit(
+                                f"{guard_summary_csv}: overall delta percent mismatch for {pct_key} (csv={csv_val}, expected={expected_pct})"
+                            )
+                    if int(csv_overall_counts.get("delta_window", 0) or 0) != len(prev_aggregate_states):
+                        raise SystemExit(
+                            f"{guard_summary_csv}: overall delta window mismatch (csv={csv_overall_counts.get('delta_window')}, expected={len(prev_aggregate_states)})"
+                        )
         # Validate guard_summary JSON file for consistency (counts/pct/delta windows)
         guard_summary_json_path = reports_dir / "log_metrics_guard_summary.json"
         if guard_summary_json_path.exists():
@@ -621,26 +844,181 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
                             raise SystemExit(
                                 f"{guard_summary_json_path}: delta percent mismatch for {name}/{pct_key} (json={latest_pct}, hist_delta_pct={recomputed_pct})"
                             )
-                if expected.get("streak"):
-                    streak = expected.get("streak") or {}
-                    current = streak.get("current", {})
-                    longest = streak.get("longest", {})
-                    streak_calc = recomputed_streaks.get(name) or {}
-                    current_calc = streak_calc.get("current", {})
-                    longest_calc = streak_calc.get("longest", {})
-                    if (current.get("result") or "unknown").lower() != (current_calc.get("result") or "unknown"):
+            overall_streak_json = guard_json.get("overall_streak") or {}
+            if overall_streak_json:
+                current_res = None
+                current_len = 0
+                for val in reversed(aggregate_states):
+                    if current_res is None:
+                        current_res = val
+                        current_len = 1
+                    elif val == current_res:
+                        current_len += 1
+                    else:
+                        break
+                running = {"ok": 0, "fail": 0, "unknown": 0}
+                longest = {"ok": 0, "fail": 0, "unknown": 0}
+                for val in aggregate_states:
+                    for k in running:
+                        running[k] = running[k] + 1 if k == val else 0
+                        longest[k] = max(longest[k], running[k])
+                if int(overall_streak_json.get("window", window_len) or 0) != window_len:
+                    raise SystemExit(
+                        f"{guard_summary_json_path}: overall streak window mismatch (json={overall_streak_json.get('window')}, expected={window_len})"
+                    )
+                if (overall_streak_json.get("current", {}) or {}).get("result", "unknown").lower() != (current_res or "unknown"):
+                    raise SystemExit(
+                        f"{guard_summary_json_path}: overall streak current result mismatch (json={overall_streak_json.get('current',{}).get('result')}, expected={current_res})"
+                    )
+                if int((overall_streak_json.get("current", {}) or {}).get("length", 0) or 0) != current_len:
+                    raise SystemExit(
+                        f"{guard_summary_json_path}: overall streak current length mismatch (json={overall_streak_json.get('current',{}).get('length')}, expected={current_len})"
+                    )
+                for key in ("ok", "fail", "unknown"):
+                    if int((overall_streak_json.get("longest", {}) or {}).get(key, 0) or 0) != longest.get(key, 0):
                         raise SystemExit(
-                            f"{guard_summary_json_path}: streak current result mismatch for {name} (json={current.get('result')}, expected={current_calc.get('result')})"
+                            f"{guard_summary_json_path}: overall streak longest {key} mismatch (json={overall_streak_json.get('longest',{}).get(key)}, expected={longest.get(key)})"
                         )
-                    if int(current.get("length", 0) or 0) != current_calc.get("length", 0):
+            overall_json = guard_json.get("overall") or {}
+            if overall_json:
+                aggregate_counts = Counter(aggregate_states)
+                if int(overall_json.get("window", window_len) or 0) != window_len:
+                    raise SystemExit(
+                        f"{guard_summary_json_path}: overall window mismatch (json={overall_json.get('window')}, expected={window_len})"
+                    )
+                for key in ("ok", "fail", "unknown"):
+                    if int(overall_json.get(key, 0) or 0) != aggregate_counts.get(key, 0):
                         raise SystemExit(
-                            f"{guard_summary_json_path}: streak current length mismatch for {name} (json={current.get('length')}, expected={current_calc.get('length')})"
+                            f"{guard_summary_json_path}: overall count mismatch for {key} (json={overall_json.get(key)}, expected={aggregate_counts.get(key,0)})"
                         )
-                    for key, calc_key in (("ok", "ok"), ("fail", "fail"), ("unknown", "unknown")):
-                        if int(longest.get(key, 0) or 0) != longest_calc.get(calc_key, 0):
+                total_overall = sum(aggregate_counts.values())
+                for pct_key, num_key in (("ok_pct", "ok"), ("fail_pct", "fail"), ("unknown_pct", "unknown")):
+                    latest_pct = float(overall_json.get(pct_key, 0) or 0)
+                    recomputed_pct = round((aggregate_counts.get(num_key, 0) / total_overall * 100) if total_overall else 0.0, 1)
+                    if abs(latest_pct - recomputed_pct) > 0.05:
+                        raise SystemExit(
+                            f"{guard_summary_json_path}: overall percent mismatch for {pct_key} (json={latest_pct}, expected={recomputed_pct})"
+                        )
+                if prev_aggregate_states:
+                    delta_obj = overall_json.get("delta") or {}
+                    prev_counts_agg = Counter(prev_aggregate_states)
+                    if int(delta_obj.get("delta_window", len(prev_aggregate_states)) or 0) != len(prev_aggregate_states):
+                        raise SystemExit(
+                            f"{guard_summary_json_path}: overall delta_window mismatch (json={delta_obj.get('delta_window')}, expected={len(prev_aggregate_states)})"
+                        )
+                    if int(delta_obj.get("window", window_len) or 0) != window_len:
+                        raise SystemExit(
+                            f"{guard_summary_json_path}: overall delta current window mismatch (json={delta_obj.get('window')}, expected={window_len})"
+                        )
+                    prev_total = sum(prev_counts_agg.values()) or 1
+                    for key in ("ok", "fail", "unknown"):
+                        expected_delta = aggregate_counts.get(key, 0) - prev_counts_agg.get(key, 0)
+                        if int(delta_obj.get(key, 0) or 0) != expected_delta:
                             raise SystemExit(
-                                f"{guard_summary_json_path}: streak longest {key} mismatch for {name} (json={longest.get(key)}, expected={longest_calc.get(calc_key,0)})"
+                                f"{guard_summary_json_path}: overall delta mismatch for {key} (json={delta_obj.get(key)}, expected={expected_delta})"
                             )
+                    for pct_key, num_key in (("ok_pct", "ok"), ("fail_pct", "fail"), ("unknown_pct", "unknown")):
+                        latest_pct = float(delta_obj.get(pct_key, 0) or 0)
+                        recomputed_pct = round((delta_obj.get(num_key, 0) / prev_total * 100), 1)
+                        if abs(latest_pct - recomputed_pct) > 0.05:
+                            raise SystemExit(
+                                f"{guard_summary_json_path}: overall delta percent mismatch for {pct_key} (json={latest_pct}, expected={recomputed_pct})"
+                            )
+            if expected.get("streak"):
+                streak = expected.get("streak") or {}
+                current = streak.get("current", {})
+                longest = streak.get("longest", {})
+                streak_calc = recomputed_streaks.get(name) or {}
+                current_calc = streak_calc.get("current", {})
+                longest_calc = streak_calc.get("longest", {})
+                if (current.get("result") or "unknown").lower() != (current_calc.get("result") or "unknown"):
+                    raise SystemExit(
+                        f"{guard_summary_json_path}: streak current result mismatch for {name} (json={current.get('result')}, expected={current_calc.get('result')})"
+                    )
+                if int(current.get("length", 0) or 0) != current_calc.get("length", 0):
+                    raise SystemExit(
+                        f"{guard_summary_json_path}: streak current length mismatch for {name} (json={current.get('length')}, expected={current_calc.get('length')})"
+                    )
+                for key, calc_key in (("ok", "ok"), ("fail", "fail"), ("unknown", "unknown")):
+                    if int(longest.get(key, 0) or 0) != longest_calc.get(calc_key, 0):
+                        raise SystemExit(
+                            f"{guard_summary_json_path}: streak longest {key} mismatch for {name} (json={longest.get(key)}, expected={longest_calc.get(calc_key,0)})"
+                        )
+
+        # Cross-check latest guard sections vs guard_summary JSON
+        latest_guard_summary = data.get("badge_guard_summary") or {}
+        latest_guard_streaks = data.get("badge_guard_streaks") or {}
+        latest_guard_overall = data.get("badge_guard_overall") or {}
+        latest_guard_overall_streak = data.get("badge_guard_overall_streak") or {}
+        tol = 0.05
+        overall_json = guard_json.get("overall") or {}
+        if overall_json and latest_guard_overall:
+            for key in ("ok", "fail", "unknown", "total", "window"):
+                if int(latest_guard_overall.get(key, 0) or 0) != int(overall_json.get(key, 0) or 0):
+                    raise SystemExit(
+                        f"{latest_path}: guard overall mismatch vs guard_summary for {key} (latest={latest_guard_overall.get(key)}, summary={overall_json.get(key)})"
+                    )
+            for pct_key in ("ok_pct", "fail_pct", "unknown_pct"):
+                if abs(float(latest_guard_overall.get(pct_key, 0) or 0.0) - float(overall_json.get(pct_key, 0) or 0.0)) > tol:
+                    raise SystemExit(
+                        f"{latest_path}: guard overall percent mismatch vs guard_summary for {pct_key} (latest={latest_guard_overall.get(pct_key)}, summary={overall_json.get(pct_key)})"
+                    )
+        overall_streak_json = guard_json.get("overall_streak") or {}
+        if overall_streak_json and latest_guard_overall_streak:
+            if (overall_streak_json.get("current", {}) or {}).get("result", "unknown").lower() != (latest_guard_overall_streak.get("current", {}) or {}).get("result", "unknown").lower():
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak current result mismatch vs guard_summary (latest={latest_guard_overall_streak.get('current',{}).get('result')}, summary={overall_streak_json.get('current',{}).get('result')})"
+                )
+            if int((overall_streak_json.get("current", {}) or {}).get("length", 0) or 0) != int((latest_guard_overall_streak.get("current", {}) or {}).get("length", 0) or 0):
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak current length mismatch vs guard_summary (latest={latest_guard_overall_streak.get('current',{}).get('length')}, summary={overall_streak_json.get('current',{}).get('length')})"
+                )
+            for key in ("ok", "fail", "unknown"):
+                if int((overall_streak_json.get("longest", {}) or {}).get(key, 0) or 0) != int((latest_guard_overall_streak.get("longest", {}) or {}).get(key, 0) or 0):
+                    raise SystemExit(
+                        f"{latest_path}: guard overall streak longest {key} mismatch vs guard_summary (latest={latest_guard_overall_streak.get('longest',{}).get(key)}, summary={overall_streak_json.get('longest',{}).get(key)})"
+                    )
+            if int(overall_streak_json.get("window", 0) or 0) != int(latest_guard_overall_streak.get("window", 0) or 0):
+                raise SystemExit(
+                    f"{latest_path}: guard overall streak window mismatch vs guard_summary (latest={latest_guard_overall_streak.get('window')}, summary={overall_streak_json.get('window')})"
+                )
+        for name, expected in guard_json.items():
+            if name in ("overall", "overall_streak"):
+                continue
+            if not isinstance(expected, dict):
+                continue
+            actual = latest_guard_summary.get(name)
+            if actual:
+                for key in ("ok", "fail", "unknown", "total", "window"):
+                    if int(actual.get(key, 0) or 0) != int(expected.get(key, 0) or 0):
+                        raise SystemExit(
+                            f"{latest_path}: guard {name} mismatch vs guard_summary for {key} (latest={actual.get(key)}, summary={expected.get(key)})"
+                        )
+                for pct_key in ("ok_pct", "fail_pct", "unknown_pct"):
+                    if abs(float(actual.get(pct_key, 0) or 0.0) - float(expected.get(pct_key, 0) or 0.0)) > tol:
+                        raise SystemExit(
+                            f"{latest_path}: guard {name} percent mismatch vs guard_summary for {pct_key} (latest={actual.get(pct_key)}, summary={expected.get(pct_key)})"
+                        )
+            streak_expected = expected.get("streak")
+            if streak_expected:
+                streak_actual = latest_guard_streaks.get(name) or {}
+                if (streak_actual.get("current", {}) or {}).get("result", "unknown").lower() != (streak_expected.get("current", {}) or {}).get("result", "unknown").lower():
+                    raise SystemExit(
+                        f"{latest_path}: guard {name} streak current result mismatch vs guard_summary (latest={streak_actual.get('current',{}).get('result')}, summary={streak_expected.get('current',{}).get('result')})"
+                    )
+                if int((streak_actual.get("current", {}) or {}).get("length", 0) or 0) != int((streak_expected.get("current", {}) or {}).get("length", 0) or 0):
+                    raise SystemExit(
+                        f"{latest_path}: guard {name} streak current length mismatch vs guard_summary (latest={streak_actual.get('current',{}).get('length')}, summary={streak_expected.get('current',{}).get('length')})"
+                    )
+                for key in ("ok", "fail", "unknown"):
+                    if int((streak_actual.get("longest", {}) or {}).get(key, 0) or 0) != int((streak_expected.get("longest", {}) or {}).get(key, 0) or 0):
+                        raise SystemExit(
+                            f"{latest_path}: guard {name} streak longest {key} mismatch vs guard_summary (latest={streak_actual.get('longest',{}).get(key)}, summary={streak_expected.get('longest',{}).get(key)})"
+                        )
+                if int(streak_actual.get("window", 0) or 0) != int(streak_expected.get("window", 0) or 0):
+                    raise SystemExit(
+                        f"{latest_path}: guard {name} streak window mismatch vs guard_summary (latest={streak_actual.get('window')}, summary={streak_expected.get('window')})"
+                    )
     # Badge state validation (if thresholds present)
     badge_thresholds = data.get("badge_thresholds") or {}
     badge_warn = float(badge_thresholds.get("warn", 50))
@@ -648,7 +1026,7 @@ def check_latest(latest_path: Path, csv_path: Path, reports_dir: Path):
     badge_state = data.get("badge_state")
     overloaded_ratio = float(totals.get("overloaded_ratio", 0) or 0)
     expected_state = "ok"
-    if len(anomalies) > 0 or overloaded_ratio >= badge_danger:
+    if len(flagged_anomalies) > 0 or overloaded_ratio >= badge_danger:
         expected_state = "alert"
     elif overloaded_ratio >= badge_warn:
         expected_state = "warn"
@@ -673,6 +1051,22 @@ def main():
         choices=["full", "standard", "minimal"],
         default="full",
         help="Validation strictness: full (tout), standard (sans exigence HTML optionnelle), minimal (pas d'HTML portail/trend/stats/summary/anomalies/index/overview).",
+    )
+    parser.add_argument(
+        "--sitemap-optional",
+        default="compare_md,compare_html,checksums_guard",
+        help="Comma-separated optional artifacts ignored for sitemap totals/missing checks (default: compare_md,compare_html,checksums_guard)",
+    )
+    parser.add_argument(
+        "--no-snapshot-check",
+        action="store_true",
+        help="Skip deep snapshot consistency check (CSV vs JSON, totals/ratios).",
+    )
+    parser.add_argument(
+        "--snapshot-tolerance",
+        type=float,
+        default=1e-6,
+        help="Numeric tolerance for snapshot consistency checks (default: 1e-6).",
     )
     args = parser.parse_args()
 
@@ -708,6 +1102,12 @@ def main():
         "Latest JSON": reports_dir / "log_metrics_latest.json",
         "Latest HTML": reports_dir / "log_metrics_latest.html",
         "Latest MD": reports_dir / "log_metrics_latest.md",
+        "Run summary": reports_dir / "log_metrics_run_summary.json",
+        "Run summary md": reports_dir / "log_metrics_run_summary.md",
+        "Run summary html": reports_dir / "log_metrics_run_summary.html",
+        "Sitemap": reports_dir / "log_metrics_sitemap.md",
+        "Sitemap html": reports_dir / "log_metrics_sitemap.html",
+        "Sitemap json": reports_dir / "log_metrics_sitemap.json",
         "Badge history": reports_dir / "log_metrics_badge_history.csv",
         "Badge": reports_dir / "log_metrics_badge.svg",
         "Badge history md": reports_dir / "log_metrics_badge_history.md",
@@ -741,6 +1141,11 @@ def main():
             "Overview HTML",
             "Latest HTML",
             "Latest MD",
+            "Run summary md",
+            "Run summary html",
+            "Sitemap",
+            "Sitemap html",
+            "Sitemap json",
             "Bundle",
             "Badge history",
             "Badge",
@@ -776,6 +1181,29 @@ def main():
 
     check_csv(required["CSV"])
     check_json(required["JSON"])
+    if not args.no_snapshot_check:
+        checker = Path(__file__).resolve().parent / "logs_metrics_snapshot_check.py"
+        if checker.exists():
+            import subprocess
+
+            res = subprocess.run(
+                [
+                    "python3",
+                    str(checker),
+                    "--reports",
+                    str(reports_dir),
+                    "--suffix",
+                    args.suffix,
+                    "--tolerance",
+                    str(args.snapshot_tolerance),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            if res.returncode != 0:
+                raise SystemExit(res.stderr or res.stdout or "snapshot consistency failed")
+        else:
+            raise SystemExit(f"{checker} not found for snapshot consistency check")
     # JSONL: just ensure non-empty
     jsonl_path = required["JSONL"]
     if jsonl_path.stat().st_size == 0:
@@ -805,9 +1233,52 @@ def main():
     if "Latest MD" in required and required["Latest MD"].exists():
         if "# Latest Metrics Summary" not in required["Latest MD"].read_text():
             raise SystemExit(f"{required['Latest MD']}: missing latest Markdown header")
-    if "Badge" in required and required["Badge"].exists():
-        if "<svg" not in required["Badge"].read_text():
-            raise SystemExit(f"{required['Badge']}: missing SVG content")
+    if "Run summary md" in required and required["Run summary md"].exists():
+        if "# Run Summary" not in required["Run summary md"].read_text():
+            raise SystemExit(f"{required['Run summary md']}: missing header")
+    if "Run summary html" in required and required["Run summary html"].exists():
+        if "<h1>Run Summary</h1>" not in required["Run summary html"].read_text():
+            raise SystemExit(f"{required['Run summary html']}: missing title")
+    if "Sitemap" in required and required["Sitemap"].exists():
+        if "# Metrics Sitemap" not in required["Sitemap"].read_text():
+            raise SystemExit(f"{required['Sitemap']}: missing sitemap header")
+    if "Sitemap html" in required and required["Sitemap html"].exists():
+        if "<h1>Metrics Sitemap</h1>" not in required["Sitemap html"].read_text():
+            raise SystemExit(f"{required['Sitemap html']}: missing sitemap title")
+    if "Sitemap json" in required and required["Sitemap json"].exists():
+        try:
+            import json as _json
+
+            data = _json.loads(required["Sitemap json"].read_text())
+            summary = data.get("summary") or {}
+            if not {"artifacts", "present", "missing", "total_size_bytes"} <= summary.keys():
+                raise SystemExit(f"{required['Sitemap json']}: missing summary fields")
+            optional = set(filter(None, [p.strip() for p in args.sitemap_optional.split(",")]))
+            manifest_json = reports_dir / "log_metrics_manifest.json"
+            if manifest_json.exists():
+                manifest_data = _json.loads(manifest_json.read_text())
+                manifest_paths = manifest_data.get("paths", {}) or {}
+                required_paths = {name: entry for name, entry in manifest_paths.items() if name not in optional}
+                manifest_artifacts = len(required_paths)
+                manifest_present = sum(1 for entry in required_paths.values() if entry.get("exists"))
+                manifest_total_size = sum(int(entry.get("size", 0) or 0) for entry in required_paths.values())
+                manifest_missing = max(manifest_artifacts - manifest_present, 0)
+                if (
+                    summary.get("artifacts") != manifest_artifacts
+                    or summary.get("present") != manifest_present
+                    or summary.get("missing") != manifest_missing
+                    or summary.get("total_size_bytes") != manifest_total_size
+                ):
+                    raise SystemExit(
+                        f"{required['Sitemap json']}: summary mismatch vs manifest (artifacts={manifest_artifacts}, present={manifest_present}, missing={manifest_missing}, size={manifest_total_size})"
+                    )
+        except SystemExit:
+            raise
+        except Exception as exc:
+            print(f"[warn] sitemap json validation skipped: {exc}")
+        if "Badge" in required and required["Badge"].exists():
+            if "<svg" not in required["Badge"].read_text():
+                raise SystemExit(f"{required['Badge']}: missing SVG content")
     if "Badge history" in required and required["Badge history"].exists():
         with required["Badge history"].open() as f:
             lines = [line.strip() for line in f.readlines() if line.strip()]
@@ -837,9 +1308,34 @@ def main():
     if manifest.exists():
         import json
         data = json.loads(manifest.read_text())
-        c_entry = data.get("paths", {}).get("checksums")
+        paths = data.get("paths", {}) or {}
+        optional = set(filter(None, [p.strip() for p in args.sitemap_optional.split(",")]))
+        c_entry = paths.get("checksums")
         if not c_entry or not c_entry.get("exists"):
             raise SystemExit(f"{manifest}: manifest missing checksums entry")
+        # Cross-check sitemap JSON summary against manifest
+        sitemap_json = reports_dir / "log_metrics_sitemap.json"
+        if sitemap_json.exists():
+            try:
+                sitemap_data = json.loads(sitemap_json.read_text())
+                summary = sitemap_data.get("summary") or {}
+                manifest_artifacts = sum(1 for name in paths if name not in optional)
+                manifest_present = sum(1 for name, entry in paths.items() if name not in optional and entry.get("exists"))
+                manifest_total_size = sum(int(entry.get("size") or 0) for name, entry in paths.items() if name not in optional)
+                manifest_missing = max(manifest_artifacts - manifest_present, 0)
+                if (
+                    summary.get("artifacts") != manifest_artifacts
+                    or summary.get("present") != manifest_present
+                    or summary.get("missing") != manifest_missing
+                    or summary.get("total_size_bytes") != manifest_total_size
+                    or (summary.get("missing_paths") and any(name in optional for name in summary.get("missing_paths", [])))
+                ):
+                    raise SystemExit(
+                        f"{sitemap_json}: summary mismatch (manifest artifacts={manifest_artifacts}, present={manifest_present}, "
+                        f"missing={manifest_missing}, size={manifest_total_size})"
+                    )
+            except Exception as exc:
+                raise SystemExit(f"{sitemap_json}: invalid JSON ({exc})")
     compare_html = reports_dir / "log_metrics_compare.html"
     if compare_html.exists():
         if "Log Metrics Diff" not in compare_html.read_text():

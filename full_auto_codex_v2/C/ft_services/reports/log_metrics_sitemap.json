@@ -1,0 +1,348 @@
+{
+  "generated": "2025-12-26T07:58:08Z",
+  "reports": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports",
+  "manifest": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_manifest.json",
+  "summary": {
+    "artifacts": 44,
+    "present": 44,
+    "missing": 0,
+    "total_size_bytes": 235447,
+    "missing_paths": [],
+    "optional_artifacts": [
+      "checksums_guard",
+      "compare_html",
+      "compare_md"
+    ]
+  },
+  "artifacts": [
+    {
+      "name": "anomalies_html",
+      "path": "log_metrics_anomalies.html",
+      "exists": true,
+      "size": 1086,
+      "sha256": "c2a8ea2d8f43ec41f3df8e3974edf4107751cb2ab7d830fa9f211665482805fe"
+    },
+    {
+      "name": "anomalies_json",
+      "path": "log_metrics_anomalies.json",
+      "exists": true,
+      "size": 508,
+      "sha256": "de36bc20e39753b4018362b9ff75914597433db880eaa2c332b8660964fab2ba"
+    },
+    {
+      "name": "anomalies_md",
+      "path": "log_metrics_anomalies.md",
+      "exists": true,
+      "size": 454,
+      "sha256": "47f0c0d0990a9fa1968b685b3ec2614650b8d3423d009a68b89bd244009c2822"
+    },
+    {
+      "name": "badge_history",
+      "path": "log_metrics_badge_history.csv",
+      "exists": true,
+      "size": 9124,
+      "sha256": "b09e9a65c61096aa448945e1293bf215bd69c82d0c611baba31f69f064f203d3"
+    },
+    {
+      "name": "badge_history_html",
+      "path": "log_metrics_badge_history.html",
+      "exists": true,
+      "size": 7937,
+      "sha256": "f9a570928eba77cfb70665cac0d7cd900dee127900fc2f97c5e1169f5cde1033"
+    },
+    {
+      "name": "badge_history_md",
+      "path": "log_metrics_badge_history.md",
+      "exists": true,
+      "size": 2927,
+      "sha256": "f730f78f28d3eb03fec8942a2d6c60bcef8929c0df189d0f9d513b1887e36971"
+    },
+    {
+      "name": "badge_svg",
+      "path": "log_metrics_badge.svg",
+      "exists": true,
+      "size": 961,
+      "sha256": "8c390b5a81ba66ff36bc4924649cf9a1ef2637fb318407958622483c6b190d77"
+    },
+    {
+      "name": "bundle",
+      "path": "log_metrics_bundle.tar.gz",
+      "exists": true,
+      "size": 30685,
+      "sha256": "882743cca81a1931e9f28479ef629628cf7e76180ad725a500d1cc13e94f8bc4"
+    },
+    {
+      "name": "checksums",
+      "path": "log_metrics_checksums.txt",
+      "exists": true,
+      "size": 4034,
+      "sha256": ""
+    },
+    {
+      "name": "checksums_guard",
+      "path": "checksums_guard",
+      "exists": false,
+      "size": 0,
+      "sha256": ""
+    },
+    {
+      "name": "compare_html",
+      "path": "compare_html",
+      "exists": false,
+      "size": 0,
+      "sha256": ""
+    },
+    {
+      "name": "compare_md",
+      "path": "log_metrics_compare.md",
+      "exists": true,
+      "size": 664,
+      "sha256": "0116943cd5ee70474fb79c0b7707100619a6042d1a7b98a6ca217d9aac51dac3"
+    },
+    {
+      "name": "csv",
+      "path": "log_metrics_snapshot.status_top2.csv",
+      "exists": true,
+      "size": 251,
+      "sha256": "46ebf8643bb585ffb016fbd6a798c8559a032df192e54f8bf06bc112c464f102"
+    },
+    {
+      "name": "guard_summary_csv",
+      "path": "log_metrics_guard_summary.csv",
+      "exists": true,
+      "size": 602,
+      "sha256": "72e4bb702fea178fb1adf16ed9c7a4b92bb4aefd88126374bebfb0e4ec02cad7"
+    },
+    {
+      "name": "guard_summary_html",
+      "path": "log_metrics_guard_summary.html",
+      "exists": true,
+      "size": 2631,
+      "sha256": "9c313dc1469744f5c3fa69bea67f16bd4334704cb08914047caaa075d73ce83f"
+    },
+    {
+      "name": "guard_summary_json",
+      "path": "log_metrics_guard_summary.json",
+      "exists": true,
+      "size": 2239,
+      "sha256": "ee7e33c5aa4d7ad24f9104ca1da4d0dc74b4a49256c7873f53b53af64aa87db8"
+    },
+    {
+      "name": "guard_summary_md",
+      "path": "log_metrics_guard_summary.md",
+      "exists": true,
+      "size": 1593,
+      "sha256": "f895c3c6adb71fe732bf50797ece26d96e58a4b0effc685497ed7e279b91daac"
+    },
+    {
+      "name": "guard_summary_streaks",
+      "path": "log_metrics_guard_summary.json",
+      "exists": true,
+      "size": 2239,
+      "sha256": "ee7e33c5aa4d7ad24f9104ca1da4d0dc74b4a49256c7873f53b53af64aa87db8"
+    },
+    {
+      "name": "history",
+      "path": "log_metrics_history.csv",
+      "exists": true,
+      "size": 895,
+      "sha256": "650707fae011b6f229b76eb3504b6c7b4a14d8fc9b237884518427b41dc59329"
+    },
+    {
+      "name": "html",
+      "path": "log_metrics_snapshot.status_top2.html",
+      "exists": true,
+      "size": 1118,
+      "sha256": "fcefd834f654b1ce965522e94b0b8bf5b8adf4f3a6e74c5faff39642020f89b1"
+    },
+    {
+      "name": "index_html",
+      "path": "index.html",
+      "exists": true,
+      "size": 10012,
+      "sha256": "ce2b28b8030d22ff76e9bf80e5e240766bd0d8044672a8ce5ebeac72277eb81a"
+    },
+    {
+      "name": "index_md",
+      "path": "index.md",
+      "exists": true,
+      "size": 6896,
+      "sha256": "2556c7e37002d41aefb64dc7673fe0f77708f29a4a8c9880d1634efea74a070f"
+    },
+    {
+      "name": "json",
+      "path": "log_metrics_snapshot.status_top2.json",
+      "exists": true,
+      "size": 369,
+      "sha256": "1ac996d2468ca148a9c77ff818d13405f9fc1f2237268fc5e034d426f9d2628c"
+    },
+    {
+      "name": "jsonl",
+      "path": "log_metrics_snapshot.status_top2.jsonl",
+      "exists": true,
+      "size": 398,
+      "sha256": "e78ab9eaf4ebebe501938c88a37ae0f9606731801107e31e50bb36dd19d32435"
+    },
+    {
+      "name": "latest_html",
+      "path": "log_metrics_latest.html",
+      "exists": true,
+      "size": 7610,
+      "sha256": "a041aaa4c6d7a4364c7fc2d9d3bb4ac42c2ab96406e5b4a8e690d770da9c69bf"
+    },
+    {
+      "name": "latest_json",
+      "path": "log_metrics_latest.json",
+      "exists": true,
+      "size": 6662,
+      "sha256": "4ba7f3797807a8ffbd7b0c5aea38cc601063ef075efc5c3be85e0324dc267091"
+    },
+    {
+      "name": "latest_md",
+      "path": "log_metrics_latest.md",
+      "exists": true,
+      "size": 4561,
+      "sha256": "d7c7638946f9327b569df94fcb7915fcb44622f0d26ba9743a2f3079f9a7d446"
+    },
+    {
+      "name": "manifest",
+      "path": "log_metrics_manifest.json",
+      "exists": true,
+      "size": 8935,
+      "sha256": ""
+    },
+    {
+      "name": "md",
+      "path": "log_metrics_snapshot.status_top2.md",
+      "exists": true,
+      "size": 518,
+      "sha256": "7daf51218959106145447fa18996c662aa0ae943254ca25d986163adb49c1df9"
+    },
+    {
+      "name": "overall_history",
+      "path": "log_metrics_overall_history.csv",
+      "exists": true,
+      "size": 2217,
+      "sha256": "a5c6cda7fbf2fe123824a9d41aef7f48e260472d5ec037d80b8085698c0b4e79"
+    },
+    {
+      "name": "overview",
+      "path": "log_metrics_overview.md",
+      "exists": true,
+      "size": 1320,
+      "sha256": "517da66769824763113a40a88682efc488f9872d782192a3a89e27de1430e449"
+    },
+    {
+      "name": "overview_html",
+      "path": "log_metrics_overview.html",
+      "exists": true,
+      "size": 3510,
+      "sha256": "749772e97c84db0ff6d2580ed0de3719b2db79df884f6b7acbb007fcc6f9d8fe"
+    },
+    {
+      "name": "overview_md",
+      "path": "log_metrics_overview.md",
+      "exists": true,
+      "size": 1320,
+      "sha256": "517da66769824763113a40a88682efc488f9872d782192a3a89e27de1430e449"
+    },
+    {
+      "name": "portal",
+      "path": "portal.html",
+      "exists": true,
+      "size": 74939,
+      "sha256": "02ff95ec5903cdb014aba1681a6c17ae711274bb03d63a5e9428b048a377341b"
+    },
+    {
+      "name": "run_summary",
+      "path": "log_metrics_run_summary.json",
+      "exists": true,
+      "size": 2399,
+      "sha256": "85454e6b8875c872c38cc08847a3f4ec967e9569c82ba82d9de1bf0f8a8fb4d4"
+    },
+    {
+      "name": "run_summary_html",
+      "path": "log_metrics_run_summary.html",
+      "exists": true,
+      "size": 3059,
+      "sha256": "b368c537c520e2b243f539878637a9d3c0477207d8855b606a7706c16d324aed"
+    },
+    {
+      "name": "run_summary_md",
+      "path": "log_metrics_run_summary.md",
+      "exists": true,
+      "size": 1910,
+      "sha256": "d1819d4750cb490bea64ebd387dfc3a89f537799e95e866b1096cd1f5243a426"
+    },
+    {
+      "name": "sitemap",
+      "path": "log_metrics_sitemap.md",
+      "exists": true,
+      "size": 4867,
+      "sha256": "176ea35330ba40257b4636de43bd83bc34e371245fda3aae1e148c594a45614c"
+    },
+    {
+      "name": "sitemap_html",
+      "path": "log_metrics_sitemap.html",
+      "exists": true,
+      "size": 7404,
+      "sha256": "b1945600f5e1a9e161ef5562134be24a9795de88cefe28cec4f0cf6e17a08a08"
+    },
+    {
+      "name": "sitemap_json",
+      "path": "log_metrics_sitemap.json",
+      "exists": true,
+      "size": 10126,
+      "sha256": "d58fa099de9edaa02143954a64072efc19113ca27a68f0b15c6d14f16f0be25a"
+    },
+    {
+      "name": "stats_html",
+      "path": "log_metrics_stats.html",
+      "exists": true,
+      "size": 915,
+      "sha256": "3709ad9d19de01cc2f6289824564d0529e403e2ebe4615a4d5b1796282b77dc4"
+    },
+    {
+      "name": "stats_md",
+      "path": "log_metrics_stats.md",
+      "exists": true,
+      "size": 273,
+      "sha256": "d306980a76d71e4c3e189c25f0575280284b2a7127abd1dcda031e846a001ab7"
+    },
+    {
+      "name": "status_badge",
+      "path": "log_metrics_status_badge.svg",
+      "exists": true,
+      "size": 1052,
+      "sha256": "6d665afa0a9a277387addaa28b9a621788b90810b6bea15be5c251a2b333ac8a"
+    },
+    {
+      "name": "status_json",
+      "path": "log_metrics_status.json",
+      "exists": true,
+      "size": 1082,
+      "sha256": "f0acd6ba57e8c8705bed2e3f4449a37da09bcb644c6092cc760f2e241db27067"
+    },
+    {
+      "name": "summary",
+      "path": "log_metrics_snapshot.status_top2.summary.md",
+      "exists": true,
+      "size": 327,
+      "sha256": "fecc1902c33d0253e4bbc7647e9d7467583769dcebfdde7d632fea82ed8ae6e7"
+    },
+    {
+      "name": "trend_html",
+      "path": "log_metrics_trend.html",
+      "exists": true,
+      "size": 2650,
+      "sha256": "eb5a92cb79d8aceb30254ad0e22d5dd43f3119b6ca5435f76f7b8015048016a9"
+    },
+    {
+      "name": "trend_md",
+      "path": "log_metrics_trend.md",
+      "exists": true,
+      "size": 832,
+      "sha256": "286a271ac574ddfe626365d14661a0a084d95e2822db9d36584750475c10f69b"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "generated_at": "2025-12-26T07:58:08Z",
+  "reports_dir": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports",
+  "suffix": "status_top2",
+  "badge_state": "ok",
+  "anomalies_count": 0,
+  "overloaded_ratio": 0.0,
+  "guard_check": "ok",
+  "checksums": "ok",
+  "compare": {
+    "status": "skipped",
+    "md": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_compare.md",
+    "html": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_compare.html"
+  },
+  "validation": {
+    "status": "skipped",
+    "mode": "full"
+  },
+  "latest_path": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_latest.json",
+  "manifest": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_manifest.json",
+  "manifest_summary": {
+    "status": "ok",
+    "total": 44,
+    "present": 44,
+    "missing_count": 0,
+    "optional_total": 3,
+    "optional_present": 1,
+    "optional_missing_count": 2,
+    "optional_coverage": 33.33,
+    "optional_skipped": [
+      "compare_html",
+      "checksums_guard"
+    ],
+    "size_bytes": 235734,
+    "missing_paths": []
+  },
+  "bundle": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_bundle.tar.gz",
+  "checksums_path": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_checksums.txt",
+  "portal": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/portal.html",
+  "index": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/index.md",
+  "sitemap": {
+    "status": "ok",
+    "json": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_sitemap.json",
+    "md": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_sitemap.md",
+    "html": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_sitemap.html"
+  },
+  "status_snapshot": {
+    "json": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_status.json",
+    "overall": "ok",
+    "badge": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_services/reports/log_metrics_status_badge.svg"
+  }
+}

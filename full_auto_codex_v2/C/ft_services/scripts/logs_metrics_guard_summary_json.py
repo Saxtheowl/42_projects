@@ -89,6 +89,8 @@ def main():
             prev_counts[name][val] += 1
 
     summary = {}
+    aggregate_states = []
+    prev_aggregate_states = []
     for name, counter in guard_counts.items():
         total = sum(counter.values())
         ok_pct = (counter.get("ok", 0) / total * 100) if total else 0.0
@@ -117,6 +119,80 @@ def main():
                 "unknown_pct": round(((counter.get("unknown", 0) - prev_counts[name].get("unknown", 0)) / prev_total * 100), 1),
             }
         summary[name]["streak"] = guard_streaks.get(name, {})
+        # Build aggregate view row-wise for overall streak
+    for r in rows:
+        vals_row = []
+        for _, field in guard_fields.items():
+            val = str(r.get(field, "") or "").lower()
+            if val not in ("ok", "fail"):
+                val = "unknown"
+            vals_row.append(val)
+        if any(v == "fail" for v in vals_row):
+            aggregate_states.append("fail")
+        elif all(v == "ok" for v in vals_row):
+            aggregate_states.append("ok")
+        else:
+            aggregate_states.append("unknown")
+    for r in prev_rows:
+        vals_row = []
+        for _, field in guard_fields.items():
+            val = str(r.get(field, "") or "").lower()
+            if val not in ("ok", "fail"):
+                val = "unknown"
+            vals_row.append(val)
+        if any(v == "fail" for v in vals_row):
+            prev_aggregate_states.append("fail")
+        elif all(v == "ok" for v in vals_row):
+            prev_aggregate_states.append("ok")
+        else:
+            prev_aggregate_states.append("unknown")
+    current_overall = None
+    current_overall_len = 0
+    for val in reversed(aggregate_states):
+        if current_overall is None:
+            current_overall = val
+            current_overall_len = 1
+        elif val == current_overall:
+            current_overall_len += 1
+        else:
+            break
+    running_overall = {"ok": 0, "fail": 0, "unknown": 0}
+    longest_overall = {"ok": 0, "fail": 0, "unknown": 0}
+    for val in aggregate_states:
+        for k in running_overall:
+            running_overall[k] = running_overall[k] + 1 if k == val else 0
+            longest_overall[k] = max(longest_overall[k], running_overall[k])
+    summary["overall_streak"] = {
+        "current": {"result": current_overall or "unknown", "length": current_overall_len},
+        "longest": longest_overall,
+        "window": len(rows),
+    }
+    aggregate_counts = Counter(aggregate_states)
+    overall = {
+        "ok": aggregate_counts.get("ok", 0),
+        "fail": aggregate_counts.get("fail", 0),
+        "unknown": aggregate_counts.get("unknown", 0),
+        "total": sum(aggregate_counts.values()),
+        "window": len(aggregate_states),
+    }
+    total = overall["total"] or 1
+    overall["ok_pct"] = round(overall["ok"] / total * 100, 1)
+    overall["fail_pct"] = round(overall["fail"] / total * 100, 1)
+    overall["unknown_pct"] = round(overall["unknown"] / total * 100, 1)
+    if prev_aggregate_states:
+        prev_counts = Counter(prev_aggregate_states)
+        prev_total = sum(prev_counts.values()) or 1
+        overall["delta"] = {
+            "ok": overall["ok"] - prev_counts.get("ok", 0),
+            "fail": overall["fail"] - prev_counts.get("fail", 0),
+            "unknown": overall["unknown"] - prev_counts.get("unknown", 0),
+            "delta_window": len(prev_aggregate_states),
+            "window": len(aggregate_states),
+            "ok_pct": round((overall["ok"] - prev_counts.get("ok", 0)) / prev_total * 100, 1),
+            "fail_pct": round((overall["fail"] - prev_counts.get("fail", 0)) / prev_total * 100, 1),
+            "unknown_pct": round((overall["unknown"] - prev_counts.get("unknown", 0)) / prev_total * 100, 1),
+        }
+    summary["overall"] = overall
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

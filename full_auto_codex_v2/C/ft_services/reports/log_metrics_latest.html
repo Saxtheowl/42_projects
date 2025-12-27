@@ -18,8 +18,8 @@
 <tr><th>metric</th><th>value</th></tr>
 <tr><td>status_checks</td><td>2</td></tr>
 <tr><td>connections</td><td>1</td></tr>
-<tr><td>overloaded</td><td>1</td></tr>
-<tr><td>overloaded_ratio</td><td>50.00</td></tr>
+<tr><td>overloaded</td><td>0</td></tr>
+<tr><td>overloaded_ratio</td><td>0.00</td></tr>
 </table>
   <h2>Deltas vs précédent</h2>
   <table>
@@ -38,8 +38,8 @@
 <tr><td>overloaded_ratio</td><td>OK</td><td></td><td></td><td></td></tr>
 </table>
   <h2>Badge</h2>
-  <p>Label: <strong>uptime</strong> — State: <strong>alert</strong> — Prev: <strong>alert</strong> — thresholds: warn ≥ 30.0, alert ≥ 60.0</p>
-  <p>History window: 20 (delta window 10) | Counts: {'ok': 0, 'fail': 0, 'unknown': 20, 'total': 20, 'window': 20, 'ok_pct': 0.0, 'fail_pct': 0.0, 'unknown_pct': 100.0} | Current streak: 20 × alert   </p>
+  <p>Label: <strong>metrics</strong> — State: <strong>ok</strong> — Prev: <strong>ok</strong> — thresholds: warn ≥ 50.0, alert ≥ 80.0</p>
+  <p>History window: 20 (delta window 20) | Counts: {'alert': 10, 'ok': 10} | Current streak: 10 × ok   </p>
   <ul>
     <li>No guard status</li>
   </ul>
@@ -52,6 +52,10 @@
   <table>
 <tr><th>window</th><th>ok</th><th>ok_pct</th><th>fail</th><th>fail_pct</th><th>unknown</th><th>unknown_pct</th><th>total</th></tr>
 <tr><td>window</td><td>ok</td><td>ok_pct</td><td>fail</td><td>fail_pct</td><td>unknown</td><td>unknown_pct</td><td>total</td></tr>
+</table> 
+  <table>
+<tr><th>current_result</th><th>current_len</th><th>longest_ok</th><th>longest_fail</th><th>longest_unknown</th><th>window</th></tr>
+<tr><td>current_result</td><td>current_len</td><td>longest_ok</td><td>longest_fail</td><td>longest_unknown</td><td>window</td></tr>
 </table> 
   <table>
 <tr><th>guard</th><th>current_result</th><th>current_len</th><th>longest_ok</th><th>longest_fail</th><th>longest_unknown</th><th>window</th></tr>

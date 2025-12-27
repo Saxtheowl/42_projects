@@ -86,6 +86,7 @@ def main():
 
     snapshot_totals = load_totals(csv_path)
     anomalies = load_anomalies(anomalies_json)
+    flagged_anomalies = [a for a in anomalies if str(a.get("status")).upper() != "OK"]
     history_count = load_history_count(history_path)
     history_rows = load_history_rows(history_path)
     deltas = {}
@@ -102,6 +103,7 @@ def main():
     previous_state = None
     guard_summary = None
     guard_overall = None
+    guard_overall_streak = None
     guard_delta = None
     guard_delta_overall = None
     guard_streaks = None
@@ -139,12 +141,25 @@ def main():
                 "no_regression": "guard_no_regression_result",
             }
             guard_counts = {k: Counter() for k in guard_fields}
+            aggregate_states = []
             for r in subset:
                 for name, field in guard_fields.items():
                     val = str(r.get(field, "") or "").lower()
                     if val not in ("ok", "fail"):
                         val = "unknown"
                     guard_counts[name][val] += 1
+                vals_row = []
+                for _, field in guard_fields.items():
+                    val = str(r.get(field, "") or "").lower()
+                    if val not in ("ok", "fail"):
+                        val = "unknown"
+                    vals_row.append(val)
+                if any(v == "fail" for v in vals_row):
+                    aggregate_states.append("fail")
+                elif all(v == "ok" for v in vals_row):
+                    aggregate_states.append("ok")
+                else:
+                    aggregate_states.append("unknown")
             guard_streaks = {}
             for name, field in guard_fields.items():
                 current_result = None
@@ -189,15 +204,29 @@ def main():
             }
             guard_delta = None
             guard_delta_overall = None
+            prev_subset = []
             if window_len > 0 and delta_window_len > 0 and len(rows) >= window_len + delta_window_len:
                 prev_subset = rows[-(window_len + delta_window_len) : -window_len]
                 prev_counts = {k: Counter() for k in guard_fields}
+                prev_aggregate_states = []
                 for r in prev_subset:
                     for name, field in guard_fields.items():
                         val = str(r.get(field, "") or "").lower()
                         if val not in ("ok", "fail"):
                             val = "unknown"
                         prev_counts[name][val] += 1
+                    vals_row = []
+                    for _, field in guard_fields.items():
+                        val = str(r.get(field, "") or "").lower()
+                        if val not in ("ok", "fail"):
+                            val = "unknown"
+                        vals_row.append(val)
+                    if any(v == "fail" for v in vals_row):
+                        prev_aggregate_states.append("fail")
+                    elif all(v == "ok" for v in vals_row):
+                        prev_aggregate_states.append("ok")
+                    else:
+                        prev_aggregate_states.append("unknown")
                 guard_delta = {
                     name: {
                         "ok": guard_counts[name].get("ok", 0) - prev_counts[name].get("ok", 0),
@@ -211,34 +240,52 @@ def main():
                     }
                     for name in guard_counts
                 }
-                prev_total_all = sum(sum(prev_counts[name].values()) for name in prev_counts) or 1
+                prev_counts_total = Counter(prev_aggregate_states)
+                prev_total_all = sum(prev_counts_total.values()) or 1
                 guard_delta_overall = {
-                    "ok": sum(v.get("ok", 0) for v in guard_delta.values()),
-                    "fail": sum(v.get("fail", 0) for v in guard_delta.values()),
-                    "unknown": sum(v.get("unknown", 0) for v in guard_delta.values()),
-                    "window": window_len,
-                    "delta_window": len(prev_subset),
+                    "ok": aggregate_states.count("ok") - prev_counts_total.get("ok", 0),
+                    "fail": aggregate_states.count("fail") - prev_counts_total.get("fail", 0),
+                    "unknown": aggregate_states.count("unknown") - prev_counts_total.get("unknown", 0),
+                    "window": len(aggregate_states),
+                    "delta_window": len(prev_aggregate_states),
                 }
                 guard_delta_overall["total"] = guard_delta_overall["ok"] + guard_delta_overall["fail"] + guard_delta_overall["unknown"]
-                guard_delta_overall["ok_pct"] = round(guard_delta_overall["ok"] / prev_total_all * 100, 1)
-                guard_delta_overall["fail_pct"] = round(guard_delta_overall["fail"] / prev_total_all * 100, 1)
-                guard_delta_overall["unknown_pct"] = round(guard_delta_overall["unknown"] / prev_total_all * 100, 1)
-            # Overall percentages across guards
-            guard_totals = {"ok": 0, "fail": 0, "unknown": 0}
-            for counts in guard_summary.values():
-                guard_totals["ok"] += counts.get("ok", 0)
-                guard_totals["fail"] += counts.get("fail", 0)
-                guard_totals["unknown"] += counts.get("unknown", 0)
-            totals_sum = sum(guard_totals.values())
+                guard_delta_overall["ok_pct"] = round((guard_delta_overall["ok"] / prev_total_all) * 100, 1)
+                guard_delta_overall["fail_pct"] = round((guard_delta_overall["fail"] / prev_total_all) * 100, 1)
+                guard_delta_overall["unknown_pct"] = round((guard_delta_overall["unknown"] / prev_total_all) * 100, 1)
+            # Overall percentages across guards (row-level aggregation)
+            aggregate_counts = Counter(aggregate_states)
+            totals_sum = sum(aggregate_counts.values())
             guard_overall = {
-                "ok": guard_totals["ok"],
-                "fail": guard_totals["fail"],
-                "unknown": guard_totals["unknown"],
+                "ok": aggregate_counts.get("ok", 0),
+                "fail": aggregate_counts.get("fail", 0),
+                "unknown": aggregate_counts.get("unknown", 0),
                 "total": totals_sum,
+                "window": len(aggregate_states),
+                "ok_pct": round((aggregate_counts.get("ok", 0) / totals_sum * 100) if totals_sum else 0.0, 1),
+                "fail_pct": round((aggregate_counts.get("fail", 0) / totals_sum * 100) if totals_sum else 0.0, 1),
+                "unknown_pct": round((aggregate_counts.get("unknown", 0) / totals_sum * 100) if totals_sum else 0.0, 1),
+            }
+            current_overall = None
+            current_overall_len = 0
+            for val in reversed(aggregate_states):
+                if current_overall is None:
+                    current_overall = val
+                    current_overall_len = 1
+                elif val == current_overall:
+                    current_overall_len += 1
+                else:
+                    break
+            running_overall = {"ok": 0, "fail": 0, "unknown": 0}
+            longest_overall = {"ok": 0, "fail": 0, "unknown": 0}
+            for val in aggregate_states:
+                for k in running_overall:
+                    running_overall[k] = running_overall[k] + 1 if k == val else 0
+                    longest_overall[k] = max(longest_overall[k], running_overall[k])
+            guard_overall_streak = {
+                "current": {"result": current_overall or "unknown", "length": current_overall_len},
+                "longest": longest_overall,
                 "window": len(subset),
-                "ok_pct": round((guard_totals["ok"] / totals_sum * 100) if totals_sum else 0.0, 1),
-                "fail_pct": round((guard_totals["fail"] / totals_sum * 100) if totals_sum else 0.0, 1),
-                "unknown_pct": round((guard_totals["unknown"] / totals_sum * 100) if totals_sum else 0.0, 1),
             }
             badge_history_summary = {
                 "entries": len(rows),
@@ -258,7 +305,7 @@ def main():
 
     overloaded_ratio = snapshot_totals.get("overloaded_ratio", 0.0)
     badge_state = "ok"
-    if len(anomalies) > 0 or overloaded_ratio >= args.badge_danger:
+    if len(flagged_anomalies) > 0 or overloaded_ratio >= args.badge_danger:
         badge_state = "alert"
     elif overloaded_ratio >= args.badge_warn:
         badge_state = "warn"
@@ -311,7 +358,9 @@ def main():
         "totals": snapshot_totals,
         "deltas": deltas if deltas else None,
         "history_count": history_count,
-        "anomalies_count": len(anomalies),
+        "anomalies_count": len(flagged_anomalies),
+        "anomalies_flagged_count": len(flagged_anomalies),
+        "anomalies_total": len(anomalies),
         "anomalies": anomalies,
         "badge_state": badge_state,
         "badge_previous_state": previous_state,
@@ -330,6 +379,7 @@ def main():
         "badge_guard_delta": guard_delta,
         "badge_guard_delta_overall": guard_delta_overall,
         "badge_guard_streaks": guard_streaks,
+        "badge_guard_overall_streak": guard_overall_streak,
         "artifacts": {
             "csv": str(csv_path.relative_to(reports)),
             "json": str(Path(f"{base}.json").relative_to(reports)),

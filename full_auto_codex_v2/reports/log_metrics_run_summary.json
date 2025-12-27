@@ -1,0 +1,25 @@
+{
+  "generated_at": "2025-12-25T15:32:32Z",
+  "reports_dir": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports",
+  "suffix": "status_top2",
+  "badge_state": "alert",
+  "anomalies_count": 4,
+  "overloaded_ratio": 50.0,
+  "guard_check": "ok",
+  "checksums": "ok",
+  "compare": {
+    "status": "skipped",
+    "md": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports/log_metrics_compare.md",
+    "html": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports/log_metrics_compare.html"
+  },
+  "validation": {
+    "status": "ok",
+    "mode": "full"
+  },
+  "latest_path": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports/log_metrics_latest.json",
+  "manifest": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports/log_metrics_manifest.json",
+  "bundle": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports/log_metrics_bundle.tar.gz",
+  "checksums_path": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports/log_metrics_checksums.txt",
+  "portal": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports/portal.html",
+  "index": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/reports/index.md"
+}

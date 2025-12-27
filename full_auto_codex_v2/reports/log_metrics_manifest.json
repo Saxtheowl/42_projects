@@ -1,0 +1,247 @@
+{
+  "generated_at": "2025-12-25T15:32:31Z",
+  "suffix": "status_top2",
+  "paths": {
+    "csv": {
+      "path": "log_metrics_snapshot.status_top2.csv",
+      "exists": true,
+      "size": 253,
+      "sha256": "34ce611b463fdcbde5a2dbfa8cdb96c1cd390b6da7ef93344cb796b15ab9a026"
+    },
+    "json": {
+      "path": "log_metrics_snapshot.status_top2.json",
+      "exists": true,
+      "size": 371,
+      "sha256": "765c2189c688c7087c1f1bb8c24e2448d9e7cc4f04ea1f3ff5a5860a9f0a828f"
+    },
+    "jsonl": {
+      "path": "log_metrics_snapshot.status_top2.jsonl",
+      "exists": true,
+      "size": 400,
+      "sha256": "30c9075b3a7738c4df98f7e742af9913adf81b3361e27177e0580903ea946b42"
+    },
+    "md": {
+      "path": "log_metrics_snapshot.status_top2.md",
+      "exists": true,
+      "size": 506,
+      "sha256": "058a9fbf6f4be20748a9317ccc30ded0ddf2fc2b8894a83cb141750cf429cd6b"
+    },
+    "html": {
+      "path": "log_metrics_snapshot.status_top2.html",
+      "exists": true,
+      "size": 1106,
+      "sha256": "f88deb9079751502347ae46143eff40b3dc7cd7971210a99188aeff3ecc2087d"
+    },
+    "summary": {
+      "path": "log_metrics_snapshot.status_top2.summary.md",
+      "exists": true,
+      "size": 314,
+      "sha256": "5ef26d48841ade4a3c24bc08ddfc17dabe5062700361cf091a18c4c93df62225"
+    },
+    "history": {
+      "path": "log_metrics_history.csv",
+      "exists": true,
+      "size": 1965,
+      "sha256": "43dbe213fb33675d6ab933c038d086becf7a1c304b8f39b764acd22d62302406"
+    },
+    "trend_md": {
+      "path": "log_metrics_trend.md",
+      "exists": true,
+      "size": 838,
+      "sha256": "63d504bef6abe6ceeb23fe165509c7d053e81efdd2e9684f78a6cecc976e080b"
+    },
+    "trend_html": {
+      "path": "log_metrics_trend.html",
+      "exists": true,
+      "size": 2660,
+      "sha256": "4b6a133cebfd574430b702ce72342af188a1bfcdb1116a4d8feb20e84d1b5ed1"
+    },
+    "stats_md": {
+      "path": "log_metrics_stats.md",
+      "exists": true,
+      "size": 277,
+      "sha256": "39c5a46205d16ec628eda73fb56148849b13f319bfc69d6d4cc88391e651096e"
+    },
+    "stats_html": {
+      "path": "log_metrics_stats.html",
+      "exists": true,
+      "size": 919,
+      "sha256": "bba62e1dd3b158ddd4c1d8b7c975094f33a54caaa358c05749e3d501008bcb58"
+    },
+    "anomalies_md": {
+      "path": "log_metrics_anomalies.md",
+      "exists": true,
+      "size": 456,
+      "sha256": "897d642c690520aba9c95c11419b2070fc57b12ad2a96b866a608f5e7cff3317"
+    },
+    "anomalies_html": {
+      "path": "log_metrics_anomalies.html",
+      "exists": true,
+      "size": 1088,
+      "sha256": "a58994c038a116d6e89f973079d246913dc52a33e84f4bf62363e10467360c6e"
+    },
+    "anomalies_json": {
+      "path": "log_metrics_anomalies.json",
+      "exists": true,
+      "size": 510,
+      "sha256": "15ed3290454c8e6657b052c5e0b255409b33479a9983703427258de14f15fe63"
+    },
+    "index_md": {
+      "path": "index.md",
+      "exists": true,
+      "size": 3645,
+      "sha256": "bae2cdd1cbb33870a875b3de3c1f9c23cc894fc7301006c3ed6143201769cc4b"
+    },
+    "index_html": {
+      "path": "index.html",
+      "exists": true,
+      "size": 4862,
+      "sha256": "99fe0e5a5dcd823e00ce888616ec87c4cbd0ad8d4e18904654fc34d7b6e5605c"
+    },
+    "portal": {
+      "path": "portal.html",
+      "exists": true,
+      "size": 46875,
+      "sha256": "9dbfc4e932d8849fe8f6e81677e1bee790a8d281298ef8ba0d21218e6f5c588b"
+    },
+    "bundle": {
+      "path": "log_metrics_bundle.tar.gz",
+      "exists": true,
+      "size": 17985,
+      "sha256": "3414d350fcaa70700ff5b4a87f1c44009728c5d0912ac36f9e88b93d581aaa49"
+    },
+    "compare_md": {
+      "path": null,
+      "exists": false,
+      "size": 0
+    },
+    "compare_html": {
+      "path": null,
+      "exists": false,
+      "size": 0
+    },
+    "overview": {
+      "path": "log_metrics_overview.md",
+      "exists": true,
+      "size": 1284,
+      "sha256": "c9493c6879da05b0b83dbdadbb22cb7b5d6958e36229d03450855408f76a170a"
+    },
+    "manifest": {
+      "path": "log_metrics_manifest.json",
+      "exists": true,
+      "size": 7647
+    },
+    "checksums": {
+      "path": "log_metrics_checksums.txt",
+      "exists": true,
+      "size": 3391
+    },
+    "overview_md": {
+      "path": "log_metrics_overview.md",
+      "exists": true,
+      "size": 1284,
+      "sha256": "c9493c6879da05b0b83dbdadbb22cb7b5d6958e36229d03450855408f76a170a"
+    },
+    "overview_html": {
+      "path": "log_metrics_overview.html",
+      "exists": true,
+      "size": 3414,
+      "sha256": "606e19347bfb99672f494f88253b229ce82ddeaa246eea69a9fb5ef2b14b2978"
+    },
+    "latest_json": {
+      "path": "log_metrics_latest.json",
+      "exists": true,
+      "size": 5857,
+      "sha256": "395c027a330f30b2ab3c166f2b8b807a90a48b1872a1060b75c7495746605405"
+    },
+    "latest_html": {
+      "path": "log_metrics_latest.html",
+      "exists": true,
+      "size": 6521,
+      "sha256": "ddbc270ccf8fc1d87c140cd8001679aec8c5af358922d5fd62f8ccef7b2f76f5"
+    },
+    "latest_md": {
+      "path": "log_metrics_latest.md",
+      "exists": true,
+      "size": 4061,
+      "sha256": "fa39ab8b832057a99f40dd1e690638c7f9606776152e045455906105fa4eddea"
+    },
+    "run_summary_html": {
+      "path": "log_metrics_run_summary.html",
+      "exists": true,
+      "size": 1948,
+      "sha256": "60fb52304a52f236bff27dcc1d1876d42f6f7bc08eb5002a747ba4e4399f541c"
+    },
+    "run_summary_md": {
+      "path": "log_metrics_run_summary.md",
+      "exists": true,
+      "size": 959,
+      "sha256": "08ff2ccc0e7ec09097077235e33999c9ecc2b33b81f0e161286c44b65968dfd2"
+    },
+    "run_summary": {
+      "path": "log_metrics_run_summary.json",
+      "exists": true,
+      "size": 1225,
+      "sha256": "c34b902af434d1a6e1721ddf939fff5d4f55121c217598c93f90399f8ead6cbc"
+    },
+    "badge_svg": {
+      "path": "log_metrics_badge.svg",
+      "exists": true,
+      "size": 963,
+      "sha256": "150652bfb7335ecf90a001267e36ec045a01d401033e6fe354ff3ba3c4cfaa5a"
+    },
+    "badge_history": {
+      "path": "log_metrics_badge_history.csv",
+      "exists": true,
+      "size": 2110,
+      "sha256": "f788e05c68383488d86356b6dfd89339c432825c0906c02faf5ba66de894d98f"
+    },
+    "badge_history_md": {
+      "path": "log_metrics_badge_history.md",
+      "exists": true,
+      "size": 2956,
+      "sha256": "49771e237f6cee85725d2c987c04982e77fbcafb9823eac96b1f69596e04ccdb"
+    },
+    "badge_history_html": {
+      "path": "log_metrics_badge_history.html",
+      "exists": true,
+      "size": 8002,
+      "sha256": "6e763f0a8631df8adeafa4f63179afbce2eac4b41ea5b29cb9886abf5fed10d5"
+    },
+    "guard_summary_md": {
+      "path": "log_metrics_guard_summary.md",
+      "exists": true,
+      "size": 1202,
+      "sha256": "f0bce346ae865d1accd6041cb18de1f793f92d77f19916c2f63e0c5d5d758d05"
+    },
+    "guard_summary_html": {
+      "path": "log_metrics_guard_summary.html",
+      "exists": true,
+      "size": 2350,
+      "sha256": "adb9f4fcc5119ed4798549a3fc08f091a79556e507042e43ed6ce74acc0762b0"
+    },
+    "guard_summary_json": {
+      "path": "log_metrics_guard_summary.json",
+      "exists": true,
+      "size": 1483,
+      "sha256": "c9c95b1de5ef0c1e67af539e14bbe2d5876e2afccce77a957a823c09397df642"
+    },
+    "guard_summary_csv": {
+      "path": "log_metrics_guard_summary.csv",
+      "exists": true,
+      "size": 404,
+      "sha256": "da444b03a5612ff784df98fa97f808899bc926c4c08b1bb13008bbc911f6d0c4"
+    },
+    "guard_summary_streaks": {
+      "path": "log_metrics_guard_summary.json",
+      "exists": true,
+      "size": 1483,
+      "sha256": "c9c95b1de5ef0c1e67af539e14bbe2d5876e2afccce77a957a823c09397df642"
+    },
+    "checksums_guard": {
+      "path": null,
+      "exists": false,
+      "size": 0
+    }
+  }
+}

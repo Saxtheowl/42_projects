@@ -1,0 +1,12 @@
+# version,0.2.0
+# target,127.0.0.1
+# timeout_ms,200
+# max_inflight,64
+# resolved_ip,127.0.0.1
+# resolved_family,ipv4
+# resolved_count,1
+# requested,3,scanned,3,pending,0,excluded,0,open,0,closed,3,timeouts,0,retries,0,avg_retries_per_port,0.00,retry_backoff_pct,0,elapsed_ms,1,delay_ms,0,randomized,false,dry_run,false,random_seed,0,open_rate,0.00,closed_rate,100.00,timeout_rate,0.00,first_open_ms,-1,duration_p50_ms,0,duration_p90_ms,0,duration_p99_ms,0,fastest_port,-1,fastest_duration_ms,0,slowest_port,-1,slowest_duration_ms,0,timeout_stop_hit,false,timeout_stop_threshold,0,kports_per_s,3.00,start_ms,1766782751186,end_ms,1766782751186,duration_min_ms,0,duration_max_ms,0,duration_mean_ms,0,deadline_ms,0,deadline_hit,false
+port,status,duration_ms,retries_used,service
+22,closed,0,0,
+80,closed,0,0,
+443,closed,0,0,

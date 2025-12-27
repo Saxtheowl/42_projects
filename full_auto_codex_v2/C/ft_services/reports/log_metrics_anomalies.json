@@ -17,16 +17,16 @@
   },
   {
     "metric": "overloaded",
-    "prev": 1.0,
-    "curr": 1.0,
+    "prev": 0.0,
+    "curr": 0.0,
     "delta": 0.0,
     "pct": 0.0,
     "status": "OK"
   },
   {
     "metric": "overloaded_ratio",
-    "prev": 50.0,
-    "curr": 50.0,
+    "prev": 0.0,
+    "curr": 0.0,
     "delta": 0.0,
     "pct": 0.0,
     "status": "OK"

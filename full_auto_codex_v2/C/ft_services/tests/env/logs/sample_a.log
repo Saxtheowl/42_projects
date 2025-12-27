@@ -1,5 +1,5 @@
 status check
 connections: 1
-overloaded
+load: normal
 status check
 connections: 2

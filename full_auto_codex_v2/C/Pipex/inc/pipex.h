@@ -6,14 +6,20 @@
 # define PX_SUCCESS 0
 # define PX_FAILURE 1
 
+typedef struct s_cmd
+{
+    char    **argv;
+    char    *path;
+}   t_cmd;
+
 typedef struct s_pipex
 {
+    int     here_doc;
+    char    *limiter;
     char    *infile;
     char    *outfile;
-    char    **cmd1;
-    char    **cmd2;
-    char    *cmd1_path;
-    char    *cmd2_path;
+    t_cmd   *cmds;
+    int     cmd_count;
     char    **envp;
 }   t_pipex;
 

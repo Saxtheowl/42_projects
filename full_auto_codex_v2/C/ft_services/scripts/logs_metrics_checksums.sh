@@ -6,6 +6,8 @@ set -euo pipefail
 REPORTS_DIR=${REPORTS_DIR:-reports}
 SUFFIX="status_top2"
 OUTPUT=""
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -26,11 +28,15 @@ EOF
   esac
 done
 
+if [[ "$REPORTS_DIR" != /* ]]; then
+  REPORTS_DIR="$REPO_ROOT/$REPORTS_DIR"
+fi
+
 mkdir -p "$REPORTS_DIR"
 [ -z "$OUTPUT" ] && OUTPUT="${REPORTS_DIR}/log_metrics_checksums.txt"
 
 base="${REPORTS_DIR}/log_metrics_snapshot.${SUFFIX}"
-files=(
+required_files=(
   "${base}.csv"
   "${base}.json"
   "${base}.jsonl"
@@ -48,8 +54,6 @@ files=(
   "${REPORTS_DIR}/log_metrics_anomalies.md"
   "${REPORTS_DIR}/log_metrics_anomalies.html"
   "${REPORTS_DIR}/log_metrics_anomalies.json"
-  "${REPORTS_DIR}/log_metrics_compare.md"
-  "${REPORTS_DIR}/log_metrics_compare.html"
   "${REPORTS_DIR}/log_metrics_manifest.json"
   "${REPORTS_DIR}/portal.html"
   "${REPORTS_DIR}/log_metrics_bundle.tar.gz"
@@ -58,7 +62,16 @@ files=(
   "${REPORTS_DIR}/log_metrics_latest.json"
   "${REPORTS_DIR}/log_metrics_latest.html"
   "${REPORTS_DIR}/log_metrics_latest.md"
+  "${REPORTS_DIR}/log_metrics_run_summary.md"
+  "${REPORTS_DIR}/log_metrics_run_summary.html"
+  "${REPORTS_DIR}/log_metrics_run_summary.json"
+  "${REPORTS_DIR}/log_metrics_sitemap.md"
+  "${REPORTS_DIR}/log_metrics_sitemap.html"
+  "${REPORTS_DIR}/log_metrics_sitemap.json"
   "${REPORTS_DIR}/log_metrics_badge.svg"
+  "${REPORTS_DIR}/log_metrics_status_badge.svg"
+  "${REPORTS_DIR}/log_metrics_status.json"
+  "${REPORTS_DIR}/log_metrics_overall_history.csv"
   "${REPORTS_DIR}/log_metrics_badge_history.csv"
   "${REPORTS_DIR}/log_metrics_badge_history.md"
   "${REPORTS_DIR}/log_metrics_badge_history.html"
@@ -68,14 +81,23 @@ files=(
   "${REPORTS_DIR}/log_metrics_guard_summary.csv"
 )
 
+# Optional files (no warning if absent)
+optional_files=(
+  "${REPORTS_DIR}/log_metrics_compare.md"
+  "${REPORTS_DIR}/log_metrics_compare.html"
+)
+
 missing=()
 present=()
-for f in "${files[@]}"; do
+for f in "${required_files[@]}"; do
   if [ -f "$f" ]; then
     present+=("$f")
   else
     missing+=("$f")
   fi
+done
+for f in "${optional_files[@]}"; do
+  [ -f "$f" ] && present+=("$f")
 done
 
 if [ ${#present[@]} -eq 0 ]; then
@@ -94,5 +116,5 @@ fi
 
 echo "Checksums written to $OUTPUT"
 if [ ${#missing[@]} -gt 0 ]; then
-  echo "Missing (not checksummed): ${missing[*]}"
+  echo "Missing (not checksummed, required): ${missing[*]}"
 fi
