@@ -6,7 +6,8 @@
     "email": "alice@42.fr",
     "campus": "Paris",
     "notes": "Mentor piscine",
-    "tags": ["Mentor", "Piscine"]
+    "tags": ["Mentor", "Piscine"],
+    "avatar": "alice.png"
   },
   {
     "first_name": "Ben",
@@ -15,6 +16,7 @@
     "email": "ben@42.fr",
     "campus": "Lyon",
     "notes": "Staff events",
-    "tags": ["Staff", "Event"]
+    "tags": ["Staff", "Event"],
+    "avatar": "ben.png"
   }
 ]

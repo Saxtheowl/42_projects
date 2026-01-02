@@ -41,6 +41,10 @@ test: $(NAME)
 	bash tests_realisation/dry_run.sh
 	bash tests_realisation/dry_run_exports.sh
 	bash tests_realisation/open_list.sh
+	bash tests_realisation/service_names.sh
+	bash tests_realisation/targets_file.sh
+	bash tests_realisation/scan_udp.sh
+	bash tests_realisation/port_limit.sh
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

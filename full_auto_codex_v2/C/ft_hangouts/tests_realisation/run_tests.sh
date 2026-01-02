@@ -8,13 +8,17 @@ STORE="data/store.json"
 rm -f "$STORE"
 
 echo "== Add contacts"
-python3 src/mock_app.py --lang fr contacts add --first-name Alice --last-name V --phone 0600000001 --email alice@42.fr --campus Paris --tags dev staff
-python3 src/mock_app.py --lang en contacts add --first-name Bob --last-name W --phone 0600000002 --email bob@42.fr --campus Lyon --tags dev
+python3 src/mock_app.py --lang fr contacts add --first-name Alice --last-name V --phone 0600000001 --email alice@42.fr --campus Paris --tags dev staff --avatar alice.png
+python3 src/mock_app.py --lang en contacts add --first-name Bob --last-name W --phone 0600000002 --email bob@42.fr --campus Lyon --tags dev --avatar bob.jpg
 
 echo "== Send/receive messages"
 python3 src/mock_app.py --lang fr messages receive --contact-id 1 --body "Ping ?"
 python3 src/mock_app.py --lang en messages receive --contact-id 2 --body "Hi there"
 python3 src/mock_app.py --lang fr messages send --contact-id 1 --body "Coucou"
+
+echo "== Receive message from unknown number (auto-create contact)"
+python3 src/mock_app.py --lang fr messages receive --phone 0600000003 --first-name Chloe --last-name Z --avatar chloe.png --auto-create --body "Salut"
+python3 src/mock_app.py --lang fr contacts list
 
 echo "== List unread notifications"
 python3 src/mock_app.py --lang fr notifications
@@ -45,6 +49,14 @@ stat -c%s /tmp/ft_hangouts_messages_2.json
 echo "== Conversations summary"
 python3 src/mock_app.py --lang en conversations
 python3 src/mock_app.py --lang en conversations --json
+
+echo "== Settings theme change"
+python3 src/mock_app.py --lang en settings set-theme --color green
+python3 src/mock_app.py --lang en settings show
+
+echo "== Update avatar for contact #2"
+python3 src/mock_app.py --lang en contacts set-avatar --contact-id 2 --avatar bob_new.jpg
+python3 src/mock_app.py --lang en contacts list
 
 echo "== Delete first message for contact #2"
 first_msg_id=$(python3 -c "import json;print(json.load(open('/tmp/ft_hangouts_messages_2.json'))[0]['id'])")
@@ -83,3 +95,31 @@ python3 src/mock_app.py --lang en conversations
 echo "== Stats summary"
 python3 src/mock_app.py --lang en stats
 python3 src/mock_app.py --lang en stats --json
+
+echo "== Export contacts to CSV"
+python3 src/mock_app.py --lang en contacts export --output /tmp/ft_hangouts_contacts.csv
+echo "Contacts CSV size:"
+stat -c%s /tmp/ft_hangouts_contacts.csv
+
+echo "== Log calls"
+python3 src/mock_app.py --lang en calls log --contact-id 1 --direction OUT --duration 120
+python3 src/mock_app.py --lang en calls log --contact-id 2 --direction IN --duration 0 --missed
+python3 src/mock_app.py --lang en calls log --phone 0600000004 --first-name Denis --last-name K --auto-create --direction IN --duration 45
+python3 src/mock_app.py --lang en calls list
+python3 src/mock_app.py --lang en calls list --missed-only
+python3 src/mock_app.py --lang en calls stats
+python3 src/mock_app.py --lang en calls stats --json
+
+echo "== Export calls to JSON"
+python3 src/mock_app.py --lang en calls export --output /tmp/ft_hangouts_calls.json
+echo "Calls JSON size:"
+stat -c%s /tmp/ft_hangouts_calls.json
+
+echo "== Reset store and import contacts CSV"
+rm -f data/store.json
+python3 src/mock_app.py --lang en contacts import --input /tmp/ft_hangouts_contacts.csv
+python3 src/mock_app.py --lang en contacts list
+
+echo "== Import calls JSON (auto-create disabled)"
+python3 src/mock_app.py --lang en calls import --input /tmp/ft_hangouts_calls.json
+python3 src/mock_app.py --lang en calls stats --json

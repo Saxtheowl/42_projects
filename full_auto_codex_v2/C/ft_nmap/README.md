@@ -1,25 +1,28 @@
 # ft_nmap
 
- Dernière mise à jour : 2025-12-26 20:58:33
+ Dernière mise à jour : 2026-01-02 17:29:03
+ Statut : DONE
 
 Scanner TCP minimal qui tente des connexions non bloquantes (poll + lots inflight) sur une liste de ports et signale ceux qui répondent dans le délai imparti. Résolution DNS effectuée une seule fois puis réutilisée pour chaque port. Export JSON optionnel. Inclut un mode “dry-run” (`-n`) qui se limite à la résolution DNS/override et laisse les ports en `pending/unknown` pour valider la configuration sans toucher au réseau.
 
 ## Usage
 
 ```
-./ft_nmap -t target [-p ports|-P file|-k top] [-x ports|-X file] [-F|-f count] [-T timeout_ms] [-c inflight] [-R retries] [-b backoff_pct] [-w delay_ms] [-M deadline_ms] [-q] [-S] [-l] [-r] [-e seed] [-g progress_ms] [-u stop_timeouts] [-I ip_override] [-n] [-4|-6] [-o file.json] [-J summary.json] [-C file.csv] [-N file.ndjson] [-Y file.yaml] [-Z file.xml] [-H file.html] [-m file.md] [-L open_list] [-E export_filter] [-Q] [-V]
+./ft_nmap -t target | -i targets.txt [-p ports|-P file|-k top] [-x ports|-X file] [-F|-f count] [-T timeout_ms] [-c inflight] [-R retries] [-b backoff_pct] [-w delay_ms] [-M deadline_ms] [-q] [-S] [-l] [-r] [-e seed] [-g progress_ms] [-u stop_timeouts] [-I ip_override] [--scan tcp|udp] [-n] [-4|-6] [-o file.json] [-J summary.json] [-C file.csv] [-N file.ndjson] [-Y file.yaml] [-Z file.xml] [-H file.html] [-m file.md] [-L open_list] [-E export_filter] [-Q] [-V]
 ```
 
-- `-t <host>` : cible obligatoire (hostname ou IPv4/IPv6).
-- `-p <liste>` : ports séparés par des virgules ou des plages `start-end` (`22,80-90,443`). Par défaut : 1-1024.
-- `-P <fichier>` : fichier contenant des ports/plages séparés par espaces/virgules/nouvelles lignes (le dernier `-p`/`-P` rencontré l’emporte). `-P -` lit depuis stdin (ex: `echo 22 | ft_nmap -P - ...`).
+- `-t <host>` : cible obligatoire (hostname ou IPv4/IPv6). Alias long `--ip`.
+- `-i <fichier>` : liste de cibles (une par ligne ou séparées par espaces/virgules). Alias long `--file`. Les exports multi-cibles exigent un chemin avec `"%s"` (ex: `report_%s.json`).
+- `-p <liste>` : ports séparés par des virgules ou des plages `start-end` (`22,80-90,443,https`). Les noms de services TCP (`http`, `ssh`, `https`) sont acceptés. Par défaut : 1-1024 (limite 1024 ports après exclusions).
+- `-P <fichier>` : fichier contenant des ports/plages/noms de services TCP (séparés par espaces/virgules/nouvelles lignes). Le dernier `-p`/`-P` rencontré l’emporte. `-P -` lit depuis stdin (ex: `echo https | ft_nmap -P - ...`).
 - `-k <n>` : scan des `<n>` ports TCP les plus courants (liste embarquée). Idéal pour un balayage rapide sans préciser les ports.
-- `-x <liste>` : exclut des ports/plages de la liste finale à scanner (appliqué après `-p/-P`).
-- `-X <fichier>` : exclut les ports/plages provenant d’un fichier (ou de stdin via `-X -`). Le dernier `-x/-X` l’emporte. Les stats JSON/CSV mentionnent le nombre de ports exclus.
+- `-x <liste>` : exclut des ports/plages/noms de services TCP de la liste finale à scanner (appliqué après `-p/-P`).
+- `-X <fichier>` : exclut les ports/plages/noms de services TCP provenant d’un fichier (ou de stdin via `-X -`). Le dernier `-x/-X` l’emporte. Les stats JSON/CSV mentionnent le nombre de ports exclus.
 - `-F` : arrête le scan dès le premier port OPEN trouvé (utile pour un “ping” TCP rapide). Le compteur “scanned” reflète uniquement les ports réellement traités.
 - `-f <n>` : arrête le scan après `<n>` ports OPEN trouvés, marque les ports restants en `pending/unknown` dans les stats/exports.
 - `-T <ms>` : timeout en millisecondes par tentative (défaut 500 ms).
-- `-c <n>` : connexions simultanées (1-1024, défaut 256).
+- `-c <n>` : connexions simultanées (1-1024, défaut 256). Alias long `--speedup`.
+- `--scan <type>` : type de scan (`tcp` par défaut, `udp` pour envoi UDP + attente de réponse/ICMP). Le mode UDP utilise un flux séquentiel (1 socket à la fois) et respecte les timeouts/retries.
 - `-R <n>` : nombre de retries sur TIMEOUT avant de considérer le port fermé (0-5, défaut 0).
 - `-b <pct>` : augmente le timeout de `pct%%` pour chaque retry (backoff croissant). Exemple `-R 2 -b 50` donne des timeouts de 500ms, puis 750ms, puis 1000ms.
 - `-w <ms>` : délai entre les cycles de poll (en millisecondes) pour limiter le rythme des batches (0-60000). Exporté dans les stats via `delay_ms`.
@@ -47,8 +50,9 @@ Scanner TCP minimal qui tente des connexions non bloquantes (poll + lots infligh
 - `-Q` : envoie le résumé final (et le tableau) vers stderr, pratique pour garder stdout propre lors d’exports vers `-`.
 - `-V` : affiche la version puis quitte.
 - Pour tous les exports, passer `-` comme chemin écrit sur stdout. Lorsqu’un export stdout est demandé, le résumé est automatiquement redirigé vers stderr pour éviter de mélanger le flux texte et le format choisi.
+  En mode multi-cibles (`-i`), tous les chemins d’export doivent inclure `"%s"` pour éviter l’écrasement, et `-` n’est pas accepté.
 
-La commande imprime `host:port open` (optionnellement avec le service) pour chaque port accessible et un résumé final incluant les ports ouverts/fermés/timeouts ainsi que le débit, avec jusqu’à 1024 connexions simultanées (256 par défaut). Le tableau (`-l`) et les lignes “live” indiquent désormais le nombre de retries et la durée mesurée. Avec `-o`/`-J`/`-C`/`-Y`/`-Z`/`-H`/`-m`, un fichier JSON (complet ou stats-only)/CSV/YAML/XML/HTML/Markdown liste les ports (ou uniquement les stats pour `-J`) et les stats globales, en incluant les timestamps de début/fin (millisecondes epoch), les durées min/max/moyenne/p50/p90/p99, le nombre de ports demandés/scannés/pending, le délai inter-batch (`delay_ms`), les taux `open_rate/closed_rate/timeout_rate` (en %% des ports scannés, aussi affichés dans le résumé final), l’`avg_retries_per_port` (retries moyens sur les ports scannés), le backoff appliqué aux retries (`retry_backoff_pct`), le délai jusqu’au premier open (`first_open_ms`), l’état du deadline (`deadline_ms` + `deadline_hit`), les ports les plus rapides/lents (`fastest_port/slowest_port` avec leurs durées) ainsi que le flag `timeout_stop_hit`/`timeout_stop_threshold` lorsque `-u` stoppe après un nombre de timeouts. Les exports ajoutent aussi le flag `randomized` et la seed `random_seed` réellement utilisée (utile pour rejouer un ordre de ports avec `-e`), le flag `dry_run` (vrai quand le scan est court-circuité avant l’ouverture de sockets) et respectent le filtre `-E`. Ils incluent également les ports non scannés (status `unknown`) lorsqu’un arrêt anticipé se produit (deadline, `-F`, `-u` ou `-n`). Lorsqu’un export stdout est utilisé, le résumé est dirigé vers stderr pour laisser un flux machine propre sur stdout.
+La commande imprime `host:port open` (optionnellement avec le service) pour chaque port accessible et un résumé final incluant les ports ouverts/fermés/timeouts ainsi que le débit, avec jusqu’à 1024 connexions simultanées (256 par défaut). Le tableau (`-l`) et les lignes “live” indiquent désormais le nombre de retries et la durée mesurée. Avec `-o`/`-J`/`-C`/`-Y`/`-Z`/`-H`/`-m`, un fichier JSON (complet ou stats-only)/CSV/YAML/XML/HTML/Markdown liste les ports (ou uniquement les stats pour `-J`) et les stats globales, en incluant les timestamps de début/fin (millisecondes epoch), les durées min/max/moyenne/p50/p90/p99, le nombre de ports demandés/scannés/pending, le délai inter-batch (`delay_ms`), les taux `open_rate/closed_rate/timeout_rate` (en %% des ports scannés, aussi affichés dans le résumé final), l’`avg_retries_per_port` (retries moyens sur les ports scannés), le backoff appliqué aux retries (`retry_backoff_pct`), le délai jusqu’au premier open (`first_open_ms`), l’état du deadline (`deadline_ms` + `deadline_hit`), les ports les plus rapides/lents (`fastest_port/slowest_port` avec leurs durées) ainsi que le flag `timeout_stop_hit`/`timeout_stop_threshold` lorsque `-u` stoppe après un nombre de timeouts. Les exports ajoutent aussi le flag `randomized` et la seed `random_seed` réellement utilisée (utile pour rejouer un ordre de ports avec `-e`), le flag `dry_run` (vrai quand le scan est court-circuité avant l’ouverture de sockets), le champ `scan_type` (tcp/udp) et respectent le filtre `-E`. Ils incluent également les ports non scannés (status `unknown`) lorsqu’un arrêt anticipé se produit (deadline, `-F`, `-u` ou `-n`). Lorsqu’un export stdout est utilisé, le résumé est dirigé vers stderr pour laisser un flux machine propre sur stdout.
 
 ## Construction / tests
 
@@ -69,3 +73,9 @@ Les exports incluent désormais les champs `resolved_ip`/`resolved_family` ainsi
   `./ft_nmap -t example.com -p 22,80,443 -n -J stats.json` (résumé vers stderr, stats-only JSON avec `dry_run: true`, `pending: 3`).
 - Scan classique restreint aux ports courants, export Markdown et liste des ouverts :  
   `./ft_nmap -t 192.0.2.10 -k 50 -S -m report.md -L open_ports.txt`
+- Scan ciblé via noms de services TCP :  
+  `./ft_nmap -t 203.0.113.8 -p ssh,http,https -n -o report.json`
+- Scan multi-cibles en dry-run avec exports séparés :  
+  `./ft_nmap -i targets.txt -p 22,80 -n -o report_%s.json -J summary_%s.json`
+- Scan UDP simple :  
+  `./ft_nmap -t 198.51.100.42 -p 53 --scan udp -T 300 -R 1`

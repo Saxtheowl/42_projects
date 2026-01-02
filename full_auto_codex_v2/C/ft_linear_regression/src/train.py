@@ -97,6 +97,9 @@ def main() -> None:
     m = float(len(features))
     best_rmse = float("inf")
     best_epoch = -1
+    best_theta0 = theta0
+    best_theta1 = theta1
+    stopped_early = False
     for iteration in range(args.iterations):
         sum_error = 0.0
         sum_error_mileage = 0.0
@@ -112,13 +115,23 @@ def main() -> None:
         if episode_rmse + args.min_delta < best_rmse:
             best_rmse = episode_rmse
             best_epoch = iteration
+            best_theta0 = theta0
+            best_theta1 = theta1
         elif args.early_stop and best_epoch >= 0 and iteration - best_epoch >= args.patience:
             print(f"Early stopping at iteration {iteration + 1}, best RMSE {best_rmse:.6f} at epoch {best_epoch + 1}")
+            stopped_early = True
             break
+    if args.early_stop and best_epoch >= 0:
+        theta0, theta1 = best_theta0, best_theta1
     if args.history:
         save_history(history, args.history)
     save_model(ModelParams(theta0=theta0, theta1=theta1, mean=mean, scale=scale))
-    print(f"Training finished: theta0={theta0:.6f}, theta1={theta1:.6f}, mean={mean:.2f}, scale={scale:.2f}")
+    summary = f"Training finished: theta0={theta0:.6f}, theta1={theta1:.6f}, mean={mean:.2f}, scale={scale:.2f}"
+    if args.early_stop:
+        summary += f", best_rmse={best_rmse:.6f}, best_epoch={best_epoch + 1}"
+        if stopped_early:
+            summary += ", restored best parameters"
+    print(summary)
 
 
 if __name__ == "__main__":

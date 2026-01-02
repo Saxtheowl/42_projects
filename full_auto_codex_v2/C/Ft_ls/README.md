@@ -1,5 +1,9 @@
 # ft_ls
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-02 20:25:54) : tests comparatifs OK, plan/README finalises.
+
 ## Synthèse préliminaire
 Réimplémentation partielle de la commande `ls` en C selon le sujet 42. Le programme `ft_ls` doit lister le contenu des répertoires en respectant un sous-ensemble d’options (habituellement `-l`, `-R`, `-a`, `-r`, `-t`) et en se conformant aux règles de tri/affichage POSIX. Les contraintes principales portent sur la gestion des structures `stat`, la récursion, les formats d’affichage et la gestion d’erreurs.
 

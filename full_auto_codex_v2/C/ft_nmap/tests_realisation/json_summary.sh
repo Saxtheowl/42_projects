@@ -16,7 +16,8 @@ path = sys.argv[1]
 with open(path) as f:
     data = json.load(f)
 assert "stats" in data, "Missing stats object"
-assert data.get("version") == "0.2.0", f"Expected version 0.2.0, got {data.get('version')}"
+assert data.get("version") == "0.2.5", f"Expected version 0.2.5, got {data.get('version')}"
+assert data.get("scan_type") == "tcp", f"Expected scan_type tcp, got {data.get('scan_type')}"
 assert "target" in data and "timeout_ms" in data, "Missing header fields"
 assert data.get("resolved_ip") == "127.0.0.1", "resolved_ip should expose numeric target"
 assert data.get("resolved_family") == "ipv4", "resolved_family should report address family"

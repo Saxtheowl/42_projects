@@ -23,6 +23,13 @@ static const char	*export_filter_str(t_export_filter filter)
 	return ("all");
 }
 
+static const char	*scan_type_str(t_scan_type type)
+{
+	if (type == FT_NMAP_SCAN_UDP)
+		return ("udp");
+	return ("tcp");
+}
+
 static void	write_port(FILE *f, const t_result *r, int show_service)
 {
 	fprintf(f, "{\"port\":%d,\"status\":\"%s\",\"duration_ms\":%ld,"
@@ -57,6 +64,7 @@ int	write_json_summary(const t_options *opts, const t_summary *summary,
 	fprintf(f, "{");
 	fprintf(f, "\"version\":\"%s\",", FT_NMAP_VERSION);
 	fprintf(f, "\"target\":\"%s\",", opts->target);
+	fprintf(f, "\"scan_type\":\"%s\",", scan_type_str(opts->scan_type));
 	fprintf(f, "\"timeout_ms\":%ld,", opts->timeout_ms);
 	fprintf(f, "\"resolved_ip\":\"%s\",", summary->resolved_ip);
 	fprintf(f, "\"resolved_family\":\"%s\",", summary->resolved_family);
@@ -126,6 +134,7 @@ static void	write_json_stats_body(FILE *f, const t_options *opts,
 {
 	fprintf(f, "\"version\":\"%s\",", FT_NMAP_VERSION);
 	fprintf(f, "\"target\":\"%s\",", opts->target);
+	fprintf(f, "\"scan_type\":\"%s\",", scan_type_str(opts->scan_type));
 	fprintf(f, "\"timeout_ms\":%ld,", opts->timeout_ms);
 	fprintf(f, "\"resolved_ip\":\"%s\",", summary->resolved_ip);
 	fprintf(f, "\"resolved_family\":\"%s\",", summary->resolved_family);
@@ -263,6 +272,7 @@ int	write_csv_summary(const t_options *opts, const t_summary *summary,
 		/ (double)(summary->elapsed_ms <= 0 ? 1 : summary->elapsed_ms);
 fprintf(f, "# version,%s\n", FT_NMAP_VERSION);
 fprintf(f, "# target,%s\n", opts->target);
+fprintf(f, "# scan_type,%s\n", scan_type_str(opts->scan_type));
 fprintf(f, "# timeout_ms,%ld\n", opts->timeout_ms);
 fprintf(f, "# max_inflight,%d\n", opts->max_inflight);
 fprintf(f, "# resolved_ip,%s\n", summary->resolved_ip);
@@ -377,8 +387,9 @@ int	write_yaml_summary(const t_options *opts, const t_summary *summary,
 		should_close = 1;
 	}
 	fprintf(f, "version: \"%s\"\n", FT_NMAP_VERSION);
-	fprintf(f, "target: \"%s\"\n", opts->target);
-	fprintf(f, "timeout_ms: %ld\n", opts->timeout_ms);
+fprintf(f, "target: \"%s\"\n", opts->target);
+fprintf(f, "scan_type: \"%s\"\n", scan_type_str(opts->scan_type));
+fprintf(f, "timeout_ms: %ld\n", opts->timeout_ms);
 	fprintf(f, "max_inflight: %d\n", opts->max_inflight);
 	fprintf(f, "resolved_ip: \"%s\"\n", summary->resolved_ip);
 	fprintf(f, "resolved_family: \"%s\"\n", summary->resolved_family);
@@ -518,8 +529,8 @@ int	write_html_summary(const t_options *opts, const t_summary *summary,
 	fprintf(f, "<p><strong>Version:</strong> %s</p>", FT_NMAP_VERSION);
 	fprintf(f, "<p><strong>Target:</strong> ");
 	html_escape(opts->target, f);
-	fprintf(f, " &mdash; <strong>Timeout:</strong> %ld ms &mdash; <strong>Inflight:</strong> %d",
-		opts->timeout_ms, opts->max_inflight);
+	fprintf(f, " &mdash; <strong>Scan:</strong> %s &mdash; <strong>Timeout:</strong> %ld ms &mdash; <strong>Inflight:</strong> %d",
+		scan_type_str(opts->scan_type), opts->timeout_ms, opts->max_inflight);
 	if (summary->resolved_ip[0] != '\0')
 	{
 		fprintf(f, " &mdash; <strong>Resolved:</strong> ");
@@ -637,6 +648,7 @@ int	write_md_summary(const t_options *opts, const t_summary *summary,
 	fprintf(f, "# ft_nmap report\n\n");
 	fprintf(f, "- **Version**: %s\n", FT_NMAP_VERSION);
 	fprintf(f, "- **Target**: `%s`\n", opts->target);
+	fprintf(f, "- **Scan**: `%s`\n", scan_type_str(opts->scan_type));
 	if (summary->resolved_ip[0] != '\0')
 	{
 		fprintf(f, "- **Resolved**: `%s` (%s)", summary->resolved_ip,
@@ -739,7 +751,8 @@ int	write_xml_summary(const t_options *opts, const t_summary *summary,
 	fprintf(f, "<ft_nmap version=\"%s\" target=\"", FT_NMAP_VERSION);
 	xml_escape(opts->target, f);
 	fprintf(f,
-		"\" timeout_ms=\"%ld\" max_inflight=\"%d\" resolved_ip=\"%s\" resolved_family=\"%s\" resolved_count=\"%zu\" export_filter=\"%s\" delay_ms=\"%ld\" randomized=\"%s\" dry_run=\"%s\"",
+		"\" scan_type=\"%s\" timeout_ms=\"%ld\" max_inflight=\"%d\" resolved_ip=\"%s\" resolved_family=\"%s\" resolved_count=\"%zu\" export_filter=\"%s\" delay_ms=\"%ld\" randomized=\"%s\" dry_run=\"%s\"",
+		scan_type_str(opts->scan_type),
 		opts->timeout_ms, opts->max_inflight, summary->resolved_ip,
 		summary->resolved_family, summary->resolved_count,
 		export_filter_str(opts->export_filter),

@@ -1,6 +1,10 @@
 validation_summary:
-  timestamp: 2025-12-11T11:39:31.542313
+  timestamp: 2026-01-02T19:25:14.758670
   fold_count: 5
   best_rmse: 594.47
   worst_rmse: 1520.42
   average_rmse: 978.62
+  median_rmse: 751.49
+  stddev_rmse: 356.0467269671216
+  bootstrap_samples: 5
+  bootstrap_average_rmse: 942.32

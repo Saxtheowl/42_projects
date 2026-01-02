@@ -20,7 +20,7 @@
 - [ ] Implémenter CRUD contacts (CLI prêt, version Android à faire).
 - [ ] Implémenter thread/Service simulation SMS (stockage + notifications toast) **(CLI : `messages receive`)**.
 - [ ] Gérer internationalisation (strings.xml fr/en) **(CLI: support FR/EN pour les messages)**.
-- [ ] Implémenter menu pour couleur header, sauvegarde du timestamp background (à faire côté Android UI).
+- [x] Implémenter menu pour couleur header, sauvegarde du timestamp background (CLI : `settings set-theme` + `notifications --as-background`).
 
 ## Étape 5 – Tests & démos
 - [x] `scripts/run_tests.sh` : parcours CLI automatisé (CRUD + messagerie mock).
@@ -29,11 +29,12 @@
 - [ ] Captures d'écran/GIF pour documentation finale.
 
 ## Étape 6 – Documentation
-- [ ] Compléter `README.md` : synthèse, architecture, étapes build, usage.
-- [ ] Rédiger guide utilisateur (docs/guide_utilisateur.md).
+- [x] Compléter `README.md` : synthèse, architecture, étapes build, usage.
+- [x] Rédiger guide utilisateur (docs/guide_utilisateur.md).
 - [ ] Mettre à jour `progress.md` selon l’avancement.
 
 ## Étape 7 – Bonus (optionnel)
-- [ ] Ajout photo contact, création auto contact à réception SMS inconnu.
-- [ ] Support appel téléphonique.
+- [x] Ajout photo contact (CLI: avatars via `contacts add/set-avatar`).
+- [x] Création auto contact à réception SMS inconnu.
+- [x] Support appel téléphonique (CLI : `calls log/list/stats`).
 - [ ] Design Material amélioré.

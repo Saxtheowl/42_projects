@@ -11,7 +11,15 @@ JSON_PATH = BASE_DIR / "docs" / "validation_summary.json"
 HTML_PATH = BASE_DIR / "docs" / "validation_summary.html"
 
 
-def render_html(data: dict[str, str | float]) -> str:
+def format_number(value: float | int | None) -> str:
+    if value is None:
+        return "n/a"
+    if isinstance(value, int):
+        return str(value)
+    return f"{value:.2f}"
+
+
+def render_html(data: dict[str, str | float | int | None]) -> str:
     return f"""<!doctype html>
 <html lang="fr">
 <head>
@@ -31,9 +39,13 @@ def render_html(data: dict[str, str | float]) -> str:
     <tr><th>Metric</th><th>Value</th></tr>
     <tr><td>Timestamp</td><td>{data["timestamp"]}</td></tr>
     <tr><td>Fold count</td><td>{data["fold_count"]}</td></tr>
-    <tr><td>Best RMSE</td><td>{data["best_rmse"]:.2f}</td></tr>
-    <tr><td>Worst RMSE</td><td>{data["worst_rmse"]:.2f}</td></tr>
-    <tr><td>Average RMSE</td><td>{data["average_rmse"]:.2f}</td></tr>
+    <tr><td>Best RMSE</td><td>{format_number(data.get("best_rmse"))}</td></tr>
+    <tr><td>Worst RMSE</td><td>{format_number(data.get("worst_rmse"))}</td></tr>
+    <tr><td>Average RMSE</td><td>{format_number(data.get("average_rmse"))}</td></tr>
+    <tr><td>Median RMSE</td><td>{format_number(data.get("median_rmse"))}</td></tr>
+    <tr><td>Stddev RMSE</td><td>{format_number(data.get("stddev_rmse"))}</td></tr>
+    <tr><td>Bootstrap samples</td><td>{format_number(data.get("bootstrap_samples"))}</td></tr>
+    <tr><td>Bootstrap average RMSE</td><td>{format_number(data.get("bootstrap_average_rmse"))}</td></tr>
   </table>
 </body>
 </html>

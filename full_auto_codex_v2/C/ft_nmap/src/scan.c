@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <netdb.h>
+#include <netinet/in.h>
 #include <poll.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,6 +45,13 @@ static void	report_port(const t_options *opts, const t_result *res)
 	else if (res->status == FT_NMAP_STATUS_TIMEOUT)
 		printf("%s:%d timeout (retries=%d, %ldms)\n", opts->target, res->port,
 			res->retries_used, res->duration_ms);
+}
+
+static const char	*scan_type_str(t_scan_type type)
+{
+	if (type == FT_NMAP_SCAN_UDP)
+		return ("udp");
+	return ("tcp");
 }
 
 static int	make_nonblocking(int fd)
@@ -135,6 +143,42 @@ static int	open_connection(const struct addrinfo *res, int port,
 	out->status = FT_NMAP_STATUS_CLOSED;
 	out->duration_ms = 0;
 	out->service[0] = '\0';
+	return (-1);
+}
+
+static int	open_udp_connection(const struct addrinfo *res, int port,
+		struct timeval *begin_out)
+{
+	const struct addrinfo	*cur = res;
+
+	while (cur)
+	{
+		struct sockaddr_storage	addr;
+		int						fd;
+
+		memcpy(&addr, cur->ai_addr, cur->ai_addrlen);
+		if (set_port((struct sockaddr *)&addr, cur->ai_addrlen, port) != 0)
+		{
+			cur = cur->ai_next;
+			continue ;
+		}
+		fd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
+		if (fd < 0 || make_nonblocking(fd) != 0 || fd >= FD_SETSIZE)
+		{
+			if (fd >= 0)
+				close(fd);
+			cur = cur->ai_next;
+			continue ;
+		}
+		if (connect(fd, (struct sockaddr *)&addr, cur->ai_addrlen) != 0)
+		{
+			close(fd);
+			cur = cur->ai_next;
+			continue ;
+		}
+		gettimeofday(begin_out, NULL);
+		return (fd);
+	}
 	return (-1);
 }
 
@@ -262,8 +306,16 @@ int	scan_ports(const t_options *opts, t_summary *out_summary)
 	resolved_count = 0;
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = opts->ai_family;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_protocol = IPPROTO_TCP;
+	if (opts->scan_type == FT_NMAP_SCAN_UDP)
+	{
+		hints.ai_socktype = SOCK_DGRAM;
+		hints.ai_protocol = IPPROTO_UDP;
+	}
+	else
+	{
+		hints.ai_socktype = SOCK_STREAM;
+		hints.ai_protocol = IPPROTO_TCP;
+	}
 	const char *resolve_name = opts->ip_override_set ? opts->ip_override
 		: opts->target;
 	rc = getaddrinfo(resolve_name, NULL, &hints, &res);
@@ -357,6 +409,289 @@ int	scan_ports(const t_options *opts, t_summary *out_summary)
 			results[i].duration_ms = 0;
 			results[i].retries_used = 0;
 			results[i].service[0] = '\0';
+		}
+		goto build_summary;
+	}
+	if (opts->scan_type == FT_NMAP_SCAN_UDP)
+	{
+		max_retry = opts->retries;
+		if (max_retry < 0)
+			max_retry = 0;
+		if (max_retry > FT_NMAP_MAX_RETRIES)
+			max_retry = FT_NMAP_MAX_RETRIES;
+		ports = malloc(sizeof(int) * opts->ports.count);
+		if (!ports)
+		{
+			freeaddrinfo(res);
+			free(results);
+			return (-1);
+		}
+		memcpy(ports, opts->ports.values, sizeof(int) * opts->ports.count);
+		random_seed = 0;
+		randomized = (opts->randomize && opts->ports.count > 1);
+		if (randomized)
+		{
+			if (opts->random_seed_set)
+				random_seed = opts->random_seed;
+			else
+			{
+				struct timeval	tv;
+
+				gettimeofday(&tv, NULL);
+				random_seed = (unsigned int)(tv.tv_sec ^ tv.tv_usec ^ getpid());
+			}
+			srand(random_seed);
+			shuffle_ports(ports, opts->ports.count);
+		}
+		for (size_t i = 0; i < opts->ports.count; ++i)
+		{
+			results[i].port = ports[i];
+			results[i].status = FT_NMAP_STATUS_UNKNOWN;
+			results[i].duration_ms = 0;
+			results[i].retries_used = 0;
+			results[i].service[0] = '\0';
+		}
+		gettimeofday(&start_time, NULL);
+		start_epoch_ms = start_time.tv_sec * 1000L + start_time.tv_usec / 1000L;
+		open_count = 0;
+		timeout_count = 0;
+		closed_count = 0;
+		retry_count = 0;
+		scanned_count = 0;
+		open_rate = 0.0;
+		closed_rate = 0.0;
+		timeout_rate = 0.0;
+		avg_retries_per_port = 0.0;
+		first_open_ms = -1;
+		deadline_hit = 0;
+		duration_min_ms = LONG_MAX;
+		duration_max_ms = 0;
+		duration_sum_ms = 0;
+		duration_p50_ms = 0;
+		duration_p90_ms = 0;
+		duration_p99_ms = 0;
+		end_time_set = 0;
+		fastest_port = -1;
+		fastest_duration_ms = LONG_MAX;
+		slowest_port = -1;
+		slowest_duration_ms = 0;
+		progress_enabled = (opts->progress_interval_ms > 0);
+		last_progress_ms = -1;
+		timeout_stop_hit = 0;
+		max_batch = 1;
+		int	stop_requested = 0;
+
+		if (progress_enabled)
+		{
+			fprintf(stderr,
+				"[progress] scanned=0 open=0 closed=0 timeouts=0 active=0 pending=%zu\n",
+				opts->ports.count);
+			last_progress_ms = 0;
+		}
+		for (size_t i = 0; i < opts->ports.count && !stop_requested; ++i)
+		{
+			int		attempts = 0;
+			int		retries_left = max_retry;
+			int		done = 0;
+
+			while (!done)
+			{
+				struct timeval	begin;
+				struct timeval	now;
+				long			backoff_extra;
+				long			attempt_timeout_ms;
+				long			elapsed_ms;
+				int				fd;
+				int				status = FT_NMAP_STATUS_TIMEOUT;
+
+				fd = open_udp_connection(res, ports[i], &begin);
+				if (fd < 0)
+				{
+					results[i].status = FT_NMAP_STATUS_CLOSED;
+					results[i].duration_ms = 0;
+					results[i].retries_used = attempts;
+					closed_count++;
+					scanned_count++;
+					report_port(opts, &results[i]);
+					break ;
+				}
+				backoff_extra = (long)opts->timeout_ms
+					* (long)opts->retry_backoff_pct / 100L
+					* (long)attempts;
+				if (backoff_extra < 0)
+					backoff_extra = 0;
+				attempt_timeout_ms = opts->timeout_ms + backoff_extra;
+				if (attempt_timeout_ms < 1)
+					attempt_timeout_ms = opts->timeout_ms;
+				char payload = 0;
+				if (send(fd, &payload, 1, 0) < 0)
+				{
+					close(fd);
+					results[i].status = FT_NMAP_STATUS_CLOSED;
+					results[i].duration_ms = 0;
+					results[i].retries_used = attempts;
+					closed_count++;
+					scanned_count++;
+					report_port(opts, &results[i]);
+					break ;
+				}
+				struct pollfd	pfd;
+
+				pfd.fd = fd;
+				pfd.events = POLLIN | POLLERR | POLLHUP;
+				pfd.revents = 0;
+				int	prc = poll(&pfd, 1, (int)attempt_timeout_ms);
+				gettimeofday(&now, NULL);
+				elapsed_ms = elapsed_ms_since(&begin, &now);
+				if (prc > 0)
+				{
+					int			err = 0;
+					socklen_t	len = sizeof(err);
+
+					if (pfd.revents & (POLLERR | POLLHUP))
+					{
+						if (getsockopt(fd, SOL_SOCKET, SO_ERROR, &err, &len) == 0
+							&& err == ECONNREFUSED)
+							status = FT_NMAP_STATUS_CLOSED;
+						else
+							status = FT_NMAP_STATUS_TIMEOUT;
+					}
+					if (pfd.revents & POLLIN)
+					{
+						char	buf[64];
+						ssize_t	rcv = recv(fd, buf, sizeof(buf), 0);
+
+						if (rcv >= 0)
+							status = FT_NMAP_STATUS_OPEN;
+						else if (errno == ECONNREFUSED)
+							status = FT_NMAP_STATUS_CLOSED;
+						else
+							status = FT_NMAP_STATUS_TIMEOUT;
+					}
+				}
+				close(fd);
+				results[i].status = (t_port_status)status;
+				results[i].duration_ms = elapsed_ms;
+				results[i].retries_used = attempts;
+				if (status == FT_NMAP_STATUS_TIMEOUT && retries_left > 0)
+				{
+					retry_count++;
+					retries_left--;
+					attempts++;
+					continue ;
+				}
+				if (status == FT_NMAP_STATUS_OPEN)
+				{
+					open_count++;
+					scanned_count++;
+					if (opts->show_service)
+					{
+						struct servent *se = getservbyport(htons(ports[i]), "udp");
+
+						if (se)
+						{
+							strncpy(results[i].service, se->s_name,
+								sizeof(results[i].service) - 1);
+							results[i].service[sizeof(results[i].service) - 1] = '\0';
+						}
+					}
+				}
+				else if (status == FT_NMAP_STATUS_CLOSED)
+				{
+					closed_count++;
+					scanned_count++;
+				}
+				else
+				{
+					timeout_count++;
+					scanned_count++;
+				}
+				if (elapsed_ms < duration_min_ms)
+					duration_min_ms = elapsed_ms;
+				if (elapsed_ms > duration_max_ms)
+					duration_max_ms = elapsed_ms;
+				if (elapsed_ms < fastest_duration_ms)
+				{
+					fastest_duration_ms = elapsed_ms;
+					fastest_port = ports[i];
+				}
+				if (elapsed_ms >= slowest_duration_ms)
+				{
+					slowest_duration_ms = elapsed_ms;
+					slowest_port = ports[i];
+				}
+				duration_sum_ms += elapsed_ms;
+				if (status == FT_NMAP_STATUS_OPEN && first_open_ms < 0)
+				{
+					struct timeval	now_open;
+
+					gettimeofday(&now_open, NULL);
+					first_open_ms = elapsed_ms_since(&start_time, &now_open);
+					if (first_open_ms < 0)
+						first_open_ms = elapsed_ms;
+				}
+				report_port(opts, &results[i]);
+				if (opts->stop_on_open_count > 0
+					&& (int)open_count >= opts->stop_on_open_count)
+					stop_requested = 1;
+				if (!timeout_stop_hit && opts->stop_on_timeout_count > 0
+					&& (int)timeout_count >= opts->stop_on_timeout_count)
+				{
+					stop_requested = 1;
+					timeout_stop_hit = 1;
+				}
+				done = 1;
+			}
+			if (opts->inter_batch_delay_ms > 0)
+				usleep((useconds_t)(opts->inter_batch_delay_ms * 1000));
+			if (opts->deadline_ms > 0 && !stop_requested)
+			{
+				struct timeval	now;
+				long			elapsed_total_ms;
+
+				gettimeofday(&now, NULL);
+				elapsed_total_ms = elapsed_ms_since(&start_time, &now);
+				if (elapsed_total_ms >= opts->deadline_ms)
+				{
+					stop_requested = 1;
+					deadline_hit = 1;
+				}
+			}
+			if (progress_enabled && !stop_requested)
+			{
+				struct timeval	now;
+				long			elapsed_total_ms;
+
+				gettimeofday(&now, NULL);
+				elapsed_total_ms = elapsed_ms_since(&start_time, &now);
+				if (elapsed_total_ms - last_progress_ms >= opts->progress_interval_ms)
+				{
+					fprintf(stderr,
+						"[progress] scanned=%zu open=%zu closed=%zu timeouts=%zu active=0 pending=%zu\n",
+						scanned_count, open_count, closed_count, timeout_count,
+						opts->ports.count - scanned_count);
+					last_progress_ms = elapsed_total_ms;
+				}
+			}
+		}
+		gettimeofday(&end_time, NULL);
+		end_time_set = 1;
+		elapsed_ms = elapsed_ms_since(&start_time, &end_time);
+		if (elapsed_ms <= 0)
+			elapsed_ms = 1;
+		if (opts->deadline_ms > 0 && elapsed_ms >= opts->deadline_ms)
+			deadline_hit = 1;
+		end_epoch_ms = end_time.tv_sec * 1000L + end_time.tv_usec / 1000L;
+		rate = (double)scanned_count * 1000.0 / (double)elapsed_ms;
+		pending_count = (opts->ports.count > scanned_count
+				? opts->ports.count - scanned_count : 0);
+		export_count = opts->ports.count;
+		if (scanned_count > 0)
+		{
+			open_rate = ((double)open_count / (double)scanned_count) * 100.0;
+			closed_rate = ((double)closed_count / (double)scanned_count) * 100.0;
+			timeout_rate = ((double)timeout_count / (double)scanned_count) * 100.0;
+			avg_retries_per_port = (double)retry_count / (double)scanned_count;
 		}
 		goto build_summary;
 	}
@@ -965,8 +1300,8 @@ build_summary:
 		qsort(results, export_count, sizeof(t_result), compare_results_by_port);
 	FILE	*summary_stream = opts->summary_to_stderr ? stderr : stdout;
 
-	fprintf(summary_stream, "Scan finished: %zu/%zu ports scanned",
-		summary.scanned, summary.requested);
+	fprintf(summary_stream, "Scan finished (%s): %zu/%zu ports scanned",
+		scan_type_str(opts->scan_type), summary.scanned, summary.requested);
 	if (summary.pending > 0)
 		fprintf(summary_stream, " (%zu pending)", summary.pending);
 	if (summary.excluded_count > 0)

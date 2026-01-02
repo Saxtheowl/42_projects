@@ -683,3 +683,50 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2025-12-27 10:23:52 | general | REVIEW | Confirmed documentation/README entries remain current; no code changes performed.
 2025-12-27 11:08:44 | general | REVIEW | Confirmed docs/logs_metrics.md + README guidance remain in sync; no code changes needed.
 2025-12-27 12:36:10 UTC | C/Ft_services | IN_PROGRESS | Rerun helper `logs_metrics_export.sh --dir C/ft_services/reports --pattern status --topn 2` and verified columns `timestamp, log_file, status_checks, connections, overloaded, overloaded_ratio` via `tail -n 5 C/ft_services/reports/log_metrics_snapshot.status_top2.csv` and `jq '.[-1]' C/ft_services/reports/log_metrics_snapshot.status_top2.json`, citing `C/ft_services/docs/logs_metrics.md` to document the workflow.
+2026-01-02 17:03:13 | C/ft_nmap | IN_PROGRESS | Support des noms de services TCP dans -p/-P/-x/-X (http/https/ssh) avec parsing range robuste, version 0.2.1 et test service_names; docs/usage mis a jour.
+2026-01-02 17:04:59 | C/ft_nmap | IN_PROGRESS | Suite complete des tests make test OK (stop-after-n-open ignore car bind refuse), validation parsing service_names; README horodate.
+2026-01-02 17:13:51 | C/ft_nmap | IN_PROGRESS | Ajout scan multi-cibles via -i/--file avec export par cible (%s), aliases --ip/--ports/--speedup, test targets_file et docs mis a jour.
+2026-01-02 17:14:28 | C/ft_nmap | IN_PROGRESS | make test OK apres ajout multi-cibles (-i) et test targets_file; README horodate.
+2026-01-02 17:20:39 | C/ft_nmap | IN_PROGRESS | Ajout mode --scan udp (sondes UDP sequentielles + retries), resume indique tcp/udp, test scan_udp; version 0.2.3 et docs MAJ.
+2026-01-02 17:21:27 | C/ft_nmap | IN_PROGRESS | make test OK apres ajout --scan udp; resume tcp/udp valide, README horodate.
+2026-01-02 17:25:02 | C/ft_nmap | IN_PROGRESS | Exports enrichis avec scan_type (JSON/YAML/XML/CSV/HTML/MD), version 0.2.4, tests adaptes + make test OK.
+2026-01-02 17:26:56 | C/ft_nmap | IN_PROGRESS | Limite 1024 ports appliquee (apres exclusions), test port_limit ajoute, version 0.2.5 et make test OK.
+2026-01-02 17:29:03 | C/ft_nmap | DONE | Projet stabilise (multi-cibles, scan udp, exports enrichis, limite 1024 ports), tests make test OK, documentation finalisee.
+2026-01-02 17:35:15 | C/Ft_shmup | IN_PROGRESS | Ajout power-up Spread (tir en éventail) avec projectiles diagonaux, HUD et rendu power-up distinct; build OK.
+2026-01-02 17:39:36 | C/Ft_shmup | IN_PROGRESS | Ajout ennemis kamikaze (suivi joueur, spawn par vague), score ajuste, rendu + build OK.
+2026-01-02 17:44:55 | C/Ft_shmup | IN_PROGRESS | Overlay aide (touche h) avec rappel controles/power-ups/ennemis, HUD mis a jour; build OK.
+2026-01-02 17:49:22 | C/Ft_shmup | IN_PROGRESS | Ajout bannieres Wave/Boss au debut des vagues, affichage centre; build OK.
+2026-01-02 17:54:22 | C/Ft_shmup | IN_PROGRESS | Ajout combo de kills (bonus score si enchainement rapide), HUD affiche le combo; build OK.
+2026-01-02 17:59:42 | C/Ft_shmup | IN_PROGRESS | Confirmation de sortie (q puis y/n) avec overlay, HUD conserve infos; build OK.
+2026-01-02 18:04:50 | C/Ft_shmup | IN_PROGRESS | Ajout post-game avec relance (r) sans quitter, loop ncurses conserve scores; build OK.
+2026-01-02 18:09:45 | C/Ft_shmup | IN_PROGRESS | Ajout ennemi sniper (tirs diriges), icone T, spawn par vague; build OK.
+2026-01-02 18:15:47 | C/Ft_shmup | IN_PROGRESS | Boss passe en mode enraged (cadence acceleree + kamikazes), rendu B explicite; build OK.
+2026-01-02 18:19:55 | C/Ft_shmup | IN_PROGRESS | Ajout power-up Slow Time (Z) ralentissant ennemis et tirs, HUD/aide mis a jour; build OK.
+2026-01-02 18:25:17 | C/Ft_shmup | IN_PROGRESS | Ajout bombes (power-up B + touche b) nettoie tirs/ennemis, HUD mis a jour; build OK.
+2026-01-02 18:30:26 | C/Ft_shmup | IN_PROGRESS | Timers gameplay relies on game-time (pause fige timers/power-ups), logique temps refactor, build OK.
+2026-01-02 18:34:52 | C/Ft_shmup | IN_PROGRESS | Fin de partie clarifiee (Victory/Game Over) + touche x pour quitter, build OK.
+2026-01-02 18:39:38 | C/Ft_shmup | IN_PROGRESS | Ajout dash (touche e) avec invuln courte + cooldown, HUD/aide mis a jour; build OK.
+2026-01-02 18:44:28 | C/Ft_shmup | IN_PROGRESS | Ajout auto-fire (touche f) pour tir continu, HUD/aide mis a jour; build OK.
+2026-01-02 18:49:49 | C/Ft_shmup | IN_PROGRESS | Ajout ecran titre (start espace/entree) et retour au titre via t; build OK.
+2026-01-02 18:55:26 | C/Ft_shmup | IN_PROGRESS | Mode Endless/Campaign selectionnable au titre (m), HUD affiche le mode; build OK.
+2026-01-02 18:58:57 | C/Ft_shmup | DONE | Projet stabilise (campagne + endless, power-ups, boss/enraged, HUD complet), build OK.
+2026-01-02 19:06:38 | C/ft_linear_regression | IN_PROGRESS | Ajout median/stddev RMSE dans validation_summary (txt/md/json/html/csv/yaml) et scripts d'export mis a jour.
+2026-01-02 19:13:15 | C/ft_linear_regression | IN_PROGRESS | Early stopping restaure les meilleurs theta, validation supporte early-stop avec best_epoch/best_train_rmse.
+2026-01-02 19:15:24 | C/ft_linear_regression | IN_PROGRESS | validation.py ecrit data/validation_report.txt via --output (default) et docs mises a jour.
+2026-01-02 19:19:39 | C/ft_linear_regression | IN_PROGRESS | Ajout bootstrap validation (OOB) via --bootstrap-samples avec RMSE moyen, rapport enrichi.
+2026-01-02 19:25:49 | C/ft_linear_regression | IN_PROGRESS | Validation bootstrap executee, summary JSON/MD/HTML/CSV/YAML regenere avec bootstrap average.
+2026-01-02 19:29:25 | C/ft_linear_regression | IN_PROGRESS | Tests validation_summary (bootstrap) ajoutes, pytest OK.
+2026-01-02 19:34:52 | C/ft_linear_regression | DONE | Documentation rmse_plot + roadmap post-review, plan finalise.
+2026-01-02 19:41:38 | C/ft_hangouts | IN_PROGRESS | Auto-creation contact sur SMS inconnu (CLI), tests scenario mis a jour.
+2026-01-02 19:42:33 | C/ft_hangouts | IN_PROGRESS | Auto-creation contact SMS inconnus + tests run_tests.sh OK.
+2026-01-02 19:46:10 | C/ft_hangouts | IN_PROGRESS | Ajout settings theme (CLI) + tests run_tests.sh OK.
+2026-01-02 19:51:13 | C/ft_hangouts | IN_PROGRESS | Ajout avatars contacts (add/set-avatar) + run_tests.sh OK.
+2026-01-02 19:55:45 | C/ft_hangouts | IN_PROGRESS | Import/export CSV contacts + run_tests.sh OK.
+2026-01-02 19:59:45 | C/ft_hangouts | IN_PROGRESS | Guide utilisateur CLI ajoute.
+2026-01-02 20:04:41 | C/ft_hangouts | IN_PROGRESS | README complete, docs/user_journeys.md ajoute.
+2026-01-02 20:11:27 | C/ft_hangouts | IN_PROGRESS | Ajout support appels (log/list/stats) + run_tests.sh OK.
+2026-01-02 20:12:06 | C/ft_hangouts | IN_PROGRESS | Guide utilisateur mis a jour (section appels).
+2026-01-02 20:15:27 | C/ft_hangouts | IN_PROGRESS | Export/import appels JSON + run_tests.sh OK.
+2026-01-02 20:19:04 | C/ft_hangouts | DONE | Prototype CLI complet, docs/tests stabilises.
+2026-01-02 20:25:54 | C/Ft_ls | DONE | Tests run_tests.sh OK, plan/README finalises.
+2026-01-02 20:31:24 | C/ft_linux | IN_PROGRESS | Toolchain split gcc-stage1/libgcc, docs/plan mis a jour.

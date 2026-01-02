@@ -1,2 +1,2 @@
-timestamp,fold_count,best_rmse,worst_rmse,average_rmse
-2025-12-11T11:39:31.542313,5,594.47,1520.42,978.62
+timestamp,fold_count,best_rmse,worst_rmse,average_rmse,median_rmse,stddev_rmse,bootstrap_samples,bootstrap_average_rmse
+2026-01-02T19:25:14.758670,5,594.47,1520.42,978.62,751.49,356.0467269671216,5,942.32

@@ -22,6 +22,10 @@ def main() -> int:
         f"  best_rmse: {data['best_rmse']}",
         f"  worst_rmse: {data['worst_rmse']}",
         f"  average_rmse: {data['average_rmse']}",
+        f"  median_rmse: {data['median_rmse']}",
+        f"  stddev_rmse: {data['stddev_rmse']}",
+        f"  bootstrap_samples: {data.get('bootstrap_samples')}",
+        f"  bootstrap_average_rmse: {data.get('bootstrap_average_rmse')}",
     ]
     YAML_PATH.write_text("\n".join(lines))
     print(f"Wrote {YAML_PATH.relative_to(BASE_DIR)}")

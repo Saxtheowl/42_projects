@@ -1,3 +1,26 @@
+Derniere mise a jour (2026-01-02 17:29:03) : C/ft_nmap termine : projet stabilise (multi-cibles, scan udp, exports enrichis, limite 1024 ports) et suite de tests make test OK.
+Derniere mise a jour (2026-01-02 18:58:57) : C/Ft_shmup termine : shmup stabilise (campagne + endless, power-ups, boss/enraged, HUD) et build OK.
+Derniere mise a jour (2026-01-02 18:39:38) : C/Ft_shmup progresse : ajout du dash (touche e, invuln courte + cooldown), HUD/aide MAJ; build OK.
+Derniere mise a jour (2026-01-02 18:34:52) : C/Ft_shmup progresse : message de fin (Victory/Game Over) + touche x pour quitter, build OK.
+Derniere mise a jour (2026-01-02 18:30:26) : C/Ft_shmup progresse : timers bases sur game-time (pause fige effets/power-ups), build OK.
+Derniere mise a jour (2026-01-02 18:25:17) : C/Ft_shmup progresse : ajout des bombes (power-up B + touche b) pour nettoyer tirs/ennemis, HUD MAJ; build OK.
+Derniere mise a jour (2026-01-02 18:19:55) : C/Ft_shmup progresse : power-up Slow Time (Z) ralentissant ennemis/tirs, HUD et aide MAJ; build OK.
+Derniere mise a jour (2026-01-02 18:15:47) : C/Ft_shmup progresse : boss enraged (cadence acceleree + kamikazes), icone B explicite; build OK.
+Derniere mise a jour (2026-01-02 18:09:45) : C/Ft_shmup progresse : nouvel ennemi Sniper (tirs diriges) avec icone T et spawn par vague; build OK.
+Derniere mise a jour (2026-01-02 18:04:50) : C/Ft_shmup progresse : post-game avec relance (r) sans quitter; build OK.
+Derniere mise a jour (2026-01-02 17:59:42) : C/Ft_shmup progresse : confirmation de sortie q->y/n via overlay; build OK.
+Derniere mise a jour (2026-01-02 17:54:22) : C/Ft_shmup progresse : ajout combo de kills avec bonus score et HUD combo; build OK.
+Derniere mise a jour (2026-01-02 17:49:22) : C/Ft_shmup progresse : bannieres Wave/Boss ajoutees au debut des vagues; build OK.
+Derniere mise a jour (2026-01-02 17:44:55) : C/Ft_shmup progresse : overlay d’aide (touche h) avec rappel controls/power-ups/ennemis, HUD mis a jour; build OK.
+Derniere mise a jour (2026-01-02 17:39:36) : C/Ft_shmup progresse : ajout d’ennemis kamikaze (suivi joueur, spawn par vague) avec score ajuste; build OK.
+Derniere mise a jour (2026-01-02 17:35:15) : C/Ft_shmup progresse : nouveau power-up Spread (tir en éventail) avec projectiles diagonaux, HUD et drops distincts; build OK.
+Derniere mise a jour (2026-01-02 17:26:56) : C/ft_nmap progresse : limite 1024 ports appliquee (apres exclusions), nouveau test port_limit, version 0.2.5 et make test OK.
+Derniere mise a jour (2026-01-02 17:25:02) : C/ft_nmap progresse : exports enrichis avec scan_type (JSON/YAML/XML/CSV/HTML/MD), version 0.2.4 et tests mis a jour; make test OK.
+Derniere mise a jour (2026-01-02 17:21:27) : C/ft_nmap progresse : make test OK apres ajout mode udp, resumé tcp/udp visible; README horodate.
+Derniere mise a jour (2026-01-02 17:20:39) : C/ft_nmap progresse : ajout du mode --scan udp (sondes UDP sequentielles + retries), sortie resume indique tcp/udp, test scan_udp; version 0.2.3 et docs MAJ.
+Derniere mise a jour (2026-01-02 17:14:28) : C/ft_nmap progresse : suite complete des tests make test OK apres ajout multi-cibles (-i), nouveaux tests targets_file; README horodate.
+Derniere mise a jour (2026-01-02 17:13:51) : C/ft_nmap progresse : support du scan multi-cibles via -i/--file avec chemins d’export par cible (%s), aliases --ip/--ports/--speedup, test targets_file; docs/usage mis a jour.
+Derniere mise a jour (2026-01-02 17:04:59) : C/ft_nmap progresse : suite complete des tests `make test` executee (tous OK, stop-after-n-open ignore par manque de bind), validation du parsing service_names; README horodate.
 Derniere mise a jour (2025-12-26 17:49:21) : C/ft_nmap progresse : mode dry-run (-n) ajoute un flag `dry_run` dans tous les exports/tests, ports laissés pending/unknown sans ouvrir de sockets; docs/Makefile mis à jour.
 Derniere mise a jour (2025-12-26 20:59:23) : ft_nmap embarque sa version dans tous les exports (JSON/YAML/XML/Markdown/CSV) avec tests renforcés et docs horodatés.
 Derniere mise a jour (2025-12-27 18:40:00) : C/ft_nmap progresse : option -I pour forcer l’IP (bypass DNS) + liste d’adresses résolues exportée, résumé indique override; tests/Makefile/docs horodatés.
@@ -206,3 +229,23 @@ Cette mini-checklist peut être recopiée dans vos annotations pour garantir que
 Pour aller plus loin, mentionnez dans vos notes que la même doc `C/ft_services/docs/logs_metrics.md` décrit le helper et les colonnes citées, ce qui permet à chacun de réexécuter `tail`/`jq` sur les fichiers exportés et de confirmer que le `pattern=status`/`top_n=2` subset est bien identique au moment du contrôle de relecture. Rappelez aussi la mini-checklist (helper → CSV tail → JSON jq → citation) pour que tout relecteur reporte exactement les mêmes vérifications avant de valider. Ajoutez une phrase incitant les relecteurs à recopier ce trio de commandes (`helper`, `tail -n 5 ...`, `jq '.[-1]' ...`) dans leurs commentaires afin que la piste `pattern=status / top_n=2` reste visible dans les deux formats avant l’approbation.
 Derniere mise a jour (2025-12-25 21:07:40) : ft_services : historique overall généré avant manifest/checksums (CSV dans manifest/sitemap/portal), portail avec liens cliquables + tableau d’historique; smoke + quick-check verts (push toujours bloqué DNS).
 Derniere mise à jour (2025-12-27 14:07:12) : synchronisation des docs/scripts/helpers
+Derniere mise a jour (2026-01-02 19:06:38) : C/ft_linear_regression progresse : validation_summary ajoute median/stddev RMSE (txt/md/json/html/csv/yaml) avec scripts d'export a jour.
+Derniere mise a jour (2026-01-02 19:13:15) : C/ft_linear_regression progresse : early stopping restaure les meilleurs theta et validation ajoute best_epoch/best_train_rmse avec options early-stop.
+Derniere mise a jour (2026-01-02 19:15:24) : C/ft_linear_regression progresse : validation.py ecrit data/validation_report.txt via --output (default), docs alignes.
+Derniere mise a jour (2026-01-02 19:19:39) : C/ft_linear_regression progresse : validation.py ajoute bootstrap (OOB) via --bootstrap-samples pour RMSE supplementaire.
+Derniere mise a jour (2026-01-02 19:25:49) : C/ft_linear_regression progresse : validation_summary capture bootstrap average et artefacts regeneres apres run bootstrap.
+Derniere mise a jour (2026-01-02 19:29:25) : C/ft_linear_regression progresse : tests ajoutés pour validation_summary (bootstrap) et pytest OK.
+Derniere mise a jour (2026-01-02 19:34:52) : C/ft_linear_regression DONE : doc rmse_plot + roadmap post-review, plan termine.
+Derniere mise a jour (2026-01-02 19:41:38) : C/ft_hangouts IN_PROGRESS : auto-creation contact SMS inconnu + scenario CLI mis a jour.
+Derniere mise a jour (2026-01-02 19:42:33) : C/ft_hangouts IN_PROGRESS : tests run_tests.sh relances apres auto-creation contact SMS.
+Derniere mise a jour (2026-01-02 19:46:10) : C/ft_hangouts IN_PROGRESS : settings theme CLI + run_tests.sh OK.
+Derniere mise a jour (2026-01-02 19:51:13) : C/ft_hangouts IN_PROGRESS : avatars contacts (add/set-avatar) + run_tests.sh OK.
+Derniere mise a jour (2026-01-02 19:55:45) : C/ft_hangouts IN_PROGRESS : import/export contacts CSV + run_tests.sh OK.
+Derniere mise a jour (2026-01-02 19:59:45) : C/ft_hangouts IN_PROGRESS : guide utilisateur CLI ajoute.
+Derniere mise a jour (2026-01-02 20:04:41) : C/ft_hangouts IN_PROGRESS : README complete + user_journeys ajoutes.
+Derniere mise a jour (2026-01-02 20:11:27) : C/ft_hangouts IN_PROGRESS : support appels (log/list/stats) + run_tests.sh OK.
+Derniere mise a jour (2026-01-02 20:12:06) : C/ft_hangouts IN_PROGRESS : guide utilisateur mis a jour (section appels).
+Derniere mise a jour (2026-01-02 20:15:27) : C/ft_hangouts IN_PROGRESS : export/import appels JSON + run_tests.sh OK.
+Derniere mise a jour (2026-01-02 20:19:04) : C/ft_hangouts DONE : prototype CLI complet, docs/tests stabilises.
+Derniere mise a jour (2026-01-02 20:25:54) : C/Ft_ls DONE : tests comparatifs OK, plan/README finalises.
+Derniere mise a jour (2026-01-02 20:31:24) : C/ft_linux IN_PROGRESS : toolchain split gcc-stage1/libgcc, docs/plans mis a jour.

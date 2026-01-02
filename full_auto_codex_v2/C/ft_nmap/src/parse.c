@@ -1,7 +1,9 @@
 #include "ft_nmap.h"
 
+#include <ctype.h>
 #include <errno.h>
 #include <limits.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -39,31 +41,92 @@ static int	add_port_range(int start, int end, char *visited, t_ports *out)
 	return (0);
 }
 
+static int	parse_port_number(const char *token, int *out)
+{
+	char	*endptr;
+	long	val;
+
+	if (!token || *token == '\0')
+		return (-1);
+	errno = 0;
+	val = strtol(token, &endptr, 10);
+	if (errno != 0 || *endptr != '\0')
+		return (-1);
+	if (val < 1 || val > FT_NMAP_MAX_PORTS)
+		return (-1);
+	*out = (int)val;
+	return (0);
+}
+
+static int	parse_port_range(const char *token, int *start, int *end)
+{
+	const char	*dash;
+	long		start_val;
+	long		end_val;
+
+	dash = strchr(token, '-');
+	if (!dash || dash == token || *(dash + 1) == '\0')
+		return (-1);
+	for (const char *p = token; p < dash; ++p)
+	{
+		if (!isdigit((unsigned char)*p))
+			return (-1);
+	}
+	for (const char *p = dash + 1; *p; ++p)
+	{
+		if (!isdigit((unsigned char)*p))
+			return (-1);
+	}
+	start_val = strtol(token, NULL, 10);
+	end_val = strtol(dash + 1, NULL, 10);
+	if (start_val < 1 || end_val > FT_NMAP_MAX_PORTS || start_val > end_val)
+		return (-1);
+	*start = (int)start_val;
+	*end = (int)end_val;
+	return (0);
+}
+
+static int	parse_service_port(const char *token, int *out)
+{
+	struct servent	*se;
+	int				port;
+
+	if (!token || *token == '\0')
+		return (-1);
+	se = getservbyname(token, "tcp");
+	if (!se)
+		return (-1);
+	port = (int)ntohs(se->s_port);
+	if (port < 1 || port > FT_NMAP_MAX_PORTS)
+		return (-1);
+	*out = port;
+	return (0);
+}
+
 static int	parse_tokens(char *str, char *visited, t_ports *out)
 {
-char	*token;
-char	*dash;
+	char	*token;
+	int		start;
+	int		end;
+	int		port;
 
 	token = strtok(str, ", \t\r\n");
 	while (token)
 	{
-		dash = strchr(token, '-');
-		if (dash)
+		if (parse_port_range(token, &start, &end) == 0)
 		{
-			int	start = atoi(token);
-			int	end = atoi(dash + 1);
-
 			if (add_port_range(start, end, visited, out) != 0)
 				return (-1);
 		}
-		else
+		else if (parse_port_number(token, &port) == 0
+			|| parse_service_port(token, &port) == 0)
 		{
-			int	port = atoi(token);
-
 			if (add_port_range(port, port, visited, out) != 0)
 				return (-1);
 		}
-			token = strtok(NULL, ", \t\r\n");
+		else
+			return (-1);
+		token = strtok(NULL, ", \t\r\n");
 	}
 	return (0);
 }
@@ -212,10 +275,19 @@ int	parse_options(int argc, char **argv, t_options *out)
 	out->md_path = NULL;
 	out->dry_run = 0;
 	out->version_only = 0;
+	out->help_only = 0;
+	out->targets_path = NULL;
+	out->scan_type = FT_NMAP_SCAN_TCP;
 	has_target = 0;
 	i = 1;
 	while (i < argc)
 	{
+		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
+		{
+			out->help_only = 1;
+			++i;
+			continue ;
+		}
 		if (strcmp(argv[i], "-V") == 0 || strcmp(argv[i], "--version") == 0)
 		{
 			out->version_only = 1;
@@ -243,7 +315,29 @@ int	parse_options(int argc, char **argv, t_options *out)
 			i += 2;
 			continue ;
 		}
+		if (strcmp(argv[i], "--ip") == 0 && i + 1 < argc)
+		{
+			out->target = argv[i + 1];
+			has_target = 1;
+			i += 2;
+			continue ;
+		}
+		if ((strcmp(argv[i], "-i") == 0 || strcmp(argv[i], "--file") == 0)
+			&& i + 1 < argc)
+		{
+			out->targets_path = argv[i + 1];
+			has_target = 1;
+			i += 2;
+			continue ;
+		}
 		if (strcmp(argv[i], "-p") == 0 && i + 1 < argc)
+		{
+			if (parse_ports(argv[i + 1], &out->ports) != 0)
+				return (-1);
+			i += 2;
+			continue ;
+		}
+		if (strcmp(argv[i], "--ports") == 0 && i + 1 < argc)
 		{
 			if (parse_ports(argv[i + 1], &out->ports) != 0)
 				return (-1);
@@ -299,6 +393,20 @@ int	parse_options(int argc, char **argv, t_options *out)
 			continue ;
 		}
 		if (strcmp(argv[i], "-c") == 0 && i + 1 < argc)
+		{
+			char	*endptr;
+			long	val;
+
+			errno = 0;
+			val = strtol(argv[i + 1], &endptr, 10);
+			if (errno != 0 || *endptr != '\0' || val < 1
+				|| val > FT_NMAP_MAX_INFLIGHT)
+				return (-1);
+			out->max_inflight = (int)val;
+			i += 2;
+			continue ;
+		}
+		if (strcmp(argv[i], "--speedup") == 0 && i + 1 < argc)
 		{
 			char	*endptr;
 			long	val;
@@ -522,6 +630,19 @@ int	parse_options(int argc, char **argv, t_options *out)
 			i += 2;
 			continue ;
 		}
+		if (strcmp(argv[i], "--scan") == 0 && i + 1 < argc)
+		{
+			const char	*val = argv[i + 1];
+
+			if (strcmp(val, "tcp") == 0 || strcmp(val, "connect") == 0)
+				out->scan_type = FT_NMAP_SCAN_TCP;
+			else if (strcmp(val, "udp") == 0)
+				out->scan_type = FT_NMAP_SCAN_UDP;
+			else
+				return (-1);
+			i += 2;
+			continue ;
+		}
 		if (strcmp(argv[i], "-w") == 0 && i + 1 < argc)
 		{
 			char	*endptr;
@@ -558,7 +679,11 @@ int	parse_options(int argc, char **argv, t_options *out)
 	}
 	if (out->version_only)
 		return (0);
+	if (out->help_only)
+		return (0);
 	if (!has_target)
+		return (-1);
+	if (out->target && out->targets_path)
 		return (-1);
 	if (out->ports.count == 0)
 		fill_default_ports(&out->ports);
@@ -566,6 +691,8 @@ int	parse_options(int argc, char **argv, t_options *out)
 	apply_exclude(&out->ports, &out->exclude);
 	if (initial_ports_count > out->ports.count)
 		out->excluded_count = initial_ports_count - out->ports.count;
+	if (out->ports.count > FT_NMAP_MAX_SCAN_PORTS)
+		return (-1);
 	if ((out->json_path && strcmp(out->json_path, "-") == 0)
 		|| (out->json_summary_path && strcmp(out->json_summary_path, "-") == 0)
 		|| (out->csv_path && strcmp(out->csv_path, "-") == 0)

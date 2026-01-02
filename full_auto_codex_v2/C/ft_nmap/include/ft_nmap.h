@@ -13,7 +13,8 @@
 # define FT_NMAP_MAX_PORTS 65535
 # define FT_NMAP_MAX_INFLIGHT 1024
 # define FT_NMAP_MAX_RESOLVED 8
-# define FT_NMAP_VERSION "0.2.0"
+# define FT_NMAP_VERSION "0.2.5"
+# define FT_NMAP_MAX_SCAN_PORTS 1024
 
 typedef enum e_port_status
 {
@@ -89,6 +90,12 @@ typedef enum e_export_filter
 	FT_NMAP_EXPORT_KNOWN
 }	t_export_filter;
 
+typedef enum e_scan_type
+{
+	FT_NMAP_SCAN_TCP = 0,
+	FT_NMAP_SCAN_UDP
+}	t_scan_type;
+
 typedef struct s_options
 {
 	const char	*target;
@@ -128,6 +135,9 @@ typedef struct s_options
 	int			retry_backoff_pct;
 	int			dry_run;
 	int			version_only;
+	int			help_only;
+	const char	*targets_path;
+	t_scan_type	scan_type;
 }	t_options;
 
 int		parse_options(int argc, char **argv, t_options *out);

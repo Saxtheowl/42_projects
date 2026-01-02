@@ -1,6 +1,12 @@
-fold 1: RMSE=1520.42, theta0=4102.6676, theta1=-364.0601, last_lr=0.000000
-fold 2: RMSE=751.49, theta0=4282.4658, theta1=-496.5299, last_lr=0.000000
-fold 3: RMSE=1276.72, theta0=4195.2909, theta1=-379.9206, last_lr=0.000000
-fold 4: RMSE=749.98, theta0=4347.8469, theta1=-400.1922, last_lr=0.000000
-fold 5: RMSE=594.47, theta0=4533.0935, theta1=-376.8332, last_lr=0.000000
+fold 1: RMSE=1520.42, theta0=4102.6676, theta1=-364.0601, last_lr=0.000000, best_epoch=916, best_train_rmse=926.0751
+fold 2: RMSE=751.49, theta0=4282.4658, theta1=-496.5299, last_lr=0.000000, best_epoch=889, best_train_rmse=1000.2797
+fold 3: RMSE=1276.72, theta0=4195.2909, theta1=-379.9206, last_lr=0.000000, best_epoch=893, best_train_rmse=953.6964
+fold 4: RMSE=749.98, theta0=4347.8469, theta1=-400.1922, last_lr=0.000000, best_epoch=917, best_train_rmse=941.6778
+fold 5: RMSE=594.47, theta0=4533.0935, theta1=-376.8332, last_lr=0.000000, best_epoch=842, best_train_rmse=867.1020
 average RMSE across folds: 978.62
+bootstrap 1: RMSE=828.27, oob=4, last_lr=0.000000, best_epoch=888, best_train_rmse=945.9021
+bootstrap 2: RMSE=1662.18, oob=4, last_lr=0.000000, best_epoch=778, best_train_rmse=855.9319
+bootstrap 3: RMSE=1803.51, oob=3, last_lr=0.000000, best_epoch=974, best_train_rmse=801.1391
+bootstrap 4: RMSE=295.85, oob=2, last_lr=0.000000, best_epoch=866, best_train_rmse=993.1967
+bootstrap 5: RMSE=121.76, oob=2, last_lr=0.000000, best_epoch=946, best_train_rmse=973.7279
+bootstrap average RMSE: 942.32

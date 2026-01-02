@@ -1,5 +1,9 @@
-validation report: validation_report.txt (updated 2025-12-11T11:39:31.542313)
+validation report: validation_report.txt (updated 2026-01-02T19:25:14.758670)
 fold count: 5
 best fold: 5 (RMSE=594.47)
 worst fold: 1 (RMSE=1520.42)
+median RMSE: 751.49
+stddev RMSE: 356.05
 average RMSE: 978.62
+bootstrap samples: 5
+bootstrap average RMSE: 942.32

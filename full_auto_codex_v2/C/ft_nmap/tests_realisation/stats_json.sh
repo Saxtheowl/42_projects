@@ -14,6 +14,9 @@ python3 - "$out_json" <<'PY'
 import json, sys
 with open(sys.argv[1], "r", encoding="utf-8") as f:
     data = json.load(f)
+if data.get("scan_type") != "tcp":
+    print(f"Expected scan_type=tcp by default, got {data.get('scan_type')}", file=sys.stderr)
+    sys.exit(1)
 stats = data.get("stats", {})
 required = ["requested", "scanned", "excluded", "open", "closed", "timeouts",
             "retries", "elapsed_ms", "start_ms", "end_ms",

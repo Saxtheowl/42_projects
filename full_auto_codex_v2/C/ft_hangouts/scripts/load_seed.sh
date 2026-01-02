@@ -43,6 +43,9 @@ for entry in contacts:
     tags = entry.get("tags")
     if tags:
         args.extend(["--tags", *tags])
+    avatar = entry.get("avatar")
+    if avatar:
+        args.extend(["--avatar", avatar])
     run(["--lang", "fr"] + args)
 
 print("Seed contacts loaded")

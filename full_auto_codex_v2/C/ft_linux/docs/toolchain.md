@@ -18,11 +18,17 @@ source scripts/env_lfs.sh
 4) Toolchain (hors chroot) :
 ```bash
 ./scripts/build_toolchain.sh binutils
-./scripts/build_toolchain.sh gcc
+./scripts/build_toolchain.sh gcc-stage1
 ./scripts/build_toolchain.sh linux-headers
 ./scripts/build_toolchain.sh glibc
+./scripts/build_toolchain.sh libgcc
 ```
 > Le script GCC empaquette automatiquement gmp/mpfr/mpc dans l'arbre `gcc-13.2.0` (tarballs requis dans `sources/`).
+
+5) Verifier la toolchain :
+```bash
+./scripts/validate_toolchain.sh
+```
 
 5) Entrer en chroot :
 ```bash

@@ -16,7 +16,17 @@ def main() -> int:
     if not JSON_PATH.exists():
         raise SystemExit(f"{JSON_PATH} missing (run validation_summary.py first)")
     data = json.loads(JSON_PATH.read_text())
-    fieldnames = ["timestamp", "fold_count", "best_rmse", "worst_rmse", "average_rmse"]
+    fieldnames = [
+        "timestamp",
+        "fold_count",
+        "best_rmse",
+        "worst_rmse",
+        "average_rmse",
+        "median_rmse",
+        "stddev_rmse",
+        "bootstrap_samples",
+        "bootstrap_average_rmse",
+    ]
     CSV_PATH.write_text("")  # ensure file exists
     with CSV_PATH.open("w", newline="", encoding="utf-8") as csvf:
         writer = csv.DictWriter(csvf, fieldnames=fieldnames)

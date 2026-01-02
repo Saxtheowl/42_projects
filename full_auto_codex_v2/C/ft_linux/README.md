@@ -1,5 +1,9 @@
 # ft_linux
 
+Statut : IN_PROGRESS
+
+Derniere mise a jour : 2026-01-02 20:31:24
+
 ## Synthèse préliminaire
 Objectif : construire une distribution Linux minimale et fonctionnelle, utilisée comme base pour les projets kernel ultérieurs. Il faut compiler un noyau >= 4.0 personnalisé (avec login dans la version), configurer partitions (root, /boot, swap), intégrer un bootloader (GRUB/LILO), un gestionnaire de services (SysV ou systemd/elogind), un loader de modules (udev/eudev) et installer la panoplie d’outils de base (liste fournie). L’image doit se connecter au réseau et respecter une hiérarchie FS cohérente.
 

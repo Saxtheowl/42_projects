@@ -18,7 +18,7 @@
 
 ## Étape 3 – Toolchain
 - [x] Installer binutils temporaire dans `/tools` (`scripts/build_toolchain.sh binutils`) — makeinfo contourné via stub local.
-- [ ] Installer gcc/glibc temporaires dans `/tools` (`scripts/build_toolchain.sh gcc/glibc`).
+- [ ] Installer gcc/glibc temporaires dans `/tools` (`scripts/build_toolchain.sh gcc-stage1` puis `libgcc` après headers/glibc).
 - [ ] Installer linux headers + glibc headers dans `$LFS/usr/include` (targets ajoutés dans `scripts/build_toolchain.sh`).
 - [ ] Configurer variables d’environnement (LFS, PATH).
 - [ ] Valider toolchain (tests binutils/gcc).
