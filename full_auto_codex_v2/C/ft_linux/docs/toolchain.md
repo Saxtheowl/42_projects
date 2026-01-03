@@ -9,6 +9,18 @@ source scripts/env_lfs.sh
 ```bash
 ./scripts/download_sources.sh
 ```
+Mode verification uniquement :
+```bash
+./scripts/download_sources.sh --verify-only
+```
+Liste des URLs :
+```bash
+./scripts/download_sources.sh --list
+```
+Copie depuis un depot local :
+```bash
+./scripts/download_sources.sh --from /path/to/sources
+```
 
 3) (Optionnel) Générer SHA des tarballs présents :
 ```bash
@@ -30,9 +42,19 @@ source scripts/env_lfs.sh
 ./scripts/validate_toolchain.sh
 ```
 
-5) Entrer en chroot :
+6) Preflight build system :
+```bash
+./scripts/preflight.sh
+```
+
+7) Entrer en chroot :
 ```bash
 ./scripts/chroot.sh
+```
+
+8) Quickcheck (resume rapide) :
+```bash
+./scripts/quickcheck.sh
 ```
 
 6) Construire le système de base (ordre `docs/build_order.md`) avec `scripts/build_system.sh` (à compléter paquet par paquet).

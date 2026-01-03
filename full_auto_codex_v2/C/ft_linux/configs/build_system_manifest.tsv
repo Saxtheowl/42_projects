@@ -1,0 +1,13 @@
+# name|version|configure|extra_make|build_type
+coreutils|9.5|--prefix=/usr --host=$(uname -m)-lfs-linux-gnu --enable-no-install-program=kill,uptime||autotools
+bash|5.2.21|--prefix=/usr --without-bash-malloc||autotools
+procps-ng|4.0.4|--prefix=/usr --host=$(uname -m)-lfs-linux-gnu --disable-static --enable-kill||autotools
+diffutils|3.10|--prefix=/usr||autotools
+findutils|4.10.0|--prefix=/usr --localstatedir=/var/lib/locate||autotools
+grep|3.11|--prefix=/usr||autotools
+gzip|1.13|--prefix=/usr||autotools
+make|4.4.1|--prefix=/usr||autotools
+patch|2.7.6|--prefix=/usr||autotools
+tar|1.35|--prefix=/usr||autotools
+texinfo|7.1|--prefix=/usr||autotools
+util-linux|2.40.2|--prefix=/usr --disable-static --without-python||autotools

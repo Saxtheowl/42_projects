@@ -22,9 +22,14 @@
 - [ ] Installer linux headers + glibc headers dans `$LFS/usr/include` (targets ajoutés dans `scripts/build_toolchain.sh`).
 - [ ] Configurer variables d’environnement (LFS, PATH).
 - [ ] Valider toolchain (tests binutils/gcc).
+- [x] Ajouter un check rapide via `scripts/validate_toolchain.sh` (outils + headers + libgcc).
+- [x] Ajouter un preflight `scripts/preflight.sh` (env + tarballs + toolchain).
+- [x] Ajouter un `scripts/quickcheck.sh` (validation + manifest list).
+- [x] Ajouter un `scripts/status_report.sh` (resume logs + tarballs).
 
 ## Étape 4 – Système de base
 - [ ] Compiler packages list (order LFS) avec logs (cf. `docs/build_order.md`).
+- [x] Ajouter manifest `configs/build_system_manifest.tsv` + lecture via `scripts/build_system.sh`.
 - [ ] Configurer sysvinit/systemd + udev/eudev.
 - [ ] Mettre en place hiérarchie FHS (/etc, /var, /usr, ...).
 
@@ -43,5 +48,6 @@
 
 ## Étape 7 – Documentation & Bonus
 - [x] `docs/build_log.md` (commande & temps build) — squelette à compléter lors d'un run réel.
+- [x] Ajouter `scripts/log_build.sh` pour alimenter le journal avec timestamps.
 - [ ] Instructions README (comment reproduire).
 - [ ] Bonus éventuels (X server, WM, packaging).

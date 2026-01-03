@@ -1,5 +1,7 @@
 # Journal de build (à remplir lors d'une exécution réelle)
 
+> Astuce: utilisez `scripts/log_build.sh <section> <note>` pour ajouter une ligne horodatée.
+
 ## Toolchain
 - Date :
 - binutils :

@@ -730,3 +730,230 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2026-01-02 20:19:04 | C/ft_hangouts | DONE | Prototype CLI complet, docs/tests stabilises.
 2026-01-02 20:25:54 | C/Ft_ls | DONE | Tests run_tests.sh OK, plan/README finalises.
 2026-01-02 20:31:24 | C/ft_linux | IN_PROGRESS | Toolchain split gcc-stage1/libgcc, docs/plan mis a jour.
+2026-01-02 20:34:45 | C/ft_linux | IN_PROGRESS | Ajout scripts/validate_toolchain.sh + docs toolchain.
+2026-01-02 20:40:32 | C/ft_linux | IN_PROGRESS | Ajout manifest build_system + build_system.sh ameliore.
+2026-01-02 20:44:26 | C/ft_linux | IN_PROGRESS | Ajout verify_manifest.sh pour valider les tarballs.
+2026-01-02 20:49:43 | C/ft_linux | IN_PROGRESS | Ajout preflight.sh (env + toolchain + manifest).
+2026-01-02 20:54:22 | C/ft_linux | IN_PROGRESS | preflight appelle validate_toolchain, docs ajustes.
+2026-01-02 20:59:37 | C/ft_linux | IN_PROGRESS | Ajout log_build.sh pour journaliser les builds.
+2026-01-02 21:04:33 | C/ft_linux | IN_PROGRESS | Ajout quickcheck.sh (resume validations).
+2026-01-02 21:09:32 | C/ft_linux | IN_PROGRESS | Ajout status_report.sh (logs + tarballs).
+2026-01-02 21:14:26 | C/ft_linux | IN_PROGRESS | status_report.sh execute, rapport genere.
+2026-01-02 21:19:36 | C/ft_linux | IN_PROGRESS | status_report genere TXT+CSV.
+2026-01-02 21:24:42 | C/ft_linux | IN_PROGRESS | Manifest enrichi (utilitaires de base) + docs.
+2026-01-02 21:30:25 | C/ft_linux | IN_PROGRESS | download_sources.sh ajoute --verify-only/--list.
+2026-01-02 21:35:46 | C/ft_linux | IN_PROGRESS | Ajout missing_tarballs.sh + generation reports.
+2026-01-02 21:44:45 | C/ft_linux | IN_PROGRESS | Ajout manifest_report.sh + generation reports manifest_sources.*.
+2026-01-02 21:49:46 | C/ft_linux | IN_PROGRESS | Ajout generate_downloads.sh + report download_missing.sh.
+2026-01-02 21:54:45 | C/ft_linux | IN_PROGRESS | Ajout verify_checksums.sh + reports sha_report.*.
+2026-01-02 21:59:37 | C/ft_linux | IN_PROGRESS | verify_checksums.sh resume + exit code, rapport regenere.
+2026-01-02 22:04:40 | C/ft_linux | IN_PROGRESS | Ajout report_index.sh + reports/index.md.
+2026-01-02 22:09:29 | C/ft_linux | IN_PROGRESS | quickcheck.sh execute (toolchain + tarballs manquants).
+2026-01-02 22:14:56 | C/ft_linux | IN_PROGRESS | download_sources.sh support --from dir.
+2026-01-02 22:19:49 | C/ft_linux | IN_PROGRESS | Ajout env_audit.sh + reports env_audit.*.
+2026-01-02 22:25:18 | C/ft_linux | IN_PROGRESS | setup_env.sh ajoute commandes (create/partition/attach/format/mount).
+2026-01-02 22:33:07 | C/ft_linux | IN_PROGRESS | build_kernel.sh gere chroot/LFS, options config/modules/install + logs.
+2026-01-02 22:40:12 | C/ft_linux | IN_PROGRESS | ajout build_rootfs.sh + layout rootfs TSV.
+2026-01-02 22:44:56 | C/ft_linux | IN_PROGRESS | ajout bootstrap_system.sh (fstab/hosts/passwd/group/hostname).
+2026-01-02 22:49:39 | C/ft_linux | IN_PROGRESS | ajout squelette SysV init (inittab+rc scripts).
+2026-01-02 22:54:23 | C/ft_linux | IN_PROGRESS | ajout generate_grub_cfg.sh (grub.cfg auto).
+2026-01-02 22:59:33 | C/ft_linux | IN_PROGRESS | ajout chroot_prepare.sh (mount/umount chroot).
+2026-01-02 23:04:42 | C/ft_linux | IN_PROGRESS | ajout install_init_scripts.sh (mountfs/syslog/network).
+2026-01-02 23:09:48 | C/ft_linux | IN_PROGRESS | ajout rootfs_report.sh (rapport structure rootfs).
+2026-01-02 23:14:43 | C/ft_linux | IN_PROGRESS | ajout enable_services.sh + manifest services.
+2026-01-02 23:19:02 | C/ft_linux | IN_PROGRESS | ajout build_mini_system.sh + manifest intermediaire.
+2026-01-02 23:25:29 | C/ft_linux | IN_PROGRESS | manifests supportent build_type + build_mini/system adaptes.
+2026-01-02 23:29:20 | C/ft_linux | IN_PROGRESS | list manifests affiche build_type.
+2026-01-02 23:34:28 | C/ft_linux | IN_PROGRESS | ajout validate_manifests.sh (lint manifests).
+2026-01-02 23:39:03 | C/ft_linux | IN_PROGRESS | ajout boot_checklist.sh (rapport prerequis boot).
+2026-01-02 23:44:14 | C/ft_linux | IN_PROGRESS | boot_checklist.sh gere kernel absent proprement.
+2026-01-02 23:49:29 | C/ft_linux | IN_PROGRESS | ajout validate_fstab.sh (rapport fstab).
+2026-01-02 23:54:27 | C/ft_linux | IN_PROGRESS | ajout create_dev_nodes.sh (noeuds /dev minimaux).
+2026-01-02 23:59:40 | C/ft_linux | IN_PROGRESS | ajout install_system_configs.sh + templates system.
+2026-01-03 00:04:04 | C/ft_linux | IN_PROGRESS | ajout locale.sh (profile.d) via install_system_configs.sh.
+2026-01-03 00:09:58 | C/ft_linux | IN_PROGRESS | ajout check_env_prereqs.sh + preflight etendu.
+2026-01-03 00:14:35 | C/ft_linux | IN_PROGRESS | ajout bootstrap_all.sh (sequence setup complete).
+2026-01-03 00:19:06 | C/ft_linux | IN_PROGRESS | ajout summary_report.sh (rapport synthese).
+2026-01-03 00:24:31 | C/ft_linux | IN_PROGRESS | ajout ensure_grub_cfg.sh (installe grub.cfg).
+2026-01-03 00:29:36 | C/ft_linux | IN_PROGRESS | ajout validate_grub_cfg.sh (rapport grub).
+2026-01-03 00:34:06 | C/ft_linux | IN_PROGRESS | ajout build_kernel_config.sh (defconfig).
+2026-01-03 00:39:06 | C/ft_linux | IN_PROGRESS | build_kernel.sh ajoute --print-release.
+2026-01-03 00:45:07 | C/ft_linux | IN_PROGRESS | ajout build_initramfs.sh + manifest initramfs.
+2026-01-03 00:49:06 | C/ft_linux | IN_PROGRESS | initramfs modules list ajoutee.
+2026-01-03 00:54:36 | C/ft_linux | IN_PROGRESS | ajout validate_initramfs.sh (rapport initramfs).
+2026-01-03 00:59:33 | C/ft_linux | IN_PROGRESS | ajout package_rootfs.sh (tar+checksum).
+2026-01-03 01:04:14 | C/ft_linux | IN_PROGRESS | package_rootfs.sh robustifie output sans sha256sum.
+2026-01-03 01:09:31 | C/ft_linux | IN_PROGRESS | ajout release_report.sh (recap versions).
+2026-01-03 01:14:14 | C/ft_linux | IN_PROGRESS | summary_report.sh inclut release_report.
+2026-01-03 01:19:15 | C/ft_linux | IN_PROGRESS | summary_report.sh inclut grub/initramfs.
+2026-01-03 01:24:40 | C/ft_linux | IN_PROGRESS | ajout validate_services.sh (rapport services).
+2026-01-03 01:29:13 | C/ft_linux | IN_PROGRESS | summary_report.sh inclut services_report.
+2026-01-03 01:34:47 | C/ft_linux | IN_PROGRESS | validate_manifests.sh genere manifest_report.txt.
+2026-01-03 01:39:30 | C/ft_linux | IN_PROGRESS | ajout run_reports.sh (orchestrateur rapports).
+2026-01-03 01:44:30 | C/ft_linux | IN_PROGRESS | run_reports.sh inclut prerequis host.
+2026-01-03 01:49:32 | C/ft_linux | IN_PROGRESS | ajout boot_bundle.sh (kernel+initramfs+grub).
+2026-01-03 01:54:51 | C/ft_linux | IN_PROGRESS | ajout validate_kernel_config.sh + kernel_requirements.txt.
+2026-01-03 01:59:14 | C/ft_linux | IN_PROGRESS | run_reports.sh inclut validation kernel config.
+2026-01-03 02:04:12 | C/ft_linux | IN_PROGRESS | summary_report.sh inclut kernel_config_report.
+2026-01-03 02:10:31 | C/ft_linux | IN_PROGRESS | initramfs install-boot + grub initrd auto.
+2026-01-03 02:14:50 | C/ft_linux | IN_PROGRESS | ajout boot_artifacts.sh (artefacts /boot).
+2026-01-03 02:19:18 | C/ft_linux | IN_PROGRESS | boot_bundle.sh verifie artefacts /boot.
+2026-01-03 02:24:54 | C/ft_linux | IN_PROGRESS | ajout full_pipeline.sh (pipeline complet).
+2026-01-03 02:29:59 | C/ft_linux | IN_PROGRESS | ajout generate_initramfs_manifest.sh + bins list.
+2026-01-03 02:34:27 | C/ft_linux | IN_PROGRESS | run_reports.sh corrige doublon summary_report.
+2026-01-03 02:39:40 | C/ft_linux | IN_PROGRESS | ajout chroot_enter.sh (mount+chroot+umount).
+2026-01-03 02:44:18 | C/ft_linux | IN_PROGRESS | full_pipeline.sh valide config kernel.
+2026-01-03 02:49:50 | C/ft_linux | IN_PROGRESS | ajout grub_install.sh (installation GRUB).
+2026-01-03 02:54:34 | C/ft_linux | IN_PROGRESS | ajout detect_boot_mode.sh (BIOS/UEFI).
+2026-01-03 02:59:21 | C/ft_linux | IN_PROGRESS | reports incluent boot_mode.
+2026-01-03 03:04:31 | C/ft_linux | IN_PROGRESS | build_initramfs.sh supporte manifest genere.
+2026-01-03 03:09:25 | C/ft_linux | IN_PROGRESS | ajout host_requirements.md.
+2026-01-03 03:14:51 | C/ft_linux | IN_PROGRESS | ajout run_vm.sh (boot QEMU).
+2026-01-03 03:19:24 | C/ft_linux | IN_PROGRESS | run_vm.sh supporte SSH port forwarding.
+2026-01-03 03:24:21 | C/ft_linux | IN_PROGRESS | run_vm.sh aide clarifiee pour SSH.
+2026-01-03 03:29:12 | C/ft_linux | IN_PROGRESS | run_vm.sh ajoute exemple SSH.
+2026-01-03 03:34:46 | C/ft_linux | IN_PROGRESS | ajout boot_finalize.sh (finalisation boot).
+2026-01-03 03:39:14 | C/ft_linux | IN_PROGRESS | boot_finalize rapporte + summary.
+2026-01-03 03:44:38 | C/ft_linux | IN_PROGRESS | ajout archive_reports.sh (bundle rapports/logs).
+2026-01-03 03:49:34 | C/ft_linux | IN_PROGRESS | validate_grub_cfg verifie initrd.
+2026-01-03 03:54:30 | C/ft_linux | IN_PROGRESS | summary_report regroupe boot/grub/initramfs.
+2026-01-03 03:59:31 | C/ft_linux | IN_PROGRESS | build_initramfs.sh peut generer le manifest.
+2026-01-03 04:04:33 | C/ft_linux | IN_PROGRESS | ajout runbook complet.
+2026-01-03 04:09:37 | C/ft_linux | IN_PROGRESS | ajout check_ready_to_boot.sh (rapport boot ready).
+2026-01-03 04:14:20 | C/ft_linux | IN_PROGRESS | check_ready_to_boot verifie rc scripts.
+2026-01-03 04:19:23 | C/ft_linux | IN_PROGRESS | reports incluent ready_to_boot.
+2026-01-03 04:24:15 | C/ft_linux | IN_PROGRESS | ajout snapshot_image.sh (snapshot disque).
+2026-01-03 04:29:16 | C/ft_linux | IN_PROGRESS | run_vm.sh aide mentionne defaults mem/cpus.
+2026-01-03 04:34:44 | C/ft_linux | IN_PROGRESS | ajout convert_image.sh (qcow2).
+2026-01-03 04:39:17 | C/ft_linux | IN_PROGRESS | run_vm.sh detecte qcow2.
+2026-01-03 04:44:42 | C/ft_linux | IN_PROGRESS | ajout image_report.sh (rapport image).
+2026-01-03 04:49:21 | C/ft_linux | IN_PROGRESS | run_reports.sh archive reports/logs.
+2026-01-03 04:55:24 | C/ft_linux | IN_PROGRESS | archive_reports.sh regenere reports/index.md.
+2026-01-03 04:59:25 | C/ft_linux | IN_PROGRESS | archive_reports.sh log index refresh.
+2026-01-03 05:04:46 | C/ft_linux | IN_PROGRESS | ajout export_boot_artifacts.sh.
+2026-01-03 05:09:24 | C/ft_linux | IN_PROGRESS | boot_finalize exporte artefacts boot.
+2026-01-03 05:14:23 | C/ft_linux | IN_PROGRESS | runbook note boot_finalize exporte artefacts.
+2026-01-03 05:19:53 | C/ft_linux | IN_PROGRESS | ajout validate_boot_archive.sh.
+2026-01-03 05:24:39 | C/ft_linux | IN_PROGRESS | ajout clean_workspace.sh.
+2026-01-03 05:29:38 | C/ft_linux | IN_PROGRESS | clean_workspace.sh couvre boot_artifacts/qcow2.
+2026-01-03 05:34:49 | C/ft_linux | IN_PROGRESS | ajout partition_report.sh.
+2026-01-03 05:39:31 | C/ft_linux | IN_PROGRESS | reports incluent partition_report.
+2026-01-03 05:44:43 | C/ft_linux | IN_PROGRESS | partition_report inclut label/unit.
+2026-01-03 05:49:20 | C/ft_linux | IN_PROGRESS | ajout release_bundle.sh (bundle final).
+2026-01-03 05:55:37 | C/ft_linux | IN_PROGRESS | release_bundle.sh supprime archive precedente.
+2026-01-03 05:59:59 | C/ft_linux | IN_PROGRESS | ajout validate_release_bundle.sh.
+2026-01-03 06:04:18 | C/ft_linux | IN_PROGRESS | validate_release_bundle verifie boot_artifacts.
+2026-01-03 06:09:18 | C/ft_linux | IN_PROGRESS | validate_release_bundle verifie summary.md.
+2026-01-03 06:14:53 | C/ft_linux | IN_PROGRESS | ajout assess_status.sh (etat consolide).
+2026-01-03 06:19:22 | C/ft_linux | IN_PROGRESS | ajout apply_kernel_requirements.sh.
+2026-01-03 06:24:20 | C/ft_linux | IN_PROGRESS | build_kernel_config.sh supporte --apply-reqs.
+2026-01-03 06:29:19 | C/ft_linux | IN_PROGRESS | runbook utilise --apply-reqs.
+2026-01-03 06:37:11 | C/ft_linux | IN_PROGRESS | ajout resume state pour build_system/build_mini_system.
+2026-01-03 06:45:16 | C/ft_linux | IN_PROGRESS | ajout status/reset state pour build_system/build_mini_system.
+2026-01-03 06:49:56 | C/ft_linux | IN_PROGRESS | ajout build_state_report + integration summary/run_reports.
+2026-01-03 06:54:53 | C/ft_linux | IN_PROGRESS | ajout validate_build_state + integration summary/run_reports.
+2026-01-03 07:00:03 | C/ft_linux | IN_PROGRESS | ajout build_state_sync (logs -> state).
+2026-01-03 07:05:17 | C/ft_linux | IN_PROGRESS | ajout plage --from/--until build_system/mini_system.
+2026-01-03 07:09:58 | C/ft_linux | IN_PROGRESS | ajout build_log_audit + integration summary/run_reports.
+2026-01-03 07:14:46 | C/ft_linux | IN_PROGRESS | ajout manifest_coverage (logs vs manifests).
+2026-01-03 07:19:56 | C/ft_linux | IN_PROGRESS | status_assessment couvre build_state/build_log/coverage.
+2026-01-03 07:24:52 | C/ft_linux | IN_PROGRESS | validate_manifests detecte doublons manifests.
+2026-01-03 07:30:23 | C/ft_linux | IN_PROGRESS | ajout build_plan + pkg build_system.
+2026-01-03 07:34:46 | C/ft_linux | IN_PROGRESS | ajout build_queue (execution plan avec reprise).
+2026-01-03 07:41:28 | C/ft_linux | IN_PROGRESS | ajout build_times (timings + rapport).
+2026-01-03 07:44:54 | C/ft_linux | IN_PROGRESS | build_queue log CSV + summary.
+2026-01-03 07:49:50 | C/ft_linux | IN_PROGRESS | build_queue status/reset.
+2026-01-03 07:54:51 | C/ft_linux | IN_PROGRESS | build_queue status integre rapports + assess.
+2026-01-03 07:59:55 | C/ft_linux | IN_PROGRESS | ajout validate_build_plan.
+2026-01-03 08:04:47 | C/ft_linux | IN_PROGRESS | validate_build_plan corrige comptage + liste inconnus.
+2026-01-03 08:09:49 | C/ft_linux | IN_PROGRESS | ajout build_queue_retry.
+2026-01-03 08:14:55 | C/ft_linux | IN_PROGRESS | ajout build_queue_retry_report + integration rapports.
+2026-01-03 08:20:12 | C/ft_linux | IN_PROGRESS | ajout build_queue_sync_states.
+2026-01-03 08:24:47 | C/ft_linux | IN_PROGRESS | build_queue timeout support.
+2026-01-03 08:30:04 | C/ft_linux | IN_PROGRESS | ajout build_queue_metrics.
+2026-01-03 08:34:28 | C/ft_linux | IN_PROGRESS | build_queue_metrics ajoute top durees.
+2026-01-03 08:39:27 | C/ft_linux | IN_PROGRESS | build_queue_metrics ajoute top echecs.
+2026-01-03 08:45:04 | C/ft_linux | IN_PROGRESS | ajout validate_build_queue_state.
+2026-01-03 08:49:56 | C/ft_linux | IN_PROGRESS | ajout build_queue_report.
+2026-01-03 08:55:27 | C/ft_linux | IN_PROGRESS | ajout build_state_snapshot/diff.
+2026-01-03 09:00:06 | C/ft_linux | IN_PROGRESS | ajout build_state_list/prune.
+2026-01-03 09:04:56 | C/ft_linux | IN_PROGRESS | build_state_prune dry-run + integration rapports.
+2026-01-03 09:10:06 | C/ft_linux | IN_PROGRESS | ajout build_dashboard.
+2026-01-03 09:15:32 | C/ft_linux | IN_PROGRESS | ajout build_plan_split.
+2026-01-03 09:20:05 | C/ft_linux | IN_PROGRESS | ajout build_plan_remaining.
+2026-01-03 09:26:01 | C/ft_linux | IN_PROGRESS | build_progress tracking + report.
+2026-01-03 09:30:10 | C/ft_linux | IN_PROGRESS | ajout build_progress_rollup.
+2026-01-03 09:34:30 | C/ft_linux | IN_PROGRESS | build_queue_metrics detaille durees ok.
+2026-01-03 09:40:02 | C/ft_linux | IN_PROGRESS | ajout build_progress_failures.
+2026-01-03 09:45:12 | C/ft_linux | IN_PROGRESS | ajout build_orchestrator.
+2026-01-03 09:50:08 | C/ft_linux | IN_PROGRESS | ajout build_orchestrator_report.
+2026-01-03 09:55:04 | C/ft_linux | IN_PROGRESS | build_orchestrator exporte JSON.
+2026-01-03 10:00:11 | C/ft_linux | IN_PROGRESS | ajout build_orchestrator_status.
+2026-01-03 10:04:35 | C/ft_linux | IN_PROGRESS | build_orchestrator JSON escape.
+2026-01-03 10:10:09 | C/ft_linux | IN_PROGRESS | ajout build_orchestrator_validate.
+2026-01-03 10:15:14 | C/ft_linux | IN_PROGRESS | ajout build_health_report.
+2026-01-03 10:19:57 | C/ft_linux | IN_PROGRESS | build_queue continue-on-fail.
+2026-01-03 10:25:39 | C/ft_linux | IN_PROGRESS | build_system/mini supporte make check.
+2026-01-03 10:30:25 | C/ft_linux | IN_PROGRESS | ajout build_gate.
+2026-01-03 10:34:55 | C/ft_linux | IN_PROGRESS | run_reports inclut build_gate + health.
+2026-01-03 10:40:23 | C/ft_linux | IN_PROGRESS | ajout build_summary_json.
+2026-01-03 10:44:38 | C/ft_linux | IN_PROGRESS | build_summary_json corrige rollup.
+2026-01-03 10:50:03 | C/ft_linux | IN_PROGRESS | ajout build_session.
+2026-01-03 10:55:25 | C/ft_linux | IN_PROGRESS | plan/orchestrator supporte check.
+2026-01-03 11:00:13 | C/ft_linux | IN_PROGRESS | ajout build_summary_validate.
+2026-01-03 11:05:25 | C/ft_linux | IN_PROGRESS | ajout build_queue_failures.
+2026-01-03 11:09:53 | C/ft_linux | IN_PROGRESS | build_queue_report integre failures.
+2026-01-03 11:14:34 | C/ft_linux | IN_PROGRESS | build_queue_metrics ajoute taux ok.
+2026-01-03 11:20:58 | C/ft_linux | IN_PROGRESS | ajout build_check_report + integration run_reports/summary/status.
+2026-01-03 11:23:42 | C/ft_linux | IN_PROGRESS | build_summary_json + build_health_report incluent checks.
+2026-01-03 11:35:26 | C/ft_linux | IN_PROGRESS | suivi CSV checks + report check enrichi (fail/ignored/missing).
+2026-01-03 11:39:33 | C/ft_linux | IN_PROGRESS | ajout build_check_status_report + integration rapports.
+2026-01-03 11:44:36 | C/ft_linux | IN_PROGRESS | ajout build_check_status_rollup + integration rapports.
+2026-01-03 11:49:34 | C/ft_linux | IN_PROGRESS | build_summary_json inclut check_groups + validation maj.
+2026-01-03 11:54:26 | C/ft_linux | IN_PROGRESS | build_check_report ajoute mode strict.
+2026-01-03 11:59:26 | C/ft_linux | IN_PROGRESS | run_reports force build_check_report --strict.
+2026-01-03 11:59:26 | C/ft_linux | IN_PROGRESS | ajout build_check_gate + integration rapports/check_gate JSON.
+2026-01-03 12:09:30 | C/ft_linux | IN_PROGRESS | build_gate integre build_check_gate.
+2026-01-03 12:14:28 | C/ft_linux | IN_PROGRESS | build_gate option allow-check-warn ajoutee.
+2026-01-03 12:19:38 | C/ft_linux | IN_PROGRESS | build_session propage allow-check-warn au gate.
+2026-01-03 12:24:32 | C/ft_linux | IN_PROGRESS | validation JSON renforcee pour checks.
+2026-01-03 12:29:33 | C/ft_linux | IN_PROGRESS | build_check_gate ajoute seuils max pour checks.
+2026-01-03 12:34:31 | C/ft_linux | IN_PROGRESS | propagation seuils checks via build_gate/build_session.
+2026-01-03 12:39:29 | C/ft_linux | IN_PROGRESS | build_check_gate JSON enrichi (seuils/metadata).
+2026-01-03 12:44:31 | C/ft_linux | IN_PROGRESS | ajout config check_gate.conf + chargement defaults.
+2026-01-03 12:49:30 | C/ft_linux | IN_PROGRESS | build_check_gate signale config manquante.
+2026-01-03 12:54:29 | C/ft_linux | IN_PROGRESS | JSON build_check_gate robuste si valeurs vides.
+2026-01-03 12:59:47 | C/ft_linux | IN_PROGRESS | build_dashboard affiche resume checks.
+2026-01-03 13:04:32 | C/ft_linux | IN_PROGRESS | build_check_status_report trie par paquet.
+2026-01-03 13:09:31 | C/ft_linux | IN_PROGRESS | build_check_status_rollup trie par groupe/paquet.
+2026-01-03 13:14:41 | C/ft_linux | IN_PROGRESS | ajout build_check_trend + integration rapports.
+2026-01-03 13:19:34 | C/ft_linux | IN_PROGRESS | build_check_trend ajoute total par jour.
+2026-01-03 13:24:32 | C/ft_linux | IN_PROGRESS | build_check_trend ajoute taux fail/ignored.
+2026-01-03 13:34:39 | C/ft_linux | IN_PROGRESS | ajout build_check_prune + integration rapports.
+2026-01-03 13:39:31 | C/ft_linux | IN_PROGRESS | build_check_prune ajoute stats avant/apres.
+2026-01-03 13:44:46 | C/ft_linux | IN_PROGRESS | ajout build_check_stats + integration rapports.
+2026-01-03 13:49:33 | C/ft_linux | IN_PROGRESS | build_check_stats ajoute taux fail/ignored.
+2026-01-03 13:54:32 | C/ft_linux | IN_PROGRESS | build_dashboard inclut check_stats rates.
+2026-01-03 13:59:37 | C/ft_linux | IN_PROGRESS | build_summary_json inclut check_rates + validation maj.
+2026-01-03 14:09:35 | C/ft_linux | IN_PROGRESS | build_check_gate ajoute max_severity + propagation gate/session.
+2026-01-03 14:04:31 | C/ft_linux | IN_PROGRESS | build_check_stats ajoute severite.
+2026-01-03 13:29:35 | C/ft_linux | IN_PROGRESS | build_check_report ajoute skip ok_no_log.
+2026-01-03 14:14:37 | C/ft_linux | IN_PROGRESS | ajout build_check_snapshot + list + integration rapports.
+2026-01-03 14:19:32 | C/ft_linux | IN_PROGRESS | build_check_snapshot_list ajoute stats lignes.
+2026-01-03 14:24:34 | C/ft_linux | IN_PROGRESS | build_check_snapshot_list ajoute newest.
+2026-01-03 14:29:34 | C/ft_linux | IN_PROGRESS | ajout build_check_snapshot_prune + integration rapports.
+2026-01-03 14:34:33 | C/ft_linux | IN_PROGRESS | build_check_snapshot_prune ajoute after.
+2026-01-03 14:39:34 | C/ft_linux | IN_PROGRESS | build_check_snapshot_prune after même sans prune.
+2026-01-03 14:44:36 | C/ft_linux | IN_PROGRESS | build_check_snapshot_list ajoute lines du newest.
+2026-01-03 14:49:42 | C/ft_linux | IN_PROGRESS | ajout build_check_snapshot_diff + integration rapports.
+2026-01-03 14:54:34 | C/ft_linux | IN_PROGRESS | build_check_snapshot_diff ajoute auto_pick.
+2026-01-03 15:04:03 | C/ft_linux | IN_PROGRESS | ajout build_check_summary_json/validate + integration rapports.
+2026-01-03 15:04:40 | C/ft_linux | IN_PROGRESS | ajout build_check_export_csv + integration rapports.
+2026-01-03 15:09:35 | C/ft_linux | IN_PROGRESS | build_check_export_csv corrige trend_last.
+2026-01-03 15:14:36 | C/ft_linux | IN_PROGRESS | build_check_export_csv ajoute rates trend_last.
+2026-01-03 15:19:42 | C/ft_linux | IN_PROGRESS | build_check_export_csv exporte groupes.
+2026-01-03 15:24:44 | C/ft_linux | IN_PROGRESS | ajout build_check_coverage + integration rapports.
+2026-01-03 15:29:37 | C/ft_linux | IN_PROGRESS | build_check_coverage ajoute coverage_rate.
+2026-01-03 15:34:36 | C/ft_linux | IN_PROGRESS | build_check_coverage ajoute missing_rate.
+2026-01-03 15:39:36 | C/ft_linux | IN_PROGRESS | build_check_summary_json inclut coverage rates.
+2026-01-03 15:44:38 | C/ft_linux | IN_PROGRESS | build_check_summary_validate exige coverage_rate.

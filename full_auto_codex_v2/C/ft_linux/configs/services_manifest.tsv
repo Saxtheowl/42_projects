@@ -1,0 +1,5 @@
+# service|start_levels|kill_levels|start_priority|kill_priority
+mountfs|S|K|00|00
+syslog|S|K|10|90
+network|S|K|20|80
+rc.local|3|K|99|00

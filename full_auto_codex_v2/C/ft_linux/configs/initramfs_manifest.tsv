@@ -1,0 +1,16 @@
+# type|path|target
+dir|bin|
+dir|sbin|
+dir|etc|
+dir|proc|
+dir|sys|
+dir|dev|
+dir|newroot|
+file|bin/sh|
+file|sbin/init|
+file|sbin/udevd|
+file|sbin/udevadm|
+file|lib/ld-linux-x86-64.so.2|
+file|lib64/ld-linux-x86-64.so.2|
+file|lib/libc.so.6|
+file|lib64/libc.so.6|

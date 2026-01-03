@@ -1,0 +1,25 @@
+ft_linux build status
+generated: 2026-01-02 21:29:08
+
+[toolchain logs]
+- binutils: binutils.install.log
+- gcc.stage1: no logs
+- gcc.libgcc: no logs
+- glibc: no logs
+- linux: no logs
+
+[system manifest]
+- coreutils-9.5: tarball ok
+- bash-5.2.21: tarball ok
+- procps-ng-4.0.4: tarball ok
+- diffutils-3.10: tarball missing
+- findutils-4.10.0: tarball missing
+- grep-3.11: tarball missing
+- gzip-1.13: tarball missing
+- make-4.4.1: tarball missing
+- patch-2.7.6: tarball missing
+- tar-1.35: tarball missing
+- texinfo-7.1: tarball missing
+- util-linux-2.40.2: tarball missing
+
+[system logs]

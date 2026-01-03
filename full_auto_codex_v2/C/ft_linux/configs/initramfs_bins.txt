@@ -1,0 +1,7 @@
+# One path per line, relative to LFS root.
+/bin/sh
+/sbin/init
+/sbin/udevd
+/sbin/udevadm
+/bin/mount
+/bin/umount

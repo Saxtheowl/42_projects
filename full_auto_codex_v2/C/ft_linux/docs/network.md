@@ -3,6 +3,7 @@
 Option simple : DHCP via `dhcpcd`.
 
 1. Installer `dhcpcd` dans le chroot (paquet BLFS).
+1.b. Variante : `scripts/install_init_scripts.sh` installe un service `network` (SysV) qui lance `dhcpcd`.
 2. Créer le service SysV (si sysvinit) :
 ```
 cat >/etc/sysconfig/ifconfig.eth0 <<'EOF'

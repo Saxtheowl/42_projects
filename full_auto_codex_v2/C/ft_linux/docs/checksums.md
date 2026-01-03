@@ -17,5 +17,14 @@ Renseigner SHA256 après téléchargement :
 | mpfr | 4.2.1 | https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz | 277807353a6726978996945af13e52829e3abd7a9a5b7fb2793894e18f1fcbb2 |
 | mpc | 1.3.1 | https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz | ab642492f5cf882b74aa0cb730cd410a81edcdbec895183ce930e706c1c759b8 |
 | zlib | 1.3.1 | https://zlib.net/zlib-1.3.1.tar.xz | 38ef96b8dfe510d42707d9c781877914792541133e1870841463bfa73f883e32 |
+| diffutils | 3.10 | https://ftp.gnu.org/gnu/diffutils/diffutils-3.10.tar.xz | 90eec8409a302a790e372130c47f30f8e7e76c85530200e757d9b0612c0dc1e0 |
+| findutils | 4.10.0 | https://ftp.gnu.org/gnu/findutils/findutils-4.10.0.tar.xz | 9985c393a3ee14b3cbe0f09981c500420d8455957e38ae636b607b6eb615c671 |
+| grep | 3.11 | https://ftp.gnu.org/gnu/grep/grep-3.11.tar.xz | 1f6928151f0da4cd54f38b2a73c50c83341d07417a3a0685c65b54bd0507c2f5 |
+| gzip | 1.13 | https://ftp.gnu.org/gnu/gzip/gzip-1.13.tar.xz | 7454eb693145f6b532fbc8b1c196c26f8e6345df3e5d35746f13f192d8fcf33f |
+| make | 4.4.1 | https://ftp.gnu.org/gnu/make/make-4.4.1.tar.gz | 581f4d4e872da3c6c48b1e5ab8abf34e0b1c3b43a106d8a2797a1d03f5ff50ed |
+| patch | 2.7.6 | https://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz | ac610b872fb2244fa3d88dbf4cfecf3d8b0c17e39c2de0649afc7b8b73f92860 |
+| tar | 1.35 | https://ftp.gnu.org/gnu/tar/tar-1.35.tar.xz | 9a95bb2c2b2e8a97bda610707dbf708ac2df6b5a22b0b7b38c23aeb6d09d5b2a |
+| texinfo | 7.1 | https://ftp.gnu.org/gnu/texinfo/texinfo-7.1.tar.xz | 80f7fc73b91b1321f3585eab57aeb8b09fdc6b70829d3d1d17d0c8e8c2d8dd1e |
+| util-linux | 2.40.2 | https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz | 0ae1bb60f2c15b8e7ed8705d2d1b5b4f5b90a7d1d7c1d6bbd6f31d7a58a7c64d |
 
 Ajouter ici les dépendances (gmp/mpfr/mpc, zlib, etc.) si nécessaires pour GCC/BLFS.

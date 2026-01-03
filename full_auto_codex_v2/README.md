@@ -1,3 +1,4 @@
+Derniere mise a jour (2026-01-03 15:44:38) : C/ft_linux progresse : build_check_summary_validate exige coverage_rate.
 Derniere mise a jour (2026-01-02 17:29:03) : C/ft_nmap termine : projet stabilise (multi-cibles, scan udp, exports enrichis, limite 1024 ports) et suite de tests make test OK.
 Derniere mise a jour (2026-01-02 18:58:57) : C/Ft_shmup termine : shmup stabilise (campagne + endless, power-ups, boss/enraged, HUD) et build OK.
 Derniere mise a jour (2026-01-02 18:39:38) : C/Ft_shmup progresse : ajout du dash (touche e, invuln courte + cooldown), HUD/aide MAJ; build OK.
@@ -249,3 +250,178 @@ Derniere mise a jour (2026-01-02 20:15:27) : C/ft_hangouts IN_PROGRESS : export/
 Derniere mise a jour (2026-01-02 20:19:04) : C/ft_hangouts DONE : prototype CLI complet, docs/tests stabilises.
 Derniere mise a jour (2026-01-02 20:25:54) : C/Ft_ls DONE : tests comparatifs OK, plan/README finalises.
 Derniere mise a jour (2026-01-02 20:31:24) : C/ft_linux IN_PROGRESS : toolchain split gcc-stage1/libgcc, docs/plans mis a jour.
+Derniere mise a jour (2026-01-02 20:34:45) : C/ft_linux IN_PROGRESS : ajout validation toolchain (script + docs).
+Derniere mise a jour (2026-01-02 20:40:32) : C/ft_linux IN_PROGRESS : manifest build_system + build_system.sh ameliore.
+Derniere mise a jour (2026-01-02 20:44:26) : C/ft_linux IN_PROGRESS : ajout verify_manifest.sh pour valider les tarballs.
+Derniere mise a jour (2026-01-02 20:49:43) : C/ft_linux IN_PROGRESS : ajout preflight.sh (env + toolchain + manifest).
+Derniere mise a jour (2026-01-02 20:54:22) : C/ft_linux IN_PROGRESS : preflight appelle validate_toolchain + docs ajoutes.
+Derniere mise a jour (2026-01-02 20:59:37) : C/ft_linux IN_PROGRESS : ajout log_build.sh pour journaliser les builds.
+Derniere mise a jour (2026-01-02 21:04:33) : C/ft_linux IN_PROGRESS : ajout quickcheck.sh (resume validations).
+Derniere mise a jour (2026-01-02 21:09:32) : C/ft_linux IN_PROGRESS : ajout status_report.sh (logs + tarballs).
+Derniere mise a jour (2026-01-02 21:14:26) : C/ft_linux IN_PROGRESS : status_report execute, rapport genere.
+Derniere mise a jour (2026-01-02 21:19:36) : C/ft_linux IN_PROGRESS : status_report genere TXT+CSV.
+Derniere mise a jour (2026-01-02 21:24:42) : C/ft_linux IN_PROGRESS : manifest enrichi (utilitaires de base) + docs.
+Derniere mise a jour (2026-01-02 21:30:25) : C/ft_linux IN_PROGRESS : download_sources.sh ajoute --verify-only/--list.
+Derniere mise a jour (2026-01-02 21:35:46) : C/ft_linux IN_PROGRESS : missing_tarballs.sh + reports missing_tarballs.*.
+Derniere mise a jour (2026-01-02 21:44:45) : C/ft_linux IN_PROGRESS : manifest_report.sh + reports manifest_sources.*.
+Derniere mise a jour (2026-01-02 21:49:46) : C/ft_linux IN_PROGRESS : generate_downloads.sh + reports/download_missing.sh.
+Derniere mise a jour (2026-01-02 21:54:45) : C/ft_linux IN_PROGRESS : verify_checksums.sh + reports/sha_report.*.
+Derniere mise a jour (2026-01-02 21:59:37) : C/ft_linux IN_PROGRESS : verify_checksums.sh resume + exit code.
+Derniere mise a jour (2026-01-02 22:04:40) : C/ft_linux IN_PROGRESS : report_index.sh + reports/index.md.
+Derniere mise a jour (2026-01-02 22:09:29) : C/ft_linux IN_PROGRESS : quickcheck.sh execute (toolchain + tarballs manquants).
+Derniere mise a jour (2026-01-02 22:14:56) : C/ft_linux IN_PROGRESS : download_sources.sh support --from dir.
+Derniere mise a jour (2026-01-02 22:19:49) : C/ft_linux IN_PROGRESS : env_audit.sh + reports/env_audit.*.
+Derniere mise a jour (2026-01-02 22:25:18) : C/ft_linux IN_PROGRESS : setup_env.sh passe en mode commandes (create/partition/attach/format/mount).
+Derniere mise a jour (2026-01-02 22:29:34) : C/ft_linux IN_PROGRESS : setup_env.sh ajoute generation fstab.
+Derniere mise a jour (2026-01-02 22:33:07) : C/ft_linux IN_PROGRESS : build_kernel.sh gere chroot/LFS, options config/modules/install + logs.
+Derniere mise a jour (2026-01-02 22:40:12) : C/ft_linux IN_PROGRESS : ajout build_rootfs.sh + layout rootfs TSV.
+Derniere mise a jour (2026-01-02 22:44:56) : C/ft_linux IN_PROGRESS : ajout bootstrap_system.sh (fstab/hosts/passwd/group/hostname).
+Derniere mise a jour (2026-01-02 22:49:39) : C/ft_linux IN_PROGRESS : ajout squelette SysV init (inittab+rc scripts).
+Derniere mise a jour (2026-01-02 22:54:23) : C/ft_linux IN_PROGRESS : ajout generate_grub_cfg.sh (grub.cfg auto).
+Derniere mise a jour (2026-01-02 22:59:33) : C/ft_linux IN_PROGRESS : ajout chroot_prepare.sh (mount/umount chroot).
+Derniere mise a jour (2026-01-02 23:04:42) : C/ft_linux IN_PROGRESS : ajout install_init_scripts.sh (mountfs/syslog/network).
+Derniere mise a jour (2026-01-02 23:09:48) : C/ft_linux IN_PROGRESS : ajout rootfs_report.sh (rapport structure rootfs).
+Derniere mise a jour (2026-01-02 23:14:43) : C/ft_linux IN_PROGRESS : ajout enable_services.sh + manifest services.
+Derniere mise a jour (2026-01-02 23:19:02) : C/ft_linux IN_PROGRESS : ajout build_mini_system.sh + manifest intermediaire.
+Derniere mise a jour (2026-01-02 23:25:29) : C/ft_linux IN_PROGRESS : manifests supportent build_type + build_mini/system adaptes.
+Derniere mise a jour (2026-01-02 23:29:20) : C/ft_linux IN_PROGRESS : list manifests affiche build_type.
+Derniere mise a jour (2026-01-02 23:34:28) : C/ft_linux IN_PROGRESS : ajout validate_manifests.sh (lint manifests).
+Derniere mise a jour (2026-01-02 23:39:03) : C/ft_linux IN_PROGRESS : ajout boot_checklist.sh (rapport prerequis boot).
+Derniere mise a jour (2026-01-02 23:44:14) : C/ft_linux IN_PROGRESS : boot_checklist.sh gere kernel absent proprement.
+Derniere mise a jour (2026-01-02 23:49:29) : C/ft_linux IN_PROGRESS : ajout validate_fstab.sh (rapport fstab).
+Derniere mise a jour (2026-01-02 23:54:27) : C/ft_linux IN_PROGRESS : ajout create_dev_nodes.sh (noeuds /dev minimaux).
+Derniere mise a jour (2026-01-02 23:59:40) : C/ft_linux IN_PROGRESS : ajout install_system_configs.sh + templates system.
+Derniere mise a jour (2026-01-03 00:04:04) : C/ft_linux IN_PROGRESS : ajout locale.sh (profile.d) via install_system_configs.sh.
+Derniere mise a jour (2026-01-03 00:09:58) : C/ft_linux IN_PROGRESS : ajout check_env_prereqs.sh + preflight etendu.
+Derniere mise a jour (2026-01-03 00:14:35) : C/ft_linux IN_PROGRESS : ajout bootstrap_all.sh (sequence setup complete).
+Derniere mise a jour (2026-01-03 00:19:06) : C/ft_linux IN_PROGRESS : ajout summary_report.sh (rapport synthese).
+Derniere mise a jour (2026-01-03 00:24:31) : C/ft_linux IN_PROGRESS : ajout ensure_grub_cfg.sh (installe grub.cfg).
+Derniere mise a jour (2026-01-03 00:29:36) : C/ft_linux IN_PROGRESS : ajout validate_grub_cfg.sh (rapport grub).
+Derniere mise a jour (2026-01-03 00:34:06) : C/ft_linux IN_PROGRESS : ajout build_kernel_config.sh (defconfig).
+Derniere mise a jour (2026-01-03 00:39:06) : C/ft_linux IN_PROGRESS : build_kernel.sh ajoute --print-release.
+Derniere mise a jour (2026-01-03 00:45:07) : C/ft_linux IN_PROGRESS : ajout build_initramfs.sh + manifest initramfs.
+Derniere mise a jour (2026-01-03 00:49:06) : C/ft_linux IN_PROGRESS : initramfs modules list ajoutee.
+Derniere mise a jour (2026-01-03 00:54:36) : C/ft_linux IN_PROGRESS : ajout validate_initramfs.sh (rapport initramfs).
+Derniere mise a jour (2026-01-03 00:59:33) : C/ft_linux IN_PROGRESS : ajout package_rootfs.sh (tar+checksum).
+Derniere mise a jour (2026-01-03 01:04:14) : C/ft_linux IN_PROGRESS : package_rootfs.sh robustifie output sans sha256sum.
+Derniere mise a jour (2026-01-03 01:09:31) : C/ft_linux IN_PROGRESS : ajout release_report.sh (recap versions).
+Derniere mise a jour (2026-01-03 01:14:14) : C/ft_linux IN_PROGRESS : summary_report.sh inclut release_report.
+Derniere mise a jour (2026-01-03 01:19:15) : C/ft_linux IN_PROGRESS : summary_report.sh inclut grub/initramfs.
+Derniere mise a jour (2026-01-03 01:24:40) : C/ft_linux IN_PROGRESS : ajout validate_services.sh (rapport services).
+Derniere mise a jour (2026-01-03 01:29:13) : C/ft_linux IN_PROGRESS : summary_report.sh inclut services_report.
+Derniere mise a jour (2026-01-03 01:34:47) : C/ft_linux IN_PROGRESS : validate_manifests.sh genere manifest_report.txt.
+Derniere mise a jour (2026-01-03 01:39:30) : C/ft_linux IN_PROGRESS : ajout run_reports.sh (orchestrateur rapports).
+Derniere mise a jour (2026-01-03 01:44:30) : C/ft_linux IN_PROGRESS : run_reports.sh inclut prerequis host.
+Derniere mise a jour (2026-01-03 01:49:32) : C/ft_linux IN_PROGRESS : ajout boot_bundle.sh (kernel+initramfs+grub).
+Derniere mise a jour (2026-01-03 01:54:51) : C/ft_linux IN_PROGRESS : ajout validate_kernel_config.sh + kernel_requirements.txt.
+Derniere mise a jour (2026-01-03 01:59:14) : C/ft_linux IN_PROGRESS : run_reports.sh inclut validation kernel config.
+Derniere mise a jour (2026-01-03 02:04:12) : C/ft_linux IN_PROGRESS : summary_report.sh inclut kernel_config_report.
+Derniere mise a jour (2026-01-03 02:10:31) : C/ft_linux IN_PROGRESS : initramfs install-boot + grub initrd auto.
+Derniere mise a jour (2026-01-03 02:14:50) : C/ft_linux IN_PROGRESS : ajout boot_artifacts.sh (artefacts /boot).
+Derniere mise a jour (2026-01-03 02:19:18) : C/ft_linux IN_PROGRESS : boot_bundle.sh verifie artefacts /boot.
+Derniere mise a jour (2026-01-03 02:24:54) : C/ft_linux IN_PROGRESS : ajout full_pipeline.sh (pipeline complet).
+Derniere mise a jour (2026-01-03 02:29:59) : C/ft_linux IN_PROGRESS : ajout generate_initramfs_manifest.sh + bins list.
+Derniere mise a jour (2026-01-03 02:34:27) : C/ft_linux IN_PROGRESS : run_reports.sh corrige doublon summary_report.
+Derniere mise a jour (2026-01-03 02:39:40) : C/ft_linux IN_PROGRESS : ajout chroot_enter.sh (mount+chroot+umount).
+Derniere mise a jour (2026-01-03 02:44:18) : C/ft_linux IN_PROGRESS : full_pipeline.sh valide config kernel.
+Derniere mise a jour (2026-01-03 02:49:50) : C/ft_linux IN_PROGRESS : ajout grub_install.sh (installation GRUB).
+Derniere mise a jour (2026-01-03 02:54:34) : C/ft_linux IN_PROGRESS : ajout detect_boot_mode.sh (BIOS/UEFI).
+Derniere mise a jour (2026-01-03 02:59:21) : C/ft_linux IN_PROGRESS : reports incluent boot_mode.
+Derniere mise a jour (2026-01-03 03:04:31) : C/ft_linux IN_PROGRESS : build_initramfs.sh supporte manifest genere.
+Derniere mise a jour (2026-01-03 03:09:25) : C/ft_linux IN_PROGRESS : ajout host_requirements.md.
+Derniere mise a jour (2026-01-03 03:14:51) : C/ft_linux IN_PROGRESS : ajout run_vm.sh (boot QEMU).
+Derniere mise a jour (2026-01-03 03:19:24) : C/ft_linux IN_PROGRESS : run_vm.sh supporte SSH port forwarding.
+Derniere mise a jour (2026-01-03 03:24:21) : C/ft_linux IN_PROGRESS : run_vm.sh aide clarifiee pour SSH.
+Derniere mise a jour (2026-01-03 03:29:12) : C/ft_linux IN_PROGRESS : run_vm.sh ajoute exemple SSH.
+Derniere mise a jour (2026-01-03 03:34:46) : C/ft_linux IN_PROGRESS : ajout boot_finalize.sh (finalisation boot).
+Derniere mise a jour (2026-01-03 03:39:14) : C/ft_linux IN_PROGRESS : boot_finalize rapporte + summary.
+Derniere mise a jour (2026-01-03 03:44:38) : C/ft_linux IN_PROGRESS : ajout archive_reports.sh (bundle rapports/logs).
+Derniere mise a jour (2026-01-03 03:49:34) : C/ft_linux IN_PROGRESS : validate_grub_cfg verifie initrd.
+Derniere mise a jour (2026-01-03 03:54:30) : C/ft_linux IN_PROGRESS : summary_report regroupe boot/grub/initramfs.
+Derniere mise a jour (2026-01-03 03:59:31) : C/ft_linux IN_PROGRESS : build_initramfs.sh peut generer le manifest.
+Derniere mise a jour (2026-01-03 04:04:33) : C/ft_linux IN_PROGRESS : ajout runbook complet.
+Derniere mise a jour (2026-01-03 04:09:37) : C/ft_linux IN_PROGRESS : ajout check_ready_to_boot.sh (rapport boot ready).
+Derniere mise a jour (2026-01-03 04:14:20) : C/ft_linux IN_PROGRESS : check_ready_to_boot verifie rc scripts.
+Derniere mise a jour (2026-01-03 04:19:23) : C/ft_linux IN_PROGRESS : reports incluent ready_to_boot.
+Derniere mise a jour (2026-01-03 04:24:15) : C/ft_linux IN_PROGRESS : ajout snapshot_image.sh (snapshot disque).
+Derniere mise a jour (2026-01-03 04:29:16) : C/ft_linux IN_PROGRESS : run_vm.sh aide mentionne defaults mem/cpus.
+Derniere mise a jour (2026-01-03 04:34:44) : C/ft_linux IN_PROGRESS : ajout convert_image.sh (qcow2).
+Derniere mise a jour (2026-01-03 04:39:17) : C/ft_linux IN_PROGRESS : run_vm.sh detecte qcow2.
+Derniere mise a jour (2026-01-03 04:44:42) : C/ft_linux IN_PROGRESS : ajout image_report.sh (rapport image).
+Derniere mise a jour (2026-01-03 04:49:21) : C/ft_linux IN_PROGRESS : run_reports.sh archive reports/logs.
+Derniere mise a jour (2026-01-03 04:55:24) : C/ft_linux IN_PROGRESS : archive_reports.sh regenere reports/index.md.
+Derniere mise a jour (2026-01-03 04:59:25) : C/ft_linux IN_PROGRESS : archive_reports.sh log index refresh.
+Derniere mise a jour (2026-01-03 05:04:46) : C/ft_linux IN_PROGRESS : ajout export_boot_artifacts.sh.
+Derniere mise a jour (2026-01-03 05:09:24) : C/ft_linux IN_PROGRESS : boot_finalize exporte artefacts boot.
+Derniere mise a jour (2026-01-03 05:14:23) : C/ft_linux IN_PROGRESS : runbook note boot_finalize exporte artefacts.
+Derniere mise a jour (2026-01-03 05:19:53) : C/ft_linux IN_PROGRESS : ajout validate_boot_archive.sh.
+Derniere mise a jour (2026-01-03 05:24:39) : C/ft_linux IN_PROGRESS : ajout clean_workspace.sh.
+Derniere mise a jour (2026-01-03 05:29:38) : C/ft_linux IN_PROGRESS : clean_workspace.sh couvre boot_artifacts/qcow2.
+Derniere mise a jour (2026-01-03 05:34:49) : C/ft_linux IN_PROGRESS : ajout partition_report.sh.
+Derniere mise a jour (2026-01-03 05:39:31) : C/ft_linux IN_PROGRESS : reports incluent partition_report.
+Derniere mise a jour (2026-01-03 05:44:43) : C/ft_linux IN_PROGRESS : partition_report inclut label/unit.
+Derniere mise a jour (2026-01-03 05:49:20) : C/ft_linux IN_PROGRESS : ajout release_bundle.sh (bundle final).
+Derniere mise a jour (2026-01-03 05:55:37) : C/ft_linux IN_PROGRESS : release_bundle.sh supprime archive precedente.
+Derniere mise a jour (2026-01-03 05:59:59) : C/ft_linux IN_PROGRESS : ajout validate_release_bundle.sh.
+Derniere mise a jour (2026-01-03 06:04:18) : C/ft_linux IN_PROGRESS : validate_release_bundle verifie boot_artifacts.
+Derniere mise a jour (2026-01-03 06:09:18) : C/ft_linux IN_PROGRESS : validate_release_bundle verifie summary.md.
+Derniere mise a jour (2026-01-03 06:14:53) : C/ft_linux IN_PROGRESS : ajout assess_status.sh (etat consolide).
+Derniere mise a jour (2026-01-03 06:19:22) : C/ft_linux IN_PROGRESS : ajout apply_kernel_requirements.sh.
+Derniere mise a jour (2026-01-03 06:24:20) : C/ft_linux IN_PROGRESS : build_kernel_config.sh supporte --apply-reqs.
+Derniere mise a jour (2026-01-03 06:29:19) : C/ft_linux IN_PROGRESS : runbook utilise --apply-reqs.
+Derniere mise a jour (2026-01-03 06:37:11) : C/ft_linux IN_PROGRESS : reprise build_system/build_mini_system avec state.
+Derniere mise a jour (2026-01-03 06:45:16) : C/ft_linux IN_PROGRESS : ajout status/reset state pour build_system/build_mini_system.
+Derniere mise a jour (2026-01-03 06:49:56) : C/ft_linux IN_PROGRESS : ajout build_state_report + summary/run_reports.
+Derniere mise a jour (2026-01-03 06:54:53) : C/ft_linux IN_PROGRESS : ajout validate_build_state + integration summary/run_reports.
+Derniere mise a jour (2026-01-03 07:00:03) : C/ft_linux IN_PROGRESS : ajout build_state_sync (logs -> state).
+Derniere mise a jour (2026-01-03 07:05:17) : C/ft_linux IN_PROGRESS : ajout plage --from/--until build_system/mini_system.
+Derniere mise a jour (2026-01-03 07:09:58) : C/ft_linux IN_PROGRESS : ajout build_log_audit + integration summary/run_reports.
+Derniere mise a jour (2026-01-03 07:14:46) : C/ft_linux IN_PROGRESS : ajout manifest_coverage (logs vs manifests).
+Derniere mise a jour (2026-01-03 07:19:56) : C/ft_linux IN_PROGRESS : status_assessment couvre build_state/build_log/coverage.
+Derniere mise a jour (2026-01-03 07:24:52) : C/ft_linux IN_PROGRESS : validate_manifests detecte doublons manifests.
+Derniere mise a jour (2026-01-03 07:30:23) : C/ft_linux IN_PROGRESS : ajout build_plan + pkg build_system.
+Derniere mise a jour (2026-01-03 07:34:46) : C/ft_linux IN_PROGRESS : ajout build_queue (execution plan avec reprise).
+Derniere mise a jour (2026-01-03 07:41:28) : C/ft_linux IN_PROGRESS : ajout build_times (timings + rapport).
+Derniere mise a jour (2026-01-03 07:44:54) : C/ft_linux IN_PROGRESS : build_queue log CSV + summary.
+Derniere mise a jour (2026-01-03 07:49:50) : C/ft_linux IN_PROGRESS : build_queue status/reset.
+Derniere mise a jour (2026-01-03 07:54:51) : C/ft_linux IN_PROGRESS : build_queue status integre rapports + assess.
+Derniere mise a jour (2026-01-03 07:59:55) : C/ft_linux IN_PROGRESS : ajout validate_build_plan.
+Derniere mise a jour (2026-01-03 08:04:47) : C/ft_linux IN_PROGRESS : validate_build_plan corrige comptage + liste inconnus.
+Derniere mise a jour (2026-01-03 08:09:49) : C/ft_linux IN_PROGRESS : ajout build_queue_retry.
+Derniere mise a jour (2026-01-03 08:14:55) : C/ft_linux IN_PROGRESS : ajout build_queue_retry_report + integration rapports.
+Derniere mise a jour (2026-01-03 08:20:12) : C/ft_linux IN_PROGRESS : ajout build_queue_sync_states.
+Derniere mise a jour (2026-01-03 08:24:47) : C/ft_linux IN_PROGRESS : build_queue timeout support.
+Derniere mise a jour (2026-01-03 08:30:04) : C/ft_linux IN_PROGRESS : ajout build_queue_metrics.
+Derniere mise a jour (2026-01-03 08:34:28) : C/ft_linux IN_PROGRESS : build_queue_metrics ajoute top durees.
+Derniere mise a jour (2026-01-03 08:39:27) : C/ft_linux IN_PROGRESS : build_queue_metrics ajoute top echecs.
+Derniere mise a jour (2026-01-03 08:45:04) : C/ft_linux IN_PROGRESS : ajout validate_build_queue_state.
+Derniere mise a jour (2026-01-03 08:49:56) : C/ft_linux IN_PROGRESS : ajout build_queue_report.
+Derniere mise a jour (2026-01-03 08:55:27) : C/ft_linux IN_PROGRESS : ajout build_state_snapshot/diff.
+Derniere mise a jour (2026-01-03 09:00:06) : C/ft_linux IN_PROGRESS : ajout build_state_list/prune.
+Derniere mise a jour (2026-01-03 09:04:56) : C/ft_linux IN_PROGRESS : build_state_prune dry-run + integration rapports.
+Derniere mise a jour (2026-01-03 09:10:06) : C/ft_linux IN_PROGRESS : ajout build_dashboard.
+Derniere mise a jour (2026-01-03 09:15:32) : C/ft_linux IN_PROGRESS : ajout build_plan_split.
+Derniere mise a jour (2026-01-03 09:20:05) : C/ft_linux IN_PROGRESS : ajout build_plan_remaining.
+Derniere mise a jour (2026-01-03 09:26:01) : C/ft_linux IN_PROGRESS : build_progress tracking + report.
+Derniere mise a jour (2026-01-03 09:30:10) : C/ft_linux IN_PROGRESS : ajout build_progress_rollup.
+Derniere mise a jour (2026-01-03 09:34:30) : C/ft_linux IN_PROGRESS : build_queue_metrics detaille durees ok.
+Derniere mise a jour (2026-01-03 09:40:02) : C/ft_linux IN_PROGRESS : ajout build_progress_failures.
+Derniere mise a jour (2026-01-03 09:45:12) : C/ft_linux IN_PROGRESS : ajout build_orchestrator.
+Derniere mise a jour (2026-01-03 09:50:08) : C/ft_linux IN_PROGRESS : ajout build_orchestrator_report.
+Derniere mise a jour (2026-01-03 09:55:04) : C/ft_linux IN_PROGRESS : build_orchestrator exporte JSON.
+Derniere mise a jour (2026-01-03 10:00:11) : C/ft_linux IN_PROGRESS : ajout build_orchestrator_status.
+Derniere mise a jour (2026-01-03 10:04:35) : C/ft_linux IN_PROGRESS : build_orchestrator JSON escape.
+Derniere mise a jour (2026-01-03 10:10:09) : C/ft_linux IN_PROGRESS : ajout build_orchestrator_validate.
+Derniere mise a jour (2026-01-03 10:15:14) : C/ft_linux IN_PROGRESS : ajout build_health_report.
+Derniere mise a jour (2026-01-03 10:19:57) : C/ft_linux IN_PROGRESS : build_queue continue-on-fail.
+Derniere mise a jour (2026-01-03 10:25:39) : C/ft_linux IN_PROGRESS : build_system/mini supporte make check.
+Derniere mise a jour (2026-01-03 10:30:25) : C/ft_linux IN_PROGRESS : ajout build_gate.
+Derniere mise a jour (2026-01-03 10:34:55) : C/ft_linux IN_PROGRESS : run_reports inclut build_gate + health.
+Derniere mise a jour (2026-01-03 10:40:23) : C/ft_linux IN_PROGRESS : ajout build_summary_json.
+Derniere mise a jour (2026-01-03 10:44:38) : C/ft_linux IN_PROGRESS : build_summary_json corrige rollup.
+Derniere mise a jour (2026-01-03 10:50:03) : C/ft_linux IN_PROGRESS : ajout build_session.
+Derniere mise a jour (2026-01-03 10:55:25) : C/ft_linux IN_PROGRESS : plan/orchestrator supporte check.
+Derniere mise a jour (2026-01-03 11:00:13) : C/ft_linux IN_PROGRESS : ajout build_summary_validate.
+Derniere mise a jour (2026-01-03 11:05:25) : C/ft_linux IN_PROGRESS : ajout build_queue_failures.
+Derniere mise a jour (2026-01-03 11:09:53) : C/ft_linux IN_PROGRESS : build_queue_report integre failures.
+Derniere mise a jour (2026-01-03 11:14:34) : C/ft_linux IN_PROGRESS : build_queue_metrics ajoute taux ok.

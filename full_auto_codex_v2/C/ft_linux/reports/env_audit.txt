@@ -1,0 +1,16 @@
+env audit
+generated: 2026-01-02 22:19:26
+
+- curl: ok
+- sha256sum: ok
+- tar: ok
+- make: ok
+- gcc: ok
+- g++: ok
+- ld: ok
+- as: ok
+- ar: ok
+- awk: ok
+- sed: ok
+- grep: ok
+- xargs: ok

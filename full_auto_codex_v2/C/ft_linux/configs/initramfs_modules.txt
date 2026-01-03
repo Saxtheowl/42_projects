@@ -1,0 +1,7 @@
+ext4
+vfat
+sd_mod
+ahci
+virtio_blk
+virtio_pci
+virtio_scsi
