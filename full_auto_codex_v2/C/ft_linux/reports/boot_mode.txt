@@ -1,0 +1,4 @@
+Boot mode detection
+date: 2026-01-04 03:20:19
+mode: BIOS
+recommended grub target: i386-pc

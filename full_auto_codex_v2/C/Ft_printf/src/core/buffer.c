@@ -10,15 +10,24 @@ void	buffer_init(t_buffer *buffer, int fd)
 
 void	buffer_flush(t_buffer *buffer)
 {
-	size_t	written;
+	size_t	offset;
+	ssize_t	written;
 
 	if (buffer->error || buffer->index == 0)
 		return ;
-	written = write(buffer->fd, buffer->data, buffer->index);
-	if (written != buffer->index)
-		buffer->error = 1;
-	else
-		buffer->total += written;
+	offset = 0;
+	while (offset < buffer->index)
+	{
+		written = write(buffer->fd, buffer->data + offset,
+				buffer->index - offset);
+		if (written <= 0)
+		{
+			buffer->error = 1;
+			break ;
+		}
+		offset += (size_t)written;
+		buffer->total += (size_t)written;
+	}
 	buffer->index = 0;
 }
 

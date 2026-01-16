@@ -1,0 +1,21 @@
+build_summary_alerts_stats_report_validate generated: 2026-01-04 03:20:23
+report: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_report.txt
+
+missing_line: alerts_total
+missing_line: bundle_score
+missing_line: stats_result
+missing_line: trend_avg_alerts
+missing_line: trend_avg_score
+missing_line: trend_warn
+missing_line: trend_result
+missing_line: alerts_delta
+missing_line: score_delta
+missing_line: delta_result
+missing_line: rollup_entries
+missing_line: rollup_window
+missing_line: rollup_delta_alerts
+missing_line: rollup_delta_score
+missing_line: rollup_result
+missing_line: rollup_score_result
+missing_line: result
+result: warn

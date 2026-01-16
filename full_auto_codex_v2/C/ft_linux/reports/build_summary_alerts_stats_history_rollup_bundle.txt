@@ -1,0 +1,12 @@
+build_summary_alerts_stats_history_rollup_bundle generated: 2026-01-04 03:20:21
+out: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_bundle.tar.gz
+sha: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_bundle.sha256
+
+missing: build_summary_alerts_stats_history_rollup.md
+missing: build_summary_alerts_stats_history_rollup.html
+missing: build_summary_alerts_stats_history_rollup_score.json
+missing: build_summary_alerts_stats_history_rollup_score.md
+missing: build_summary_alerts_stats_history_rollup_score.html
+files: 9
+missing_count: 5
+result: ok

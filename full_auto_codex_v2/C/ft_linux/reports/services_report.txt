@@ -1,0 +1,24 @@
+Services report for /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs
+manifest: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/configs/services_manifest.tsv
+
+service: mountfs
+  init_script: missing
+  rcS link: missing
+  rcS kill link: missing
+
+service: syslog
+  init_script: missing
+  rcS link: missing
+  rcS kill link: missing
+
+service: network
+  init_script: missing
+  rcS link: missing
+  rcS kill link: missing
+
+service: rc.local
+  init_script: missing
+  rc3 link: missing
+  rcS kill link: missing
+
+result: MISSING(8)

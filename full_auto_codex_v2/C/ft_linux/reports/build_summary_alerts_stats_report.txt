@@ -1,0 +1,7 @@
+build_summary_alerts_stats_report generated: 2026-01-04 03:20:23
+stats: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats.txt
+trend: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_trend.txt
+delta: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_delta.txt
+rollup: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup.txt
+rollup_score: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_score.txt
+

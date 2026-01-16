@@ -1,13 +1,28 @@
 # Reports index
 
-generated: 2026-01-02 22:09:22
+generated: 2026-01-04 03:20:19
 
+- boot_checklist.txt (977 bytes)
+- boot_mode.txt (90 bytes)
 - build_status.csv (627 bytes)
 - build_status.txt (585 bytes)
 - download_missing.sh (859 bytes)
+- env_audit.csv (111 bytes)
+- env_audit.txt (180 bytes)
+- env_prereqs.txt (477 bytes)
+- image_report.txt (141 bytes)
+- initramfs_report.csv (351 bytes)
+- initramfs_report.txt (439 bytes)
+- manifest_report.txt (701 bytes)
 - manifest_sources.csv (1636 bytes)
 - manifest_sources.txt (1636 bytes)
 - missing_tarballs.csv (748 bytes)
 - missing_tarballs.txt (813 bytes)
+- preflight.txt (1211 bytes)
+- ready_to_boot.txt (1021 bytes)
+- release_report.txt (2304 bytes)
+- rootfs_report.csv (189 bytes)
+- rootfs_report.txt (269 bytes)
+- services_report.txt (569 bytes)
 - sha_report.csv (712 bytes)
 - sha_report.txt (865 bytes)

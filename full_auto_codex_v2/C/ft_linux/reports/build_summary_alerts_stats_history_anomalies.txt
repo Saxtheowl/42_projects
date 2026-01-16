@@ -1,0 +1,8 @@
+build_summary_alerts_stats_history_anomalies generated: 2026-01-04 03:20:21
+history: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history.csv
+alerts_threshold: 3
+score_drop_threshold: 5
+limit: 10
+rows: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_anomalies_rows.csv
+
+result: missing_history

@@ -1,0 +1,57 @@
+ft_linux release report
+generated: 2026-01-04 03:20:18
+
+## versions.md
+# Versions retenues (x86_64)
+
+- Kernel : 6.6.54 (LTS) — https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.54.tar.xz
+- Binutils : 2.43.1 — https://ftp.gnu.org/gnu/binutils/binutils-2.43.1.tar.xz
+- GCC : 13.2.0 (avec gmp/mpfr/mpc integrés) — https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.xz
+- Glibc : 2.40 — https://ftp.gnu.org/gnu/glibc/glibc-2.40.tar.xz
+- Linux API Headers : 6.6.54 (extraits du tarball kernel)
+- Utilitaires de base (sélection LFS 12.x) :
+  - bash 5.2.21, coreutils 9.5, diffutils 3.10, file 5.45, findutils 4.10.0,
+  - gawk 5.3.1, grep 3.11, gzip 1.13, kbd 2.6.4, less 661, make 4.4.1,
+  - patch 2.7.6, procps-ng 4.0.4, psmisc 23.7, sed 4.9, sysvinit 3.10,
+  - tar 1.35, texinfo 7.1, util-linux 2.40.2, eudev 3.2.14.
+- Bootloader : GRUB 2.12.
+
+Mirroirs privilégiés : `ftp.gnu.org` (fallback `ftpmirror.gnu.org`), `sourceware.org/pub`, `cdn.kernel.org`, `anduin.linuxfromscratch.org/BLFS/`.
+
+Architecture : x86_64, cible triplet `x86_64-lfs-linux-gnu`.
+
+## build_system_manifest.tsv
+coreutils        9.5        autotools
+bash             5.2.21     autotools
+procps-ng        4.0.4      autotools
+diffutils        3.10       autotools
+findutils        4.10.0     autotools
+grep             3.11       autotools
+gzip             1.13       autotools
+make             4.4.1      autotools
+patch            2.7.6      autotools
+tar              1.35       autotools
+texinfo          7.1        autotools
+util-linux       2.40.2     autotools
+
+## mini_system_manifest.tsv
+zlib             1.3.1      autotools
+bzip2            1.0.8      makeonly
+xz               5.6.2      autotools
+zstd             1.5.6      autotools
+file             5.45       autotools
+readline         8.2        autotools
+m4               1.4.19     autotools
+bc               7.0.2      autotools
+flex             2.6.4      autotools
+ncurses          6.5        autotools
+gawk             5.3.0      autotools
+sed              4.9        autotools
+vim              9.1        autotools
+less             643        autotools
+iproute2         6.10.0     autotools
+e2fsprogs        1.47.1     autotools
+kmod             32         autotools
+sysvinit         3.10       autotools
+eudev            3.2.14     autotools
+

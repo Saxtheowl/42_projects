@@ -1,0 +1,6 @@
+build_summary_alerts_stats_history_rollup_score_validate generated: 2026-01-04 03:20:21
+report: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_score.txt
+json: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_score.json
+
+result: warn
+missing_result_line

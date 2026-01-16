@@ -1,0 +1,12 @@
+build_summary_bundle_index_overview_validate generated: 2026-01-04 03:20:23
+json: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_bundle_index_overview.json
+
+missing_field: trend.entries
+missing_field: trend.avg_files
+missing_field: trend.warn
+missing_field: delta.delta_files
+missing_field: delta.last_generated
+missing_field: delta.previous_generated
+missing_field: delta.last_files
+missing_field: delta.previous_files
+result: warn

@@ -1,4 +1,14 @@
-Derniere mise a jour (2026-01-03 15:44:38) : C/ft_linux progresse : build_check_summary_validate exige coverage_rate.
+Derniere mise a jour (2026-01-09 23:43:24) : C/Ft_printf IN_PROGRESS : test erreur d'ecriture via /dev/full (skip si absent) + scripts/run_tests.sh OK.
+Derniere mise a jour (2026-01-09 23:33:45) : C/Ft_printf IN_PROGRESS : nouveaux tests (%u -1, hex UINT_MAX, %%%% chain, pointeurs multiples) + scripts/run_tests.sh OK.
+Derniere mise a jour (2026-01-09 23:02:52) : C/Ft_printf IN_PROGRESS : test format long + scripts/run_tests.sh OK.
+Derniere mise a jour (2026-01-09 22:52:46) : C/Ft_printf IN_PROGRESS : test ft_printf(NULL) + scripts/run_tests.sh OK.
+Derniere mise a jour (2026-01-09 22:42:49) : C/Ft_printf IN_PROGRESS : test long wrap + scripts/run_tests.sh OK.
+Derniere mise a jour (2026-01-09 22:24:08) : C/Ft_printf IN_PROGRESS : ajout de tests long string (flush buffer) + cas format vide/percent.
+Derniere mise a jour (2026-01-04 14:00:32) : C/Libunit termine avec une suite d'echecs (segfault/timeout/exit) ajoutee et `./scripts/run_tests.sh` OK.
+Derniere mise a jour (2026-01-04 13:54:43) : C/Libft termine avec un harness de tests `tests_realisation` et `./tests_realisation/run_tests.sh` OK.
+Derniere mise a jour (2026-01-04 13:51:34) : C/ft_linux passe en WAITING (toolchain/kernel/boot/tarballs manquants, cf. `reports/missing_inputs.txt`), bascule sur C/Get_Next_Line termine avec test multi-fd ajoute et `./tests_realisation/run_tests.sh` OK.
+Derniere mise a jour (2026-01-04 13:41:33) : C/ft_linux progresse : ajout de `scripts/missing_inputs_report.sh` pour lister les pre-requis LFS manquants (toolchain/boot/kernel/tarballs) et integration dans `run_reports.sh` pour un diagnostic consolide.
+Derniere mise a jour (2026-01-05 09:35:00) : C/ft_linux progresse : `scripts/ensure_permissions.sh` déploie `chmod +x scripts/*.sh` pour éviter les erreurs `permission denied` que `run_reports.sh` déclenche encore sur trop de helpers ; la validation reste bloquée tant que la chaîne cross et les artefacts kernel/manifests manquent, mais ce script réduit brutalement les avertissements `permission denied` dans les logs (124 scripts corrigés).
 Derniere mise a jour (2026-01-02 17:29:03) : C/ft_nmap termine : projet stabilise (multi-cibles, scan udp, exports enrichis, limite 1024 ports) et suite de tests make test OK.
 Derniere mise a jour (2026-01-02 18:58:57) : C/Ft_shmup termine : shmup stabilise (campagne + endless, power-ups, boss/enraged, HUD) et build OK.
 Derniere mise a jour (2026-01-02 18:39:38) : C/Ft_shmup progresse : ajout du dash (touche e, invuln courte + cooldown), HUD/aide MAJ; build OK.

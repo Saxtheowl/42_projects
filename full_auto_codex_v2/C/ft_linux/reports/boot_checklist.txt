@@ -1,0 +1,12 @@
+Boot checklist for /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs
+
+[MISS] fstab: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/fstab
+[MISS] hostname: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/hostname
+[MISS] hosts: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/hosts
+[MISS] inittab: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/inittab
+[MISS] boot dir: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot
+[MISS] kernel image: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot/vmlinuz-*-ftlinux
+[MISS] grub.cfg: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot/grub/grub.cfg
+[MISS] initramfs image: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot/initramfs-*-ftlinux.img
+
+Result: MISSING (8)

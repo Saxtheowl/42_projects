@@ -1,0 +1,25 @@
+preflight generated: 2026-01-04 03:20:15
+lfs: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs
+tools: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools
+sources: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+manifest: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/configs/build_system_manifest.tsv
+
+[1/6] Environment
+[OK]   LFS root
+[OK]   LFS tools
+[OK]   sources dir
+[OK]   build_system manifest
+[2/6] Toolchain
+[WARN] cross gcc (missing: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/x86_64-lfs-linux-gnu-gcc)
+[WARN] cross ld (missing: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/x86_64-lfs-linux-gnu-ld)
+[WARN] cross as (missing: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/x86_64-lfs-linux-gnu-as)
+[3/6] Toolchain validation
+[4/6] Tarballs
+[WARN] manifest verification failed
+[5/6] Disk space
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv  589G  227G  337G  41% /
+[6/6] Host prerequisites
+
+warn_count: 4
+result: warn

@@ -1,0 +1,4 @@
+Image report
+date: 2026-01-04 03:20:19
+image: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/work/disk.raw
+exists: no

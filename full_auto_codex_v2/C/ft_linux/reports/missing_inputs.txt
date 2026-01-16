@@ -1,0 +1,51 @@
+missing inputs report
+generated: 2026-01-04 13:49:21
+
+env | lfs_root | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs
+toolchain | tools_bin | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin
+toolchain | x86_64-lfs-linux-gnu-gcc | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/x86_64-lfs-linux-gnu-gcc
+toolchain | x86_64-lfs-linux-gnu-as | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/x86_64-lfs-linux-gnu-as
+toolchain | x86_64-lfs-linux-gnu-ld | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/x86_64-lfs-linux-gnu-ld
+toolchain | x86_64-lfs-linux-gnu-ar | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/bin/x86_64-lfs-linux-gnu-ar
+headers | glibc_stdio | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/usr/include/stdio.h
+headers | linux_version | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/usr/include/linux/version.h
+toolchain | libgcc_dir | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/tools/lib/gcc/x86_64-lfs-linux-gnu
+kernel | config | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/configs/linux-6.6.54.config
+boot | vmlinuz | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot
+boot | initramfs | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot
+boot | fstab | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/fstab
+boot | grub_cfg | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot/grub/grub.cfg
+tarball | coreutils-9.5 | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | bash-5.2.21 | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | procps-ng-4.0.4 | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | diffutils-3.10 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | findutils-4.10.0 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | grep-3.11 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | gzip-1.13 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | make-4.4.1 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | patch-2.7.6 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | tar-1.35 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | texinfo-7.1 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | util-linux-2.40.2 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | zlib-1.3.1 | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | bzip2-1.0.8 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | xz-5.6.2 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | zstd-1.5.6 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | file-5.45 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | readline-8.2 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | m4-1.4.19 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | bc-7.0.2 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | flex-2.6.4 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | ncurses-6.5 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | gawk-5.3.0 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | sed-4.9 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | vim-9.1 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | less-643 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | iproute2-6.10.0 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | e2fsprogs-1.47.1 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | kmod-32 | missing | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | sysvinit-3.10 | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+tarball | eudev-3.2.14 | ok | /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/sources
+
+total_checks: 45
+missing: 35

@@ -1,3 +1,5 @@
+2026-01-05 09:40:00 | C/ft_linux | IN_PROGRESS | `scripts/ensure_permissions.sh` a appliqué `chmod +x scripts/*.sh`, corrigeant 124 scripts et réduisant considérablement les `permission denied` rapportés par `run_reports.sh`; la validation reste bloquée tant que la chaîne cross et les artefacts kernel/manifests sont absents, mais les logs sont maintenant plus propres.
+2026-01-05 09:20:00 | C/ft_linux | IN_PROGRESS | `scripts/run_reports.sh` a régénéré les rollups history/trend (CSV/MD/HTML/JSON) et un grand nombre de rapports, mais la validation échoue parce que les outils cross (`x86_64-lfs-linux-gnu-gcc/ld/as`), `linux-6.6.54.config`, `fstab`, `grub.cfg`, `vmlinuz-*`, et plusieurs tarballs manifest absents, plus des permissions manquantes sur la majorité des scripts ; les artefacts existants (preflight/toolchain/rollup) sont produits mais Quickcheck/report states remontent des erreurs.
 2025-12-26 10:10:49 | C/ft_nmap | IN_PROGRESS | Export JSON (-o) et CSV (-C) ports+stats ajoutés, résolution unique réutilisée, scan non bloquant (poll) burst réglable (-c def 256/lim 1024), options -q/-S, résumé open/closed/timeout + débit; README/test local à jour.
 2025-12-25 11:57:23 | C/Ft_services | IN_PROGRESS | guard_summary Markdown ajoute un tableau pour la streak globale agrégée (current/longest/window), alignant le rendu MD avec HTML/CSV/JSON; docs/CLI/README mis à jour. validation/artefacts OK.
 2025-12-25 11:55:06 | C/Ft_services | IN_PROGRESS | Corrigé guard_summary HTML (comptait seulement le dernier garde) pour aligner compteurs/streaks avec CSV/JSON/MD; docs/CLI détaillent la ligne CSV `__overall_streak` pour la streak globale agrégée. validation/artefacts restent OK.
@@ -957,3 +959,132 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2026-01-03 15:34:36 | C/ft_linux | IN_PROGRESS | build_check_coverage ajoute missing_rate.
 2026-01-03 15:39:36 | C/ft_linux | IN_PROGRESS | build_check_summary_json inclut coverage rates.
 2026-01-03 15:44:38 | C/ft_linux | IN_PROGRESS | build_check_summary_validate exige coverage_rate.
+2026-01-03 15:49:37 | C/ft_linux | IN_PROGRESS | build_check_summary_validate exige missing_rate.
+2026-01-03 15:59:18 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions et integration dans summary/health.
+2026-01-03 16:11:07 | C/ft_linux | IN_PROGRESS | build_check_gate integre seuil regressions + propagation gate/session.
+2026-01-03 16:16:09 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_trend et integration dashboard/summary.
+2026-01-03 16:20:51 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_groups et integration rapports.
+2026-01-03 16:25:50 | C/ft_linux | IN_PROGRESS | ajout export CSV regressions + synthese JSON enrichie.
+2026-01-03 16:31:08 | C/ft_linux | IN_PROGRESS | build_check_gate gere seuil taux de regression et propagation gate/session.
+2026-01-03 16:35:19 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_top pour prioriser les groupes.
+2026-01-03 16:40:22 | C/ft_linux | IN_PROGRESS | build_check_regressions_top exporte JSON + summary.
+2026-01-03 16:45:12 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_trend_json + integration rapports.
+2026-01-03 16:50:12 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_groups_json + integration rapports.
+2026-01-03 16:55:29 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_summary (txt/json) + integration rapports.
+2026-01-03 17:00:12 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_summary_validate + integration rapports.
+2026-01-03 17:05:18 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_index + integration rapports.
+2026-01-03 17:10:17 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_report markdown + integration rapports.
+2026-01-03 17:14:53 | C/ft_linux | IN_PROGRESS | dashboard affiche la synthese regressions.
+2026-01-03 17:20:17 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_bundle + integration rapports.
+2026-01-03 17:25:19 | C/ft_linux | IN_PROGRESS | ajout validation bundle regressions + integration rapports.
+2026-01-03 17:30:35 | C/ft_linux | IN_PROGRESS | ajout rapport HTML regressions + integration rapports.
+2026-01-03 17:36:06 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_transitions + integration rapports.
+2026-01-03 17:40:17 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_transitions_json + integration rapports.
+2026-01-03 17:45:20 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_transitions_validate + integration rapports.
+2026-01-03 17:50:26 | C/ft_linux | IN_PROGRESS | build_check_summary_json inclut transitions regressions + validation.
+2026-01-03 17:55:36 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_score + integration rapports.
+2026-01-03 18:00:26 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_score_json + integration rapports.
+2026-01-03 18:05:13 | C/ft_linux | IN_PROGRESS | ajout build_check_regressions_score_validate + integration rapports.
+2026-01-03 18:11:53 | C/ft_linux | IN_PROGRESS | build_toolchain ajoute resume/etat + timings/progress.
+2026-01-03 18:15:36 | C/ft_linux | IN_PROGRESS | ajout build_toolchain_report + integration rapports.
+2026-01-03 18:20:45 | C/ft_linux | IN_PROGRESS | ajout build_toolchain_report_json + integration rapports.
+2026-01-03 18:25:37 | C/ft_linux | IN_PROGRESS | ajout build_toolchain_report_validate + integration rapports.
+2026-01-03 18:32:03 | C/ft_linux | IN_PROGRESS | build_toolchain_session ajoute + build_session option toolchain.
+2026-01-03 18:42:46 | C/ft_linux | IN_PROGRESS | preflight reporte + resume session toolchain (rapport/validation).
+2026-01-03 18:45:43 | C/ft_linux | IN_PROGRESS | dashboard + build_summary_json enrichis toolchain session.
+2026-01-03 18:50:40 | C/ft_linux | IN_PROGRESS | ajout preflight JSON/validation + dashboard/summary.
+2026-01-03 18:55:54 | C/ft_linux | IN_PROGRESS | ajout historique preflight + trend + integration rapports.
+2026-01-03 19:01:02 | C/ft_linux | IN_PROGRESS | ajout gate preflight + JSON + validation + integration rapports.
+2026-01-03 19:06:16 | C/ft_linux | IN_PROGRESS | integration gate preflight dans build_gate/build_session.
+2026-01-03 19:10:22 | C/ft_linux | IN_PROGRESS | build_gate lit preflight_max_* depuis check_gate.conf.
+2026-01-03 19:15:47 | C/ft_linux | IN_PROGRESS | ajout preflight fail-on-warn (config + gate + session).
+2026-01-03 19:20:08 | C/ft_linux | IN_PROGRESS | build_preflight_gate lit defaults depuis check_gate.conf.
+2026-01-03 19:26:11 | C/ft_linux | IN_PROGRESS | ajout historique + tendance preflight gate + integration rapports.
+2026-01-03 19:30:15 | C/ft_linux | IN_PROGRESS | toolchain_session_report fail si rapport manquant.
+2026-01-03 19:36:26 | C/ft_linux | IN_PROGRESS | ajout historique + tendance build_gate + gate_trend resume.
+2026-01-03 19:40:25 | C/ft_linux | IN_PROGRESS | ajout build_gate_validate + integration rapports.
+2026-01-03 19:45:02 | C/ft_linux | IN_PROGRESS | validation build_summary: champs gate_trend/preflight_gate_trend verifies.
+2026-01-03 19:50:21 | C/ft_linux | IN_PROGRESS | build_summary: gate_validate + preflight_trend ajoutes.
+2026-01-03 19:55:29 | C/ft_linux | IN_PROGRESS | ajout build_summary_report + integration rapports.
+2026-01-03 20:01:13 | C/ft_linux | IN_PROGRESS | ajout build_summary historique + tendance + dashboard.
+2026-01-03 20:05:22 | C/ft_linux | IN_PROGRESS | build_summary_report enrichi (queue/build/check rates).
+2026-01-03 20:10:44 | C/ft_linux | IN_PROGRESS | ajout build_summary_alerts + integration dashboard.
+2026-01-03 20:15:46 | C/ft_linux | IN_PROGRESS | build_summary_alerts JSON + validation + integration rapports.
+2026-01-03 20:20:55 | C/ft_linux | IN_PROGRESS | ajout build_summary_alerts historique + tendance + dashboard.
+2026-01-03 20:25:31 | C/ft_linux | IN_PROGRESS | build_summary ajoute summary_alerts + trend.
+2026-01-03 20:30:15 | C/ft_linux | IN_PROGRESS | build_summary_report ajoute alerts + avg.
+2026-01-03 20:35:29 | C/ft_linux | IN_PROGRESS | ajout build_summary_report_validate + integration rapports.
+2026-01-03 20:40:46 | C/ft_linux | IN_PROGRESS | ajout build_summary_bundle + validation + integration rapports.
+2026-01-03 20:45:29 | C/ft_linux | IN_PROGRESS | build_summary ajoute summary_bundle + dashboard bundle_validate.
+2026-01-03 20:50:30 | C/ft_linux | IN_PROGRESS | ajout build_summary_bundle_index + integration rapports.
+2026-01-03 20:56:17 | C/ft_linux | IN_PROGRESS | ajout build_summary_bundle_index_validate + integration rapports.
+2026-01-03 21:02:21 | C/ft_linux | IN_PROGRESS | ajout build_summary_bundle_index historique + tendance + dashboard.
+2026-01-03 21:05:43 | C/ft_linux | IN_PROGRESS | ajout validation bundle_index_trend + integration rapports/status.
+2026-01-03 21:11:32 | C/ft_linux | IN_PROGRESS | build_summary ajoute bundle_index_trend + validation rapport.
+2026-01-03 21:15:34 | C/ft_linux | IN_PROGRESS | ajout validation history bundle_index + integration rapports/status.
+2026-01-03 21:20:59 | C/ft_linux | IN_PROGRESS | ajout delta bundle_index + validation + integration rapports.
+2026-01-03 21:25:23 | C/ft_linux | IN_PROGRESS | build_summary ajoute bundle_index_delta + validation rapport.
+2026-01-03 21:30:34 | C/ft_linux | IN_PROGRESS | build_summary_alerts alerte sur bundle_index_delta.
+2026-01-03 21:35:23 | C/ft_linux | IN_PROGRESS | build_summary_alerts_json ajoute items + validation.
+2026-01-03 21:41:26 | C/ft_linux | IN_PROGRESS | ajout rapport items alertes + validation + dashboard.
+2026-01-03 21:45:55 | C/ft_linux | IN_PROGRESS | ajout top_items alertes + dashboard.
+2026-01-03 21:50:25 | C/ft_linux | IN_PROGRESS | ajout items_mode alertes + dashboard.
+2026-01-03 21:56:38 | C/ft_linux | IN_PROGRESS | ajout historique + tendance alertes items.
+2026-01-03 22:00:25 | C/ft_linux | IN_PROGRESS | build_summary ajoute alerts_items_trend + validation rapport.
+2026-01-03 22:06:19 | C/ft_linux | IN_PROGRESS | ajout delta alertes items + validation + dashboard.
+2026-01-03 22:10:26 | C/ft_linux | IN_PROGRESS | build_summary ajoute alerts_items_delta + validation rapport.
+2026-01-03 22:15:08 | C/ft_linux | IN_PROGRESS | build_summary_alerts alerte alerts_items_delta.
+2026-01-03 22:21:03 | C/ft_linux | IN_PROGRESS | ajout rapport alertes items (trend/delta) + validation.
+2026-01-03 22:25:21 | C/ft_linux | IN_PROGRESS | rapport alertes items gere missing_inputs + validation.
+2026-01-03 22:30:36 | C/ft_linux | IN_PROGRESS | build_summary ajoute alerts_items_report + validation rapport.
+2026-01-03 22:36:08 | C/ft_linux | IN_PROGRESS | ajout report alertes items JSON + validation.
+2026-01-03 22:46:02 | C/ft_linux | IN_PROGRESS | delta alertes items ajoute change flags.
+2026-01-03 22:55:40 | C/ft_linux | IN_PROGRESS | report alertes items ajoute change flags.
+2026-01-03 23:01:04 | C/ft_linux | IN_PROGRESS | ajout report alertes items MD + validation.
+2026-01-03 23:06:27 | C/ft_linux | IN_PROGRESS | ajout overview alertes items + validation.
+2026-01-03 23:10:40 | C/ft_linux | IN_PROGRESS | overview alertes items fallback top-level.
+2026-01-03 23:15:07 | C/ft_linux | IN_PROGRESS | validation overview alertes items renforcee.
+2026-01-03 23:20:35 | C/ft_linux | IN_PROGRESS | build_summary ajoute alerts_items_overview + validation rapport.
+2026-01-03 22:50:08 | C/ft_linux | IN_PROGRESS | build_summary_alerts ajoute change flags alerts_items_delta.
+2026-01-03 22:40:22 | C/ft_linux | IN_PROGRESS | JSON report alertes items nettoie items_top.
+2026-01-03 23:30:33 | C/ft_linux | IN_PROGRESS | bundle index overview ajoute (script + validation + integration summary).
+2026-01-03 23:33:55 | C/ft_linux | IN_PROGRESS | bundle index score ajoute (script + validation + integration summary).
+2026-01-03 23:35:16 | C/ft_linux | IN_PROGRESS | alerts integre bundle_index_score (seuil + result).
+2026-01-03 23:40:32 | C/ft_linux | IN_PROGRESS | alerts JSON exporte bundle_index_score + validation renforcee.
+2026-01-03 23:47:31 | C/ft_linux | IN_PROGRESS | stats alertes par categorie ajoutees (summary + dashboard + validate).
+2026-01-03 23:52:08 | C/ft_linux | IN_PROGRESS | trend+historique stats alertes ajoutes (reports + summary + dashboard).
+2026-01-03 23:56:49 | C/ft_linux | IN_PROGRESS | delta stats alertes ajoute (reports + summary + dashboard).
+2026-01-04 00:01:40 | C/ft_linux | IN_PROGRESS | rapport stats alertes ajoute (report + validation + dashboard).
+2026-01-04 00:06:34 | C/ft_linux | IN_PROGRESS | JSON report stats alertes ajoute + validations.
+2026-01-04 00:11:28 | C/ft_linux | IN_PROGRESS | rapport stats alertes MD ajoute + validation.
+2026-01-04 00:16:36 | C/ft_linux | IN_PROGRESS | rapport stats alertes HTML ajoute + validation.
+2026-01-04 00:22:18 | C/ft_linux | IN_PROGRESS | export CSV stats alertes ajoute + validation.
+2026-01-04 00:30:58 | C/ft_linux | IN_PROGRESS | rapport historique stats alertes ajoute + validation.
+2026-01-04 00:35:03 | C/ft_linux | IN_PROGRESS | rapport historique stats alertes MD/HTML ajoute + validations.
+2026-01-04 00:39:04 | C/ft_linux | IN_PROGRESS | table historique stats alertes ajoutee + validations.
+2026-01-04 00:41:41 | C/ft_linux | IN_PROGRESS | score historique stats alertes ajoute + validation.
+2026-01-04 00:45:19 | C/ft_linux | IN_PROGRESS | anomalies historique stats alertes ajoutees + validation.
+2026-01-04 00:47:53 | C/ft_linux | IN_PROGRESS | anomalies historique stats alertes MD/HTML ajoutees + validations.
+2026-01-04 00:50:40 | C/ft_linux | IN_PROGRESS | summary JSON/report enrichis avec validations anomalies.
+2026-01-04 00:58:56 | C/ft_linux | IN_PROGRESS | rollup historique stats alertes integre aux resumes JSON/report/validations.
+2026-01-04 01:03:48 | C/ft_linux | IN_PROGRESS | rollup stats alertes corrige + rapports MD/HTML et validations ajoutes.
+2026-01-04 01:07:27 | C/ft_linux | IN_PROGRESS | score de stabilite rollup stats alertes ajoute et integre aux resumes.
+2026-01-04 01:11:53 | C/ft_linux | IN_PROGRESS | rapports MD/HTML du score rollup stats alertes + validations integres.
+2026-01-04 01:17:07 | C/ft_linux | IN_PROGRESS | rapport stats alertes enrichi avec rollup + score (txt/json/md/html + validations).
+2026-01-04 01:22:27 | C/ft_linux | IN_PROGRESS | bundle rollup stats alertes ajoute + integration summary/dashboard.
+2026-01-04 01:27:24 | C/ft_linux | IN_PROGRESS | overview rollup stats alertes ajoute + integration summaries.
+2026-01-04 01:32:01 | C/ft_linux | IN_PROGRESS | overview rollup stats alertes exporte en MD/HTML + validations.
+2026-01-04 01:35:42 | C/ft_linux | IN_PROGRESS | bundle summary etendu aux artefacts rollup stats alertes.
+2026-01-04 01:48:27 | C/ft_linux | IN_PROGRESS | historique rollup stats alertes + trend integres (CSV/JSON/validations).
+2026-01-04 01:54:57 | C/ft_linux | IN_PROGRESS | MD/HTML rollup history+trend ajoutes (rapports/validations).
+2026-01-04 02:56:38 | C/ft_linux | IN_PROGRESS | validation rollup history CSV ajoutes.
+2026-01-04 13:42:02 | C/ft_linux | IN_PROGRESS | ajout missing_inputs_report (toolchain/boot/kernel/tarballs) + integration run_reports.
+2026-01-04 13:52:08 | C/ft_linux | WAITING | missing toolchain (x86_64-lfs-linux-gnu-{gcc,as,ld}), linux/version.h, libgcc dir, kernel config, boot files (fstab/grub/vmlinuz/initramfs), tarballs; added Get_Next_Line multi-fd test and run_tests OK.
+2026-01-04 13:55:05 | C/Libft | DONE | ajout harness tests_realisation + run_tests.sh OK (memmove/strlen/strtrim/itoa/split).
+2026-01-04 14:00:52 | C/Libunit | DONE | ajout suite d'echecs (segfault/timeout/exit) et scripts/run_tests OK.
+2026-01-09 22:24:08 | C/Ft_printf | IN_PROGRESS | ajout tests format vide/percent et string longue pour verifier flush buffer.
+2026-01-09 22:42:49 | C/Ft_printf | IN_PROGRESS | ajout test long wrap et scripts/run_tests.sh OK.
+2026-01-09 22:52:46 | C/Ft_printf | IN_PROGRESS | ajout test ft_printf(NULL) et scripts/run_tests.sh OK.
+2026-01-09 23:02:52 | C/Ft_printf | IN_PROGRESS | ajout test format long prefix/suffix + scripts/run_tests.sh OK.
+2026-01-09 23:33:45 | C/Ft_printf | IN_PROGRESS | Ajout de tests supplementaires (%u -1, hex UINT_MAX, %%%% en chaine, pointeurs multiples) + scripts/run_tests.sh OK.
+2026-01-09 23:43:24 | C/Ft_printf | IN_PROGRESS | Ajout test erreur d'ecriture via /dev/full (skip si absent) + scripts/run_tests.sh OK.

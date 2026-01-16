@@ -42,7 +42,7 @@ if [ ! -f "$JSON_FILE" ]; then
 fi
 
 missing=0
-for field in generated report stats trend gate result summary trend_last; do
+for field in generated report stats trend gate regressions regressions_groups regressions_transitions regressions_summary result summary trend_last; do
 	if ! grep -q "\"$field\"" "$JSON_FILE"; then
 		echo "missing_field: $field" >>"$OUT_TXT"
 		missing=$((missing + 1))
@@ -57,6 +57,24 @@ if ! grep -q "\"missing_rate\"" "$JSON_FILE"; then
 	echo "missing_field: missing_rate" >>"$OUT_TXT"
 	missing=$((missing + 1))
 fi
+for field in regressions_result transitions_result regressions recoveries unchanged added removed total_compared; do
+	if ! grep -q "\"$field\"" "$JSON_FILE"; then
+		echo "missing_field: $field" >>"$OUT_TXT"
+		missing=$((missing + 1))
+	fi
+done
+for field in worst_regression_group worst_regression_rate; do
+	if ! grep -q "\"$field\"" "$JSON_FILE"; then
+		echo "missing_field: $field" >>"$OUT_TXT"
+		missing=$((missing + 1))
+	fi
+done
+for field in transitions_total transitions_regressions transitions_recoveries top_transition top_transition_count; do
+	if ! grep -q "\"$field\"" "$JSON_FILE"; then
+		echo "missing_field: $field" >>"$OUT_TXT"
+		missing=$((missing + 1))
+	fi
+done
 
 if [ "$missing" -eq 0 ]; then
 	echo "result: ok" >>"$OUT_TXT"

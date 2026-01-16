@@ -1,0 +1,7 @@
+build_summary_alerts_stats_validate generated: 2026-01-04 03:20:20
+json: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats.json
+
+missing_field: alerts_total
+missing_field: categories
+missing_field: bundle_index_score
+result: warn

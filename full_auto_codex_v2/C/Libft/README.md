@@ -1,5 +1,9 @@
 # Libft
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-04 13:54:43) : ajout d'un harness `tests_realisation` (tests memmove/strlen/strtrim/itoa/split) et `./tests_realisation/run_tests.sh` OK.
+
 ## Synthèse
 Reconstitution des fonctions de base de la libc + fonctions supplémentaires usuelles pour disposer d’une bibliothèque autonome (`libft.a`). Ce socle couvre les 23 fonctions de la partie 1 (mémoire, chaînes, conversions, tests de caractères) ainsi que les 9 fonctions de la partie 2 (manipulation de chaînes/IO). Les fonctions bonus de gestion de listes ne sont pas encore intégrées.
 
@@ -21,7 +25,8 @@ make re     # rebuild complet
 ```
 
 ## Tests
-Les tests unitaires ne sont pas fournis ici mais `libft.a` est prête à être utilisée avec les batteries de tests externes habituelles (libft-unit-test, Francinette, etc.).
+`./tests_realisation/run_tests.sh` compile un binaire de validation et execute un set minimal (memmove overlap, strlen, strdup, atoi, strtrim, itoa, split).
+La bibliothèque reste compatible avec les batteries externes usuelles (libft-unit-test, Francinette).
 
 ## PDF
 - `Sujet_Libft.pdf`

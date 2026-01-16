@@ -1,6 +1,7 @@
 #include "ft_printf.h"
 
 #include <errno.h>
+#include <fcntl.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +9,36 @@
 #include <unistd.h>
 
 typedef int	(*t_vprinter)(const char *, va_list);
+
+static char	*repeat_char(char c, size_t count)
+{
+	char	*result;
+
+	result = malloc(count + 1);
+	if (result == NULL)
+		return (NULL);
+	memset(result, c, count);
+	result[count] = '\0';
+	return (result);
+}
+
+static char	*join_format(const char *prefix, const char *suffix)
+{
+	size_t	len_prefix;
+	size_t	len_suffix;
+	char	*result;
+
+	len_prefix = strlen(prefix);
+	len_suffix = strlen(suffix);
+	result = malloc(len_prefix + 2 + len_suffix + 1);
+	if (result == NULL)
+		return (NULL);
+	memcpy(result, prefix, len_prefix);
+	memcpy(result + len_prefix, "%d", 2);
+	memcpy(result + len_prefix + 2, suffix, len_suffix);
+	result[len_prefix + 2 + len_suffix] = '\0';
+	return (result);
+}
 
 static int	read_all(int fd, char **out)
 {
@@ -189,6 +220,48 @@ static int	check_case(int line, const char *fmt, ...)
 	return (0);
 }
 
+static int	check_write_failure(void)
+{
+	int	full_fd;
+	int	saved;
+	int	ret;
+
+	full_fd = open("/dev/full", O_WRONLY);
+	if (full_fd == -1)
+	{
+		fprintf(stderr,
+			"Warning: /dev/full unavailable, skipping write failure test\n");
+		return (0);
+	}
+	saved = dup(STDOUT_FILENO);
+	if (saved == -1)
+	{
+		close(full_fd);
+		return (1);
+	}
+	if (dup2(full_fd, STDOUT_FILENO) == -1)
+	{
+		close(full_fd);
+		close(saved);
+		return (1);
+	}
+	close(full_fd);
+	ret = ft_printf("write failure test");
+	if (dup2(saved, STDOUT_FILENO) == -1)
+	{
+		close(saved);
+		return (1);
+	}
+	close(saved);
+	if (ret != -1)
+	{
+		fprintf(stderr,
+			"Expected ft_printf write failure to return -1, got %d\n", ret);
+		return (1);
+	}
+	return (0);
+}
+
 #define CHECK(fmt, ...) \
 	do { \
 		if (check_case(__LINE__, fmt, ##__VA_ARGS__)) \
@@ -197,18 +270,67 @@ static int	check_case(int line, const char *fmt, ...)
 
 int	main(void)
 {
+	int marker;
+	char *long_str;
+	int ret;
+	char *prefix;
+	char *suffix;
+	char *long_fmt;
+
+	CHECK("");
 	CHECK("simple string");
 	CHECK("char: %c", 'A');
 	CHECK("string: %s", "hello");
 	CHECK("null string: %s", (char *)NULL);
 	CHECK("percent: %%");
+	CHECK("mixed percent: 100%% done");
 	CHECK("integer: %d", 42);
 	CHECK("negative: %i", -2147483648);
+	CHECK("zero: %d %u %x", 0, 0u, 0u);
+	CHECK("int max: %d", 2147483647);
+	CHECK("uint max: %u", 4294967295u);
+	CHECK("hex zero: %x %X", 0u, 0u);
+	CHECK("hex uint max: %x %X", 0xffffffffu, 0xffffffffu);
 	CHECK("unsigned: %u", 3000000000u);
+	CHECK("unsigned -1: %u", (unsigned int)-1);
 	CHECK("hex: %x", 0xabcdef);
 	CHECK("HEX: %X", 0xABCDEF);
+	CHECK("adjacent: %d%d%d", 1, 2, 3);
+	CHECK("strings: %s%s%s", "a", "", "b");
+	CHECK("percent chain: %%%%");
+	CHECK("pointer stack: %p", (void *)&marker);
 	CHECK("pointer: %p", (void *)0x1234abcd);
 	CHECK("null ptr: %p", (void *)0);
+	CHECK("pointers: %p %p", (void *)&marker, (void *)&ret);
 	CHECK("mix: %c %s %d %u %x %%", 'X', "foo", -123, 456u, 0xbeef);
+	long_str = repeat_char('a', 1500);
+	if (long_str == NULL)
+		return (1);
+	CHECK("long string: %s", long_str);
+	CHECK("long wrap %s end", long_str);
+	free(long_str);
+	prefix = repeat_char('p', 900);
+	suffix = repeat_char('s', 900);
+	if (prefix == NULL || suffix == NULL)
+		return (1);
+	long_fmt = join_format(prefix, suffix);
+	if (long_fmt == NULL)
+	{
+		free(prefix);
+		free(suffix);
+		return (1);
+	}
+	CHECK(long_fmt, 12345);
+	free(prefix);
+	free(suffix);
+	free(long_fmt);
+	ret = ft_printf(NULL);
+	if (ret != -1)
+	{
+		fprintf(stderr, "Expected ft_printf(NULL) = -1, got %d\n", ret);
+		return (1);
+	}
+	if (check_write_failure())
+		return (1);
 	return (0);
 }

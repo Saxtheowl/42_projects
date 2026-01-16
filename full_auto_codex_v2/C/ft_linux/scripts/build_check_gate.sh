@@ -6,6 +6,8 @@ REPORT_DIR="$ROOT/reports"
 REPORT_FILE="$REPORT_DIR/build_check_report.txt"
 ROLLUP_FILE="$REPORT_DIR/build_check_status_rollup.txt"
 STATS_FILE="$REPORT_DIR/build_check_stats.txt"
+REGRESSIONS_FILE="$REPORT_DIR/build_check_regressions.txt"
+REG_GROUPS_FILE="$REPORT_DIR/build_check_regressions_groups.txt"
 OUT_TXT="$REPORT_DIR/build_check_gate.txt"
 OUT_JSON="$REPORT_DIR/build_check_gate.json"
 CONFIG_FILE="$ROOT/configs/check_gate.conf"
@@ -14,10 +16,12 @@ MAX_FAIL=-1
 MAX_IGNORED=-1
 MAX_MISSING=-1
 MAX_SEVERITY=-1
+MAX_REGRESSIONS=-1
+MAX_REGRESSION_RATE=-1
 
 usage() {
 	cat <<EOF
-Usage: $0 [--report <file>] [--rollup <file>] [--stats <file>] [--out <file>] [--json <file>] [--config <file>] [--fail-on-warn] [--max-fail <n>] [--max-ignored <n>] [--max-missing <n>] [--max-severity <n>]
+Usage: $0 [--report <file>] [--rollup <file>] [--stats <file>] [--regressions <file>] [--regressions-groups <file>] [--out <file>] [--json <file>] [--config <file>] [--fail-on-warn] [--max-fail <n>] [--max-ignored <n>] [--max-missing <n>] [--max-severity <n>] [--max-regressions <n>] [--max-regression-rate <n>]
 
 Gate checks (make check) a partir des rapports existants.
 EOF
@@ -29,6 +33,8 @@ while [ "$#" -gt 0 ]; do
 		--report) REPORT_FILE="$2"; shift 2 ;;
 		--rollup) ROLLUP_FILE="$2"; shift 2 ;;
 		--stats) STATS_FILE="$2"; shift 2 ;;
+		--regressions) REGRESSIONS_FILE="$2"; shift 2 ;;
+		--regressions-groups) REG_GROUPS_FILE="$2"; shift 2 ;;
 		--out) OUT_TXT="$2"; shift 2 ;;
 		--json) OUT_JSON="$2"; shift 2 ;;
 		--config)
@@ -40,6 +46,8 @@ while [ "$#" -gt 0 ]; do
 		--max-ignored) MAX_IGNORED="$2"; shift 2 ;;
 		--max-missing) MAX_MISSING="$2"; shift 2 ;;
 		--max-severity) MAX_SEVERITY="$2"; shift 2 ;;
+		--max-regressions) MAX_REGRESSIONS="$2"; shift 2 ;;
+		--max-regression-rate) MAX_REGRESSION_RATE="$2"; shift 2 ;;
 		-h|--help) usage ;;
 		*)
 			echo "[ERR] Option inconnue: $1" >&2
@@ -67,6 +75,8 @@ load_config() {
 			max_ignored) [ "$MAX_IGNORED" -eq -1 ] && MAX_IGNORED="$val" ;;
 			max_missing) [ "$MAX_MISSING" -eq -1 ] && MAX_MISSING="$val" ;;
 			max_severity) [ "$MAX_SEVERITY" -eq -1 ] && MAX_SEVERITY="$val" ;;
+			max_regressions) [ "$MAX_REGRESSIONS" -eq -1 ] && MAX_REGRESSIONS="$val" ;;
+			max_regression_rate) [ "$MAX_REGRESSION_RATE" -eq -1 ] && MAX_REGRESSION_RATE="$val" ;;
 			fail_on_warn) [ "$FAIL_ON_WARN" -eq 0 ] && FAIL_ON_WARN="$val" ;;
 		esac
 	done <"$file"
@@ -93,11 +103,15 @@ write_json() {
 		echo "  \"report\": \"$REPORT_FILE\","
 		echo "  \"rollup\": \"$ROLLUP_FILE\","
 		echo "  \"stats\": \"$STATS_FILE\","
+		echo "  \"regressions\": \"$REGRESSIONS_FILE\","
+		echo "  \"regressions_groups\": \"$REG_GROUPS_FILE\","
 		echo "  \"fail_on_warn\": $FAIL_ON_WARN,"
 		echo "  \"max_fail\": $(json_number_or_null "$MAX_FAIL"),"
 		echo "  \"max_ignored\": $(json_number_or_null "$MAX_IGNORED"),"
 		echo "  \"max_missing\": $(json_number_or_null "$MAX_MISSING"),"
 		echo "  \"max_severity\": $(json_number_or_null "$MAX_SEVERITY"),"
+		echo "  \"max_regressions\": $(json_number_or_null "$MAX_REGRESSIONS"),"
+		echo "  \"max_regression_rate\": $(json_number_or_null "$MAX_REGRESSION_RATE"),"
 		echo "  \"result\": \"$result\""
 		echo "}"
 	} >"$OUT_JSON"
@@ -108,12 +122,16 @@ write_json() {
 	echo "report: $REPORT_FILE"
 	echo "rollup: $ROLLUP_FILE"
 	echo "stats: $STATS_FILE"
+	echo "regressions: $REGRESSIONS_FILE"
+	echo "regressions_groups: $REG_GROUPS_FILE"
 	echo "config: $CONFIG_FILE"
 	echo "fail_on_warn: $FAIL_ON_WARN"
 	echo "max_fail: $MAX_FAIL"
 	echo "max_ignored: $MAX_IGNORED"
 	echo "max_missing: $MAX_MISSING"
 	echo "max_severity: $MAX_SEVERITY"
+	echo "max_regressions: $MAX_REGRESSIONS"
+	echo "max_regression_rate: $MAX_REGRESSION_RATE"
 	echo ""
 } >"$OUT_TXT"
 
@@ -171,6 +189,50 @@ if [ -f "$STATS_FILE" ]; then
 	fi
 else
 	echo "stats_missing: $STATS_FILE" >>"$OUT_TXT"
+	warn=$((warn + 1))
+fi
+
+if [ -f "$REGRESSIONS_FILE" ]; then
+	regressions=$(grep -E '^regressions:' "$REGRESSIONS_FILE" | head -n 1 | awk '{print $2}')
+	recoveries=$(grep -E '^recoveries:' "$REGRESSIONS_FILE" | head -n 1 | awk '{print $2}')
+	regressions=${regressions:-0}
+	recoveries=${recoveries:-0}
+	echo "regressions: $regressions" >>"$OUT_TXT"
+	echo "recoveries: $recoveries" >>"$OUT_TXT"
+	if [ "$MAX_REGRESSIONS" -ge 0 ] && [ "$regressions" -gt "$MAX_REGRESSIONS" ]; then
+		echo "threshold_regressions: exceed" >>"$OUT_TXT"
+		fail=$((fail + 1))
+	fi
+else
+	echo "regressions_missing: $REGRESSIONS_FILE" >>"$OUT_TXT"
+	warn=$((warn + 1))
+fi
+
+if [ -f "$REG_GROUPS_FILE" ]; then
+	IFS='|' read -r worst_group worst_rate < <(
+		awk '
+			/^\[group:/ {g=$0; sub(/^\[group:/,"",g); sub(/\]$/,"",g)}
+			/^regression_rate:/ {
+				r=$2;
+				if (g!="") {
+					if (r+0 >= max+0) {max=r; mg=g}
+				}
+				g="";
+			}
+			END {if (mg!="") printf "%s|%s", mg, max}
+		' "$REG_GROUPS_FILE"
+	)
+	worst_rate=${worst_rate:-0}
+	echo "worst_regression_group: ${worst_group:-}" >>"$OUT_TXT"
+	echo "worst_regression_rate: $worst_rate" >>"$OUT_TXT"
+	if [ "$MAX_REGRESSION_RATE" -ge 0 ]; then
+		if awk -v a="$worst_rate" -v b="$MAX_REGRESSION_RATE" 'BEGIN{exit !(a>b)}'; then
+			echo "threshold_regression_rate: exceed" >>"$OUT_TXT"
+			fail=$((fail + 1))
+		fi
+	fi
+else
+	echo "regressions_groups_missing: $REG_GROUPS_FILE" >>"$OUT_TXT"
 	warn=$((warn + 1))
 fi
 

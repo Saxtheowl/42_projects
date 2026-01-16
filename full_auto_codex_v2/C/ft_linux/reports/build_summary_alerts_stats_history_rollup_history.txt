@@ -1,0 +1,14 @@
+build_summary_alerts_stats_history_rollup_history generated: 2026-01-04 03:20:22
+rollup: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup.txt
+score: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_score.txt
+out: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_history.csv
+
+date: 2026-01-04
+entries: 0
+window: 7
+delta_alerts: 0
+delta_score: 0
+rollup_result: missing_history
+score: 0
+score_result: unknown
+result: ok

@@ -1,0 +1,12 @@
+{
+  "generated": "2026-01-04 03:20:22",
+  "source": "/home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_history.csv",
+  "window": 20,
+  "entries": 1,
+  "avg_delta_alerts": 0,
+  "avg_delta_score": 0,
+  "avg_score": 0,
+  "warn_rollup": 1,
+  "warn_score": 1,
+  "result": "warn"
+}

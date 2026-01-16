@@ -1,0 +1,6 @@
+Rootfs report for /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs
+Directories: 9
+Files: 14
+Symlinks: 0
+Missing dirs: bin boot dev etc home lib lib64 media mnt opt proc root run sbin srv sys tmp var
+Missing symlinks: var/run var/lock etc/mtab

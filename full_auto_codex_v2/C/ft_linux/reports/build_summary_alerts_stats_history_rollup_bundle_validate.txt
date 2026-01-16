@@ -1,0 +1,10 @@
+build_summary_alerts_stats_history_rollup_bundle_validate generated: 2026-01-04 03:20:21
+tar: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_bundle.tar.gz
+sha: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/reports/build_summary_alerts_stats_history_rollup_bundle.sha256
+
+missing_file: build_summary_alerts_stats_history_rollup.md
+missing_file: build_summary_alerts_stats_history_rollup.html
+missing_file: build_summary_alerts_stats_history_rollup_score.json
+missing_file: build_summary_alerts_stats_history_rollup_score.md
+missing_file: build_summary_alerts_stats_history_rollup_score.html
+result: warn

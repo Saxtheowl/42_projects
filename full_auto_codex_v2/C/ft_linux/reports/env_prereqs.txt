@@ -1,0 +1,20 @@
+Host prerequisites check
+date: 2026-01-04 03:20:16
+
+[OK] bash -> /usr/bin/bash
+[OK] make -> /usr/bin/make
+[OK] gcc -> /usr/bin/gcc
+[OK] g++ -> /usr/bin/g++
+[OK] ld -> /usr/bin/ld
+[OK] as -> /usr/bin/as
+[MISS] bison
+[MISS] flex
+[MISS] makeinfo
+[OK] awk -> /usr/bin/awk
+[OK] patch -> /usr/bin/patch
+[OK] tar -> /usr/bin/tar
+[OK] xz -> /usr/bin/xz
+
+Result: MISSING (3)
+
+Checklist: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/scripts/host_requirements.md

@@ -1,5 +1,9 @@
 # Libunit
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-04 14:00:32) : ajout d'une suite d'echecs (segfault/timeout/exit non-zero) verifiee par `./scripts/run_tests.sh`.
+
 ## Vue d'ensemble
 Libunit fournit une micro-bibliothèque de tests unitaires destinée aux projets 42. Elle expose une API minimale pour charger des tests (`load_test`) et les exécuter isolément (`launch_tests`) via `fork`, avec reporting coloré `[OK]/[KO]`, détection des signaux (SEGFAULT, BUS, ABORT, timeout) et comptage des échecs.
 
@@ -53,6 +57,7 @@ return (failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
   2/2 tests passed
   ```
 - `tests_realisation/COMMANDS.md` récapitule les commandes manuelles.
+- La suite d'echecs (`tests_realisation/test_failures.c`) valide les signaux/timeout attendus tout en conservant un exit code global OK.
 
 ## Points en attente
 - Campagne `valgrind` / AddressSanitizer (outil absent/bruit possible).

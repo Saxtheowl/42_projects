@@ -1,15 +1,30 @@
 # ft_linux
 
-Statut : IN_PROGRESS
+Statut : WAITING
 
-Derniere mise a jour : 2026-01-03 15:49:37
+Derniere mise a jour : 2026-01-04 13:51:34
+
+## Derniere execution
+`./scripts/missing_inputs_report.sh` confirme les absences critiques : outils cross `x86_64-lfs-linux-gnu-{gcc,as,ld}`, headers kernel `linux/version.h`, dossier `libgcc`, `configs/linux-6.6.54.config`, `fstab`, `grub.cfg`, `vmlinuz-*`, `initramfs-*-ftlinux.img` et tarballs manifest manquants (`diffutils`, `findutils`, `grep`, `gzip`, `make`, `patch`, `tar`, `texinfo`, `util-linux`, `bzip2`, `xz`, `zstd`, `file`, `readline`, `m4`, `bc`, `flex`, `ncurses`, `gawk`, `sed`, `vim`, `less`, `iproute2`, `e2fsprogs`, `kmod`). Les commandes `scripts/validate_toolchain.sh`, `scripts/validate_fstab.sh` et `scripts/validate_grub_cfg.sh` échouent tant que ces fichiers n'existent pas, donc le projet passe en WAITING.
 
 ## Validation toolchain
 Le script `scripts/validate_toolchain.sh` verifie la presence des outils cross (`$LFS/tools/bin`), des headers et de `libgcc`. Il permet de confirmer rapidement que l'ordre de build est coherent avant le chroot.
+Le script `scripts/build_toolchain.sh` supporte des options `--resume`, `--reset-state`, `--show-status` et logge timings/progression (`logs/toolchain/build_times.csv`, `reports/build_progress.csv`).
+Le script `scripts/build_toolchain_report.sh` genere `reports/build_toolchain_report.txt` (etat + timings), `scripts/build_toolchain_report_json.sh` exporte un JSON associe, et `scripts/build_toolchain_report_validate.sh` valide ce JSON.
+Le script `scripts/build_toolchain_session.sh` enchaine preflight, build_toolchain et rapports (options `--resume`, `--reset-state`, `--dry-run`, `--skip-preflight`).
+Le script `scripts/preflight.sh` ecrit un rapport `reports/preflight.txt` (warnings + result).
+Le script `scripts/preflight_report_json.sh` genere `reports/preflight.json` et `scripts/preflight_report_validate.sh` valide ce JSON.
+Le script `scripts/preflight_history.sh` alimente `reports/preflight_history.csv` et `reports/preflight_history.txt`.
+Le script `scripts/preflight_trend.sh` genere `reports/preflight_trend.txt/.json`.
+Le script `scripts/build_preflight_gate.sh` genere `reports/build_preflight_gate.txt/.json` (seuils depuis `configs/check_gate.conf`) et `scripts/build_preflight_gate_validate.sh` valide le JSON.
+Le script `scripts/build_preflight_gate_history.sh` alimente `reports/build_preflight_gate_history.csv` et `reports/build_preflight_gate_history.txt`.
+Le script `scripts/build_preflight_gate_trend.sh` genere `reports/build_preflight_gate_trend.txt/.json`.
+Le script `scripts/build_toolchain_session_report.sh` genere `reports/build_toolchain_session_report.txt/.json` et `scripts/build_toolchain_session_report_validate.sh` valide le JSON.
 
 ## Sources
 `scripts/download_sources.sh` accepte `--verify-only` pour verifier les tarballs sans telecharger, `--list` pour afficher les URLs, et `--from <dir>` pour copier depuis un depot local.
 Le script `scripts/missing_tarballs.sh` genere `reports/missing_tarballs.txt` et `reports/missing_tarballs.csv` avec les archives manquantes.
+Le script `scripts/missing_inputs_report.sh` genere `reports/missing_inputs.txt` et `reports/missing_inputs.csv` pour lister les pre-requis critiques manquants (toolchain, kernel config, boot artifacts, tarballs manifests).
 Le script `scripts/manifest_report.sh` genere `reports/manifest_sources.txt` et `reports/manifest_sources.csv` pour partager les URLs/sha du manifest.
 Le script `scripts/generate_downloads.sh` genere `reports/download_missing.sh` (liste de curl) pour telecharger les archives manquantes.
 Le script `scripts/verify_checksums.sh` genere `reports/sha_report.txt` et `reports/sha_report.csv` pour verifier les SHA locales.
@@ -52,6 +67,10 @@ Objectif : construire une distribution Linux minimale et fonctionnelle, utilisé
 - `docs/partitions.md` : schéma GPT 20 Go.
 - `scripts/setup_env.sh` : crée l’image RAW, rappelle le partitionnement (sfdisk), la création des FS et les points de montage.
 - `scripts/build_toolchain.sh` : squelette binutils/gcc cross (logs dans `logs/toolchain`).
+- `scripts/build_toolchain_session.sh` : session toolchain (preflight + build + rapports).
+- `scripts/build_toolchain_session_report.sh` : resume de session toolchain (preflight + toolchain).
+- `scripts/build_toolchain_session_report_validate.sh` : validation JSON du resume toolchain.
+- `scripts/ensure_permissions.sh` : passe `chmod +x` sur tous les `scripts/*.sh` afin d'éviter les `permission denied` répétés observés dans `run_reports.sh`.
 - `scripts/build_system.sh` : squelette build paquets de base (coreutils, bash, procps).
 - `scripts/download_sources.sh` : télécharge les tarballs et vérifie les SHA issus de `docs/checksums.md`.
 - `scripts/gen_checksums.sh` : calcule les SHA256 des tarballs déjà présents dans `sources/` (pour alimenter `docs/checksums.md`).
@@ -122,7 +141,7 @@ Objectif : construire une distribution Linux minimale et fonctionnelle, utilisé
 - `scripts/build_state_diff.sh` compare des snapshots (`reports/build_state_diff.txt`).
 - `scripts/build_state_list.sh` liste les snapshots (`reports/build_state_snapshots.txt`).
 - `scripts/build_state_prune.sh` purge les anciens snapshots (`reports/build_state_prune.txt`, `--dry-run` supporte).
-- `scripts/build_dashboard.sh` genere un tableau de bord (`reports/build_dashboard.txt`, checks + stats inclus).
+- `scripts/build_dashboard.sh` genere un tableau de bord (`reports/build_dashboard.txt`, checks + toolchain session inclus).
 - `scripts/build_plan_split.sh` decoupe le plan (`reports/build_plan_splits.txt`, `reports/build_plan_splits/`).
 - `scripts/build_plan_remaining.sh` liste les commandes restantes (`reports/build_plan_remaining.txt`).
 - `scripts/build_plan.sh --with-check` ajoute `--check` aux commandes, `--check-allow-fail` ignore les tests en echec.
@@ -132,12 +151,123 @@ Objectif : construire une distribution Linux minimale et fonctionnelle, utilisé
 - `scripts/build_orchestrator_status.sh` genere `reports/build_orchestrator_status.txt`.
 - `scripts/build_orchestrator_validate.sh` genere `reports/build_orchestrator_validation.txt`.
 - `scripts/build_health_report.sh` genere `reports/build_health_report.txt` (synthese sante).
-- `scripts/build_gate.sh` genere `reports/build_gate.txt`/`reports/build_gate.json` (gate pre-build).
+- `scripts/build_gate.sh` genere `reports/build_gate.txt`/`reports/build_gate.json` (gate pre-build, preflight inclus via `configs/check_gate.conf`).
+- `scripts/build_gate_validate.sh` valide `reports/build_gate.json`.
 - `scripts/run_reports.sh` lance aussi `build_gate.sh` et `build_health_report.sh`.
-- `scripts/build_summary_json.sh` genere `reports/build_summary.json` (checks + rates + groupes).
+- `scripts/build_summary_json.sh` genere `reports/build_summary.json` (checks + rates + groupes + gate_validate + preflight_gate_validate + tendances + alerts + alerts_items_trend + alerts_items_delta + alerts_items_report + alerts_items_overview + bundle_index_trend + bundle_index_delta).
+- `scripts/build_summary_report.sh` genere `reports/build_summary_report.txt` a partir du JSON.
+- `scripts/build_summary_report_validate.sh` valide `reports/build_summary_report.txt`.
+- `scripts/build_summary_history.sh` alimente `reports/build_summary_history.csv` et `reports/build_summary_history.txt`.
+- `scripts/build_summary_trend.sh` genere `reports/build_summary_trend.txt/.json`.
+- `scripts/build_summary_alerts.sh` genere `reports/build_summary_alerts.txt` (inclut bundle_index_delta + bundle_index_score + alerts_items_delta + change flags).
+- `scripts/build_summary_alerts_json.sh` genere `reports/build_summary_alerts.json` (items + bundle_index_score).
+- `scripts/build_summary_alerts_validate.sh` valide `reports/build_summary_alerts.json`.
+- `scripts/build_summary_alerts_items.sh` genere `reports/build_summary_alerts_items.txt/.json` (top_items + items_mode).
+- `scripts/build_summary_alerts_items_validate.sh` valide `reports/build_summary_alerts_items.json` (top_items + items_mode).
+- `scripts/build_summary_alerts_items_history.sh` alimente `reports/build_summary_alerts_items_history.csv`.
+- `scripts/build_summary_alerts_items_history_validate.sh` valide `reports/build_summary_alerts_items_history.csv`.
+- `scripts/build_summary_alerts_items_trend.sh` genere `reports/build_summary_alerts_items_trend.txt/.json`.
+- `scripts/build_summary_alerts_items_trend_validate.sh` valide `reports/build_summary_alerts_items_trend.json`.
+- `scripts/build_summary_alerts_items_delta.sh` compare les deux dernieres entrees (txt + json, change flags).
+- `scripts/build_summary_alerts_items_delta_validate.sh` valide `reports/build_summary_alerts_items_delta.json`.
+- `scripts/build_summary_alerts_items_report.sh` resume items/trend/delta (missing_inputs + change flags).
+- `scripts/build_summary_alerts_items_report_validate.sh` valide `reports/build_summary_alerts_items_report.txt` (missing_inputs).
+- `scripts/build_summary_alerts_items_report_json.sh` genere `reports/build_summary_alerts_items_report.json` (items_top).
+- `scripts/build_summary_alerts_items_report_json_validate.sh` valide `reports/build_summary_alerts_items_report.json`.
+- `scripts/build_summary_alerts_items_report_md.sh` genere `reports/build_summary_alerts_items_report.md`.
+- `scripts/build_summary_alerts_items_report_md_validate.sh` valide `reports/build_summary_alerts_items_report.md`.
+- `scripts/build_summary_alerts_items_overview.sh` genere `reports/build_summary_alerts_items_overview.txt/.json` (fallback top-level).
+- `scripts/build_summary_alerts_items_overview_validate.sh` valide `reports/build_summary_alerts_items_overview.json` (sections).
+- `scripts/build_summary_alerts_stats.sh` genere `reports/build_summary_alerts_stats.txt/.json` (stats par categorie).
+- `scripts/build_summary_alerts_stats_validate.sh` valide `reports/build_summary_alerts_stats.json`.
+- `scripts/build_summary_alerts_stats_history.sh` alimente `reports/build_summary_alerts_stats_history.csv`.
+- `scripts/build_summary_alerts_stats_history_validate.sh` valide `reports/build_summary_alerts_stats_history.csv`.
+- `scripts/build_summary_alerts_stats_history_report.sh` genere `reports/build_summary_alerts_stats_history_report.txt/.json`.
+- `scripts/build_summary_alerts_stats_history_report_validate.sh` valide `reports/build_summary_alerts_stats_history_report.txt`.
+- `scripts/build_summary_alerts_stats_history_report_md.sh` genere `reports/build_summary_alerts_stats_history_report.md`.
+- `scripts/build_summary_alerts_stats_history_report_md_validate.sh` valide `reports/build_summary_alerts_stats_history_report.md`.
+- `scripts/build_summary_alerts_stats_history_report_html.sh` genere `reports/build_summary_alerts_stats_history_report.html`.
+- `scripts/build_summary_alerts_stats_history_report_html_validate.sh` valide `reports/build_summary_alerts_stats_history_report.html`.
+- `scripts/build_summary_alerts_stats_history_table.sh` genere `reports/build_summary_alerts_stats_history_table.csv`.
+- `scripts/build_summary_alerts_stats_history_table_validate.sh` valide `reports/build_summary_alerts_stats_history_table.csv`.
+- `scripts/build_summary_alerts_stats_history_table_md.sh` genere `reports/build_summary_alerts_stats_history_table.md`.
+- `scripts/build_summary_alerts_stats_history_table_md_validate.sh` valide `reports/build_summary_alerts_stats_history_table.md`.
+- `scripts/build_summary_alerts_stats_history_table_html.sh` genere `reports/build_summary_alerts_stats_history_table.html`.
+- `scripts/build_summary_alerts_stats_history_table_html_validate.sh` valide `reports/build_summary_alerts_stats_history_table.html`.
+- `scripts/build_summary_alerts_stats_history_score.sh` genere `reports/build_summary_alerts_stats_history_score.txt`.
+- `scripts/build_summary_alerts_stats_history_score_validate.sh` valide `reports/build_summary_alerts_stats_history_score.txt`.
+- `scripts/build_summary_alerts_stats_history_anomalies.sh` genere `reports/build_summary_alerts_stats_history_anomalies.txt/.json`.
+- `scripts/build_summary_alerts_stats_history_anomalies_validate.sh` valide `reports/build_summary_alerts_stats_history_anomalies.txt`.
+- `scripts/build_summary_alerts_stats_history_anomalies_md.sh` genere `reports/build_summary_alerts_stats_history_anomalies.md`.
+- `scripts/build_summary_alerts_stats_history_anomalies_md_validate.sh` valide `reports/build_summary_alerts_stats_history_anomalies.md`.
+- `scripts/build_summary_alerts_stats_history_anomalies_html.sh` genere `reports/build_summary_alerts_stats_history_anomalies.html`.
+- `scripts/build_summary_alerts_stats_history_anomalies_html_validate.sh` valide `reports/build_summary_alerts_stats_history_anomalies.html`.
+- `scripts/build_summary_alerts_stats_history_rollup.sh` genere `reports/build_summary_alerts_stats_history_rollup.txt/.json`.
+- `scripts/build_summary_alerts_stats_history_rollup_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup.txt`.
+- `scripts/build_summary_alerts_stats_history_rollup_md.sh` genere `reports/build_summary_alerts_stats_history_rollup.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_md_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_html.sh` genere `reports/build_summary_alerts_stats_history_rollup.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_html_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_score.sh` calcule un score de stabilite (txt + json).
+- `scripts/build_summary_alerts_stats_history_rollup_score_validate.sh` valide le score rollup.
+- `scripts/build_summary_alerts_stats_history_rollup_score_md.sh` genere `reports/build_summary_alerts_stats_history_rollup_score.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_score_md_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_score.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_score_html.sh` genere `reports/build_summary_alerts_stats_history_rollup_score.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_score_html_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_score.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_bundle.sh` packe les rapports rollup (tar.gz + sha256).
+- `scripts/build_summary_alerts_stats_history_rollup_bundle_validate.sh` valide le bundle rollup.
+- `scripts/build_summary_alerts_stats_history_rollup_overview.sh` genere `reports/build_summary_alerts_stats_history_rollup_overview.txt/.json`.
+- `scripts/build_summary_alerts_stats_history_rollup_overview_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_overview.txt`.
+- `scripts/build_summary_alerts_stats_history_rollup_overview_md.sh` genere `reports/build_summary_alerts_stats_history_rollup_overview.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_overview_md_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_overview.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_overview_html.sh` genere `reports/build_summary_alerts_stats_history_rollup_overview.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_overview_html_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_overview.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_history.sh` ajoute une entree dans `reports/build_summary_alerts_stats_history_rollup_history.csv` et genere un rapport txt.
+- `scripts/build_summary_alerts_stats_history_rollup_history_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_history.csv`.
+- `scripts/build_summary_alerts_stats_history_rollup_history_md.sh` genere `reports/build_summary_alerts_stats_history_rollup_history.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_history_md_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_history.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_history_html.sh` genere `reports/build_summary_alerts_stats_history_rollup_history.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_history_html_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_history.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_history_csv_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_history.csv`.
+- `scripts/build_summary_alerts_stats_history_rollup_trend.sh` genere `reports/build_summary_alerts_stats_history_rollup_trend.txt/.json`.
+- `scripts/build_summary_alerts_stats_history_rollup_trend_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_trend.json`.
+- `scripts/build_summary_alerts_stats_history_rollup_trend_md.sh` genere `reports/build_summary_alerts_stats_history_rollup_trend.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_trend_md_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_trend.md`.
+- `scripts/build_summary_alerts_stats_history_rollup_trend_html.sh` genere `reports/build_summary_alerts_stats_history_rollup_trend.html`.
+- `scripts/build_summary_alerts_stats_history_rollup_trend_html_validate.sh` valide `reports/build_summary_alerts_stats_history_rollup_trend.html`.
+- `scripts/build_summary_alerts_stats_trend.sh` genere `reports/build_summary_alerts_stats_trend.txt/.json`.
+- `scripts/build_summary_alerts_stats_trend_validate.sh` valide `reports/build_summary_alerts_stats_trend.json`.
+- `scripts/build_summary_alerts_stats_delta.sh` compare les deux dernieres entrees (txt + json).
+- `scripts/build_summary_alerts_stats_delta_validate.sh` valide `reports/build_summary_alerts_stats_delta.json`.
+- `scripts/build_summary_alerts_stats_report.sh` resume stats/trend/delta.
+- `scripts/build_summary_alerts_stats_report_validate.sh` valide `reports/build_summary_alerts_stats_report.txt`.
+- `scripts/build_summary_alerts_stats_report_json.sh` genere `reports/build_summary_alerts_stats_report.json`.
+- `scripts/build_summary_alerts_stats_report_json_validate.sh` valide `reports/build_summary_alerts_stats_report.json`.
+- `scripts/build_summary_alerts_stats_report_md.sh` genere `reports/build_summary_alerts_stats_report.md`.
+- `scripts/build_summary_alerts_stats_report_md_validate.sh` valide `reports/build_summary_alerts_stats_report.md`.
+- `scripts/build_summary_alerts_stats_html.sh` genere `reports/build_summary_alerts_stats_report.html`.
+- `scripts/build_summary_alerts_stats_html_validate.sh` valide `reports/build_summary_alerts_stats_report.html`.
+- `scripts/build_summary_alerts_stats_export.sh` genere `reports/build_summary_alerts_stats_export.csv`.
+- `scripts/build_summary_alerts_stats_export_validate.sh` valide `reports/build_summary_alerts_stats_export.csv`.
+- `scripts/build_summary_alerts_history.sh` alimente `reports/build_summary_alerts_history.csv` et `reports/build_summary_alerts_history.txt`.
+- `scripts/build_summary_alerts_trend.sh` genere `reports/build_summary_alerts_trend.txt/.json`.
+- `scripts/build_summary_bundle.sh` genere `reports/build_summary_bundle.tar.gz` + sha256 (inclut artefacts rollup stats alertes).
+- `scripts/build_summary_bundle_validate.sh` valide `reports/build_summary_bundle.tar.gz`.
+- `scripts/build_summary_bundle_index.sh` indexe le contenu du bundle (txt + json).
+- `scripts/build_summary_bundle_index_validate.sh` valide `reports/build_summary_bundle_index.json`.
+- `scripts/build_summary_bundle_index_history.sh` ajoute l'entree dans `reports/build_summary_bundle_index_history.csv`.
+- `scripts/build_summary_bundle_index_history_validate.sh` valide `reports/build_summary_bundle_index_history.csv`.
+- `scripts/build_summary_bundle_index_trend.sh` resume l'historique (txt + json).
+- `scripts/build_summary_bundle_index_trend_validate.sh` valide `reports/build_summary_bundle_index_trend.json`.
+- `scripts/build_summary_bundle_index_delta.sh` compare les deux dernieres entrees (txt + json).
+- `scripts/build_summary_bundle_index_delta_validate.sh` valide `reports/build_summary_bundle_index_delta.json`.
+- `scripts/build_summary_bundle_index_overview.sh` agrege trend + delta (txt + json).
+- `scripts/build_summary_bundle_index_overview_validate.sh` valide `reports/build_summary_bundle_index_overview.json`.
+- `scripts/build_summary_bundle_index_score.sh` calcule un score de stabilite (txt + json).
+- `scripts/build_summary_bundle_index_score_validate.sh` valide `reports/build_summary_bundle_index_score.json`.
 - `scripts/build_summary_validate.sh` renforce la validation (`check_groups` + `check_gate`).
-- `scripts/build_session.sh` enchaine gate + orchestrator + reports (`reports/build_session.txt/.json`).
-- `scripts/build_session.sh` accepte `--allow-check-warn`/`--check-max-*` dont severite.
+- `scripts/build_session.sh` enchaine toolchain (optionnel) + gate + orchestrator + reports (`reports/build_session.txt/.json`).
+- `scripts/build_session.sh` accepte `--toolchain-session`, `--toolchain-arg`, `--preflight-max-*`, `--preflight-fail-on-warn` et `--allow-check-warn`/`--check-max-*` dont severite.
 - `scripts/build_progress_report.sh` genere `reports/build_progress.txt` (resume du build).
 - `scripts/build_progress_rollup.sh` genere `reports/build_progress_rollup.txt` (synthese par groupe).
 - `scripts/build_progress_failures.sh` genere `reports/build_progress_failures.txt` (derniers echecs).
@@ -149,7 +279,27 @@ Objectif : construire une distribution Linux minimale et fonctionnelle, utilisé
 - `scripts/build_check_trend.sh` genere un historique checks par jour avec taux/total (`reports/build_check_trend.txt`).
 - `scripts/build_check_prune.sh` permet de purger `build_check_status.csv` (avant/apres dans `reports/build_check_prune.txt`).
 - `scripts/build_check_stats.sh` genere un resume checks par groupe avec taux/severite (`reports/build_check_stats.txt`).
-- `scripts/build_check_summary_json.sh` genere une synthese JSON checks (inclut coverage rates).
+- `scripts/build_check_regressions.sh` detecte regressions/recoveries entre snapshots ou CSV (`reports/build_check_regressions.txt`).
+- `scripts/build_check_regressions_trend.sh` trace l'historique des regressions entre snapshots consecutifs (`reports/build_check_regressions_trend.txt`).
+- `scripts/build_check_regressions_trend_json.sh` exporte le trend regressions en JSON (`reports/build_check_regressions_trend.json`).
+- `scripts/build_check_regressions_groups.sh` detaille regressions par groupe (`reports/build_check_regressions_groups.txt`).
+- `scripts/build_check_regressions_groups_json.sh` exporte les regressions par groupe en JSON (`reports/build_check_regressions_groups.json`).
+- `scripts/build_check_regressions_export_csv.sh` exporte un CSV des regressions par groupe (`reports/build_check_regressions_export.csv` + `.txt`).
+- `scripts/build_check_regressions_top.sh` liste les groupes les plus regressifs (taux + volume, `reports/build_check_regressions_top.txt` + `.json`).
+- `scripts/build_check_regressions_summary.sh` resume l'etat des regressions (global + worst group + dernier pair, `reports/build_check_regressions_summary.txt` + `.json`).
+- `scripts/build_check_regressions_summary_validate.sh` valide la synthese regressions (`reports/build_check_regressions_summary_validate.txt`).
+- `scripts/build_check_regressions_index.sh` genere un index JSON global des rapports regressions (`reports/build_check_regressions_index.txt` + `.json`).
+- `scripts/build_check_regressions_report.sh` genere un rapport Markdown regressions (`reports/build_check_regressions_report.md`).
+- `scripts/build_check_regressions_report_html.sh` genere un rapport HTML regressions (`reports/build_check_regressions_report.html`).
+- `scripts/build_check_regressions_bundle.sh` packe les rapports regressions avec checksum (`reports/build_check_regressions_bundle.tar.gz` + `.sha256`).
+- `scripts/build_check_regressions_bundle_validate.sh` verifie le bundle regressions (checksum + contenu).
+- `scripts/build_check_regressions_transitions.sh` calcule les transitions de statuts entre deux snapshots (`reports/build_check_regressions_transitions.txt`).
+- `scripts/build_check_regressions_transitions_json.sh` exporte les transitions en JSON (`reports/build_check_regressions_transitions.json`).
+- `scripts/build_check_regressions_transitions_validate.sh` valide le JSON transitions (`reports/build_check_regressions_transitions_validate.txt`).
+- `scripts/build_check_regressions_score.sh` calcule un score synthese regressions (`reports/build_check_regressions_score.txt`).
+- `scripts/build_check_regressions_score_json.sh` exporte le score regressions en JSON (`reports/build_check_regressions_score.json`).
+- `scripts/build_check_regressions_score_validate.sh` valide le JSON score regressions (`reports/build_check_regressions_score_validate.txt`).
+- `scripts/build_check_summary_json.sh` genere une synthese JSON checks (inclut coverage rates + transitions regressions).
 - `scripts/build_check_summary_validate.sh` valide la synthese checks (coverage/missing rates obligatoires).
 - `scripts/build_check_export_csv.sh` exporte une synthese CSV checks (trend_last + groups).
 - `scripts/build_check_coverage.sh` reporte la couverture checks vs manifest (`reports/build_check_coverage.txt`, coverage/missing rates).
@@ -157,9 +307,9 @@ Objectif : construire une distribution Linux minimale et fonctionnelle, utilisé
 - `scripts/build_check_snapshot_list.sh` liste les snapshots (lignes totales + dernier+lines, `reports/build_check_snapshot_list.txt`).
 - `scripts/build_check_snapshot_prune.sh` purge les anciens snapshots (before/after, `reports/build_check_snapshot_prune.txt`).
 - `scripts/build_check_snapshot_diff.sh` compare deux snapshots (auto-pick, `reports/build_check_snapshot_diff.txt`).
-- `scripts/build_check_gate.sh` genere `reports/build_check_gate.txt`/`reports/build_check_gate.json` (JSON robuste + seuils `--max-*` dont severite).
+- `scripts/build_check_gate.sh` genere `reports/build_check_gate.txt`/`reports/build_check_gate.json` (JSON robuste + seuils `--max-*` dont regressions + taux).
 - `configs/check_gate.conf` definit les seuils par defaut du gate checks (warning si absent).
-- `scripts/build_gate.sh` integre les checks via `build_check_gate` (`--allow-check-warn`, `--check-max-*` dont severite).
+- `scripts/build_gate.sh` integre les checks via `build_check_gate` (`--allow-check-warn`, `--check-max-*` dont regressions + taux).
 - `scripts/validate_manifests.sh` genere `reports/manifest_report.txt` (lint manifests).
 - `scripts/run_reports.sh` enchaine tous les rapports et regenere `reports/summary.md` (corrige doublon).
 - `scripts/run_reports.sh` lance aussi `build_check_report.sh --strict`.

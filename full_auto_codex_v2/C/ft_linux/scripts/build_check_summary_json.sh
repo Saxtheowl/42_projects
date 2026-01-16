@@ -9,6 +9,10 @@ REPORT_FILE="$REPORT_DIR/build_check_report.txt"
 STATS_FILE="$REPORT_DIR/build_check_stats.txt"
 TREND_FILE="$REPORT_DIR/build_check_trend.txt"
 GATE_FILE="$REPORT_DIR/build_check_gate.txt"
+REGRESSIONS_FILE="$REPORT_DIR/build_check_regressions.txt"
+REG_GROUPS_FILE="$REPORT_DIR/build_check_regressions_groups.txt"
+REG_TRANS_FILE="$REPORT_DIR/build_check_regressions_transitions.txt"
+REG_SUMMARY_FILE="$REPORT_DIR/build_check_regressions_summary.txt"
 
 report_result() {
 	local file="$1"
@@ -72,6 +76,47 @@ gate_result=$(report_result "$GATE_FILE")
 report_result=$(report_result "$REPORT_FILE")
 stats_result=$(report_result "$STATS_FILE")
 trend_result=$(report_result "$TREND_FILE")
+regressions_result=$(report_result "$REGRESSIONS_FILE")
+transitions_result=$(report_result "$REG_TRANS_FILE")
+
+regressions=$(value_from_report "$REGRESSIONS_FILE" "regressions")
+recoveries=$(value_from_report "$REGRESSIONS_FILE" "recoveries")
+unchanged=$(value_from_report "$REGRESSIONS_FILE" "unchanged")
+reg_added=$(value_from_report "$REGRESSIONS_FILE" "added")
+reg_removed=$(value_from_report "$REGRESSIONS_FILE" "removed")
+reg_total=$(value_from_report "$REGRESSIONS_FILE" "total_compared")
+transitions_total=$(value_from_report "$REG_TRANS_FILE" "transitions_total")
+transitions_reg=$(value_from_report "$REG_TRANS_FILE" "regressions")
+transitions_rec=$(value_from_report "$REG_TRANS_FILE" "recoveries")
+top_transition=""
+top_transition_count="0"
+if [ -f "$REG_TRANS_FILE" ]; then
+	IFS='|' read -r top_transition top_transition_count < <(
+		awk '
+			/^transition: / {
+				t=$2; c=$3;
+				if (c+0 >= max+0) {max=c; tt=t}
+			}
+			END {if (tt!="") printf "%s|%s", tt, max+0}
+		' "$REG_TRANS_FILE"
+	)
+fi
+worst_group=""; worst_rate="0"
+if [ -f "$REG_GROUPS_FILE" ]; then
+	IFS='|' read -r worst_group worst_rate < <(
+		awk '
+			/^\[group:/ {g=$0; sub(/^\[group:/,"",g); sub(/\]$/,"",g)}
+			/^regression_rate:/ {
+				r=$2;
+				if (g!="") {
+					if (r+0 >= max+0) {max=r; mg=g}
+				}
+				g="";
+			}
+			END {if (mg!="") printf "%s|%s", mg, max}
+		' "$REG_GROUPS_FILE"
+	)
+fi
 
 trend_line="$(trend_last "$TREND_FILE")"
 trend_day=""
@@ -91,11 +136,17 @@ fi
 	echo "  \"stats\": \"$STATS_FILE\","
 	echo "  \"trend\": \"$TREND_FILE\","
 	echo "  \"gate\": \"$GATE_FILE\","
+	echo "  \"regressions\": \"$REGRESSIONS_FILE\","
+	echo "  \"regressions_groups\": \"$REG_GROUPS_FILE\","
+	echo "  \"regressions_transitions\": \"$REG_TRANS_FILE\","
+	echo "  \"regressions_summary\": \"$REG_SUMMARY_FILE\","
 	echo "  \"result\": \"${report_result:-unknown}\","
 	echo "  \"report_result\": \"${report_result:-unknown}\","
 	echo "  \"stats_result\": \"${stats_result:-unknown}\","
 	echo "  \"trend_result\": \"${trend_result:-unknown}\","
 	echo "  \"gate_result\": \"${gate_result:-unknown}\","
+	echo "  \"regressions_result\": \"${regressions_result:-unknown}\","
+	echo "  \"transitions_result\": \"${transitions_result:-unknown}\","
 	echo "  \"summary\": {"
 	echo "    \"failures\": ${failures:-0},"
 	echo "    \"ignored\": ${ignored:-0},"
@@ -105,7 +156,20 @@ fi
 	echo "    \"ignored_rate\": ${ignored_rate:-0},"
 	echo "    \"overall_severity\": ${overall_severity:-0},"
 	echo "    \"coverage_rate\": ${coverage_rate:-0},"
-	echo "    \"missing_rate\": ${missing_rate:-0}"
+	echo "    \"missing_rate\": ${missing_rate:-0},"
+	echo "    \"regressions\": ${regressions:-0},"
+	echo "    \"recoveries\": ${recoveries:-0},"
+	echo "    \"unchanged\": ${unchanged:-0},"
+	echo "    \"added\": ${reg_added:-0},"
+	echo "    \"removed\": ${reg_removed:-0},"
+	echo "    \"total_compared\": ${reg_total:-0},"
+	echo "    \"worst_regression_group\": \"${worst_group}\","
+	echo "    \"worst_regression_rate\": ${worst_rate:-0},"
+	echo "    \"transitions_total\": ${transitions_total:-0},"
+	echo "    \"transitions_regressions\": ${transitions_reg:-0},"
+	echo "    \"transitions_recoveries\": ${transitions_rec:-0},"
+	echo "    \"top_transition\": \"${top_transition}\","
+	echo "    \"top_transition_count\": ${top_transition_count:-0}"
 	echo "  },"
 	echo "  \"trend_last\": {"
 	echo "    \"day\": \"${trend_day}\","

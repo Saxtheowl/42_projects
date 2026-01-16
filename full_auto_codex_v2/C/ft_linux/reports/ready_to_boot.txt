@@ -1,0 +1,15 @@
+Ready-to-boot report
+date: 2026-01-04 03:20:19
+lfs: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs
+
+[MISS] fstab: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/fstab
+[MISS] inittab: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/inittab
+[MISS] hostname: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/hostname
+[MISS] grub.cfg: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot/grub/grub.cfg
+[MISS] rcS: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/rc.d/rcS
+[MISS] rc: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/etc/rc.d/rc
+[MISS] kernel: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot/vmlinuz-*-ftlinux
+[MISS] initramfs: /home/roro/work/projects/All-42-subject/full_auto_codex_v2/C/ft_linux/.lfs/boot/initramfs-*-ftlinux.img
+[MISS] rc3.d missing
+
+result: MISSING (9)

@@ -1,5 +1,9 @@
 # get_next_line
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-04 13:51:34) : ajout d'un test multi-fd (alternance de lectures), `./tests_realisation/run_tests.sh` OK.
+
 ## Synthèse
 Cette implémentation fournit la fonction `get_next_line(int fd)` qui lit un flux fichier/STDIN ligne par ligne. Elle supporte plusieurs descripteurs simultanés grâce à une liste chaînée de tampons et respecte les contraintes du sujet (aucune fonction externe autre que `read`, `malloc`, `free`).
 
@@ -22,6 +26,7 @@ cc main.c src/get_next_line.c src/get_next_line_utils.c -D BUFFER_SIZE=128
 
 ## Tests
 - `./tests_realisation/run_tests.sh` : compile un binaire de test, vérifie la lecture d’un fichier et via stdin.
+- Test multi-fd : `test_multi_fd.c` alterne deux fichiers et valide l'interleaving attendu.
 
 ## PDF
 - `Sujet_Get_Next_Line.pdf`
