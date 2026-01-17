@@ -1,5 +1,23 @@
 # ft_kalman
 
+Statut : DONE
+
+Dernière mise à jour (2026-01-17 03:10:08) : cloture (tests unit + udp mock, doc tests complete).
+
+Dernière mise à jour (2026-01-17 03:05:21) : ajout cibles Makefile test-udp/test-all + doc associee.
+
+Dernière mise à jour (2026-01-17 03:00:45) : ajout run_udp (mock) + skip si sockets interdites.
+
+Dernière mise à jour (2026-01-17 02:55:08) : ajout test determinant 3x3 + run_unit OK.
+
+Dernière mise à jour (2026-01-17 02:49:59) : doc tests_realisation (run_unit + couverture).
+
+Dernière mise à jour (2026-01-17 02:45:07) : ajout test produit avec matrice identite + tests OK.
+
+Dernière mise à jour (2026-01-17 02:40:09) : ajout test transpose matrice + tests OK.
+
+Dernière mise à jour (2026-01-17 02:36:52) : ajout tests inverse 3x3 + erreur -Werror host non utilise corrigee.
+
 ## Synthèse actuelle
 Implémentation MVP d’un filtre de Kalman linéaire 6D (position/vitesse) en C++17 avec matrice fixe maison. Le binaire `kalman_demo` simule une trajectoire et applique les étapes predict/update à partir d’accélérations et mesures de position bruitées. Un wrapper `UdpSocket` minimal et un client brut (`kalman_client`) ont été ajoutés (bind/timeout/send/recv) pour sniffer le flux `imu-sensor-stream` dès qu’il sera disponible. Un mode `--udp` permet désormais d’écouter des paquets UDP `dt ax ay az mx my mz`, de mettre à jour le filtre et de renvoyer l’état en JSON. Reste à intégrer l’orientation, le parsing du flux réel et l’adaptation des bruits au sujet.
 

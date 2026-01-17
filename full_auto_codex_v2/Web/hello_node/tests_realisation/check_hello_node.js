@@ -2,42 +2,49 @@
 
 const { spawn } = require('child_process');
 const { once } = require('events');
+const fs = require('fs');
 const http = require('http');
 const net = require('net');
+const os = require('os');
 const path = require('path');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const SKIP_NET_TESTS = process.env.HELLO_NODE_SKIP_NET === '1';
 
 const runNode = (args, options = {}) => {
   return runCommand(process.execPath, args, options);
 };
 
+const shellEscape = (value) => {
+  return `'${String(value).replace(/'/g, `'\"'\"'`)}'`;
+};
+
 const runCommand = (command, args, { cwd = PROJECT_ROOT, env = process.env, input } = {}) => {
   return new Promise((resolve, reject) => {
-    const child = spawn(command, args, {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hello-node-'));
+    const stdoutPath = path.join(tempDir, 'stdout.txt');
+    const stderrPath = path.join(tempDir, 'stderr.txt');
+    const commandLine = [command, ...args].map(shellEscape).join(' ');
+    const child = spawn('sh', ['-c', `${commandLine} > ${shellEscape(stdoutPath)} 2> ${shellEscape(stderrPath)}`], {
       cwd,
       env,
-      stdio: ['pipe', 'pipe', 'pipe']
-    });
-
-    let stdout = '';
-    let stderr = '';
-
-    child.stdout.setEncoding('utf8');
-    child.stderr.setEncoding('utf8');
-
-    child.stdout.on('data', (chunk) => {
-      stdout += chunk;
-    });
-
-    child.stderr.on('data', (chunk) => {
-      stderr += chunk;
+      stdio: ['pipe', 'ignore', 'ignore']
     });
 
     child.on('error', reject);
     child.on('close', (code) => {
+      let stdout = '';
+      let stderr = '';
+      try {
+        stdout = fs.readFileSync(stdoutPath, 'utf8');
+        stderr = fs.readFileSync(stderrPath, 'utf8');
+      } catch (error) {
+        return reject(error);
+      } finally {
+        fs.rmSync(tempDir, { recursive: true, force: true });
+      }
       resolve({ code, stdout, stderr });
     });
 
@@ -156,6 +163,9 @@ const testSuite = [
     ensure(stdout.trim() === '3', 'ex04 should print the newline count (3).', issues);
   },
   async (issues) => {
+    if (SKIP_NET_TESTS) {
+      return;
+    }
     await withHttpServer((req, res) => {
       if (req.url === '/chunks') {
         res.write('foo');
@@ -175,6 +185,9 @@ const testSuite = [
     });
   },
   async (issues) => {
+    if (SKIP_NET_TESTS) {
+      return;
+    }
     await withHttpServer((req, res) => {
       if (req.url === '/collect') {
         res.end('hello world');
@@ -191,6 +204,9 @@ const testSuite = [
     });
   },
   async (issues) => {
+    if (SKIP_NET_TESTS) {
+      return;
+    }
     await withHttpServer((req, res) => {
       const respond = (body, delayMs) => {
         setTimeout(() => {
@@ -227,6 +243,9 @@ const testSuite = [
     });
   },
   async (issues) => {
+    if (SKIP_NET_TESTS) {
+      return;
+    }
     const port = await getAvailablePort();
     const child = spawn(process.execPath, ['ex08/time-server.js', String(port)], {
       cwd: PROJECT_ROOT,
@@ -244,6 +263,9 @@ const testSuite = [
     }
   },
   async (issues) => {
+    if (SKIP_NET_TESTS) {
+      return;
+    }
     const port = await getAvailablePort();
     const child = spawn(process.execPath, ['ex09/http-json-api-server.js', String(port)], {
       cwd: PROJECT_ROOT,
@@ -273,6 +295,12 @@ const testSuite = [
         'ex09 /api/unixtime should expose the UNIX timestamp.',
         issues
       );
+
+      const missingIsoResponse = await httpGet(port, '/api/parsetime');
+      ensure(missingIsoResponse.statusCode === 400, 'ex09 should reject missing iso with 400.', issues);
+
+      const notFoundResponse = await httpGet(port, `/api/unknown?iso=${encodeURIComponent(iso)}`);
+      ensure(notFoundResponse.statusCode === 404, 'ex09 should return 404 for unknown routes.', issues);
     } finally {
       child.kill();
       await once(child, 'exit');
@@ -296,6 +324,10 @@ const main = async () => {
     issues.forEach((issue) => console.error(`- ${issue}`));
     process.exit(1);
   } else {
+    if (SKIP_NET_TESTS) {
+      console.log('All hello_node checks passed (network tests skipped).');
+      return;
+    }
     console.log('All hello_node checks passed.');
   }
 };

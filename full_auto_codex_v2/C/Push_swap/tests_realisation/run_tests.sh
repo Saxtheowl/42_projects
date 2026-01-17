@@ -42,9 +42,11 @@ run_ok 2 1 3
 run_ok 3 2 1
 run_ok 3 1 2 6 5 4
 run_ok "3 4 5 1 2"
+run_ok 1 2 3 4 5
 
 run_error 1 2 2
 run_error "1 2" "3 1"
 run_error "abc" 3
+run_error 2147483648
 
 echo "All push_swap tests passed."

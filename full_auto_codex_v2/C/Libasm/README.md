@@ -1,5 +1,9 @@
 # Libasm
 
+Statut : WAITING (nasm manquant pour compiler)
+
+Derniere mise a jour (2026-01-17 02:34:00) : tests detectent nasm absent.
+
 ## Synthèse préliminaire
 Rewriting de fonctions de la libc en assembleur x86_64 (NASM) conformément au sujet 42. Objectifs principaux : fournir une bibliothèque statique `libasm.a` implémentant un sous-ensemble ciblé (`ft_strlen`, `ft_strcpy`, `ft_strcmp`, `ft_write`, `ft_read`, `ft_strdup`, etc.), respecter la norme 42 et gérer toutes les erreurs système (`errno`).
 

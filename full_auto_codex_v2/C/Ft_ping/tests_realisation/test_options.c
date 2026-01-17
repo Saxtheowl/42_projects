@@ -39,10 +39,19 @@ static void	test_verbose_only(void)
 	assert(strcmp(opts.target, "localhost") == 0);
 }
 
+static void	test_invalid_payload_pattern(void)
+{
+	char *argv[] = {"ft_ping", "-p", "zz", "example.com", NULL};
+	t_options opts;
+	int ret = ft_parse_options(4, argv, &opts);
+	assert(ret != 0);
+}
+
 int	main(void)
 {
 	test_count_ttl_timeout_deadline_payload_pattern();
 	test_verbose_only();
+	test_invalid_payload_pattern();
 	puts("options tests: OK");
 	return (0);
 }

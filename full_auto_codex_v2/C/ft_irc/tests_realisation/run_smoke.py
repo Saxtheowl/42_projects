@@ -83,6 +83,12 @@ def find_free_port():
 
 
 def main():
+	try:
+		socket.socket(socket.AF_INET, socket.SOCK_STREAM).close()
+	except PermissionError:
+		print("Skipping smoke test (socket permission denied).")
+		return 0
+
 	root = Path(__file__).resolve().parents[1]
 	binary = root / "ircserv"
 	if not binary.exists():
@@ -105,6 +111,7 @@ def main():
 
 	alice = None
 	bob = None
+	charlie = None
 	try:
 		alice = TestClient(host, port, password, "Alice")
 		alice.expect_code("001", timeout=2.0)
@@ -127,6 +134,16 @@ def main():
 		alice.send("MODE #smoketest +i")
 		alice.expect_contains(lambda line: "MODE #smoketest +i" in line, timeout=2.0)
 
+		charlie = TestClient(host, port, password, "Charlie")
+		charlie.expect_code("001", timeout=2.0)
+		charlie.send("JOIN #smoketest")
+		charlie.expect_code("473", timeout=2.0)
+
+		alice.send("INVITE Charlie #smoketest")
+		charlie.expect_contains(lambda line: "INVITE" in line and "Charlie" in line, timeout=2.0)
+		charlie.send("JOIN #smoketest")
+		charlie.expect_contains(lambda line: " JOIN #smoketest" in line, timeout=2.0)
+
 		alice.send("TOPIC #smoketest :demo topic")
 		bob.expect_contains(lambda line: "TOPIC #smoketest :demo topic" in line, timeout=2.0)
 
@@ -140,7 +157,7 @@ def main():
 		print("Smoke test failed:", exc, file=sys.stderr)
 		return 2
 	finally:
-		for client in (alice, bob):
+		for client in (alice, bob, charlie):
 			if client is not None:
 				client.close()
 		if server.poll() is None:

@@ -1,6 +1,6 @@
 # Checklist revue et suivi
 
-Dernière mise à jour : 2025-12-26 05:02:52
+Dernière mise à jour : 2026-01-17 04:10:14
 
 ## Plan oral 10 minutes (repris du doc principal)
 1. Intro (30s) : synthèse express + objectifs actuels.
@@ -16,6 +16,11 @@ Dernière mise à jour : 2025-12-26 05:02:52
 - [ ] Préparer 2 anecdotes courtes avec chiffres (succès/échec) + le “rôle exact”.
 - [ ] Support visuel minimal (5-6 bullets ou 3 slides) prêt et test affichage.
 - [ ] Lister 3 questions au reviewer (ex : priorisation, posture, perf/mentorat).
+
+## Questions a poser au reviewer
+1. Quelles priorites vous jugez les plus critiques pour les 3-6 prochains mois ?
+2. Quels points dois-je renforcer pour progresser sur la posture de lead (communication, delegation, mentoring) ?
+3. Quel niveau d'autonomie attendez-vous sur les sujets fiabilite / observabilite ?
 
 ## Template mise à jour mensuelle
 ```

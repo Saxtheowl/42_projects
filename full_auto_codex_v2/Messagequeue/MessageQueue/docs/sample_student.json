@@ -1,0 +1,11 @@
+{
+  "studentId": "S-0001",
+  "firstName": "Ada",
+  "lastName": "Lovelace",
+  "email": "ada.lovelace@example.com",
+  "program": "Computer Science",
+  "year": 2,
+  "incomeBracket": "low",
+  "needsTransportationAssistance": true,
+  "grantType": "contract"
+}

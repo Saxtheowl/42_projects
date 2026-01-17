@@ -1,5 +1,9 @@
 # CPP Module 04
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 02:15:13) : passage DONE (tests OK).
+
 ## Synthèse
 Polymorphisme de sous-type, classes abstraites et interfaces. Exercices ex00→ex04 : polymorphisme Animal/Cat/Dog avec deep copy pour Brain, gestion Materia (AMateria/Ice/Cure, MateriaSource, Character), et vérifications de copie/destruction.
 

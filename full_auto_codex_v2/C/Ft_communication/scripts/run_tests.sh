@@ -19,4 +19,19 @@ if ! "${SESSION_SCRIPT}" --non-interactif >/dev/null; then
 fi
 printf '[OK] Mode non interactif\n'
 
+printf '[3/3] Exports Markdown/JSON\n'
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "${TMP_DIR}"' EXIT
+md_path="${TMP_DIR}/notes.md"
+json_path="${TMP_DIR}/recap.json"
+if ! printf '\n\n\n\n' | "${SESSION_SCRIPT}" --log "${md_path}" --json "${json_path}" >/dev/null; then
+	printf '[FAIL] Export Markdown/JSON en échec\n' >&2
+	exit 1
+fi
+if [[ ! -s "${md_path}" || ! -s "${json_path}" ]]; then
+	printf '[FAIL] Export Markdown/JSON manquant\n' >&2
+	exit 1
+fi
+printf '[OK] Export Markdown/JSON\n'
+
 printf 'Tests ft_communication passés ✅\n'

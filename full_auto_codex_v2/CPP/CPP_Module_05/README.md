@@ -1,5 +1,9 @@
 # CPP Module 05
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 02:25:00) : passage DONE (tests OK).
+
 ## Synthèse
 Exercices sur les exceptions et la hiérarchie Bureaucrat/Formulaire. ex00→ex03 couvrent création d'un Bureaucrat avec grade borné, formulaires signables/exécutables avec niveaux de grade, et spécialisation de formulaires (Shrubbery/Pardon/Robotomy) avec exécution via Bureaucrat.
 

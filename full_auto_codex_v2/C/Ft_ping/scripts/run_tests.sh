@@ -20,6 +20,14 @@ else
 	exit 1
 fi
 
+help_output="$("${BINARY}" -h 2>&1 || true)"
+if printf '%s' "${help_output}" | grep -iq "usage"; then
+	printf '[OK] -h help message\n'
+else
+	printf '[FAIL] -h help message missing\n'
+	exit 1
+fi
+
 OUTPUT_FILE="${TMP_DIR}/ft_ping_privilege.out"
 if "${BINARY}" 127.0.0.1 >"${OUTPUT_FILE}" 2>&1; then
 	printf '[FAIL] expected privileged error\n'

@@ -1,5 +1,9 @@
 # ft_helpme
 
+Statut : DONE
+
+Dernière mise à jour (2026-01-17 03:15:36) : ajout tests sur valeurs par défaut (unspecified), run_tests OK.
+
 Dernière mise à jour (2025-12-26 04:45:00) : ajout de la sortie Markdown (`-m`) et de l’écriture directe dans un fichier (`-o path`) en plus du template texte enrichi (expected/actual, logs/repro), toujours paramétrable (projet/question/contexte) et testé.
 
 ## Build & tests

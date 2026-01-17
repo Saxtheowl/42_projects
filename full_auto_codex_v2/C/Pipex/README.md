@@ -1,6 +1,8 @@
 # pipex
 
-Dernière mise à jour (2025-12-26 01:27:46) : pipelines multi-commandes + here_doc (append) stabilisés (FD fixes, exit code de la dernière commande), tests Bash étendus OK. Projet considéré terminé.
+Statut : DONE
+
+Dernière mise à jour (2026-01-16 22:50:32) : ajout test quoting (grep 'hello again') dans run_tests.sh.
 
 ## Synthèse
 `pipex` reproduit le comportement du shell pour `infile cmd1 | cmd2 > outfile`. Le programme lit `infile`, exécute `cmd1` puis passe la sortie à `cmd2`, et écrit le résultat final dans `outfile`. Les commandes sont résolues via la variable d’environnement `PATH`, et les arguments sont analysés en respectant des guillemets simples ou doubles.

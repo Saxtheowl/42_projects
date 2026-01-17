@@ -1,5 +1,9 @@
 # ft_shield
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 03:40:30) : tests ajoutés (exit code + usage erreurs), run_tests OK.
+
 Dernière mise à jour (2025-12-26 04:24:00) : prototype trojan étendu : copie binaire + log, commande leurre (`-c`) et ajout d’un hook dans `~/.bashrc` via `-i` (persistant). Tests auto vérifient copie, log, hook et sortie leurre.
 
 ## Build & tests

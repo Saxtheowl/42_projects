@@ -56,6 +56,7 @@ run_here_doc() {
 }
 
 run_case "$tempdir/input.txt" "grep hello" "wc -l" "$tempdir/out1" "$tempdir/ref1"
+run_case "$tempdir/input.txt" "grep 'hello again'" "wc -l" "$tempdir/out1q" "$tempdir/ref1q"
 run_case "$tempdir/input2.txt" "tr a-z A-Z" "cut -d' ' -f1" "$tempdir/out2" "$tempdir/ref2"
 run_case "$tempdir/input2.txt" "cat" "sed 's/ /_/g'" "$tempdir/out3" "$tempdir/ref3"
 run_case "$tempdir/input2.txt" "tr a-z A-Z" "rev" "$tempdir/out4" "$tempdir/ref4"

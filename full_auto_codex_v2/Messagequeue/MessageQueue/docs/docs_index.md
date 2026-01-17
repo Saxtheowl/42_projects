@@ -1,0 +1,34 @@
+# Docs index
+
+Liste des documents disponibles :
+
+- `docs/MessageQueue.pdf`
+- `docs/bootstrap_env.md`
+- `docs/consumer_ack.md`
+- `docs/docs_index.md`
+- `docs/http_endpoints.md`
+- `docs/implementation_plan.md`
+- `docs/local_runbook.md`
+- `docs/local_usage.md`
+- `docs/module_layout.md`
+- `docs/payload_schema.md`
+- `docs/pdf_contents.md`
+- `docs/pdf_naming.md`
+- `docs/queue_purpose.md`
+- `docs/sample_routing_keys.md`
+- `docs/sample_student.json`
+- `docs/script_env.md`
+- `docs/scripts_overview.md`
+- `docs/service_env.md`
+- `docs/service_matrix.md`
+- `docs/services.md`
+- `docs/smoke_plan.md`
+- `docs/test_matrix.md`
+- `docs/test_tools.md`
+- `docs/tests_consumers.md`
+- `docs/tests_producer.md`
+- `docs/todo_next.md`
+- `docs/topology.md`
+- `docs/troubleshooting.md`
+- `docs/troubleshooting_env.md`
+- `docs/run_modules.md`

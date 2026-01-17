@@ -65,6 +65,11 @@ def main() -> int:
             expected_stdout="hello minishell\n",
         ),
         TestCase(
+            name="pwd_basic",
+            script="pwd\n",
+            expected_stdout=f"{PROJECT_ROOT}\n",
+        ),
+        TestCase(
             name="echo_n_flag",
             script="echo -nnn hi there\n",
             expected_stdout="hi there",

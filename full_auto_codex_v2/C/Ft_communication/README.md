@@ -1,5 +1,9 @@
 # ft_communication
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 00:44:53) : passage DONE (tests OK).
+
 ## Synthèse
 Le sujet ft_communication ne demande pas de développement réseau : il propose une série d’exercices (ex00 à ex02) visant à encourager les échanges entre étudiants en environnement distant. Ce dépôt fournit un kit prêt à l’emploi pour animer ces sessions : guide animateur, fiche participant, modèle de notes et un script CLI qui accompagne le déroulé.
 

@@ -15,5 +15,9 @@ cc -Wall -Wextra -Werror -I"${PROJECT_ROOT}/include" \
 	"${TEST_DIR}/test_main.c" "${PROJECT_ROOT}/libftprintf.a" -o "${TEST_BIN}"
 
 printf '[3/3] Run tests\n'
-"${TEST_BIN}"
-printf 'All tests passed ✅\n'
+if "${TEST_BIN}"; then
+	printf 'All tests passed ✅\n'
+else
+	printf 'Tests failed ❌\n' >&2
+	exit 1
+fi

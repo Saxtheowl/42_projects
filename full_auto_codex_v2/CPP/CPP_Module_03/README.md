@@ -1,5 +1,9 @@
 # CPP Module 03
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 02:04:58) : passage DONE (tests OK).
+
 ## Synthèse
 Module dédié à l'héritage. Exercices ex00→ex03 : ClapTrap de base, variantes FragTrap/ScavTrap/ClapTrap hiérarchisés, gestion des méthodes d'attaque/gate keeper/high fives, et règles de copie/constructeurs.
 

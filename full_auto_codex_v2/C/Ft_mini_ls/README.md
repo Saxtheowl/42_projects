@@ -1,6 +1,10 @@
 # ft_mini_ls
 
-Dernière mise à jour (2025-12-26 03:00:05) : implémentation minimale conforme à `ls -1tr` sans arguments (tri par date modif ascendante, cache les fichiers cachés), gestion d’erreur si arguments fournis, tests comparant à `ls -1tr` (make test).
+Statut : DONE
+
+Dernière mise à jour (2026-01-17 04:00:36) : tests args valident message d'erreur + run_tests OK.
+
+Dernière mise à jour (2026-01-16 23:54:50) : passage DONE (tests OK).
 
 ## Usage
 ```bash

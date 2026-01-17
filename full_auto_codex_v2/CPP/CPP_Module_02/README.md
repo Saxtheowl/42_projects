@@ -1,5 +1,9 @@
 # CPP Module 02
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 01:54:59) : passage DONE (tests OK).
+
 ## Synthèse
 Polymorphisme ad-hoc, surcharge d'opérateurs et forme canonique orthodoxe. Exercices ex00→ex03 : classe fixe (coplien), nombre à virgule fixe avec overloads, conversions et comparaisons, fonctions min/max, et calcul de point-in-triangle (BSP).
 

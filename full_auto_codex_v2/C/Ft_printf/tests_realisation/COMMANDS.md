@@ -5,3 +5,4 @@
 - `./tests_realisation/test_runner` — exécution des comparaisons `ft_printf` vs `printf`.
 - `./scripts/run_tests.sh` — orchestrateur complet : `make re`, compilation du binaire de test puis exécution des scénarios standards.
 - Cas manuels à garder en tête : chaînes `NULL`, entiers min/max (`INT_MIN`, `UINT_MAX`), pointeurs nuls/non nuls, combinaisons de conversions sur une même ligne, propagation des erreurs d’écriture (`write`).
+- Sorties binaires : pour les cas avec octets NUL (`%c` avec `\0` ou `"%s"` contenant `\0`), la comparaison utilise un check brut en mémoire plutôt qu’une chaîne C.

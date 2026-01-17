@@ -1,5 +1,9 @@
 # Born2beRoot
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 03:21:42) : ajout checks labels monitoring.sh + tests OK.
+
 ## Synthèse
 Infrastructure reproductible pour le projet système « Born2beRoot » : un environnement Vagrant Debian 12 minimal sans interface graphique, durci selon le sujet (LVM, SSH sur 4242, UFW actif, politique de mots de passe stricte, configuration `sudo`, script de monitoring cron). Tous les réglages sont automatisés par des scripts de provisioning (bash) pouvant aussi être appliqués sur une machine installée manuellement.
 

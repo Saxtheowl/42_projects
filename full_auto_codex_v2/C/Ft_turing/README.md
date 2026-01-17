@@ -27,3 +27,4 @@ Sujet 42 « ft_turing » : implémenter un vérificateur/simulateur de machine d
 - 2025-12-08 22:42:45 : test d'arrêt par limite de pas (`loop.tm -s 2 -r`) ajouté, suite portée à 17 cas.
 - 2025-12-08 22:48:01 : option `-o` pour écrire le ruban final dans un fichier, test dédié ajouté; suite portée à 18 cas.
 - 2025-12-08 22:52:34 : projet finalisé (suite de tests 18/18, CLI/documentation stabilisées, validation exhaustive); status DONE.
+- 2026-01-17 00:37:16 : accept requis, ajout test missing_accept + mise à jour machines invalides; tests 19/19 OK.

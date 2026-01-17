@@ -1,8 +1,8 @@
 # ft_printf
 
-Statut : IN_PROGRESS
+Statut : DONE
 
-Derniere mise a jour (2026-01-09 23:43:24) : test erreur d'ecriture via /dev/full (skip si absent) + scripts/run_tests.sh OK.
+Derniere mise a jour (2026-01-16 21:54:48) : passage DONE (tests OK).
 
 ## Synthèse préliminaire
 Recréation de la fonction standard `printf` (sous-ensemble défini par le sujet 42) avec gestion des conversions usuelles, du buffering et d’un moteur de formatage robuste en C. L’implémentation doit respecter la norme 42, fournir un **Makefile** générant `libftprintf.a` et exposer une interface compatible avec `int ft_printf(const char *fmt, ...)`.

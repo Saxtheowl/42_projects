@@ -37,4 +37,33 @@ cat <<'MAP' > "$TMP_DIR/blocked.ber"
 MAP
 run_err "$TMP_DIR/blocked.ber"
 
+cat <<'MAP' > "$TMP_DIR/no_exit.ber"
+11111
+1P0C1
+11111
+MAP
+run_err "$TMP_DIR/no_exit.ber"
+
+cat <<'MAP' > "$TMP_DIR/no_collectible.ber"
+11111
+1P0E1
+11111
+MAP
+run_err "$TMP_DIR/no_collectible.ber"
+
+cat <<'MAP' > "$TMP_DIR/not_rect.ber"
+11111
+1P0E1
+1111
+MAP
+run_err "$TMP_DIR/not_rect.ber"
+
+cat <<'MAP' > "$TMP_DIR/bad_char.ber"
+11111
+1P0Z1
+1C0E1
+11111
+MAP
+run_err "$TMP_DIR/bad_char.ber"
+
 echo "All so_long parsing tests passed."

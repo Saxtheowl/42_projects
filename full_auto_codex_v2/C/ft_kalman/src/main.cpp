@@ -44,7 +44,7 @@ static int run_udp_mode(const std::string &host, uint16_t port, int maxSamples)
 	sock.bindLocal(port);
 	sock.setRecvTimeout(2000);
 
-	std::cout << "Listening UDP on " << port << " expecting packets: dt ax ay az mx my mz\n";
+	std::cout << "Listening UDP on " << host << ":" << port << " expecting packets: dt ax ay az mx my mz\n";
 	int processed = 0;
 	while (processed < maxSamples || maxSamples == 0)
 	{

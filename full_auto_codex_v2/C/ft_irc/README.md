@@ -1,5 +1,9 @@
 # ft_irc
 
+Statut : WAITING (tests smoke bloques: sockets locaux interdits)
+
+Derniere mise a jour (2026-01-17 03:20:56) : ajout skip test smoke si sockets interdites, blocage env.
+
 ## Synthèse
 `ircserv` est une implémentation C++98 d'un serveur IRC monoproc/multiplexé conforme au sujet 42. Le binaire gère l'authentification PASS/NICK/USER, le routage des commandes de base (JOIN/PART/PRIVMSG/NOTICE/PING/QUIT) et la modération de canaux (MODE, TOPIC, INVITE, KICK) en appliquant les modes `i/t/k/l/o`. Toute l'I/O est non bloquante et orchestrée via un unique `poll(2)` comme requis.
 

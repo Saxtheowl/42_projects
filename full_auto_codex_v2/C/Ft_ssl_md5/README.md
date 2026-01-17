@@ -1,5 +1,11 @@
 # ft_ssl_md5
 
+Statut : DONE
+
+Dernière mise à jour (2026-01-17 02:35:10) : ajout test md5 -s "" (string vide), tests OK.
+
+Dernière mise à jour (2026-01-17 00:19:52) : passage DONE (tests OK).
+
 Dernière mise à jour (2025-12-26 02:17:52) : CLI complète md5/sha256 (-p/-q/-r/-s, fichiers), gestion erreurs/usage (commande/option inconnue, -s manquant), cache stdin partagé, suite d’autotests `make test`; projet terminé.
 
 ## Usage

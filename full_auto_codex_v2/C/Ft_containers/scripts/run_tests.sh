@@ -32,6 +32,7 @@ TESTS=(
 	vector_compare
 	list_compare
 	map_compare
+	list_stack_queue_compare
 )
 
 for test in "${TESTS[@]}"; do

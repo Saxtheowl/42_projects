@@ -1,5 +1,9 @@
 # push_swap
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 03:30:31) : ajout tests (deja trie + overflow) + run_tests OK.
+
 ## Synthèse
 Implémentation complète de `push_swap` : parsing robuste des arguments, opérations de piles (swap/push/rotate) et algorithme de tri hybride (cas ≤5 éléments optimisés, sinon tri radix sur indices). Les instructions générées sont directement écrites sur `stdout` et peuvent être validées avec le simulateur fourni.
 

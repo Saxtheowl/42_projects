@@ -2,8 +2,9 @@
 
 ## Étapes
 - [x] Lire le sujet (`docs/MessageQueue.pdf`) et identifier les livrables.
-- [ ] Définir arborescence (modules Maven/Gradle séparés : producer web + 4 consumers), dossier partagé pour PDF.
-- [ ] Déployer/accéder à un broker RabbitMQ local (exchanges/queues/bindings configurés au démarrage).
+- [x] Définir arborescence (modules Maven/Gradle séparés : producer web + 4 consumers), dossier partagé pour PDF.
+- [x] Déployer/accéder à un broker RabbitMQ local (docker-compose ajouté).
+- [x] Ecrire scripts setup (check/bootstrap/validate) et doc quickstart.
 - [ ] Implémentation incrémentale : producer (Spring Boot REST form + publish JSON) ; consumers (console Java, génération PDF).
 - [ ] Tests end-to-end avec RabbitMQ et vérification des PDF générés.
 - [ ] Documentation (README, instructions de déploiement).

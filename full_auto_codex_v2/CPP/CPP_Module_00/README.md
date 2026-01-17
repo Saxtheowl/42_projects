@@ -1,5 +1,9 @@
 # CPP Module 00
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 01:34:57) : passage DONE (tests OK).
+
 ## Synthèse
 Module d'initiation C++ (piscine/42) couvrant les bases : orthodox canonical form, gestion de la mémoire, classes simples, manipulation de chaînes et I/O. Ce dépôt servira à regrouper les exercices ex00-ex04 avec un Makefile unique et quelques tests rapides.
 

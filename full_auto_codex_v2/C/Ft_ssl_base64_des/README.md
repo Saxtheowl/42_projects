@@ -1,6 +1,8 @@
 # ft_ssl_base64_des
 
-Dernière mise à jour (2025-12-26 02:55:25) : option `-A` ajoutée pour désactiver le wrapping Base64 (aucune newline, compatible openssl) pour `base64` et `-a` des commandes DES; suite de tests élargie et verte (make test).
+Statut : DONE
+
+Dernière mise à jour (2026-01-17 01:04:55) : passage DONE (tests OK).
 
 ## Usage
 ```bash

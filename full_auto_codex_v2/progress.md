@@ -1088,3 +1088,242 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2026-01-09 23:02:52 | C/Ft_printf | IN_PROGRESS | ajout test format long prefix/suffix + scripts/run_tests.sh OK.
 2026-01-09 23:33:45 | C/Ft_printf | IN_PROGRESS | Ajout de tests supplementaires (%u -1, hex UINT_MAX, %%%% en chaine, pointeurs multiples) + scripts/run_tests.sh OK.
 2026-01-09 23:43:24 | C/Ft_printf | IN_PROGRESS | Ajout test erreur d'ecriture via /dev/full (skip si absent) + scripts/run_tests.sh OK.
+2026-01-16 20:01:04 | C/Ft_printf | IN_PROGRESS | ajout tests limites int + mix %% et NULL string.
+2026-01-16 20:04:55 | C/Ft_printf | IN_PROGRESS | ajout tests strings vides/espaces + mix hex/pointeurs/combo.
+2026-01-16 20:10:51 | C/Ft_printf | IN_PROGRESS | harness support sortie binaire + test %c NUL.
+2026-01-16 20:14:46 | C/Ft_printf | IN_PROGRESS | ajout tests raw NUL en milieu et double NUL.
+2026-01-16 20:19:42 | C/Ft_printf | IN_PROGRESS | ajout test raw string contenant un NUL interne.
+2026-01-16 20:24:54 | C/Ft_printf | IN_PROGRESS | doc: note sorties binaires pour NUL dans harness tests.
+2026-01-16 20:29:42 | C/Ft_printf | IN_PROGRESS | ajout test raw mixte NUL %c/%s/%c (binaire).
+2026-01-16 20:35:00 | C/Ft_printf | IN_PROGRESS | simplif raw check + ajout test binaire %% avec NUL.
+2026-01-16 20:39:57 | C/Ft_printf | IN_PROGRESS | harness raw: ajout dump hex en cas de mismatch binaire.
+2026-01-16 20:44:55 | C/Ft_printf | IN_PROGRESS | ajout tests raw NUL avec %c + strings vides/texte.
+2026-01-16 20:49:55 | C/Ft_printf | IN_PROGRESS | ajout tests %s NULL avec prefix/suffix et double NULL.
+2026-01-16 20:54:47 | C/Ft_printf | IN_PROGRESS | harness raw: ajoute index du premier octet different.
+2026-01-16 20:59:45 | C/Ft_printf | IN_PROGRESS | ajout test mix %s/%p avec NULL.
+2026-01-16 21:04:51 | C/Ft_printf | IN_PROGRESS | harness: warning si ret printf != ft_printf.
+2026-01-16 21:12:36 | C/Ft_printf | IN_PROGRESS | ajout tests percent apres %d et %s.
+2026-01-16 21:14:47 | C/Ft_printf | IN_PROGRESS | ajout tests hex lettres + serie d'entiers.
+2026-01-16 21:19:44 | C/Ft_printf | IN_PROGRESS | ajout test mix signes %d/%i.
+2026-01-16 21:24:44 | C/Ft_printf | IN_PROGRESS | run_tests.sh: sortie claire sur echec tests.
+2026-01-16 21:29:47 | C/Ft_printf | IN_PROGRESS | ajout test ordre mix %u/%d/%x/%i/%s.
+2026-01-16 21:34:46 | C/Ft_printf | IN_PROGRESS | ajout test pointeur alternatif 0x7fffffff.
+2026-01-16 21:39:52 | C/Ft_printf | IN_PROGRESS | harness: compteur de checks + resume final.
+2026-01-16 21:45:37 | C/Ft_printf | IN_PROGRESS | harness: evite warning ret mismatch pour (nil) vs 0x0.
+2026-01-16 21:49:50 | C/Ft_printf | IN_PROGRESS | scripts/run_tests.sh OK (warning /dev/full skip).
+2026-01-16 21:54:48 | C/Ft_printf | DONE | cloture projet apres tests OK.
+2026-01-16 22:02:10 | Python/Django_Training_D01 | IN_PROGRESS | ajout smoke tests + scripts/run_tests.sh OK.
+2026-01-16 22:04:51 | Python/Django_Training_D01 | IN_PROGRESS | doc: section Tests ajoutee.
+2026-01-16 22:09:50 | Python/Django_Training_D01 | DONE | cloture apres smoke tests OK.
+2026-01-16 22:15:52 | Wordle/Wordle | IN_PROGRESS | ajout tests unitaires/CLI + run_tests OK.
+2026-01-16 22:19:47 | Wordle/Wordle | IN_PROGRESS | ajout test CLI input vide + run_tests OK.
+2026-01-16 22:24:48 | Wordle/Wordle | IN_PROGRESS | ajout test CLI mot invalide + run_tests OK.
+2026-01-16 22:30:01 | Wordle/Wordle | IN_PROGRESS | ajout test determinisme seed + run_tests OK.
+2026-01-16 22:35:03 | Wordle/Wordle | IN_PROGRESS | ajout test dict invalid + run_tests OK.
+2026-01-16 22:40:01 | Wordle/Wordle | IN_PROGRESS | ajout test dict missing file + run_tests OK.
+2026-01-16 22:44:49 | Wordle/Wordle | DONE | cloture apres tests OK.
+2026-01-16 22:50:47 | C/Pipex | DONE | ajout test quoting + run_tests OK.
+2026-01-16 22:55:32 | Hello/hello_vue | IN_PROGRESS | ajout checks CDN Vue 2.6.14 + run_tests OK.
+2026-01-16 23:00:22 | Hello/hello_vue | IN_PROGRESS | ajout style ex05 + run_tests OK.
+2026-01-16 23:04:50 | Hello/hello_vue | DONE | cloture apres checks OK.
+2026-01-16 23:14:56 | Web/hello_node | IN_PROGRESS | ajout checks ex09 erreurs (iso manquant/route inconnue).
+2026-01-16 23:22:48 | Web/hello_node | IN_PROGRESS | harness: capture stdout via temp files + run_tests OK (skip net).
+2026-01-16 23:30:12 | Web/hello_node | WAITING | sockets locales bloquees (tests reseau), utiliser HELLO_NODE_SKIP_NET=1.
+2026-01-16 23:26:09 | C/Minitalk | IN_PROGRESS | ajout test ponctuation + fix check ligne vide + run_tests OK.
+2026-01-16 23:29:50 | C/Minitalk | IN_PROGRESS | ajout tests messages rapides + run_tests OK.
+2026-01-16 23:35:01 | C/Minitalk | IN_PROGRESS | doc: COMMANDS tests maj (ponctuation/rafale).
+2026-01-16 23:39:52 | C/Minitalk | DONE | cloture apres tests OK.
+2026-01-16 23:45:27 | C/Ft_mini_ls | IN_PROGRESS | ajout test dossier vide.
+2026-01-16 23:49:54 | C/Ft_mini_ls | IN_PROGRESS | ajout test dossier uniquement cache + run_tests OK.
+2026-01-16 23:54:50 | C/Ft_mini_ls | DONE | cloture apres tests OK.
+2026-01-17 00:00:42 | C/Ft_script | IN_PROGRESS | ajout test -c stderr capture + run_tests OK.
+2026-01-17 00:05:30 | C/Ft_script | IN_PROGRESS | ajout test -c typescript par defaut + run_tests OK.
+2026-01-17 00:09:52 | C/Ft_script | DONE | cloture apres tests OK.
+2026-01-17 00:15:40 | C/Ft_ssl_md5 | IN_PROGRESS | ajout test stdin vide + run_tests OK.
+2026-01-17 00:19:52 | C/Ft_ssl_md5 | DONE | cloture apres tests OK.
+2026-01-17 00:25:15 | C/Ft_ping | IN_PROGRESS | ajout test -h + run_tests OK.
+2026-01-17 00:29:53 | C/Ft_ping | DONE | cloture apres tests OK.
+2026-01-17 00:37:16 | C/Ft_turing | DONE | ajout accept requis + tests 19/19 OK.
+2026-01-17 00:33:25 | C/Ft_communication | IN_PROGRESS | ajout tests export Markdown/JSON + run_tests OK.
+2026-01-17 00:44:53 | C/Ft_communication | DONE | cloture apres tests OK.
+2026-01-17 00:50:54 | C/Ft_server | IN_PROGRESS | ajout tests statiques + run_tests OK.
+2026-01-17 00:54:54 | C/Ft_server | DONE | cloture apres tests OK.
+2026-01-17 01:00:31 | C/Ft_ssl_base64_des | IN_PROGRESS | ajout test base64 input vide + run_tests OK.
+2026-01-17 01:04:55 | C/Ft_ssl_base64_des | DONE | cloture apres tests OK.
+2026-01-17 01:11:19 | C/Ft_services | IN_PROGRESS | ajout tests statiques manifests/scripts + run_tests OK.
+2026-01-17 01:14:56 | C/Ft_services | DONE | cloture apres tests OK.
+2026-01-17 01:21:39 | CPP/CPP_Module_00 | IN_PROGRESS | ajout tests smoke ex00/ex02 + run_tests OK.
+2026-01-17 01:24:56 | CPP/CPP_Module_00 | IN_PROGRESS | ajout smoke ex01 add/search + run_tests OK.
+2026-01-17 01:30:45 | CPP/CPP_Module_00 | IN_PROGRESS | ajout tests ex03/ex04 + run_tests OK.
+2026-01-17 01:34:57 | CPP/CPP_Module_00 | DONE | cloture apres tests OK.
+2026-01-17 01:42:44 | CPP/CPP_Module_01 | IN_PROGRESS | ajout tests smoke ex00-ex06 + run_tests OK.
+2026-01-17 01:44:57 | CPP/CPP_Module_01 | DONE | cloture apres tests OK.
+2026-01-17 01:51:17 | CPP/CPP_Module_02 | IN_PROGRESS | ajout tests smoke ex00-ex03 + run_tests OK.
+2026-01-17 01:54:59 | CPP/CPP_Module_02 | DONE | cloture apres tests OK.
+2026-01-17 02:01:16 | CPP/CPP_Module_03 | IN_PROGRESS | ajout tests smoke ex00-ex03 + run_tests OK.
+2026-01-17 02:04:58 | CPP/CPP_Module_03 | DONE | cloture apres tests OK.
+2026-01-17 02:11:56 | CPP/CPP_Module_04 | IN_PROGRESS | ajout tests smoke ex00-ex04 + run_tests OK.
+2026-01-17 02:15:13 | CPP/CPP_Module_04 | DONE | cloture apres tests OK.
+2026-01-17 02:21:10 | CPP/CPP_Module_05 | IN_PROGRESS | ajout tests smoke ex00-ex03 + run_tests OK.
+2026-01-17 02:25:00 | CPP/CPP_Module_05 | DONE | cloture apres tests OK.
+2026-01-17 02:34:00 | C/Libasm | WAITING | nasm absent, run_tests bloque.
+2026-01-17 02:35:10 | C/Ft_ssl_md5 | DONE | ajout test md5 -s "" + run_tests OK.
+2026-01-17 02:36:52 | C/ft_kalman | IN_PROGRESS | ajout tests inverse 3x3 + fix Werror host non utilise.
+2026-01-17 02:40:09 | C/ft_kalman | IN_PROGRESS | ajout test transpose matrice + run_unit OK.
+2026-01-17 02:45:07 | C/ft_kalman | IN_PROGRESS | ajout test identite matrice + run_unit OK.
+2026-01-17 02:49:59 | C/ft_kalman | IN_PROGRESS | doc tests_realisation (run_unit + couverture).
+2026-01-17 02:55:08 | C/ft_kalman | IN_PROGRESS | ajout test determinant 3x3 + run_unit OK.
+2026-01-17 03:00:45 | C/ft_kalman | IN_PROGRESS | ajout run_udp (mock) + skip si sockets interdites.
+2026-01-17 03:05:21 | C/ft_kalman | IN_PROGRESS | ajout cibles Makefile test-udp/test-all + doc.
+2026-01-17 03:10:08 | C/ft_kalman | DONE | cloture apres tests unit + udp mock (skip si sockets bloquees) + doc.
+2026-01-17 03:15:36 | C/ft_helpme | DONE | ajout tests valeurs par defaut (unspecified) + run_tests OK.
+2026-01-17 03:20:56 | C/ft_irc | WAITING | tests smoke bloques: sockets locaux interdits.
+2026-01-17 03:21:42 | C/Born2beRoot | DONE | ajout checks labels monitoring.sh + run_tests OK.
+2026-01-17 03:26:28 | C/Philosophers | DONE | ajout run_tests.sh (erreurs + single philo) + tests OK.
+2026-01-17 03:30:31 | C/Push_swap | DONE | ajout tests deja trie + overflow + run_tests OK.
+2026-01-17 03:35:41 | C/Ft_containers | DONE | ajout list_stack_queue_compare au run_tests.sh + OK.
+2026-01-17 03:40:30 | C/Ft_shield | DONE | ajout tests exit code + usage erreurs + run_tests OK.
+2026-01-17 03:45:23 | C/So_Long | DONE | ajout tests cartes invalides + run_tests OK.
+2026-01-17 03:50:37 | C/Minitalk | DONE | ajout tests client erreurs (args/pid) + run_tests OK.
+2026-01-17 03:55:59 | C/Ft_ping | DONE | ajout test pattern invalide (options) + tests OK.
+2026-01-17 04:00:36 | C/Ft_mini_ls | DONE | tests args verif message erreur + run_tests OK.
+2026-01-17 04:07:04 | C/Ft_ls | DONE | ajout test fichier manquant + run_tests OK.
+2026-01-17 04:10:14 | C/ft_self_analysis | DONE | ajout 3 questions reviewer + MAJ checklist.
+2026-01-17 04:15:32 | C/Ft_server | DONE | ajout checks env MySQL dans tests_realisation + OK.
+2026-01-17 04:20:46 | C/Ft_ls | IN_PROGRESS | ajout test symlink -l + run_tests OK.
+2026-01-17 04:25:12 | C/Ft_ls | DONE | ajout test fichier -l + run_tests OK.
+2026-01-17 04:30:44 | C/Minishell | IN_PROGRESS | run_unit_tests.sh construit si minishell absent + tests OK.
+2026-01-17 04:35:18 | C/Minishell | DONE | ajout test pwd_basic + run_unit_tests OK.
+2026-01-17 04:40:16 | Messagequeue/MessageQueue | IN_PROGRESS | ajout docker-compose RabbitMQ + doc usage.
+2026-01-17 04:45:47 | Messagequeue/MessageQueue | IN_PROGRESS | doc topologie exchanges/queues + plan MAJ.
+2026-01-17 04:50:16 | Messagequeue/MessageQueue | IN_PROGRESS | ajout shared/pdfs + doc depot.
+2026-01-17 04:55:14 | Messagequeue/MessageQueue | IN_PROGRESS | ajout sample_student.json + doc.
+2026-01-17 05:00:13 | Messagequeue/MessageQueue | IN_PROGRESS | ajout exemples routing keys + doc.
+2026-01-17 05:05:09 | Messagequeue/MessageQueue | IN_PROGRESS | ajout commandes docker compose stop/start.
+2026-01-17 05:10:18 | Messagequeue/MessageQueue | IN_PROGRESS | doc services producteurs/consommateurs + PDFs.
+2026-01-17 05:15:13 | Messagequeue/MessageQueue | IN_PROGRESS | plan MAJ (arborescence clarifiee).
+2026-01-17 05:20:40 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script bootstrap RabbitMQ (exchanges/queues/bindings).
+2026-01-17 05:25:15 | Messagequeue/MessageQueue | IN_PROGRESS | doc variables env bootstrap RabbitMQ.
+2026-01-17 05:30:17 | Messagequeue/MessageQueue | IN_PROGRESS | doc convention nommage PDF.
+2026-01-17 05:35:23 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script check_rabbitmq.sh + doc.
+2026-01-17 05:40:11 | Messagequeue/MessageQueue | IN_PROGRESS | doc sequence bootstrap complete.
+2026-01-17 05:45:51 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script validate_rabbitmq.sh + doc.
+2026-01-17 05:50:17 | Messagequeue/MessageQueue | IN_PROGRESS | validate_rabbitmq verifie bindings.
+2026-01-17 05:55:11 | Messagequeue/MessageQueue | IN_PROGRESS | note requirement API management pour validate_rabbitmq.
+2026-01-17 06:00:25 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script bootstrap_and_validate.sh.
+2026-01-17 06:05:16 | Messagequeue/MessageQueue | IN_PROGRESS | ajout quickstart local doc.
+2026-01-17 06:10:28 | Messagequeue/MessageQueue | IN_PROGRESS | plan MAJ scripts setup/quickstart coches.
+2026-01-17 06:15:33 | Messagequeue/MessageQueue | IN_PROGRESS | ajout layout modules + dossiers services.
+2026-01-17 06:20:11 | Messagequeue/MessageQueue | IN_PROGRESS | mention modules stubs services/.
+2026-01-17 06:25:31 | Messagequeue/MessageQueue | IN_PROGRESS | doc variables env services.
+2026-01-17 06:30:23 | Messagequeue/MessageQueue | IN_PROGRESS | doc contenu minimal PDFs.
+2026-01-17 06:35:20 | Messagequeue/MessageQueue | IN_PROGRESS | doc smoke plan local.
+2026-01-17 06:40:12 | Messagequeue/MessageQueue | IN_PROGRESS | ajout TODO implementation.
+2026-01-17 06:46:11 | Messagequeue/MessageQueue | IN_PROGRESS | ajout scripts publish/consume message test + doc.
+2026-01-17 06:50:22 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message ajoute content_type JSON.
+2026-01-17 06:55:23 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message ajoute message_id auto.
+2026-01-17 07:00:20 | Messagequeue/MessageQueue | IN_PROGRESS | consume_test_message supporte TRUNCATE.
+2026-01-17 07:05:32 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script list_queues.sh.
+2026-01-17 07:10:33 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script list_exchanges.sh.
+2026-01-17 07:15:15 | Messagequeue/MessageQueue | IN_PROGRESS | list_exchanges ignore exchange vide.
+2026-01-17 07:20:24 | Messagequeue/MessageQueue | IN_PROGRESS | doc policy ACK consumers.
+2026-01-17 07:25:15 | Messagequeue/MessageQueue | IN_PROGRESS | sample_student.json ajoute grantType.
+2026-01-17 07:30:23 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message routing key default + metadata grantType.
+2026-01-17 07:35:26 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test matrix.
+2026-01-17 07:40:15 | Messagequeue/MessageQueue | IN_PROGRESS | ajout note statut IN_PROGRESS.
+2026-01-17 07:45:45 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script test_routing.sh.
+2026-01-17 07:50:19 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_routing.sh env python.
+2026-01-17 07:55:17 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_routing purge queue DELETE.
+2026-01-17 08:00:24 | Messagequeue/MessageQueue | IN_PROGRESS | doc endpoints producer proposes.
+2026-01-17 08:05:23 | Messagequeue/MessageQueue | IN_PROGRESS | doc schema payload.
+2026-01-17 08:10:34 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script wait_rabbitmq.sh.
+2026-01-17 08:15:31 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script bootstrap_all.sh.
+2026-01-17 08:20:39 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script list_bindings.sh.
+2026-01-17 08:25:39 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message default EXCHANGE=GRANT_EXCHANGE.
+2026-01-17 08:30:44 | Messagequeue/MessageQueue | IN_PROGRESS | nettoyage test_routing (suppression code mort).
+2026-01-17 08:35:28 | Messagequeue/MessageQueue | IN_PROGRESS | test matrix coche prerequis RabbitMQ.
+2026-01-17 08:40:30 | Messagequeue/MessageQueue | IN_PROGRESS | ajout doc outils de test.
+2026-01-17 08:45:19 | Messagequeue/MessageQueue | IN_PROGRESS | ajout lien UI RabbitMQ.
+2026-01-17 08:50:13 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script count_queue_messages.sh.
+2026-01-17 08:55:21 | Messagequeue/MessageQueue | IN_PROGRESS | note API management pour scripts listing.
+2026-01-17 09:01:02 | Messagequeue/MessageQueue | IN_PROGRESS | note permissions ecriture shared/pdfs.
+2026-01-17 09:05:40 | Messagequeue/MessageQueue | IN_PROGRESS | precision permissions dossier PDFs.
+2026-01-17 09:10:47 | Messagequeue/MessageQueue | IN_PROGRESS | bootstrap_all inclut test_routing.
+2026-01-17 09:15:15 | Messagequeue/MessageQueue | IN_PROGRESS | ajout doc troubleshooting.
+2026-01-17 09:20:22 | Messagequeue/MessageQueue | IN_PROGRESS | ajout TODO tests e2e.
+2026-01-17 09:25:21 | Messagequeue/MessageQueue | IN_PROGRESS | ajout commande nettoyage shared/pdfs.
+2026-01-17 09:30:24 | Messagequeue/MessageQueue | IN_PROGRESS | doc PAYLOAD_FILE publish_test_message.
+2026-01-17 09:35:23 | Messagequeue/MessageQueue | IN_PROGRESS | precision payload defaut sample_student.json.
+2026-01-17 09:40:25 | Messagequeue/MessageQueue | IN_PROGRESS | doc vhost par defaut pour scripts RabbitMQ.
+2026-01-17 09:45:33 | Messagequeue/MessageQueue | IN_PROGRESS | ajout .env.example RabbitMQ.
+2026-01-17 09:50:24 | Messagequeue/MessageQueue | IN_PROGRESS | doc usage fichier .env.
+2026-01-17 09:55:38 | Messagequeue/MessageQueue | IN_PROGRESS | ajout exemple variables .env pour credentials.
+2026-01-17 10:00:47 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script purge_queues.sh.
+2026-01-17 10:05:17 | Messagequeue/MessageQueue | IN_PROGRESS | purge_queues supporte QUEUES CSV.
+2026-01-17 10:10:34 | Messagequeue/MessageQueue | IN_PROGRESS | purge_queues trim espaces CSV.
+2026-01-17 10:16:27 | Messagequeue/MessageQueue | IN_PROGRESS | doc plan d'implementation.
+2026-01-17 10:21:08 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script smoke_local.
+2026-01-17 10:25:28 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script check_prereqs.
+2026-01-17 10:30:23 | Messagequeue/MessageQueue | IN_PROGRESS | smoke plan mentionne check_prereqs + smoke_local.
+2026-01-17 10:35:26 | Messagequeue/MessageQueue | IN_PROGRESS | doc scripts overview.
+2026-01-17 10:40:29 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script load_env.
+2026-01-17 10:45:23 | Messagequeue/MessageQueue | IN_PROGRESS | doc outils de test (scripts ajout).
+2026-01-17 10:50:27 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script setup_env.
+2026-01-17 10:55:33 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script status_report.
+2026-01-17 11:00:37 | Messagequeue/MessageQueue | IN_PROGRESS | ajout runbook local.
+2026-01-17 11:06:03 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script test_routing_matrix.
+2026-01-17 11:10:40 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script publish_sample_keys.
+2026-01-17 11:15:44 | Messagequeue/MessageQueue | IN_PROGRESS | doc troubleshooting env.
+2026-01-17 11:20:54 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script post_sample.
+2026-01-17 11:25:38 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script reset_local.
+2026-01-17 11:30:36 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script run_local_flow.
+2026-01-17 11:35:56 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script validate_payload.
+2026-01-17 11:40:44 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script doctor.
+2026-01-17 11:46:15 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script generate_dummy_pdf.
+2026-01-17 11:50:45 | Messagequeue/MessageQueue | IN_PROGRESS | ajout README stubs services.
+2026-01-17 11:55:29 | Messagequeue/MessageQueue | IN_PROGRESS | index consumers.
+2026-01-17 12:00:33 | Messagequeue/MessageQueue | IN_PROGRESS | ajout stub grant_other_documents.
+2026-01-17 12:05:26 | Messagequeue/MessageQueue | IN_PROGRESS | ajout service matrix.
+2026-01-17 12:10:25 | Messagequeue/MessageQueue | IN_PROGRESS | ajout todo_next.
+2026-01-17 12:15:57 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script simulate_consumer.
+2026-01-17 12:20:40 | Messagequeue/MessageQueue | IN_PROGRESS | ajout recap usage local.
+2026-01-17 12:25:42 | Messagequeue/MessageQueue | IN_PROGRESS | doc variables scripts.
+2026-01-17 12:30:47 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script run_checks.
+2026-01-17 12:36:22 | Messagequeue/MessageQueue | IN_PROGRESS | ajout stub Spring Boot producer.
+2026-01-17 12:41:05 | Messagequeue/MessageQueue | IN_PROGRESS | ajout stub consumer food_application.
+2026-01-17 12:45:59 | Messagequeue/MessageQueue | IN_PROGRESS | ajout stub consumer financial_assistance.
+2026-01-17 12:50:45 | Messagequeue/MessageQueue | IN_PROGRESS | ajout stub consumer transportation_costs.
+2026-01-17 12:55:46 | Messagequeue/MessageQueue | IN_PROGRESS | ajout stub consumer contracts.
+2026-01-17 13:00:49 | Messagequeue/MessageQueue | IN_PROGRESS | ajout stub consumer grant_other_documents.
+2026-01-17 13:05:51 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script build_modules.
+2026-01-17 13:10:34 | Messagequeue/MessageQueue | IN_PROGRESS | producer health + validation champs requis.
+2026-01-17 13:15:37 | Messagequeue/MessageQueue | IN_PROGRESS | producer retourne JSON (status,routingKey).
+2026-01-17 13:20:34 | Messagequeue/MessageQueue | IN_PROGRESS | ajout doc run_modules.
+2026-01-17 13:25:48 | Messagequeue/MessageQueue | IN_PROGRESS | ajout tests producer (MockMvc).
+2026-01-17 13:30:41 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test endpoint health.
+2026-01-17 13:35:51 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script test_producer.
+2026-01-17 13:40:38 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test routing producer (MockBean).
+2026-01-17 13:45:35 | Messagequeue/MessageQueue | IN_PROGRESS | doc tests producer.
+2026-01-17 13:50:55 | Messagequeue/MessageQueue | IN_PROGRESS | consumer food genere PDF dummy.
+2026-01-17 13:55:43 | Messagequeue/MessageQueue | IN_PROGRESS | consumer financial genere PDF dummy.
+2026-01-17 14:00:44 | Messagequeue/MessageQueue | IN_PROGRESS | consumer transportation genere PDF dummy.
+2026-01-17 14:05:44 | Messagequeue/MessageQueue | IN_PROGRESS | consumer contracts genere PDF dummy.
+2026-01-17 14:10:53 | Messagequeue/MessageQueue | IN_PROGRESS | consumer grant_other_documents genere PDF dummy.
+2026-01-17 14:15:33 | Messagequeue/MessageQueue | IN_PROGRESS | doc run/env consumers index.
+2026-01-17 14:20:28 | Messagequeue/MessageQueue | IN_PROGRESS | tests producer bloques: mvn manquant.
+2026-01-17 14:25:30 | Messagequeue/MessageQueue | IN_PROGRESS | check_prereqs verifie mvn.
+2026-01-17 14:30:36 | Messagequeue/MessageQueue | IN_PROGRESS | doc troubleshooting Maven.
+2026-01-17 14:35:59 | Messagequeue/MessageQueue | IN_PROGRESS | consumers EnableRabbit.
+2026-01-17 14:40:25 | Messagequeue/MessageQueue | IN_PROGRESS | doc run_modules + note EnableRabbit.
+2026-01-17 14:46:00 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script tail_rabbitmq_logs.
+2026-01-17 14:50:36 | Messagequeue/MessageQueue | IN_PROGRESS | doc endpoints/env producer.
+2026-01-17 14:55:43 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test dummy PDF transportation.
+2026-01-17 15:00:43 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test dummy PDF financial.
+2026-01-17 15:05:39 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test dummy PDF contracts.
+2026-01-17 15:10:37 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test dummy PDF grant_other_documents.
+2026-01-17 15:15:40 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test dummy PDF food.
+2026-01-17 15:20:37 | Messagequeue/MessageQueue | IN_PROGRESS | doc tests consumers.
+2026-01-17 15:25:59 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script test_consumers.
+2026-01-17 15:30:59 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script readme_toc.
+2026-01-17 15:35:28 | Messagequeue/MessageQueue | IN_PROGRESS | doc usage local (sommaire README).
+2026-01-17 15:40:46 | Messagequeue/MessageQueue | IN_PROGRESS | ajout docs_index.

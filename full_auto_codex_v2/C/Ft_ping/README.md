@@ -1,6 +1,10 @@
 # ft_ping
 
-Derniere mise a jour (2025-12-26 09:38:01) : projet complété (CLI riche: TOS `-Q`, bind `-S`, reverse DNS `-R`, timestamps `-D`, motif/payload `-p/-s`, deadline/timeout/quiet, stop-on-reply, stats dup/out-of-order, exit code pertes), docs/tests/build OK.
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 03:55:59) : ajout test pattern invalide (options) + tests OK.
+
+Derniere mise a jour (2026-01-17 00:29:53) : passage DONE (tests OK).
 
 ## Synthèse
 Réimplémentation pédagogique de l’outil `ping` : ouverture d’un socket raw ICMP, construction manuelle d’Echo Request, réception via `recvmsg`, calcul de checksum, mesure RTT et statistiques finales (`min/avg/max/mdev`). Le programme gère les options obligatoires du sujet (`-h`, `-v`), l’arrêt par `SIGINT` et prend en charge les FQDN sans résolution inverse lors des réponses.

@@ -1,5 +1,11 @@
 # ft_server
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 04:15:32) : tests entrypoint ajoutent checks env MySQL + OK.
+
+Derniere mise a jour (2026-01-17 00:54:54) : passage DONE (tests OK).
+
 ## Synthèse
 Image Docker Debian Buster autonome fournissant un stack complet Nginx + MariaDB + PHP-FPM pour héberger WordPress et phpMyAdmin en HTTPS (certificat auto-signé). À chaque démarrage, l’entrypoint :
 - applique dynamiquement l’autoindex souhaité (`AUTO_INDEX=on|off`) avant de lancer Nginx,

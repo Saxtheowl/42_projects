@@ -1,5 +1,9 @@
 # Django Training D01
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-16 22:09:50) : passage DONE (tests OK).
+
 ## Synthèse
 Jour 01 de la piscine Python/Django : exercices fondamentaux en Python (variables, dictionnaires, parsing de fichiers, détection état/capitale) et génération d'une page HTML représentant la table périodique. Les scripts sont autonomes et vivent dans `ex00` → `ex07`. Le scaffold Django initial reste présent mais n'est pas utilisé pour ces exercices.
 
@@ -34,5 +38,13 @@ cd ex07
 python3 periodic_table.py
 ```
 
+## Tests
+```bash
+./scripts/run_tests.sh
+```
+
 ## Journal
 - 2025-12-04 16:43:00 : Implémentation complète ex00 → ex07, génération des ressources (numbers/periodic_table), tests manuels OK, README/PLAN mis à jour.
+- 2026-01-16 22:02:10 : Ajout smoke tests automatises + run_tests OK.
+- 2026-01-16 22:04:51 : Ajout section Tests dans le README.
+- 2026-01-16 22:09:50 : Passage DONE apres validation tests.

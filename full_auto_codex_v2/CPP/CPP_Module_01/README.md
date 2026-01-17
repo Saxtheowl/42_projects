@@ -1,5 +1,9 @@
 # CPP Module 01
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 01:44:57) : passage DONE (tests OK).
+
 ## Synthèse
 Module consacré aux pointeurs sur membres, références, allocation/stack vs heap et `switch`. Exercices ex00 → ex06 couvrent zombis sur stack/heap, allocation massive, pointeurs/références, armes et human, mini-sed, logging (`Harl`), et filtrage de logs.
 

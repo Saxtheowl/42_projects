@@ -1,5 +1,9 @@
 # so_long
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 03:45:23) : ajout tests cartes invalides (exit/collectible/rectangulaire/char), run_tests OK.
+
 ## Synthèse
 Implémentation complète du projet `so_long` : chargement d’une carte `.ber`, validations renforcées (rectangularité, murs, accessibilité par BFS), rendu graphique via MiniLibX avec sprites personnalisés, gestion du joueur (WASD/flèches), collecte des items, ouverture de la sortie et fin de partie propre (fermeture fenêtre/ESC). Un mode « headless » (`make MLX=0`) reste disponible pour les environnements dépourvus de MiniLibX afin de conserver une exécution/test automatisé.
 

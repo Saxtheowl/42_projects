@@ -32,6 +32,13 @@ kalman_client: $(CLIENT_OBJS)
 test: kalman_test
 	./kalman_test
 
+.PHONY: test-udp
+test-udp:
+	./tests_realisation/run_udp.sh
+
+.PHONY: test-all
+test-all: test test-udp
+
 kalman_test: $(TEST_OBJS)
 	$(CXX) $(CXXFLAGS) $(TEST_OBJS) -o $@
 

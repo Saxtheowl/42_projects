@@ -1,5 +1,9 @@
 # ft_containers
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 03:35:41) : tests run_tests.sh incluent list_stack_queue_compare + OK.
+
 ## Présentation
 Recode pédagogique de plusieurs conteneurs de la STL en C++98. Toutes les implémentations résident dans le namespace `ft` et respectent les signatures de la bibliothèque standard (itérateurs, typedef, comparateurs, fonctions non-membres). Les dépendances externes se limitent aux headers C++ classiques (`<memory>`, `<functional>`, …).
 

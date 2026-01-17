@@ -1,5 +1,11 @@
 # Minitalk
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 03:50:37) : tests client erreurs (args/pid) ajoutes + run_tests OK.
+
+Derniere mise a jour (2026-01-16 23:39:52) : passage DONE (tests OK).
+
 ## Synthèse du projet
 Minitalk met en place un échange de données entre deux processus via les signaux POSIX `SIGUSR1` et `SIGUSR2`.  
 Le serveur reconstitue les octets envoyés bit à bit depuis le client, affiche le message reçu et reste actif pour traiter d’autres requêtes.  

@@ -3,6 +3,11 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+BIN="${PROJECT_ROOT}/minishell"
+
+if [[ ! -x "${BIN}" ]]; then
+  make -C "${PROJECT_ROOT}" >/dev/null
+fi
 
 if [[ -z "${ASAN_OPTIONS:-}" ]]; then
   export ASAN_OPTIONS=detect_leaks=0

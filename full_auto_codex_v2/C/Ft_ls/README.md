@@ -2,6 +2,12 @@
 
 Statut : DONE
 
+Derniere mise a jour (2026-01-17 04:25:12) : ajout test fichier -l, cloture apres run_tests OK.
+
+Derniere mise a jour (2026-01-17 04:20:46) : ajout test symlink en mode -l.
+
+Derniere mise a jour (2026-01-17 04:07:04) : ajout test erreur fichier manquant + run_tests OK.
+
 Derniere mise a jour (2026-01-02 20:25:54) : tests comparatifs OK, plan/README finalises.
 
 ## Synthèse préliminaire

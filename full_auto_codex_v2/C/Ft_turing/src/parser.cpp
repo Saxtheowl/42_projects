@@ -36,6 +36,8 @@ static void	validate_machine(const Machine &m)
 		throw std::runtime_error("Blank symbol not specified");
 	if (m.initial_state.empty())
 		throw std::runtime_error("No initial state defined");
+	if (m.accept_states.empty())
+		throw std::runtime_error("No accept states defined");
 	if (!m.states.count(m.initial_state))
 		throw std::runtime_error("Initial state not in states set");
 	// Ensure blank symbol is part of the alphabet for validation downstream

@@ -10,6 +10,7 @@ BIN="$ROOT/ft_helpme"
 
 output=$($BIN -p "libft" -q "Pourquoi segfault sur buffer vide ?" -c "Lecture stdin, calloc, write" )
 md_output=$($BIN -m -p "libft" -q "Pourquoi segfault sur buffer vide ?" -c "Lecture stdin, calloc, write")
+default_output=$($BIN)
 tmp_md_file=$(mktemp)
 tmp_txt_file=$(mktemp)
 $BIN -m -p "libft" -q "Pourquoi segfault sur buffer vide ?" -c "Lecture stdin, calloc, write" -o "$tmp_md_file"
@@ -22,6 +23,27 @@ if ! grep -q "Project   : libft" <<<"$output"; then
     failures=$((failures + 1))
 else
     echo "✅ project field ok"
+fi
+
+if ! grep -q "Project   : (unspecified)" <<<"$default_output"; then
+    echo "❌ default project wrong"
+    failures=$((failures + 1))
+else
+    echo "✅ default project ok"
+fi
+
+if ! grep -q "Question  : (unspecified)" <<<"$default_output"; then
+    echo "❌ default question wrong"
+    failures=$((failures + 1))
+else
+    echo "✅ default question ok"
+fi
+
+if ! grep -q "Context   : (unspecified)" <<<"$default_output"; then
+    echo "❌ default context wrong"
+    failures=$((failures + 1))
+else
+    echo "✅ default context ok"
 fi
 
 if ! grep -q "Question  : Pourquoi segfault sur buffer vide ?" <<<"$output"; then

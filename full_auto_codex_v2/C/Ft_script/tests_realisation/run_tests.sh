@@ -65,6 +65,23 @@ cmd_out="$TMP/cmd.log"
 "$BIN" -q -c "echo from_cmd" "$cmd_out" >/dev/null
 expect_contains "from_cmd" "$cmd_out" "-c command captured"
 
+# -c without outfile uses default typescript
+rm -f typescript
+"$BIN" -q -c "echo default_cmd" >/dev/null
+if [[ ! -f typescript ]]; then
+    echo "❌ default typescript missing for -c"
+    failures=$((failures + 1))
+else
+    expect_contains "default_cmd" "typescript" "-c default typescript captured"
+    rm -f typescript
+fi
+
+# -c captures stderr too
+err_out="$TMP/err.log"
+"$BIN" -q -c "echo out; echo err 1>&2" "$err_out" >/dev/null
+expect_contains "out" "$err_out" "-c captures stdout"
+expect_contains "err" "$err_out" "-c captures stderr"
+
 # -f flushes immediately (check after first command before exit)
 flush_log="$TMP/flush.log"
 (

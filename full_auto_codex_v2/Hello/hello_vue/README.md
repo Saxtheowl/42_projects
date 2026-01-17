@@ -1,5 +1,9 @@
 # hello_vue
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-16 23:04:50) : passage DONE (checks OK).
+
 ## Synthèse
 Réécriture locale des exercices d’initiation Vue.js (v2) du sujet *hello_vue*. Chaque exercice fournit un `index.html` autonome conforme aux consignes, prêt à être ouvert dans un navigateur sans dépendances supplémentaires.
 

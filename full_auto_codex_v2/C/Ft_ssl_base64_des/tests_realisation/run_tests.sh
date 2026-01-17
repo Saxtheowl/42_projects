@@ -31,6 +31,11 @@ exp=$(printf "hello" | openssl base64 | tr -d '\n')
 act=$(printf "hello" | $BIN base64 -e | tr -d '\n')
 expect_eq "$exp" "$act" "encode matches openssl"
 
+# encode empty input
+exp=$(printf "" | openssl base64 | tr -d '\n')
+act=$(printf "" | $BIN base64 -e | tr -d '\n')
+expect_eq "$exp" "$act" "encode empty input"
+
 # decode string vs openssl (-A to accept single-line input)
 b64=$(printf "42 school" | openssl base64)
 exp=$(printf "%s" "$b64" | openssl base64 -d -A)

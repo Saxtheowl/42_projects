@@ -1,3 +1,82 @@
+Derniere mise a jour (2026-01-17 02:25:00) : CPP/CPP_Module_05 DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 02:21:10) : CPP/CPP_Module_05 IN_PROGRESS : ajout tests smoke ex00-ex03 + run_tests OK.
+Derniere mise a jour (2026-01-17 02:34:00) : C/Libasm WAITING : nasm manquant.
+Derniere mise a jour (2026-01-17 02:15:13) : CPP/CPP_Module_04 DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 02:11:56) : CPP/CPP_Module_04 IN_PROGRESS : ajout tests smoke ex00-ex04 + run_tests OK.
+Derniere mise a jour (2026-01-17 02:04:58) : CPP/CPP_Module_03 DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 02:01:16) : CPP/CPP_Module_03 IN_PROGRESS : ajout tests smoke ex00-ex03 + run_tests OK.
+Derniere mise a jour (2026-01-17 01:54:59) : CPP/CPP_Module_02 DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 01:51:17) : CPP/CPP_Module_02 IN_PROGRESS : ajout tests smoke ex00-ex03 + run_tests OK.
+Derniere mise a jour (2026-01-17 01:44:57) : CPP/CPP_Module_01 DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 01:42:44) : CPP/CPP_Module_01 IN_PROGRESS : ajout tests smoke ex00-ex06 + run_tests OK.
+Derniere mise a jour (2026-01-17 01:34:57) : CPP/CPP_Module_00 DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 01:30:45) : CPP/CPP_Module_00 IN_PROGRESS : ajout tests ex03/ex04 + run_tests OK.
+Derniere mise a jour (2026-01-17 01:24:56) : CPP/CPP_Module_00 IN_PROGRESS : ajout tests smoke ex01 add/search + run_tests OK.
+Derniere mise a jour (2026-01-17 01:21:39) : CPP/CPP_Module_00 IN_PROGRESS : ajout tests smoke ex00/ex02 + run_tests OK.
+Derniere mise a jour (2026-01-17 01:14:56) : C/Ft_services DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 01:11:19) : C/Ft_services IN_PROGRESS : ajout tests statiques + run_tests OK.
+Derniere mise a jour (2026-01-17 01:04:55) : C/Ft_ssl_base64_des DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 01:00:31) : C/Ft_ssl_base64_des IN_PROGRESS : ajout test base64 input vide + run_tests OK.
+Derniere mise a jour (2026-01-17 00:54:54) : C/Ft_server DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 00:50:54) : C/Ft_server IN_PROGRESS : ajout tests statiques + run_tests OK.
+Derniere mise a jour (2026-01-17 00:44:53) : C/Ft_communication DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 00:33:25) : C/Ft_communication IN_PROGRESS : tests export Markdown/JSON + run_tests OK.
+Derniere mise a jour (2026-01-17 00:37:16) : C/Ft_turing DONE : ajout accept requis + tests OK.
+Derniere mise a jour (2026-01-17 00:29:53) : C/Ft_ping DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 00:25:15) : C/Ft_ping IN_PROGRESS : ajout test -h + run_tests OK.
+Derniere mise a jour (2026-01-17 00:19:52) : C/Ft_ssl_md5 DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 00:15:40) : C/Ft_ssl_md5 IN_PROGRESS : ajout test stdin vide + run_tests OK.
+Derniere mise a jour (2026-01-17 00:09:52) : C/Ft_script DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-17 00:05:30) : C/Ft_script IN_PROGRESS : ajout test -c typescript par defaut + run_tests OK.
+Derniere mise a jour (2026-01-17 00:00:42) : C/Ft_script IN_PROGRESS : ajout test -c stderr capture + run_tests OK.
+Derniere mise a jour (2026-01-16 23:54:50) : C/Ft_mini_ls DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-16 23:49:54) : C/Ft_mini_ls IN_PROGRESS : ajout test dossier uniquement cache + run_tests OK.
+Derniere mise a jour (2026-01-16 23:45:27) : C/Ft_mini_ls IN_PROGRESS : ajout test dossier vide.
+Derniere mise a jour (2026-01-16 23:39:52) : C/Minitalk DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-16 23:35:01) : C/Minitalk IN_PROGRESS : doc tests maj (ponctuation/rafale).
+Derniere mise a jour (2026-01-16 23:29:50) : C/Minitalk IN_PROGRESS : tests messages rapides + run_tests OK.
+Derniere mise a jour (2026-01-16 23:26:09) : C/Minitalk IN_PROGRESS : test ponctuation + check ligne vide + run_tests OK.
+Derniere mise a jour (2026-01-16 23:30:12) : Web/hello_node WAITING : sockets locales bloquees (tests reseau).
+Derniere mise a jour (2026-01-16 23:22:48) : Web/hello_node IN_PROGRESS : harness capture stdout + run_tests OK (skip net).
+Derniere mise a jour (2026-01-16 23:14:56) : Web/hello_node IN_PROGRESS : tests ex09 erreurs (iso manquant/route inconnue).
+Derniere mise a jour (2026-01-16 23:04:50) : Hello/hello_vue DONE : cloture apres checks OK.
+Derniere mise a jour (2026-01-16 23:00:22) : Hello/hello_vue IN_PROGRESS : ajout style ex05 + run_tests OK.
+Derniere mise a jour (2026-01-16 22:55:32) : Hello/hello_vue IN_PROGRESS : checks CDN Vue 2.6.14 + run_tests OK.
+Derniere mise a jour (2026-01-16 22:50:47) : C/Pipex DONE : ajout test quoting + run_tests OK.
+Derniere mise a jour (2026-01-16 22:44:49) : Wordle/Wordle DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-16 22:40:01) : Wordle/Wordle IN_PROGRESS : ajout test dict missing file + run_tests OK.
+Derniere mise a jour (2026-01-16 22:35:03) : Wordle/Wordle IN_PROGRESS : ajout test dict invalid + run_tests OK.
+Derniere mise a jour (2026-01-16 22:30:01) : Wordle/Wordle IN_PROGRESS : ajout test determinisme seed + run_tests OK.
+Derniere mise a jour (2026-01-16 22:24:48) : Wordle/Wordle IN_PROGRESS : ajout test CLI mot invalide + run_tests OK.
+Derniere mise a jour (2026-01-16 22:19:47) : Wordle/Wordle IN_PROGRESS : ajout test CLI input vide + run_tests OK.
+Derniere mise a jour (2026-01-16 22:15:52) : Wordle/Wordle IN_PROGRESS : ajout tests unitaires/CLI + run_tests OK.
+Derniere mise a jour (2026-01-16 22:09:50) : Python/Django_Training_D01 DONE : cloture apres smoke tests OK.
+Derniere mise a jour (2026-01-16 22:04:51) : Python/Django_Training_D01 IN_PROGRESS : doc section Tests ajoutee.
+Derniere mise a jour (2026-01-16 22:02:10) : Python/Django_Training_D01 IN_PROGRESS : ajout smoke tests + run_tests OK.
+Derniere mise a jour (2026-01-16 21:54:48) : C/Ft_printf DONE : cloture apres tests OK.
+Derniere mise a jour (2026-01-16 21:49:50) : C/Ft_printf IN_PROGRESS : scripts/run_tests.sh OK (warning /dev/full skip).
+Derniere mise a jour (2026-01-16 21:45:37) : C/Ft_printf IN_PROGRESS : harness: ignore warning ret mismatch pour (nil) vs 0x0.
+Derniere mise a jour (2026-01-16 21:39:52) : C/Ft_printf IN_PROGRESS : harness: compteur de checks + resume final.
+Derniere mise a jour (2026-01-16 21:34:46) : C/Ft_printf IN_PROGRESS : ajout test pointeur alternatif 0x7fffffff.
+Derniere mise a jour (2026-01-16 21:29:47) : C/Ft_printf IN_PROGRESS : ajout test ordre mix %u/%d/%x/%i/%s.
+Derniere mise a jour (2026-01-16 21:24:44) : C/Ft_printf IN_PROGRESS : run_tests.sh message clair en cas d'echec.
+Derniere mise a jour (2026-01-16 21:19:44) : C/Ft_printf IN_PROGRESS : ajout test mix signes %d/%i.
+Derniere mise a jour (2026-01-16 21:14:47) : C/Ft_printf IN_PROGRESS : ajout tests hex lettres + serie d'entiers.
+Derniere mise a jour (2026-01-16 21:12:36) : C/Ft_printf IN_PROGRESS : ajout tests percent apres %d et %s.
+Derniere mise a jour (2026-01-16 21:04:51) : C/Ft_printf IN_PROGRESS : harness: warning si ret printf != ft_printf.
+Derniere mise a jour (2026-01-16 20:59:45) : C/Ft_printf IN_PROGRESS : ajout test mix %s/%p avec NULL.
+Derniere mise a jour (2026-01-16 20:54:47) : C/Ft_printf IN_PROGRESS : harness raw: ajout index premier octet different.
+Derniere mise a jour (2026-01-16 20:49:55) : C/Ft_printf IN_PROGRESS : ajout tests %s NULL avec prefix/suffix et double NULL.
+Derniere mise a jour (2026-01-16 20:44:55) : C/Ft_printf IN_PROGRESS : ajout tests raw NUL avec %c + strings vides/texte.
+Derniere mise a jour (2026-01-16 20:39:57) : C/Ft_printf IN_PROGRESS : harness raw: dump hex en cas de mismatch binaire.
+Derniere mise a jour (2026-01-16 20:35:00) : C/Ft_printf IN_PROGRESS : simplif raw check + test binaire %% avec NUL.
+Derniere mise a jour (2026-01-16 20:29:42) : C/Ft_printf IN_PROGRESS : ajout test raw mixte NUL %c/%s/%c (binaire).
+Derniere mise a jour (2026-01-16 20:24:54) : C/Ft_printf IN_PROGRESS : doc tests: sorties binaires pour NUL dans harness.
+Derniere mise a jour (2026-01-16 20:19:42) : C/Ft_printf IN_PROGRESS : ajout test raw string contenant un NUL interne.
+Derniere mise a jour (2026-01-16 20:14:46) : C/Ft_printf IN_PROGRESS : ajout tests raw NUL en milieu et double NUL.
+Derniere mise a jour (2026-01-16 20:10:51) : C/Ft_printf IN_PROGRESS : harness support sortie binaire + test %c NUL.
+Derniere mise a jour (2026-01-16 20:04:55) : C/Ft_printf IN_PROGRESS : ajout tests strings vides/espaces + mix hex/pointeurs/combo.
+Derniere mise a jour (2026-01-16 20:01:04) : C/Ft_printf IN_PROGRESS : ajout tests limites int + mix %% et NULL string.
 Derniere mise a jour (2026-01-09 23:43:24) : C/Ft_printf IN_PROGRESS : test erreur d'ecriture via /dev/full (skip si absent) + scripts/run_tests.sh OK.
 Derniere mise a jour (2026-01-09 23:33:45) : C/Ft_printf IN_PROGRESS : nouveaux tests (%u -1, hex UINT_MAX, %%%% chain, pointeurs multiples) + scripts/run_tests.sh OK.
 Derniere mise a jour (2026-01-09 23:02:52) : C/Ft_printf IN_PROGRESS : test format long + scripts/run_tests.sh OK.
@@ -435,3 +514,163 @@ Derniere mise a jour (2026-01-03 11:00:13) : C/ft_linux IN_PROGRESS : ajout buil
 Derniere mise a jour (2026-01-03 11:05:25) : C/ft_linux IN_PROGRESS : ajout build_queue_failures.
 Derniere mise a jour (2026-01-03 11:09:53) : C/ft_linux IN_PROGRESS : build_queue_report integre failures.
 Derniere mise a jour (2026-01-03 11:14:34) : C/ft_linux IN_PROGRESS : build_queue_metrics ajoute taux ok.
+Derniere mise a jour (2026-01-17 02:35:10) : C/Ft_ssl_md5 DONE : ajout test md5 -s "" + tests OK.
+Derniere mise a jour (2026-01-17 02:36:52) : C/ft_kalman IN_PROGRESS : tests inverse 3x3 + fix Werror host non utilise.
+Derniere mise a jour (2026-01-17 02:40:09) : C/ft_kalman IN_PROGRESS : test transpose matrice + run_unit OK.
+Derniere mise a jour (2026-01-17 02:45:07) : C/ft_kalman IN_PROGRESS : test identite matrice + run_unit OK.
+Derniere mise a jour (2026-01-17 02:49:59) : C/ft_kalman IN_PROGRESS : doc tests_realisation (run_unit + couverture).
+Derniere mise a jour (2026-01-17 02:55:08) : C/ft_kalman IN_PROGRESS : test determinant 3x3 + run_unit OK.
+Derniere mise a jour (2026-01-17 03:00:45) : C/ft_kalman IN_PROGRESS : run_udp mock + skip si sockets interdites.
+Derniere mise a jour (2026-01-17 03:05:21) : C/ft_kalman IN_PROGRESS : cibles Makefile test-udp/test-all + doc.
+Derniere mise a jour (2026-01-17 03:10:08) : C/ft_kalman DONE : cloture apres tests unit + udp mock + doc.
+Derniere mise a jour (2026-01-17 03:15:36) : C/ft_helpme DONE : tests valeurs par defaut (unspecified) + run_tests OK.
+Derniere mise a jour (2026-01-17 03:20:56) : C/ft_irc WAITING : tests smoke bloques (sockets locaux interdits).
+Derniere mise a jour (2026-01-17 03:21:42) : C/Born2beRoot DONE : checks labels monitoring.sh + run_tests OK.
+Derniere mise a jour (2026-01-17 03:26:28) : C/Philosophers DONE : run_tests.sh (erreurs + single philo) + tests OK.
+Derniere mise a jour (2026-01-17 03:30:31) : C/Push_swap DONE : tests deja trie + overflow + run_tests OK.
+Derniere mise a jour (2026-01-17 03:35:41) : C/Ft_containers DONE : run_tests.sh inclut list_stack_queue_compare + OK.
+Derniere mise a jour (2026-01-17 03:40:30) : C/Ft_shield DONE : tests exit code + usage erreurs + run_tests OK.
+Derniere mise a jour (2026-01-17 03:45:23) : C/So_Long DONE : tests cartes invalides + run_tests OK.
+Derniere mise a jour (2026-01-17 03:50:37) : C/Minitalk DONE : tests client erreurs (args/pid) + run_tests OK.
+Derniere mise a jour (2026-01-17 03:55:59) : C/Ft_ping DONE : test pattern invalide (options) + tests OK.
+Derniere mise a jour (2026-01-17 04:00:36) : C/Ft_mini_ls DONE : tests args message erreur + run_tests OK.
+Derniere mise a jour (2026-01-17 04:07:04) : C/Ft_ls DONE : test fichier manquant + run_tests OK.
+Derniere mise a jour (2026-01-17 04:10:14) : C/ft_self_analysis DONE : ajout questions reviewer + MAJ checklist.
+Derniere mise a jour (2026-01-17 04:15:32) : C/Ft_server DONE : checks env MySQL dans tests_realisation + OK.
+Derniere mise a jour (2026-01-17 04:20:46) : C/Ft_ls IN_PROGRESS : test symlink -l + run_tests OK.
+Derniere mise a jour (2026-01-17 04:25:12) : C/Ft_ls DONE : test fichier -l + run_tests OK.
+Derniere mise a jour (2026-01-17 04:30:44) : C/Minishell IN_PROGRESS : run_unit_tests.sh build auto + tests OK.
+Derniere mise a jour (2026-01-17 04:35:18) : C/Minishell DONE : test pwd_basic + run_unit_tests OK.
+Derniere mise a jour (2026-01-17 04:40:16) : Messagequeue/MessageQueue IN_PROGRESS : ajout docker-compose RabbitMQ + doc.
+Derniere mise a jour (2026-01-17 04:45:47) : Messagequeue/MessageQueue IN_PROGRESS : doc topologie exchanges/queues + plan MAJ.
+Derniere mise a jour (2026-01-17 04:50:16) : Messagequeue/MessageQueue IN_PROGRESS : ajout shared/pdfs + doc.
+Derniere mise a jour (2026-01-17 04:55:14) : Messagequeue/MessageQueue IN_PROGRESS : ajout sample_student.json + doc.
+Derniere mise a jour (2026-01-17 05:00:13) : Messagequeue/MessageQueue IN_PROGRESS : exemples routing keys + doc.
+Derniere mise a jour (2026-01-17 05:05:09) : Messagequeue/MessageQueue IN_PROGRESS : doc stop/start docker compose.
+Derniere mise a jour (2026-01-17 05:10:18) : Messagequeue/MessageQueue IN_PROGRESS : doc services + PDFs.
+Derniere mise a jour (2026-01-17 05:15:13) : Messagequeue/MessageQueue IN_PROGRESS : plan MAJ arborescence.
+Derniere mise a jour (2026-01-17 05:20:40) : Messagequeue/MessageQueue IN_PROGRESS : script bootstrap RabbitMQ.
+Derniere mise a jour (2026-01-17 05:25:15) : Messagequeue/MessageQueue IN_PROGRESS : doc env bootstrap RabbitMQ.
+Derniere mise a jour (2026-01-17 05:30:17) : Messagequeue/MessageQueue IN_PROGRESS : doc nommage PDF.
+Derniere mise a jour (2026-01-17 05:35:23) : Messagequeue/MessageQueue IN_PROGRESS : script check_rabbitmq + doc.
+Derniere mise a jour (2026-01-17 05:40:11) : Messagequeue/MessageQueue IN_PROGRESS : doc sequence bootstrap complete.
+Derniere mise a jour (2026-01-17 05:45:51) : Messagequeue/MessageQueue IN_PROGRESS : script validate_rabbitmq + doc.
+Derniere mise a jour (2026-01-17 05:50:17) : Messagequeue/MessageQueue IN_PROGRESS : validate_rabbitmq verifie bindings.
+Derniere mise a jour (2026-01-17 05:55:11) : Messagequeue/MessageQueue IN_PROGRESS : note API management pour validation.
+Derniere mise a jour (2026-01-17 06:00:25) : Messagequeue/MessageQueue IN_PROGRESS : script bootstrap_and_validate.
+Derniere mise a jour (2026-01-17 06:05:16) : Messagequeue/MessageQueue IN_PROGRESS : quickstart local doc.
+Derniere mise a jour (2026-01-17 06:10:28) : Messagequeue/MessageQueue IN_PROGRESS : plan MAJ scripts setup/quickstart coches.
+Derniere mise a jour (2026-01-17 06:15:33) : Messagequeue/MessageQueue IN_PROGRESS : layout modules + dossiers services.
+Derniere mise a jour (2026-01-17 06:20:11) : Messagequeue/MessageQueue IN_PROGRESS : mention modules stubs services/.
+Derniere mise a jour (2026-01-17 06:25:31) : Messagequeue/MessageQueue IN_PROGRESS : doc variables env services.
+Derniere mise a jour (2026-01-17 06:30:23) : Messagequeue/MessageQueue IN_PROGRESS : doc contenu PDFs.
+Derniere mise a jour (2026-01-17 06:35:20) : Messagequeue/MessageQueue IN_PROGRESS : smoke plan local.
+Derniere mise a jour (2026-01-17 06:40:12) : Messagequeue/MessageQueue IN_PROGRESS : TODO implementation.
+Derniere mise a jour (2026-01-17 06:46:11) : Messagequeue/MessageQueue IN_PROGRESS : scripts publish/consume test + doc.
+Derniere mise a jour (2026-01-17 06:50:22) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message content_type JSON.
+Derniere mise a jour (2026-01-17 06:55:23) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message message_id auto.
+Derniere mise a jour (2026-01-17 07:00:20) : Messagequeue/MessageQueue IN_PROGRESS : consume_test_message TRUNCATE.
+Derniere mise a jour (2026-01-17 07:05:32) : Messagequeue/MessageQueue IN_PROGRESS : script list_queues.
+Derniere mise a jour (2026-01-17 07:10:33) : Messagequeue/MessageQueue IN_PROGRESS : script list_exchanges.
+Derniere mise a jour (2026-01-17 07:15:15) : Messagequeue/MessageQueue IN_PROGRESS : list_exchanges ignore exchange vide.
+Derniere mise a jour (2026-01-17 07:20:24) : Messagequeue/MessageQueue IN_PROGRESS : doc policy ACK consumers.
+Derniere mise a jour (2026-01-17 07:25:15) : Messagequeue/MessageQueue IN_PROGRESS : sample_student grantType.
+Derniere mise a jour (2026-01-17 07:30:23) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message routing key default + metadata.
+Derniere mise a jour (2026-01-17 07:35:26) : Messagequeue/MessageQueue IN_PROGRESS : test matrix.
+Derniere mise a jour (2026-01-17 07:40:15) : Messagequeue/MessageQueue IN_PROGRESS : note statut.
+Derniere mise a jour (2026-01-17 07:45:45) : Messagequeue/MessageQueue IN_PROGRESS : script test_routing.
+Derniere mise a jour (2026-01-17 07:50:19) : Messagequeue/MessageQueue IN_PROGRESS : fix test_routing env.
+Derniere mise a jour (2026-01-17 07:55:17) : Messagequeue/MessageQueue IN_PROGRESS : test_routing purge queue DELETE.
+Derniere mise a jour (2026-01-17 08:00:24) : Messagequeue/MessageQueue IN_PROGRESS : doc endpoints producer.
+Derniere mise a jour (2026-01-17 08:05:23) : Messagequeue/MessageQueue IN_PROGRESS : doc schema payload.
+Derniere mise a jour (2026-01-17 08:10:34) : Messagequeue/MessageQueue IN_PROGRESS : script wait_rabbitmq.
+Derniere mise a jour (2026-01-17 08:15:31) : Messagequeue/MessageQueue IN_PROGRESS : script bootstrap_all.
+Derniere mise a jour (2026-01-17 08:20:39) : Messagequeue/MessageQueue IN_PROGRESS : script list_bindings.
+Derniere mise a jour (2026-01-17 08:25:39) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message default exchange.
+Derniere mise a jour (2026-01-17 08:30:44) : Messagequeue/MessageQueue IN_PROGRESS : nettoyage test_routing.
+Derniere mise a jour (2026-01-17 08:35:28) : Messagequeue/MessageQueue IN_PROGRESS : test matrix prerequis RabbitMQ coches.
+Derniere mise a jour (2026-01-17 08:40:30) : Messagequeue/MessageQueue IN_PROGRESS : doc outils de test.
+Derniere mise a jour (2026-01-17 08:45:19) : Messagequeue/MessageQueue IN_PROGRESS : lien UI RabbitMQ.
+Derniere mise a jour (2026-01-17 08:50:13) : Messagequeue/MessageQueue IN_PROGRESS : script count_queue_messages.
+Derniere mise a jour (2026-01-17 08:55:21) : Messagequeue/MessageQueue IN_PROGRESS : note API management scripts listing.
+Derniere mise a jour (2026-01-17 09:01:02) : Messagequeue/MessageQueue IN_PROGRESS : note permissions shared/pdfs.
+Derniere mise a jour (2026-01-17 09:05:40) : Messagequeue/MessageQueue IN_PROGRESS : precision permissions PDFs.
+Derniere mise a jour (2026-01-17 09:10:47) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_all inclut test_routing.
+Derniere mise a jour (2026-01-17 09:15:15) : Messagequeue/MessageQueue IN_PROGRESS : doc troubleshooting.
+Derniere mise a jour (2026-01-17 09:20:22) : Messagequeue/MessageQueue IN_PROGRESS : TODO tests e2e.
+Derniere mise a jour (2026-01-17 09:25:21) : Messagequeue/MessageQueue IN_PROGRESS : commande nettoyage shared/pdfs.
+Derniere mise a jour (2026-01-17 09:30:24) : Messagequeue/MessageQueue IN_PROGRESS : doc PAYLOAD_FILE publish_test_message.
+Derniere mise a jour (2026-01-17 09:35:23) : Messagequeue/MessageQueue IN_PROGRESS : precision payload defaut.
+Derniere mise a jour (2026-01-17 09:40:25) : Messagequeue/MessageQueue IN_PROGRESS : doc vhost par defaut.
+Derniere mise a jour (2026-01-17 09:45:33) : Messagequeue/MessageQueue IN_PROGRESS : ajout .env.example RabbitMQ.
+Derniere mise a jour (2026-01-17 09:50:24) : Messagequeue/MessageQueue IN_PROGRESS : doc usage fichier .env.
+Derniere mise a jour (2026-01-17 09:55:38) : Messagequeue/MessageQueue IN_PROGRESS : exemple variables .env credentials.
+Derniere mise a jour (2026-01-17 10:00:47) : Messagequeue/MessageQueue IN_PROGRESS : script purge_queues.
+Derniere mise a jour (2026-01-17 10:05:17) : Messagequeue/MessageQueue IN_PROGRESS : purge_queues supporte QUEUES CSV.
+Derniere mise a jour (2026-01-17 10:10:34) : Messagequeue/MessageQueue IN_PROGRESS : purge_queues trim espaces CSV.
+Derniere mise a jour (2026-01-17 10:16:27) : Messagequeue/MessageQueue IN_PROGRESS : doc plan d'implementation.
+Derniere mise a jour (2026-01-17 10:21:08) : Messagequeue/MessageQueue IN_PROGRESS : ajout script smoke_local.
+Derniere mise a jour (2026-01-17 10:25:28) : Messagequeue/MessageQueue IN_PROGRESS : ajout script check_prereqs.
+Derniere mise a jour (2026-01-17 10:30:23) : Messagequeue/MessageQueue IN_PROGRESS : smoke plan check_prereqs + smoke_local.
+Derniere mise a jour (2026-01-17 10:35:26) : Messagequeue/MessageQueue IN_PROGRESS : doc scripts overview.
+Derniere mise a jour (2026-01-17 10:40:29) : Messagequeue/MessageQueue IN_PROGRESS : ajout script load_env.
+Derniere mise a jour (2026-01-17 10:45:23) : Messagequeue/MessageQueue IN_PROGRESS : doc outils de test (scripts ajout).
+Derniere mise a jour (2026-01-17 10:50:27) : Messagequeue/MessageQueue IN_PROGRESS : ajout script setup_env.
+Derniere mise a jour (2026-01-17 10:55:33) : Messagequeue/MessageQueue IN_PROGRESS : ajout script status_report.
+Derniere mise a jour (2026-01-17 11:00:37) : Messagequeue/MessageQueue IN_PROGRESS : ajout runbook local.
+Derniere mise a jour (2026-01-17 11:06:03) : Messagequeue/MessageQueue IN_PROGRESS : ajout script test_routing_matrix.
+Derniere mise a jour (2026-01-17 11:10:40) : Messagequeue/MessageQueue IN_PROGRESS : ajout script publish_sample_keys.
+Derniere mise a jour (2026-01-17 11:15:44) : Messagequeue/MessageQueue IN_PROGRESS : doc troubleshooting env.
+Derniere mise a jour (2026-01-17 11:20:54) : Messagequeue/MessageQueue IN_PROGRESS : ajout script post_sample.
+Derniere mise a jour (2026-01-17 11:25:38) : Messagequeue/MessageQueue IN_PROGRESS : ajout script reset_local.
+Derniere mise a jour (2026-01-17 11:30:36) : Messagequeue/MessageQueue IN_PROGRESS : ajout script run_local_flow.
+Derniere mise a jour (2026-01-17 11:35:56) : Messagequeue/MessageQueue IN_PROGRESS : ajout script validate_payload.
+Derniere mise a jour (2026-01-17 11:40:44) : Messagequeue/MessageQueue IN_PROGRESS : ajout script doctor.
+Derniere mise a jour (2026-01-17 11:46:15) : Messagequeue/MessageQueue IN_PROGRESS : ajout script generate_dummy_pdf.
+Derniere mise a jour (2026-01-17 11:50:45) : Messagequeue/MessageQueue IN_PROGRESS : README stubs services.
+Derniere mise a jour (2026-01-17 11:55:29) : Messagequeue/MessageQueue IN_PROGRESS : index consumers.
+Derniere mise a jour (2026-01-17 12:00:33) : Messagequeue/MessageQueue IN_PROGRESS : stub grant_other_documents.
+Derniere mise a jour (2026-01-17 12:05:26) : Messagequeue/MessageQueue IN_PROGRESS : ajout service matrix.
+Derniere mise a jour (2026-01-17 12:10:25) : Messagequeue/MessageQueue IN_PROGRESS : ajout todo_next.
+Derniere mise a jour (2026-01-17 12:15:57) : Messagequeue/MessageQueue IN_PROGRESS : ajout script simulate_consumer.
+Derniere mise a jour (2026-01-17 12:20:40) : Messagequeue/MessageQueue IN_PROGRESS : ajout recap usage local.
+Derniere mise a jour (2026-01-17 12:25:42) : Messagequeue/MessageQueue IN_PROGRESS : doc variables scripts.
+Derniere mise a jour (2026-01-17 12:30:47) : Messagequeue/MessageQueue IN_PROGRESS : ajout script run_checks.
+Derniere mise a jour (2026-01-17 12:36:22) : Messagequeue/MessageQueue IN_PROGRESS : stub Spring Boot producer.
+Derniere mise a jour (2026-01-17 12:41:05) : Messagequeue/MessageQueue IN_PROGRESS : stub consumer food_application.
+Derniere mise a jour (2026-01-17 12:45:59) : Messagequeue/MessageQueue IN_PROGRESS : stub consumer financial_assistance.
+Derniere mise a jour (2026-01-17 12:50:45) : Messagequeue/MessageQueue IN_PROGRESS : stub consumer transportation_costs.
+Derniere mise a jour (2026-01-17 12:55:46) : Messagequeue/MessageQueue IN_PROGRESS : stub consumer contracts.
+Derniere mise a jour (2026-01-17 13:00:49) : Messagequeue/MessageQueue IN_PROGRESS : stub consumer grant_other_documents.
+Derniere mise a jour (2026-01-17 13:05:51) : Messagequeue/MessageQueue IN_PROGRESS : ajout script build_modules.
+Derniere mise a jour (2026-01-17 13:10:34) : Messagequeue/MessageQueue IN_PROGRESS : producer health + validation champs requis.
+Derniere mise a jour (2026-01-17 13:15:37) : Messagequeue/MessageQueue IN_PROGRESS : producer JSON status+routingKey.
+Derniere mise a jour (2026-01-17 13:20:34) : Messagequeue/MessageQueue IN_PROGRESS : ajout doc run_modules.
+Derniere mise a jour (2026-01-17 13:25:48) : Messagequeue/MessageQueue IN_PROGRESS : tests producer MockMvc.
+Derniere mise a jour (2026-01-17 13:30:41) : Messagequeue/MessageQueue IN_PROGRESS : test endpoint health.
+Derniere mise a jour (2026-01-17 13:35:51) : Messagequeue/MessageQueue IN_PROGRESS : ajout script test_producer.
+Derniere mise a jour (2026-01-17 13:40:38) : Messagequeue/MessageQueue IN_PROGRESS : test routing producer MockBean.
+Derniere mise a jour (2026-01-17 13:45:35) : Messagequeue/MessageQueue IN_PROGRESS : doc tests producer.
+Derniere mise a jour (2026-01-17 13:50:55) : Messagequeue/MessageQueue IN_PROGRESS : consumer food PDF dummy.
+Derniere mise a jour (2026-01-17 13:55:43) : Messagequeue/MessageQueue IN_PROGRESS : consumer financial PDF dummy.
+Derniere mise a jour (2026-01-17 14:00:44) : Messagequeue/MessageQueue IN_PROGRESS : consumer transportation PDF dummy.
+Derniere mise a jour (2026-01-17 14:05:44) : Messagequeue/MessageQueue IN_PROGRESS : consumer contracts PDF dummy.
+Derniere mise a jour (2026-01-17 14:10:53) : Messagequeue/MessageQueue IN_PROGRESS : consumer grant_other_documents PDF dummy.
+Derniere mise a jour (2026-01-17 14:15:33) : Messagequeue/MessageQueue IN_PROGRESS : doc run/env consumers index.
+Derniere mise a jour (2026-01-17 14:20:28) : Messagequeue/MessageQueue IN_PROGRESS : tests producer bloques (mvn manquant).
+Derniere mise a jour (2026-01-17 14:25:30) : Messagequeue/MessageQueue IN_PROGRESS : check_prereqs verifie mvn.
+Derniere mise a jour (2026-01-17 14:30:36) : Messagequeue/MessageQueue IN_PROGRESS : doc troubleshooting Maven.
+Derniere mise a jour (2026-01-17 14:35:59) : Messagequeue/MessageQueue IN_PROGRESS : consumers EnableRabbit.
+Derniere mise a jour (2026-01-17 14:40:25) : Messagequeue/MessageQueue IN_PROGRESS : doc run_modules + note EnableRabbit.
+Derniere mise a jour (2026-01-17 14:46:00) : Messagequeue/MessageQueue IN_PROGRESS : ajout script tail_rabbitmq_logs.
+Derniere mise a jour (2026-01-17 14:50:36) : Messagequeue/MessageQueue IN_PROGRESS : doc endpoints/env producer.
+Derniere mise a jour (2026-01-17 14:55:43) : Messagequeue/MessageQueue IN_PROGRESS : test dummy PDF transportation.
+Derniere mise a jour (2026-01-17 15:00:43) : Messagequeue/MessageQueue IN_PROGRESS : test dummy PDF financial.
+Derniere mise a jour (2026-01-17 15:05:39) : Messagequeue/MessageQueue IN_PROGRESS : test dummy PDF contracts.
+Derniere mise a jour (2026-01-17 15:10:37) : Messagequeue/MessageQueue IN_PROGRESS : test dummy PDF grant_other_documents.
+Derniere mise a jour (2026-01-17 15:15:40) : Messagequeue/MessageQueue IN_PROGRESS : test dummy PDF food.
+Derniere mise a jour (2026-01-17 15:20:37) : Messagequeue/MessageQueue IN_PROGRESS : doc tests consumers.
+Derniere mise a jour (2026-01-17 15:25:59) : Messagequeue/MessageQueue IN_PROGRESS : ajout script test_consumers.
+Derniere mise a jour (2026-01-17 15:30:59) : Messagequeue/MessageQueue IN_PROGRESS : ajout script readme_toc.
+Derniere mise a jour (2026-01-17 15:35:28) : Messagequeue/MessageQueue IN_PROGRESS : doc usage local (sommaire README).
+Derniere mise a jour (2026-01-17 15:40:46) : Messagequeue/MessageQueue IN_PROGRESS : ajout docs_index.

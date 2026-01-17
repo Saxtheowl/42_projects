@@ -1,5 +1,9 @@
 # ft_services
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 01:14:56) : passage DONE (tests OK).
+
 ## Synthèse actuelle
 Sujet 42 « ft_services » : déployer un cluster Kubernetes local (Minikube) avec plusieurs services conteneurisés (nginx ingress, WordPress + MariaDB, phpMyAdmin, FTPS, Grafana/InfluxDB, etc.), configuration TLS auto-signée, LoadBalancer via MetalLB, monitoring, scripts d’automatisation. Enjeux : reproductibilité (Makefile/scripts), sécurité de base (users/passwords), persistance et probing (liveness/readiness), dashboards. L’environnement actuel ne permet pas d’exécuter Minikube, mais les manifests et scripts de bootstrap sont en place pour un run externe.
 

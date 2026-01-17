@@ -45,6 +45,18 @@ if missing:
 vagrant = (project / "Vagrantfile").read_text()
 if "guest: 4242" not in vagrant:
     raise SystemExit("Vagrant file must forward port 4242")
+
+monitoring = (project / "scripts" / "monitoring.sh").read_text()
+monitoring_required = [
+    "#CPU load:",
+    "#Last boot:",
+    "#Network: IP",
+    "#Sudo :",
+    "#Connections TCP",
+]
+monitoring_missing = [item for item in monitoring_required if item not in monitoring]
+if monitoring_missing:
+    raise SystemExit(f"monitoring.sh missing expected output labels: {monitoring_missing}")
 PY
 
 echo "All Born2beRoot static checks passed."

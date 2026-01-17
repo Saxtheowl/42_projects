@@ -40,6 +40,7 @@ test_case "$BIN $ROOT/examples/invalid_blank_not_in_alphabet.tm a" "Error: Blank
 test_case "$BIN $ROOT/examples/invalid_missing_states.tm a" "Error: No states defined"
 test_case "$BIN $ROOT/examples/invalid_missing_alphabet.tm a" "Error: No alphabet defined"
 test_case "$BIN $ROOT/examples/invalid_missing_initial.tm a" "Error: No initial state defined"
+test_case "$BIN $ROOT/examples/invalid_missing_accept.tm a" "Error: No accept states defined"
 test_case "$BIN $ROOT/examples/invalid_transition_extra_tokens.tm a" "Error: Line 8: extra tokens after transition"
 test_case "$BIN $ROOT/examples/invalid_missing_transition.tm a -c" "Error: Missing transition for state q0 and symbol _"
 test_case "$BIN $ROOT/examples/invalid_missing_transition.tm _ -r" "REJECT after 0 steps (state=q0)

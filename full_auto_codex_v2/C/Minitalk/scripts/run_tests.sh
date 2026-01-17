@@ -42,8 +42,33 @@ if [[ -z "${SERVER_PID}" ]]; then
 fi
 
 echo "[3/4] Send messages through client"
+"${PROJECT_ROOT}/client" >/dev/null 2>&1 && {
+	echo "Error: client should fail without args" >&2
+	exit 1
+}
+if ! "${PROJECT_ROOT}/client" "abc" "Hello" 2>"${SERVER_LOG}.err"; then
+	if ! grep -q "Error: invalid server PID" "${SERVER_LOG}.err"; then
+		echo "Error: invalid PID message missing" >&2
+		exit 1
+	fi
+else
+	echo "Error: client should fail for invalid PID" >&2
+	exit 1
+fi
+if ! "${PROJECT_ROOT}/client" 999999 "Hello" 2>"${SERVER_LOG}.err"; then
+	if ! grep -q "Error: cannot reach server" "${SERVER_LOG}.err"; then
+		echo "Error: unreachable PID message missing" >&2
+		exit 1
+	fi
+else
+	echo "Error: client should fail for unreachable PID" >&2
+	exit 1
+fi
 "${PROJECT_ROOT}/client" "${SERVER_PID}" "Hello from automated test!"
 "${PROJECT_ROOT}/client" "${SERVER_PID}" ""
+"${PROJECT_ROOT}/client" "${SERVER_PID}" "Ping? 42!"
+"${PROJECT_ROOT}/client" "${SERVER_PID}" "Quick one"
+"${PROJECT_ROOT}/client" "${SERVER_PID}" "Quick two"
 
 sleep 0.2
 
@@ -51,9 +76,21 @@ if ! grep -q "Hello from automated test!" "${SERVER_LOG}"; then
 	echo "Error: server log does not contain expected message" >&2
 	exit 1
 fi
+if ! grep -q "Ping? 42!" "${SERVER_LOG}"; then
+	echo "Error: server log does not contain punctuation test" >&2
+	exit 1
+fi
+if ! grep -q "Quick one" "${SERVER_LOG}"; then
+	echo "Error: server log does not contain quick message one" >&2
+	exit 1
+fi
+if ! grep -q "Quick two" "${SERVER_LOG}"; then
+	echo "Error: server log does not contain quick message two" >&2
+	exit 1
+fi
 
-if [[ "$(tail -n 1 "${SERVER_LOG}")" != "" ]]; then
-	echo "Error: empty message did not produce trailing newline" >&2
+if ! awk 'NF == 0 {found = 1} END {exit !found}' "${SERVER_LOG}"; then
+	echo "Error: empty message did not produce a blank line" >&2
 	exit 1
 fi
 

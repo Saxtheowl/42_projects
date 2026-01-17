@@ -2,6 +2,8 @@
 
 Statut : prêt pour revue (DONE).
 
+Dernière mise à jour (2026-01-17 04:10:14) : ajout questions reviewer dans checklist.
+
 Dernière mise à jour (2025-12-26 05:07:53) : tableau de suivi renseigné, journal mensuel initialisé et support oral (slides Markdown) ajouté.
 
 ## Contenu

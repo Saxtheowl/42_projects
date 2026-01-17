@@ -1,5 +1,11 @@
 # Minishell
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 04:35:18) : ajout test pwd_basic + run_unit_tests OK.
+
+Derniere mise a jour (2026-01-17 04:30:44) : run_unit_tests.sh construit si minishell absent.
+
 ## Synthèse
 Création d'un mini shell POSIX‐like en C respectant la norme 42. L’objectif est de reproduire une boucle `read → parse → execute` proche de `bash`, avec gestion des redirections, pipes, variables d’environnement et gestion fine des erreurs/signal. État actuel : boucle interactive + lexeur + parser stabilisés, exécution des commandes externes (pipes, redirections, heredoc pré-collectés), ensemble des builtins requis (`echo`, `pwd`, `env`, `exit`, `cd`, `export`, `unset`) et expansions avancées clés (`~`, `~+`, `~-`, opérateur `export +=`). Un harness de tests (unit + e2e) permet de valider les principaux comportements ; restent à mener la campagne valgrind et la mise en conformité norme 42.
 

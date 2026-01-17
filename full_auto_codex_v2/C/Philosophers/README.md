@@ -1,5 +1,9 @@
 # Philosophers
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-17 03:26:28) : ajout run_tests.sh (validations erreurs + mort single philo), tests OK.
+
 ## Synthèse du projet
 Simulation du problème des philosophes : plusieurs threads concurrents alternent entre « manger », « dormir » et « penser » tout en partageant des fourchettes protégées par des mutex.  
 Le programme reçoit les paramètres temporels et un éventuel objectif de repas via la ligne de commande. Il s’arrête soit lorsqu’un philosophe meurt (dépassement du `time_to_die`), soit lorsque tous les philosophes ont mangé le nombre requis de fois.
@@ -18,6 +22,12 @@ Le programme reçoit les paramètres temporels et un éventuel objectif de repas
 - `src/simulation.c` — allocation des ressources, gestion de l’état partagé.
 - `src/run.c` — lancement des threads philosophes + thread moniteur.
 - `src/philo.c` — routine d’un philosophe (ordre de prise des fourchettes, cycle manger/dormir/penser).
+
+## Tests
+```bash
+make
+./tests_realisation/run_tests.sh
+```
 - `src/monitor.c` — surveillance centralisée des décès et du compteur de repas.
 - `src/log.c` / `src/time.c` — horodatage milliseconde, journalisation protégée.
 - `include/philo.h` — structures (`t_config`, `t_philo`, `t_sim`) et API interne.

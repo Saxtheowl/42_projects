@@ -46,12 +46,32 @@ run_mini() {
 
 expect_eq "$(run_ls)" "$(run_mini)" "listing matches ls -1tr (order/time, hidden skipped)"
 
+# Empty directory should produce no output
+mkdir "$TMP/empty"
+empty_expected="$(cd "$TMP/empty" && ls -1tr)"
+empty_actual="$(cd "$TMP/empty" && "$BIN")"
+expect_eq "$empty_expected" "$empty_actual" "empty directory produces no output"
+
+# Hidden-only directory should also produce no output
+mkdir "$TMP/hidden_only"
+touch "$TMP/hidden_only/.secret"
+hidden_expected="$(cd "$TMP/hidden_only" && ls -1tr)"
+hidden_actual="$(cd "$TMP/hidden_only" && "$BIN")"
+expect_eq "$hidden_expected" "$hidden_actual" "hidden-only directory produces no output"
+
 # Argument handling
+arg_err="$("$BIN" arg1 2>&1 || true)"
 if "$BIN" arg1 >/dev/null 2>&1; then
     echo "❌ program should fail when passed arguments"
     failures=$((failures + 1))
 else
     echo "✅ arguments produce an error as expected"
+fi
+if ! grep -q "takes no arguments" <<<"$arg_err"; then
+    echo "❌ arguments error message missing"
+    failures=$((failures + 1))
+else
+    echo "✅ arguments error message ok"
 fi
 
 echo

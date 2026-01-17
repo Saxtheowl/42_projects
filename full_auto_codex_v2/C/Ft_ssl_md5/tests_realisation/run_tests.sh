@@ -32,6 +32,11 @@ exp=$(printf "abc" | md5sum | awk '{print $1}')
 act=$("$BIN" md5 -q -s "abc")
 expect_eq "$exp" "$act" "md5 -s \"abc\""
 
+# md5 empty string via -s ""
+exp=$(printf "" | md5sum | awk '{print $1}')
+act=$("$BIN" md5 -q -s "")
+expect_eq "$exp" "$act" "md5 -s \"\""
+
 # sha256 string
 exp=$(printf "hello world" | sha256sum | awk '{print $1}')
 act=$("$BIN" sha256 -q -s "hello world")
@@ -47,6 +52,11 @@ expect_eq "$exp" "$act" "md5 file.txt"
 exp=$(printf "stdin test" | sha256sum | awk '{print $1}')
 act=$(printf "stdin test" | "$BIN" sha256 -q)
 expect_eq "$exp" "$act" "sha256 stdin"
+
+# empty stdin
+exp=$(printf "" | md5sum | awk '{print $1}')
+act=$(printf "" | "$BIN" md5 -q)
+expect_eq "$exp" "$act" "md5 empty stdin"
 
 # stdin with -p (echo then digest line)
 input="forty-two"
