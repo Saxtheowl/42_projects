@@ -22,6 +22,7 @@
   - Prerequis: RabbitMQ local demarre (docker compose) et dossier PDF accessible en ecriture.
   - Nettoyage: supprimer les PDFs generes apres verification manuelle.
   - Note: verifier `PDF_OUTPUT_DIR` si le dossier de sortie differe.
+  - Note: préparez `PDF_OUTPUT_DIR` avec `./scripts/prepare_pdf_output_dir.sh` (qui combine verify/cleanup/ensure) avant d’appeler les suites pour éviter les erreurs de droit ou les PDF résiduels.
   - Note: executer `PDF_OUTPUT_DIR=/tmp/mq-pdfs ./scripts/test_e2e_local.sh --json` pour voir `pdf_OUTPUT_DIR` et verifiez `pdf_output_dir_missing=0`.
   - Note: le dry-run JSON expose `pdf_output_dir_missing` quand le dossier n'existe pas encore.
 

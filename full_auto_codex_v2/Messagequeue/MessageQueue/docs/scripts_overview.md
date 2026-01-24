@@ -38,6 +38,7 @@ Ce dossier regroupe les scripts d'aide pour demarrer, configurer et valider Rabb
 - cleanup_pdf_output_dir.sh : supprime les PDF dans `PDF_OUTPUT_DIR` (ou `shared/pdfs` par défaut) avant les runs pour garder le dossier propre.
 - inspect_pdf_output_dir.sh : affiche le nombre de PDF présents dans `PDF_OUTPUT_DIR` (ou `shared/pdfs` par défaut) pour contrôler ce qui reste après les tests.
 - prepare_pdf_output_dir.sh : enchaîne `verify_pdf_output_dir.sh` et `cleanup_pdf_output_dir.sh` pour préparer le répertoire avant une publication ou un test complet.
+- ensure_pdf_output_dir_has_file.sh : vérifie qu’au moins un PDF existe dans `PDF_OUTPUT_DIR` avant une démonstration ou un test de bout en bout, signalant l’absence d’artefacts.
 - test_routing.sh : verifie le routage (grant.1.contract, --silent, --json).
 - test_routing_matrix.sh : publie plusieurs routing keys (ROUTING_KEYS, --silent, --json) et verifie les comptes.
 - status_report.sh : resume l'etat (queues/exchanges/bindings, filtres via env, --silent, --json).

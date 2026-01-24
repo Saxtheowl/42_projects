@@ -9,14 +9,14 @@
    - Le script renvoie `status=error` si les champs sont invalides (longueur, regex, espaces, dossier illisible) et s’aligne sur les erreurs documentées (`test_publish_test_message`, `test_matrix`).
 
 3. Publication
-   - Avant la publication, lancez `scripts/verify_pdf_output_dir.sh` (en définissant `PDF_OUTPUT_DIR` si besoin) pour vous assurer que le répertoire de sortie existe et est accessible.
+   - Avant la publication, lancez `./scripts/prepare_pdf_output_dir.sh` (ou `verify_pdf_output_dir.sh` suivi de `cleanup_pdf_output_dir.sh`) pour créer/valider le répertoire `PDF_OUTPUT_DIR` et purger les PDF résiduels.
    - Lancez `./scripts/publish_test_message_with_check.sh docs/sample_publish_payload.json` ou utilisez directement `./scripts/publish_test_message_with_check --json docs/sample_publish_payload.json` pour combiner la vérification du répertoire et la publication.
    - En mode `--json`, vous obtenez `status=ok`/`status=error` avec les champs `pdf_output_dir`/`pdf_output_dir_missing`.
 
 4. Vérification des artefacts
    - Si `status=ok`, vérifiez que `PDF_OUTPUT_DIR` contient les PDF attendus (les docs `run_modules`, `smoke_plan` détaillent les chemins).
-   - Utilisez `jq '.pdf_output_dir,.pdf_output_dir_missing'` pour confirmer les chemins.
-   - Nettoyez le dossier (`tests_summary` recommande de supprimer les PDF avant les runs suivants).
+   - Utilisez `./scripts/inspect_pdf_output_dir.sh` pour compter les PDF générés et `jq '.pdf_output_dir,.pdf_output_dir_missing'` pour confirmer les chemins.
+   - Nettoyez le dossier pour les runs suivants avec `./scripts/cleanup_pdf_output_dir.sh`, ou laissez `inspect`/`ensure_pdf_output_dir_has_file.sh` confirmer la présence d’un artefact pour les démonstrations.
 
 5. Intégration continue
    - Les scripts `test_publish_test_message`, `test_matrix`, `test_e2e_local` héritent de ce workflow en validant les mêmes contraintes et en inspectant les exports JSON/CSV.

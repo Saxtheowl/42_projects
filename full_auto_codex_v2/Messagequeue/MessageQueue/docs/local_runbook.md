@@ -72,3 +72,4 @@ rm -f shared/pdfs/*
 ## PDF workflow
 - Avant de publier un message de test, lancez `scripts/publish_test_message_with_check.sh` pour que `verify_pdf_output_dir.sh` prépare `PDF_OUTPUT_DIR`.  
 - Après les publications, utilisez `scripts/cleanup_pdf_output_dir.sh` pour purger les PDF résiduels et `scripts/inspect_pdf_output_dir.sh` pour compter les artefacts générés, afin de garder le dossier propre lors des démonstrations.
+- Une fois un message publié, exécutez `scripts/ensure_pdf_output_dir_has_file.sh` pour valider que des PDF ont effectivement été générés dans `PDF_OUTPUT_DIR`.

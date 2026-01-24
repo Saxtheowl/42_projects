@@ -1882,3 +1882,7 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2026-01-24 18:00:00 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary now mentions cleanup_pdf_output_dir.sh and inspect_pdf_output_dir.sh around publish_test_message runs.
 2026-01-24 18:15:00 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook now documents the PDF workflow that uses the new scripts for verify/cleanup/inspect around publish_test_message.
 2026-01-24 18:30:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added prepare_pdf_output_dir.sh plus quickstart/README mentions for automating verify+cleanup before publish_test_message.
+2026-01-24 18:45:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added ensure_pdf_output_dir_has_file.sh and doc notes to verify PDF artifacts exist after runs.
+2026-01-24 20:30:00 | Messagequeue/MessageQueue | IN_PROGRESS | publish_workflow doc now references prepare/inspect/cleanup scripts for the PDF workflow and verification steps.
+2026-01-24 20:45:00 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart doc now explains prepare_pdf_output_dir script sequence for PDF readiness.
+2026-01-24 21:05:00 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary notes prepare_pdf_output_dir script for PDF readiness before e2e dry-run.
