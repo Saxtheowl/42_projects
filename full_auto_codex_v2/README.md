@@ -1,3 +1,276 @@
+Derniere mise a jour (2026-01-19 15:09:59) : Messagequeue/MessageQueue IN_PROGRESS : README rappelle `jq '.pdf_output_dir,.pdf_output_dir_missing'` la sortie JSON dry-run.
+Derniere mise a jour (2026-01-19 14:09:43) : Messagequeue/MessageQueue IN_PROGRESS : tests_summary recommande pré-créer PDF_OUTPUT_DIR plus `pdf_output_dir_missing=0` pour le dry-run.
+Derniere mise a jour (2026-01-19 14:04:35) : Messagequeue/MessageQueue IN_PROGRESS : README renvoie vers local_runbook + tests_summary pour les détails `pdf_output_dir`.
+Derniere mise a jour (2026-01-19 13:54:43) : Messagequeue/MessageQueue IN_PROGRESS : local_runbook préconise de précréer PDF_OUTPUT_DIR et vérifier pdf_output_dir_missing=0.
+Derniere mise a jour (2026-01-19 13:19:47) : Messagequeue/MessageQueue IN_PROGRESS : local_runbook cite le JSON dry-run `pdf_output_dir`.
+Derniere mise a jour (2026-01-19 13:10:03) : Messagequeue/MessageQueue IN_PROGRESS : doc local_usage cite le JSON dry-run `pdf_output_dir`.
+Derniere mise a jour (2026-01-19 12:54:36) : Messagequeue/MessageQueue IN_PROGRESS : docs e2e_local note le chemin PDF autodisplay.
+Derniere mise a jour (2026-01-19 12:50:39) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local dry-run JSON garde pdf_output_dir brut.
+Derniere mise a jour (2026-01-19 12:44:47) : Messagequeue/MessageQueue IN_PROGRESS : tests_summary note pdf_output_dir_missing.
+Derniere mise a jour (2026-01-19 12:40:34) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local JSON dry-run ajoute pdf_output_dir_missing.
+Derniere mise a jour (2026-01-19 12:36:05) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local cree PDF_OUTPUT_DIR manquant hors dry-run + tests/docs.
+Derniere mise a jour (2026-01-19 12:30:41) : Messagequeue/MessageQueue IN_PROGRESS : doc local_usage ajoute exemple PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 12:24:51) : Messagequeue/MessageQueue IN_PROGRESS : tests_summary note PDF_OUTPUT_DIR pour smoke.
+Derniere mise a jour (2026-01-19 12:19:40) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local note PDF_OUTPUT_DIR override.
+Derniere mise a jour (2026-01-19 12:14:52) : Messagequeue/MessageQueue IN_PROGRESS : tests_producer note PDF_OUTPUT_DIR non utilise.
+Derniere mise a jour (2026-01-19 12:09:39) : Messagequeue/MessageQueue IN_PROGRESS : test_tools note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 12:04:50) : Messagequeue/MessageQueue IN_PROGRESS : tests_consumers note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:59:46) : Messagequeue/MessageQueue IN_PROGRESS : logging note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:54:51) : Messagequeue/MessageQueue IN_PROGRESS : test_matrix note PDF_OUTPUT_DIR pour PDFs.
+Derniere mise a jour (2026-01-19 11:49:39) : Messagequeue/MessageQueue IN_PROGRESS : security_notes ajoute suppression PDFs tests.
+Derniere mise a jour (2026-01-19 11:44:37) : Messagequeue/MessageQueue IN_PROGRESS : module_status note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:39:39) : Messagequeue/MessageQueue IN_PROGRESS : payload_schema note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:34:53) : Messagequeue/MessageQueue IN_PROGRESS : api_contract ajoute PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:29:45) : Messagequeue/MessageQueue IN_PROGRESS : http_endpoints ajoute PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:24:33) : Messagequeue/MessageQueue IN_PROGRESS : local_runbook note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:19:35) : Messagequeue/MessageQueue IN_PROGRESS : local_usage note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:14:34) : Messagequeue/MessageQueue IN_PROGRESS : quickstart note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:09:52) : Messagequeue/MessageQueue IN_PROGRESS : tests_summary note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 11:04:55) : Messagequeue/MessageQueue IN_PROGRESS : run_modules mention PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 10:59:59) : Messagequeue/MessageQueue IN_PROGRESS : script_env note PDF_OUTPUT_DIR writable.
+Derniere mise a jour (2026-01-19 10:54:34) : Messagequeue/MessageQueue IN_PROGRESS : implementation_plan note PDF_OUTPUT_DIR writable.
+Derniere mise a jour (2026-01-19 10:49:31) : Messagequeue/MessageQueue IN_PROGRESS : queue_purpose note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 10:44:51) : Messagequeue/MessageQueue IN_PROGRESS : topology note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 10:40:06) : Messagequeue/MessageQueue IN_PROGRESS : docs_index note ordre alphabetique.
+Derniere mise a jour (2026-01-19 10:34:35) : Messagequeue/MessageQueue IN_PROGRESS : smoke_plan note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 10:29:51) : Messagequeue/MessageQueue IN_PROGRESS : consumer_ack note PDF_OUTPUT_DIR writable.
+Derniere mise a jour (2026-01-19 10:24:35) : Messagequeue/MessageQueue IN_PROGRESS : todo_next ajoute mention PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 10:19:36) : Messagequeue/MessageQueue IN_PROGRESS : tests_summary note nettoyage PDFs consumers.
+Derniere mise a jour (2026-01-19 10:14:40) : Messagequeue/MessageQueue IN_PROGRESS : tests_producer note pas de PDF.
+Derniere mise a jour (2026-01-19 10:09:36) : Messagequeue/MessageQueue IN_PROGRESS : tests_consumers ajoute nettoyage PDFs.
+## Handoff note
+- La section `reports/next_llm_summary.md` condense l’état actuel et propose les prochaines étapes prioritaires pour tout LLM reprenant le projet. Relisez ce fichier avant de démarrer pour savoir où concentrer les efforts et quelles contraintes respecter (log à jour, documentation ciblée, prioriser `IN_PROGRESS`).
+## Recent addition
+- Le sous-projet `Messagequeue/MessageQueue` dispose maintenant du script `scripts/verify_pdf_output_dir.sh` : exécutez-le avec `PDF_OUTPUT_DIR` défini pour vous assurer que le dossier existe et est accessible avant d’exécuter `publish_test_message`.
+- De préférence, utilisez désormais `scripts/publish_test_message_with_check.sh` pour lancer `publish_test_message` après la vérification `PDF_OUTPUT_DIR`, comme détaillé dans le README du sous-projet. Ajoutez également `scripts/inspect_pdf_output_dir.sh`, `scripts/cleanup_pdf_output_dir.sh` et la nouvelle commande `scripts/prepare_pdf_output_dir.sh` pour surveiller, purger et préparer les artefacts PDF entre les runs.
+Derniere mise a jour (2026-01-19 10:04:40) : Messagequeue/MessageQueue IN_PROGRESS : test_tools note nettoyage PDFs dummy.
+Derniere mise a jour (2026-01-19 09:59:33) : Messagequeue/MessageQueue IN_PROGRESS : test_matrix note nettoyage shared/pdfs.
+Derniere mise a jour (2026-01-19 09:54:33) : Messagequeue/MessageQueue IN_PROGRESS : pdf_contents note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 09:49:38) : Messagequeue/MessageQueue IN_PROGRESS : pdf_naming note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 09:44:34) : Messagequeue/MessageQueue IN_PROGRESS : services note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 09:39:35) : Messagequeue/MessageQueue IN_PROGRESS : service_matrix note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 09:34:40) : Messagequeue/MessageQueue IN_PROGRESS : module_layout note PDF_OUTPUT_DIR.
+Derniere mise a jour (2026-01-19 09:29:35) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local ajoute nettoyage PDFs.
+Derniere mise a jour (2026-01-19 09:24:33) : Messagequeue/MessageQueue IN_PROGRESS : scripts_overview note PDFs e2e_local.
+Derniere mise a jour (2026-01-19 09:19:32) : Messagequeue/MessageQueue IN_PROGRESS : http_endpoints note PDF via consumers.
+Derniere mise a jour (2026-01-19 09:14:48) : Messagequeue/MessageQueue IN_PROGRESS : service_env note PDF_OUTPUT_DIR writable.
+Derniere mise a jour (2026-01-19 09:09:38) : Messagequeue/MessageQueue IN_PROGRESS : sample_routing_keys relie sample_student.json.
+Derniere mise a jour (2026-01-19 09:04:38) : Messagequeue/MessageQueue IN_PROGRESS : ports note PDF output dir.
+Derniere mise a jour (2026-01-19 08:59:54) : Messagequeue/MessageQueue IN_PROGRESS : api_contract note generation PDF via consumers.
+Derniere mise a jour (2026-01-19 08:54:29) : Messagequeue/MessageQueue IN_PROGRESS : security_notes ajoute restriction acces shared.
+Derniere mise a jour (2026-01-19 08:49:44) : Messagequeue/MessageQueue IN_PROGRESS : logging note chemin PDF par defaut.
+Derniere mise a jour (2026-01-19 08:44:42) : Messagequeue/MessageQueue IN_PROGRESS : run_modules note nettoyage PDFs.
+Derniere mise a jour (2026-01-19 08:39:35) : Messagequeue/MessageQueue IN_PROGRESS : local_usage ajoute nettoyage PDFs e2e_local.
+Derniere mise a jour (2026-01-19 08:34:37) : Messagequeue/MessageQueue IN_PROGRESS : quickstart ajoute nettoyage PDFs.
+Derniere mise a jour (2026-01-19 08:29:34) : Messagequeue/MessageQueue IN_PROGRESS : tests_summary precise prerequis e2e_local.
+Derniere mise a jour (2026-01-19 08:24:34) : Messagequeue/MessageQueue IN_PROGRESS : todo_next detaille e2e/pdf/ci.
+Derniere mise a jour (2026-01-19 08:19:37) : Messagequeue/MessageQueue IN_PROGRESS : module_status detaille etapes PDF reel.
+Derniere mise a jour (2026-01-19 08:16:20) : Messagequeue/MessageQueue IN_PROGRESS : troubleshooting ajoute verification python3 pour --json.
+Derniere mise a jour (2026-01-18 13:51:29) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local asserts pdf_output_dir exists when overridden in JSON.
+Derniere mise a jour (2026-01-18 13:46:22) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local run after routing_key length check.
+Derniere mise a jour (2026-01-18 13:41:27) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates routing_key length in JSON.
+Derniere mise a jour (2026-01-18 13:36:28) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates exchange length in JSON.
+Derniere mise a jour (2026-01-18 13:31:29) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates doc_type length in JSON.
+Derniere mise a jour (2026-01-18 13:26:29) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates routing_key regex in JSON.
+Derniere mise a jour (2026-01-18 13:21:37) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates exchange regex in JSON.
+Derniere mise a jour (2026-01-18 13:16:28) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates doc_type regex in JSON.
+Derniere mise a jour (2026-01-18 13:11:31) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local enforces output=single index<count in JSON.
+Derniere mise a jour (2026-01-18 13:06:28) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates output values in JSON.
+Derniere mise a jour (2026-01-18 13:01:25) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local run repeated; no new change required.
+Derniere mise a jour (2026-01-18 12:56:22) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local help text verified after INDEX default fix.
+Derniere mise a jour (2026-01-18 12:51:38) : Messagequeue/MessageQueue IN_PROGRESS : fix test_e2e_local help INDEX default.
+Derniere mise a jour (2026-01-18 12:46:26) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects empty status in JSON.
+Derniere mise a jour (2026-01-18 12:41:30) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates status type in JSON.
+Derniere mise a jour (2026-01-18 12:36:23) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local requires routing_key for non-social exchange in JSON.
+Derniere mise a jour (2026-01-18 12:31:28) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local enforces absolute pdf_output_dir when overridden in JSON.
+Derniere mise a jour (2026-01-18 12:26:42) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects empty exchange string in JSON.
+Derniere mise a jour (2026-01-18 12:21:23) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates payload_file type in JSON.
+Derniere mise a jour (2026-01-18 12:16:22) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates ack_mode type in JSON.
+Derniere mise a jour (2026-01-18 12:11:20) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates purge_queue type in JSON.
+Derniere mise a jour (2026-01-18 12:06:20) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates check_rabbitmq type in JSON.
+Derniere mise a jour (2026-01-18 12:01:19) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates validate_payload type in JSON.
+Derniere mise a jour (2026-01-18 11:56:21) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates output type in JSON.
+Derniere mise a jour (2026-01-18 11:51:25) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates count/index are strings in JSON.
+Derniere mise a jour (2026-01-18 11:46:23) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates queue type in JSON.
+Derniere mise a jour (2026-01-18 11:41:27) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates doc_type type in JSON.
+Derniere mise a jour (2026-01-18 11:36:21) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates pdf_output_dir type in JSON.
+Derniere mise a jour (2026-01-18 11:31:19) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates exchange type in JSON.
+Derniere mise a jour (2026-01-18 11:26:41) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates routing_key type in JSON.
+Derniere mise a jour (2026-01-18 11:21:21) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local checks social exchange inference for food_application.
+Derniere mise a jour (2026-01-18 11:16:21) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local checks social exchange inference for transportation_costs_application.
+Derniere mise a jour (2026-01-18 11:11:29) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local checks social exchange inference for financial_assistance_application.
+Derniere mise a jour (2026-01-18 11:06:16) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local asserts payload_file non-empty in JSON.
+Derniere mise a jour (2026-01-18 11:01:20) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local asserts payload_file is readable in JSON.
+Derniere mise a jour (2026-01-18 10:56:24) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local asserts payload_file exists on disk in JSON.
+Derniere mise a jour (2026-01-18 10:51:22) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local asserts payload_file ends with .json in JSON.
+Derniere mise a jour (2026-01-18 10:46:21) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local verifies purge_queue default to 0 in JSON.
+Derniere mise a jour (2026-01-18 10:41:19) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local verifies check_rabbitmq default to 1 in JSON.
+Derniere mise a jour (2026-01-18 10:36:20) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local verifies validate_payload default to 1 in JSON.
+Derniere mise a jour (2026-01-18 10:31:17) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local verifies index default to 0 in JSON.
+Derniere mise a jour (2026-01-18 10:26:16) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local verifies count default to 1 in JSON.
+Derniere mise a jour (2026-01-18 10:21:20) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local verifies output default to single in JSON.
+Derniere mise a jour (2026-01-18 10:16:17) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local verifies ack_mode override in JSON.
+Derniere mise a jour (2026-01-18 10:11:16) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local verifies default ack_mode in JSON.
+Derniere mise a jour (2026-01-18 10:06:21) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local asserts PDF_OUTPUT_DIR override is absolute.
+Derniere mise a jour (2026-01-18 10:01:13) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local enforces output=all count/index in JSON validation.
+Derniere mise a jour (2026-01-18 09:56:44) : Messagequeue/MessageQueue IN_PROGRESS : fix duplicate pdf_output_dir override test block.
+Derniere mise a jour (2026-01-18 09:51:30) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local checks pdf_output_dir override in JSON.
+Derniere mise a jour (2026-01-18 09:46:13) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local asserts default payload_file path in JSON.
+Derniere mise a jour (2026-01-18 09:41:16) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local asserts payload_file is absolute under ROOT_DIR.
+Derniere mise a jour (2026-01-18 09:36:17) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates default pdf_output_dir in JSON.
+Derniere mise a jour (2026-01-18 09:31:16) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates GRANT_EXCHANGE inference for grant_contracts.
+Derniere mise a jour (2026-01-18 09:26:15) : Messagequeue/MessageQueue IN_PROGRESS : doc e2e_local JSON mention check_rabbitmq field.
+Derniere mise a jour (2026-01-18 09:21:14) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates check_rabbitmq values in JSON.
+Derniere mise a jour (2026-01-18 09:16:10) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local requires check_rabbitmq in JSON output.
+Derniere mise a jour (2026-01-18 09:11:13) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates routing_key empty when social exchange inferred.
+Derniere mise a jour (2026-01-18 09:07:55) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates default queue/exchange + doc_type fallback in JSON.
+Derniere mise a jour (2026-01-18 09:01:56) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local checks doc_type override in JSON.
+Derniere mise a jour (2026-01-18 08:56:23) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local enforces output=all constraints in JSON.
+Derniere mise a jour (2026-01-18 08:51:15) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates purge_queue override.
+Derniere mise a jour (2026-01-18 08:46:24) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local checks empty routing_key for SOCIAL_ASSISTANCE_EXCHANGE.
+Derniere mise a jour (2026-01-18 08:41:16) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates pdf_output_dir in JSON output.
+Derniere mise a jour (2026-01-18 08:36:12) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates exchange/routing_key in JSON output.
+Derniere mise a jour (2026-01-18 08:31:15) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates doc_type in JSON output.
+Derniere mise a jour (2026-01-18 08:26:13) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates purge_queue in JSON output.
+Derniere mise a jour (2026-01-18 08:21:16) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates ack_mode in JSON output.
+Derniere mise a jour (2026-01-18 08:16:18) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates env overrides for validate_payload/check_rabbitmq.
+Derniere mise a jour (2026-01-18 08:11:22) : Messagequeue/MessageQueue IN_PROGRESS : doc e2e_local constraints added.
+Derniere mise a jour (2026-01-18 08:06:19) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validates validate_payload/check_rabbitmq fields.
+Derniere mise a jour (2026-01-18 08:01:16) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local allows COUNT>1 with OUTPUT=single.
+Derniere mise a jour (2026-01-18 07:56:19) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local requires COUNT=1 for OUTPUT=single + negative test.
+Derniere mise a jour (2026-01-18 07:51:20) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local requires readable PAYLOAD_FILE + negative test.
+Derniere mise a jour (2026-01-18 07:46:19) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local requires non-empty PAYLOAD_FILE + negative test.
+Derniere mise a jour (2026-01-18 07:41:38) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local requires .json PAYLOAD_FILE + negative test.
+Derniere mise a jour (2026-01-18 07:36:47) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local requires INDEX=0 for OUTPUT=all + tests updated.
+Derniere mise a jour (2026-01-18 07:31:09) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects OUTPUT=all COUNT=1 even with --json.
+Derniere mise a jour (2026-01-18 07:26:29) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local requires COUNT>=2 for OUTPUT=all + negative test.
+Derniere mise a jour (2026-01-18 07:21:19) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local rejects ROUTING_KEY with SOCIAL_ASSISTANCE_EXCHANGE.
+Derniere mise a jour (2026-01-18 07:16:16) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local limits DOC_TYPE length + negative test.
+Derniere mise a jour (2026-01-18 07:11:23) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates PDF_OUTPUT_DIR writability + negative test.
+Derniere mise a jour (2026-01-18 07:06:56) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local requires existing PAYLOAD_FILE in dry-run + negative test.
+Derniere mise a jour (2026-01-18 07:01:55) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates PDF_OUTPUT_DIR + negative test.
+Derniere mise a jour (2026-01-18 06:56:14) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local limits QUEUE length + negative test.
+Derniere mise a jour (2026-01-18 06:51:14) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local limits EXCHANGE length + negative test.
+Derniere mise a jour (2026-01-18 06:46:46) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local limits ROUTING_KEY length + negative test.
+Derniere mise a jour (2026-01-18 06:41:13) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates ROUTING_KEY format + negative test.
+Derniere mise a jour (2026-01-18 06:36:11) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates EXCHANGE format + negative test.
+Derniere mise a jour (2026-01-18 06:31:32) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates QUEUE format + negative test.
+Derniere mise a jour (2026-01-18 06:26:28) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates DOC_TYPE format + negative test.
+Derniere mise a jour (2026-01-18 06:21:12) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates VALIDATE_PAYLOAD/CHECK_RABBITMQ + negative tests.
+Derniere mise a jour (2026-01-18 06:16:09) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates PURGE_QUEUE + negative test.
+Derniere mise a jour (2026-01-18 06:11:15) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validates ACK_MODE + negative test.
+Derniere mise a jour (2026-01-18 06:06:05) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects negative COUNT.
+Derniere mise a jour (2026-01-18 06:01:04) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects non-numeric INDEX.
+Derniere mise a jour (2026-01-18 05:56:05) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects non-numeric COUNT.
+Derniere mise a jour (2026-01-18 05:51:05) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects invalid OUTPUT.
+Derniere mise a jour (2026-01-18 05:46:01) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects INDEX=-1.
+Derniere mise a jour (2026-01-18 05:41:04) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects COUNT=0.
+Derniere mise a jour (2026-01-18 05:36:03) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejects INDEX>=COUNT in OUTPUT=single.
+Derniere mise a jour (2026-01-18 05:32:47) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local dry-run validates OUTPUT/COUNT/INDEX + test output=all without json.
+Derniere mise a jour (2026-01-18 05:26:30) : Messagequeue/MessageQueue IN_PROGRESS : validate_payload resolves PAYLOAD_FILE from repo root.
+Derniere mise a jour (2026-01-18 05:21:45) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local resolve payload in dry-run output.
+Derniere mise a jour (2026-01-18 05:16:13) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validate payload_file path + run.
+Derniere mise a jour (2026-01-18 05:11:08) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local resolve PAYLOAD_FILE from repo root.
+Derniere mise a jour (2026-01-18 05:06:10) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local check payload file exists + docs.
+Derniere mise a jour (2026-01-18 05:01:03) : Messagequeue/MessageQueue IN_PROGRESS : doc e2e_local index/count constraint.
+Derniere mise a jour (2026-01-18 04:56:08) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validate COUNT/INDEX ranges.
+Derniere mise a jour (2026-01-18 04:51:51) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local preflight check_rabbitmq + docs.
+Derniere mise a jour (2026-01-18 04:46:10) : Messagequeue/MessageQueue IN_PROGRESS : run payload validation/tests + mark test_matrix.
+Derniere mise a jour (2026-01-18 04:41:11) : Messagequeue/MessageQueue IN_PROGRESS : test_matrix mark e2e_local dry-run done.
+Derniere mise a jour (2026-01-18 04:35:58) : Messagequeue/MessageQueue IN_PROGRESS : run test_e2e_local --json after count/index validation.
+Derniere mise a jour (2026-01-18 04:31:04) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validate count/index numeric.
+Derniere mise a jour (2026-01-18 04:25:51) : Messagequeue/MessageQueue IN_PROGRESS : run test_e2e_local --json after OUTPUT check.
+Derniere mise a jour (2026-01-18 04:21:01) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local validate OUTPUT values.
+Derniere mise a jour (2026-01-18 04:15:55) : Messagequeue/MessageQueue IN_PROGRESS : run test_e2e_local --json.
+Derniere mise a jour (2026-01-18 04:11:17) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local enforce OUTPUT=all json + docs.
+Derniere mise a jour (2026-01-18 04:05:58) : Messagequeue/MessageQueue IN_PROGRESS : README add test_e2e_local dry-run usage.
+Derniere mise a jour (2026-01-18 04:00:49) : Messagequeue/MessageQueue IN_PROGRESS : fix test_e2e_local env propagation; run test.
+Derniere mise a jour (2026-01-18 03:56:00) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local validate queue/count/index.
+Derniere mise a jour (2026-01-18 03:51:23) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local env overrides + docs.
+Derniere mise a jour (2026-01-18 03:46:08) : Messagequeue/MessageQueue IN_PROGRESS : doc e2e_local OUTPUT=all JSON note.
+Derniere mise a jour (2026-01-18 03:41:24) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local --json + docs.
+Derniere mise a jour (2026-01-18 03:36:14) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local --help + docs.
+Derniere mise a jour (2026-01-18 03:31:34) : Messagequeue/MessageQueue IN_PROGRESS : fix test_e2e_local JSON parsing; run test.
+Derniere mise a jour (2026-01-18 03:25:54) : Messagequeue/MessageQueue IN_PROGRESS : test_matrix e2e_local dry-run item.
+Derniere mise a jour (2026-01-18 03:21:29) : Messagequeue/MessageQueue IN_PROGRESS : add test_e2e_local dry-run.
+Derniere mise a jour (2026-01-18 03:16:48) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local OUTPUT=all + docs.
+Derniere mise a jour (2026-01-18 03:11:22) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local INDEX selection + docs.
+Derniere mise a jour (2026-01-18 03:06:28) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local COUNT support + docs.
+Derniere mise a jour (2026-01-18 03:00:52) : Messagequeue/MessageQueue IN_PROGRESS : test_matrix payload section.
+Derniere mise a jour (2026-01-18 02:55:54) : Messagequeue/MessageQueue IN_PROGRESS : tests_summary payload section.
+Derniere mise a jour (2026-01-18 02:51:47) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local payload validation toggle + docs.
+Derniere mise a jour (2026-01-18 02:45:51) : Messagequeue/MessageQueue IN_PROGRESS : README e2e_local usage section.
+Derniere mise a jour (2026-01-18 02:41:40) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local dry-run + docs.
+Derniere mise a jour (2026-01-18 02:36:03) : Messagequeue/MessageQueue IN_PROGRESS : doc tests_summary/test_matrix e2e_local.
+Derniere mise a jour (2026-01-18 02:31:34) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local purge option + docs.
+Derniere mise a jour (2026-01-18 02:26:14) : Messagequeue/MessageQueue IN_PROGRESS : doc e2e_local + runbook.
+Derniere mise a jour (2026-01-18 02:22:53) : Messagequeue/MessageQueue IN_PROGRESS : ajout e2e_local script + docs.
+Derniere mise a jour (2026-01-18 02:17:50) : Messagequeue/MessageQueue IN_PROGRESS : test_validate_payload --json + docs.
+Derniere mise a jour (2026-01-18 02:11:42) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_rabbitmq/create_bindings --json + docs.
+Derniere mise a jour (2026-01-18 02:06:22) : Messagequeue/MessageQueue IN_PROGRESS : post_sample --json + docs.
+Derniere mise a jour (2026-01-18 02:01:00) : Messagequeue/MessageQueue IN_PROGRESS : fix post_sample extra fi.
+Derniere mise a jour (2026-01-18 01:56:47) : Messagequeue/MessageQueue IN_PROGRESS : validate_payload --json + docs.
+Derniere mise a jour (2026-01-18 01:51:58) : Messagequeue/MessageQueue IN_PROGRESS : smoke_local --json + docs.
+Derniere mise a jour (2026-01-18 01:46:27) : Messagequeue/MessageQueue IN_PROGRESS : consume_test_message --json + docs.
+Derniere mise a jour (2026-01-18 01:42:32) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message/publish_sample_keys --json + docs.
+Derniere mise a jour (2026-01-18 01:37:36) : Messagequeue/MessageQueue IN_PROGRESS : test_routing/test_routing_matrix --json + docs.
+Derniere mise a jour (2026-01-18 01:31:57) : Messagequeue/MessageQueue IN_PROGRESS : doctor --json + docs.
+Derniere mise a jour (2026-01-18 01:26:47) : Messagequeue/MessageQueue IN_PROGRESS : run_checks --json + docs.
+Derniere mise a jour (2026-01-18 01:21:39) : Messagequeue/MessageQueue IN_PROGRESS : check_prereqs --json + docs.
+Derniere mise a jour (2026-01-18 01:16:14) : Messagequeue/MessageQueue IN_PROGRESS : wait_rabbitmq --json + docs.
+Derniere mise a jour (2026-01-18 01:11:29) : Messagequeue/MessageQueue IN_PROGRESS : check_rabbitmq --json + docs.
+Derniere mise a jour (2026-01-18 01:06:48) : Messagequeue/MessageQueue IN_PROGRESS : status_report --json + docs.
+Derniere mise a jour (2026-01-18 01:01:38) : Messagequeue/MessageQueue IN_PROGRESS : list_exchanges/list_bindings --json + docs.
+Derniere mise a jour (2026-01-18 00:57:10) : Messagequeue/MessageQueue IN_PROGRESS : list_queues/count_queue_messages --json + docs.
+Derniere mise a jour (2026-01-18 00:51:57) : Messagequeue/MessageQueue IN_PROGRESS : validate_rabbitmq --json + docs.
+Derniere mise a jour (2026-01-18 00:47:07) : Messagequeue/MessageQueue IN_PROGRESS : validate_rabbitmq --silent + docs.
+Derniere mise a jour (2026-01-18 00:41:33) : Messagequeue/MessageQueue IN_PROGRESS : create_bindings --silent.
+Derniere mise a jour (2026-01-18 00:36:24) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_rabbitmq --silent.
+Derniere mise a jour (2026-01-18 00:31:23) : Messagequeue/MessageQueue IN_PROGRESS : wait_rabbitmq --silent.
+Derniere mise a jour (2026-01-18 00:26:19) : Messagequeue/MessageQueue IN_PROGRESS : check_rabbitmq --silent.
+Derniere mise a jour (2026-01-18 00:21:40) : Messagequeue/MessageQueue IN_PROGRESS : check_prereqs --silent.
+Derniere mise a jour (2026-01-18 00:16:05) : Messagequeue/MessageQueue IN_PROGRESS : list_bindings --silent.
+Derniere mise a jour (2026-01-18 00:11:18) : Messagequeue/MessageQueue IN_PROGRESS : list_exchanges --silent.
+Derniere mise a jour (2026-01-18 00:06:31) : Messagequeue/MessageQueue IN_PROGRESS : list_queues --silent.
+Derniere mise a jour (2026-01-18 00:01:28) : Messagequeue/MessageQueue IN_PROGRESS : count_queue_messages --silent.
+Derniere mise a jour (2026-01-17 23:56:33) : Messagequeue/MessageQueue IN_PROGRESS : status_report --silent.
+Derniere mise a jour (2026-01-17 23:51:34) : Messagequeue/MessageQueue IN_PROGRESS : doctor --silent.
+Derniere mise a jour (2026-01-17 23:46:33) : Messagequeue/MessageQueue IN_PROGRESS : smoke_local --silent.
+Derniere mise a jour (2026-01-17 23:41:25) : Messagequeue/MessageQueue IN_PROGRESS : test_routing --silent.
+Derniere mise a jour (2026-01-17 23:36:20) : Messagequeue/MessageQueue IN_PROGRESS : test_routing_matrix --silent.
+Derniere mise a jour (2026-01-17 23:30:56) : Messagequeue/MessageQueue IN_PROGRESS : maj todo_next.
+Derniere mise a jour (2026-01-17 23:25:54) : Messagequeue/MessageQueue IN_PROGRESS : doc local_usage OUTPUT=status.
+Derniere mise a jour (2026-01-17 23:21:14) : Messagequeue/MessageQueue IN_PROGRESS : post_sample OUTPUT status.
+Derniere mise a jour (2026-01-17 23:15:56) : Messagequeue/MessageQueue IN_PROGRESS : doc local_usage post_sample.
+Derniere mise a jour (2026-01-17 23:10:55) : Messagequeue/MessageQueue IN_PROGRESS : doc run_checks --silent usage.
+Derniere mise a jour (2026-01-17 23:06:06) : Messagequeue/MessageQueue IN_PROGRESS : run_checks --silent.
+Derniere mise a jour (2026-01-17 23:01:39) : Messagequeue/MessageQueue IN_PROGRESS : consume_test_message --silent + flags.
+Derniere mise a jour (2026-01-17 22:56:33) : Messagequeue/MessageQueue IN_PROGRESS : publish_sample_keys flags + payload.
+Derniere mise a jour (2026-01-17 22:51:11) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message --silent + flags.
+Derniere mise a jour (2026-01-17 22:45:44) : Messagequeue/MessageQueue IN_PROGRESS : post_sample refuse flags inconnus.
+Derniere mise a jour (2026-01-17 22:41:12) : Messagequeue/MessageQueue IN_PROGRESS : post_sample supporte --silent.
+Derniere mise a jour (2026-01-17 22:36:07) : Messagequeue/MessageQueue IN_PROGRESS : post_sample --help OUTPUT pretty.
+Derniere mise a jour (2026-01-17 22:30:57) : Messagequeue/MessageQueue IN_PROGRESS : doc endpoint grantType routing key.
+Derniere mise a jour (2026-01-17 22:25:52) : Messagequeue/MessageQueue IN_PROGRESS : validation grantType avant publish.
+Derniere mise a jour (2026-01-17 22:21:08) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message STRICT_GRANT_TYPE.
+Derniere mise a jour (2026-01-17 22:15:47) : Messagequeue/MessageQueue IN_PROGRESS : test producer grantType segment vide.
+Derniere mise a jour (2026-01-17 22:10:50) : Messagequeue/MessageQueue IN_PROGRESS : test_validate_payload grantType segment vide.
+Derniere mise a jour (2026-01-17 22:05:50) : Messagequeue/MessageQueue IN_PROGRESS : doc tests_producer grantType format.
+Derniere mise a jour (2026-01-17 22:01:24) : Messagequeue/MessageQueue IN_PROGRESS : producer valide format grantType.
+Derniere mise a jour (2026-01-17 21:55:52) : Messagequeue/MessageQueue IN_PROGRESS : doc smoke_local routing key derive.
+Derniere mise a jour (2026-01-17 21:51:01) : Messagequeue/MessageQueue IN_PROGRESS : smoke_local derive routing key via payload.
+Derniere mise a jour (2026-01-17 21:45:58) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message supporte --help.
+Derniere mise a jour (2026-01-17 21:40:58) : Messagequeue/MessageQueue IN_PROGRESS : consume_test_message OUTPUT pretty.
+Derniere mise a jour (2026-01-17 21:35:58) : Messagequeue/MessageQueue IN_PROGRESS : consume_test_message supporte --help.
+Derniere mise a jour (2026-01-17 21:31:12) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message derive routing key du payload.
+Derniere mise a jour (2026-01-17 21:26:06) : Messagequeue/MessageQueue IN_PROGRESS : run_checks accepte plusieurs flags.
+Derniere mise a jour (2026-01-17 21:20:44) : Messagequeue/MessageQueue IN_PROGRESS : doc publish_test_message metadata grantType.
+Derniere mise a jour (2026-01-17 21:15:46) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message force grantType metadata.
+Derniere mise a jour (2026-01-17 21:11:07) : Messagequeue/MessageQueue IN_PROGRESS : doctor lance test_validate_payload.
+Derniere mise a jour (2026-01-17 21:06:08) : Messagequeue/MessageQueue IN_PROGRESS : script test_validate_payload ajoute.
+Derniere mise a jour (2026-01-17 21:01:18) : Messagequeue/MessageQueue IN_PROGRESS : validate_payload impose grantType routing key.
+Derniere mise a jour (2026-01-17 20:55:53) : Messagequeue/MessageQueue IN_PROGRESS : doc routing keys lie grantType payload.
+Derniere mise a jour (2026-01-17 20:51:31) : Messagequeue/MessageQueue IN_PROGRESS : schema + sample grantType routing key.
 Derniere mise a jour (2026-01-17 02:25:00) : CPP/CPP_Module_05 DONE : cloture apres tests OK.
 Derniere mise a jour (2026-01-17 02:21:10) : CPP/CPP_Module_05 IN_PROGRESS : ajout tests smoke ex00-ex03 + run_tests OK.
 Derniere mise a jour (2026-01-17 02:34:00) : C/Libasm WAITING : nasm manquant.
@@ -674,3 +947,260 @@ Derniere mise a jour (2026-01-17 15:25:59) : Messagequeue/MessageQueue IN_PROGRE
 Derniere mise a jour (2026-01-17 15:30:59) : Messagequeue/MessageQueue IN_PROGRESS : ajout script readme_toc.
 Derniere mise a jour (2026-01-17 15:35:28) : Messagequeue/MessageQueue IN_PROGRESS : doc usage local (sommaire README).
 Derniere mise a jour (2026-01-17 15:40:46) : Messagequeue/MessageQueue IN_PROGRESS : ajout docs_index.
+Derniere mise a jour (2026-01-17 15:46:23) : Messagequeue/MessageQueue IN_PROGRESS : DummyPdfGenerator resolve script path.
+Derniere mise a jour (2026-01-17 15:51:24) : Messagequeue/MessageQueue IN_PROGRESS : harmonisation DummyPdfGenerator.
+Derniere mise a jour (2026-01-17 15:55:28) : Messagequeue/MessageQueue IN_PROGRESS : doc tests_consumers (script).
+Derniere mise a jour (2026-01-17 16:00:50) : Messagequeue/MessageQueue IN_PROGRESS : ajout module_status.
+Derniere mise a jour (2026-01-17 16:05:41) : Messagequeue/MessageQueue IN_PROGRESS : doc ports.
+Derniere mise a jour (2026-01-17 16:10:34) : Messagequeue/MessageQueue IN_PROGRESS : producer declare exchanges.
+Derniere mise a jour (2026-01-17 16:15:49) : Messagequeue/MessageQueue IN_PROGRESS : producer exchanges configurables.
+Derniere mise a jour (2026-01-17 16:20:37) : Messagequeue/MessageQueue IN_PROGRESS : test config exchanges.
+Derniere mise a jour (2026-01-17 16:26:19) : Messagequeue/MessageQueue IN_PROGRESS : extraction ExchangeNames.
+Derniere mise a jour (2026-01-17 16:30:31) : Messagequeue/MessageQueue IN_PROGRESS : doc ExchangeNames producer.
+Derniere mise a jour (2026-01-17 16:35:41) : Messagequeue/MessageQueue IN_PROGRESS : test routing par defaut (grantType absent).
+Derniere mise a jour (2026-01-17 16:40:46) : Messagequeue/MessageQueue IN_PROGRESS : ajout api_contract.
+Derniere mise a jour (2026-01-17 16:45:41) : Messagequeue/MessageQueue IN_PROGRESS : exemple curl API contract.
+Derniere mise a jour (2026-01-17 16:50:46) : Messagequeue/MessageQueue IN_PROGRESS : test validation email vide.
+Derniere mise a jour (2026-01-17 16:55:29) : Messagequeue/MessageQueue IN_PROGRESS : doc tests producer (couverture).
+Derniere mise a jour (2026-01-17 17:00:48) : Messagequeue/MessageQueue IN_PROGRESS : ajout tests_summary.
+Derniere mise a jour (2026-01-17 17:05:40) : Messagequeue/MessageQueue IN_PROGRESS : docs_index tests_summary.
+Derniere mise a jour (2026-01-17 17:10:31) : Messagequeue/MessageQueue IN_PROGRESS : note Maven tests_summary.
+Derniere mise a jour (2026-01-17 17:16:20) : Messagequeue/MessageQueue IN_PROGRESS : ajout script append_log.
+Derniere mise a jour (2026-01-17 17:20:32) : Messagequeue/MessageQueue IN_PROGRESS : doc usage local (append_log).
+Derniere mise a jour (2026-01-17 17:25:30) : Messagequeue/MessageQueue IN_PROGRESS : ajout doc logging.
+Derniere mise a jour (2026-01-17 17:30:45) : Messagequeue/MessageQueue IN_PROGRESS : ajout security_notes.
+Derniere mise a jour (2026-01-17 17:42:33) : Messagequeue/MessageQueue IN_PROGRESS : bindings queues/exchanges consumers.
+Derniere mise a jour (2026-01-17 17:44:47) : Messagequeue/MessageQueue IN_PROGRESS : script create_bindings.
+Derniere mise a jour (2026-01-17 17:46:04) : Messagequeue/MessageQueue IN_PROGRESS : validate_rabbitmq aligne routing keys.
+Derniere mise a jour (2026-01-17 17:50:41) : Messagequeue/MessageQueue IN_PROGRESS : usage local create_bindings.
+Derniere mise a jour (2026-01-17 17:55:45) : Messagequeue/MessageQueue IN_PROGRESS : doctor hint create_bindings.
+Derniere mise a jour (2026-01-17 18:01:03) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_rabbitmq aligne routing keys.
+Derniere mise a jour (2026-01-17 18:06:50) : Messagequeue/MessageQueue IN_PROGRESS : test_routing scripts env.
+Derniere mise a jour (2026-01-17 18:11:04) : Messagequeue/MessageQueue IN_PROGRESS : test_routing_matrix ROUTING_KEYS.
+Derniere mise a jour (2026-01-17 18:15:42) : Messagequeue/MessageQueue IN_PROGRESS : doc ROUTING_KEYS test_routing_matrix.
+Derniere mise a jour (2026-01-17 18:20:48) : Messagequeue/MessageQueue IN_PROGRESS : smoke_local env queues.
+Derniere mise a jour (2026-01-17 18:26:15) : Messagequeue/MessageQueue IN_PROGRESS : count_queue_messages QUEUES.
+Derniere mise a jour (2026-01-17 18:31:11) : Messagequeue/MessageQueue IN_PROGRESS : filtres list_exchanges/list_bindings.
+Derniere mise a jour (2026-01-17 18:36:23) : Messagequeue/MessageQueue IN_PROGRESS : status_report filtres env.
+Derniere mise a jour (2026-01-17 18:40:51) : Messagequeue/MessageQueue IN_PROGRESS : list_queues filtre QUEUES.
+Derniere mise a jour (2026-01-17 18:45:46) : Messagequeue/MessageQueue IN_PROGRESS : run_modules scripts.
+Derniere mise a jour (2026-01-17 18:50:38) : Messagequeue/MessageQueue IN_PROGRESS : runbook local create_bindings.
+Derniere mise a jour (2026-01-17 18:55:41) : Messagequeue/MessageQueue IN_PROGRESS : status_report affiche filtres.
+Derniere mise a jour (2026-01-17 19:00:51) : Messagequeue/MessageQueue IN_PROGRESS : usage local status_report filtre.
+Derniere mise a jour (2026-01-17 19:06:11) : Messagequeue/MessageQueue IN_PROGRESS : publish_sample_keys ROUTING_KEYS.
+Derniere mise a jour (2026-01-17 19:10:45) : Messagequeue/MessageQueue IN_PROGRESS : doc override ROUTING_KEYS publish_sample_keys.
+Derniere mise a jour (2026-01-17 19:15:53) : Messagequeue/MessageQueue IN_PROGRESS : publish_sample_keys GRANT_EXCHANGE env.
+Derniere mise a jour (2026-01-17 19:20:40) : Messagequeue/MessageQueue IN_PROGRESS : README producer run_producer.
+Derniere mise a jour (2026-01-17 19:25:43) : Messagequeue/MessageQueue IN_PROGRESS : runbook local run_producer/run_consumer.
+Derniere mise a jour (2026-01-17 19:30:57) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer --list.
+Derniere mise a jour (2026-01-17 19:36:00) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers --list.
+Derniere mise a jour (2026-01-17 19:41:24) : Messagequeue/MessageQueue IN_PROGRESS : build_modules MODULES/--list.
+Derniere mise a jour (2026-01-17 19:45:55) : Messagequeue/MessageQueue IN_PROGRESS : test_producer --list.
+Derniere mise a jour (2026-01-17 19:51:06) : Messagequeue/MessageQueue IN_PROGRESS : doc readme_toc FILE env.
+Derniere mise a jour (2026-01-17 19:55:45) : Messagequeue/MessageQueue IN_PROGRESS : docs_index complete docs recentes.
+Derniere mise a jour (2026-01-17 20:01:05) : Messagequeue/MessageQueue IN_PROGRESS : check_prereqs SKIP_DOCKER/SKIP_MVN.
+Derniere mise a jour (2026-01-17 20:06:27) : Messagequeue/MessageQueue IN_PROGRESS : PDF_DISABLED dummy PDF.
+Derniere mise a jour (2026-01-17 20:12:23) : Messagequeue/MessageQueue IN_PROGRESS : tests pdf.disabled.
+Derniere mise a jour (2026-01-17 20:16:09) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers MODULES.
+Derniere mise a jour (2026-01-17 20:20:55) : Messagequeue/MessageQueue IN_PROGRESS : usage local ROUTING_KEYS.
+Derniere mise a jour (2026-01-17 20:25:49) : Messagequeue/MessageQueue IN_PROGRESS : doc pdf.disabled system property.
+Derniere mise a jour (2026-01-17 20:30:50) : Messagequeue/MessageQueue IN_PROGRESS : doc PDF_DISABLED consumers/tests.
+Derniere mise a jour (2026-01-17 20:36:10) : Messagequeue/MessageQueue IN_PROGRESS : run_checks --skip-routing.
+Derniere mise a jour (2026-01-17 20:41:08) : Messagequeue/MessageQueue IN_PROGRESS : run_checks --skip-doctor.
+Derniere mise a jour (2026-01-17 20:47:43) : Messagequeue/MessageQueue IN_PROGRESS : grantType requis + tests/docs.
+Derniere mise a jour (2026-01-18 13:58:09) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local refuse DOC_TYPE avec point.
+Derniere mise a jour (2026-01-18 14:01:25) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejette PAYLOAD_FILE dossier.
+Derniere mise a jour (2026-01-18 14:06:30) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte PAYLOAD_FILE relatif.
+Derniere mise a jour (2026-01-18 14:11:22) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejette COUNT decimal.
+Derniere mise a jour (2026-01-18 14:16:22) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejette INDEX decimal.
+Derniere mise a jour (2026-01-18 14:21:29) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte EXCHANGE avec point.
+Derniere mise a jour (2026-01-18 14:26:38) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte ROUTING_KEY avec point sur GRANT_EXCHANGE.
+Derniere mise a jour (2026-01-18 14:31:24) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte ROUTING_KEY avec tiret sur GRANT_EXCHANGE.
+Derniere mise a jour (2026-01-18 14:36:31) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local valide OUTPUT=all COUNT=2 INDEX=0.
+Derniere mise a jour (2026-01-18 14:41:27) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte ROUTING_KEY avec underscore sur GRANT_EXCHANGE.
+Derniere mise a jour (2026-01-18 14:46:44) : Messagequeue/MessageQueue IN_PROGRESS : PDF_OUTPUT_DIR doit etre absolu (test + validation).
+Derniere mise a jour (2026-01-18 14:51:44) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte QUEUE avec point/underscore.
+Derniere mise a jour (2026-01-18 14:56:37) : Messagequeue/MessageQueue IN_PROGRESS : DOC_TYPE accepte le point (validation + tests).
+Derniere mise a jour (2026-01-18 15:03:28) : Messagequeue/MessageQueue IN_PROGRESS : e2e_local derive ROUTING_KEY grantType du payload.
+Derniere mise a jour (2026-01-18 15:06:44) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local default ROUTING_KEY sans grantType.
+Derniere mise a jour (2026-01-18 15:11:58) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local valide DOC_TYPE point en JSON.
+Derniere mise a jour (2026-01-18 15:16:28) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejette PDF_OUTPUT_DIR absent.
+Derniere mise a jour (2026-01-18 15:21:27) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte OUTPUT vide (default).
+Derniere mise a jour (2026-01-18 15:26:54) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local derive routing_key grantType custom.
+Derniere mise a jour (2026-01-18 15:31:44) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte EXCHANGE avec underscore.
+Derniere mise a jour (2026-01-18 15:36:31) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte ACK_MODE ack_requeue_true.
+Derniere mise a jour (2026-01-18 15:41:30) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte PURGE_QUEUE=1.
+Derniere mise a jour (2026-01-18 15:46:31) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte VALIDATE_PAYLOAD=0.
+Derniere mise a jour (2026-01-18 15:51:31) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte CHECK_RABBITMQ=0.
+Derniere mise a jour (2026-01-18 15:56:30) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte DOC_TYPE longueur 255.
+Derniere mise a jour (2026-01-18 16:01:33) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte QUEUE longueur 255.
+Derniere mise a jour (2026-01-18 16:06:31) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte EXCHANGE longueur 255.
+Derniere mise a jour (2026-01-18 16:11:30) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte ROUTING_KEY longueur 255.
+Derniere mise a jour (2026-01-18 16:16:33) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte PDF_OUTPUT_DIR writable.
+Derniere mise a jour (2026-01-18 16:21:32) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte OUTPUT=single.
+Derniere mise a jour (2026-01-18 16:26:31) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte COUNT=1 INDEX=0 OUTPUT=single.
+Derniere mise a jour (2026-01-18 16:31:36) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte COUNT=2 INDEX=1 OUTPUT=single.
+Derniere mise a jour (2026-01-18 16:36:48) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte COUNT avec zeros en tete.
+Derniere mise a jour (2026-01-18 16:41:34) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte INDEX avec zeros en tete.
+Derniere mise a jour (2026-01-18 16:46:42) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte QUEUE avec tiret.
+Derniere mise a jour (2026-01-18 16:51:37) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte EXCHANGE avec tiret.
+Derniere mise a jour (2026-01-18 16:56:37) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte ROUTING_KEY mixte.
+Derniere mise a jour (2026-01-18 17:01:39) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local valide DOC_TYPE mixte.
+Derniere mise a jour (2026-01-18 17:06:37) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte ROUTING_KEY point/underscore/tiret.
+Derniere mise a jour (2026-01-18 17:11:39) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte ROUTING_KEY vide pour SOCIAL_ASSISTANCE_EXCHANGE.
+Derniere mise a jour (2026-01-18 17:16:41) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local rejette OUTPUT=all INDEX=1.
+Derniere mise a jour (2026-01-18 17:21:37) : Messagequeue/MessageQueue IN_PROGRESS : test_e2e_local accepte COUNT=3 INDEX=0 OUTPUT=single.
+Derniere mise a jour (2026-01-18 17:28:03) : Messagequeue/MessageQueue IN_PROGRESS : ajout PROJECTS_OVERVIEW.md a la racine.
+Derniere mise a jour (2026-01-18 17:30:35) : Messagequeue/MessageQueue IN_PROGRESS : PROJECTS_OVERVIEW.md detaille en francais.
+Derniere mise a jour (2026-01-18 19:48:37) : Messagequeue/MessageQueue IN_PROGRESS : ajout section lecture dans PROJECTS_OVERVIEW.md.
+Derniere mise a jour (2026-01-18 19:49:17) : Messagequeue/MessageQueue IN_PROGRESS : ajout section Conventions dans PROJECTS_OVERVIEW.md.
+Derniere mise a jour (2026-01-18 19:50:12) : Messagequeue/MessageQueue IN_PROGRESS : ajout section Glossaire dans PROJECTS_OVERVIEW.md.
+Derniere mise a jour (2026-01-18 19:53:58) : Messagequeue/MessageQueue IN_PROGRESS : ajout section Utilisation du panorama dans PROJECTS_OVERVIEW.md.
+Derniere mise a jour (2026-01-18 19:58:58) : Messagequeue/MessageQueue IN_PROGRESS : ajout section Structure du depot dans PROJECTS_OVERVIEW.md.
+Derniere mise a jour (2026-01-18 20:03:59) : Messagequeue/MessageQueue IN_PROGRESS : ajout section Comment verifier dans PROJECTS_OVERVIEW.md.
+Derniere mise a jour (2026-01-18 20:08:32) : ajout --dry-run + tests pour publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 20:09:47) : doctor integre tests publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 20:14:06) : doc usage publish_test_message --dry-run (MessageQueue).
+Derniere mise a jour (2026-01-18 20:19:49) : test_publish_test_message supporte --json (MessageQueue).
+Derniere mise a jour (2026-01-18 20:24:11) : test_publish_test_message --json n'affiche que du JSON (MessageQueue).
+Derniere mise a jour (2026-01-18 20:29:18) : test_publish_test_message --json supprime la ligne ok (MessageQueue).
+Derniere mise a jour (2026-01-18 20:34:10) : doc doctor --json mentionne publish_tests (MessageQueue).
+Derniere mise a jour (2026-01-18 20:39:09) : test_matrix mentionne test_publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 20:44:07) : runbook mentionne publish_test_message --dry-run (MessageQueue).
+Derniere mise a jour (2026-01-18 20:49:13) : quickstart inclut publish_test_message --dry-run (MessageQueue).
+Derniere mise a jour (2026-01-18 20:54:08) : docs_index reference quickstart (MessageQueue).
+Derniere mise a jour (2026-01-18 20:59:12) : troubleshooting_env mentionne doctor --json (MessageQueue).
+Derniere mise a jour (2026-01-18 21:04:26) : tests publish_test_message couvrent payload illisible/dossier (MessageQueue).
+Derniere mise a jour (2026-01-18 21:09:07) : tests_summary detaille erreurs payload publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 21:14:18) : publish_test_message verifie payload lisible/dossier (MessageQueue).
+Derniere mise a jour (2026-01-18 21:19:07) : script_env precise PAYLOAD_FILE lisible (MessageQueue).
+Derniere mise a jour (2026-01-18 21:25:20) : publish_test_message valide exchange/routing key + tests (MessageQueue).
+Derniere mise a jour (2026-01-18 21:29:23) : tests publish_test_message couvrent longueurs exchange/routing key (MessageQueue).
+Derniere mise a jour (2026-01-18 21:34:05) : tests_summary mentionne longueurs invalides publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 21:39:04) : test_matrix mentionne longueurs exchange/routing key (MessageQueue).
+Derniere mise a jour (2026-01-18 21:44:35) : help publish_test_message enrichi + test help (MessageQueue).
+Derniere mise a jour (2026-01-18 21:49:05) : tests_summary mentionne test help publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 21:55:31) : tests publish_test_message couvrent CONTENT_TYPE trop long (MessageQueue).
+Derniere mise a jour (2026-01-18 21:59:38) : publish_test_message valide MESSAGE_ID trop long + tests (MessageQueue).
+Derniere mise a jour (2026-01-18 22:04:10) : test_matrix mentionne MESSAGE_ID trop long (MessageQueue).
+Derniere mise a jour (2026-01-18 22:09:06) : tests_summary mentionne content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-18 22:14:15) : troubleshooting_env couvre erreurs publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 22:19:10) : test_tools mentionne validations publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 22:24:22) : e2e_local mentionne content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-18 22:29:13) : local_usage montre MESSAGE_ID/CONTENT_TYPE override (MessageQueue).
+Derniere mise a jour (2026-01-18 22:34:10) : scripts_overview mentionne validations publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 22:39:58) : test_publish_test_message verifie message_id non vide (MessageQueue).
+Derniere mise a jour (2026-01-18 22:44:07) : tests_summary mentionne message_id non vide (MessageQueue).
+Derniere mise a jour (2026-01-18 22:49:07) : test_matrix mentionne MESSAGE_ID vide/trop long (MessageQueue).
+Derniere mise a jour (2026-01-18 22:54:41) : publish_test_message refuse MESSAGE_ID avec espaces + tests (MessageQueue).
+Derniere mise a jour (2026-01-18 22:59:10) : tests_summary mentionne message_id sans espaces (MessageQueue).
+Derniere mise a jour (2026-01-18 23:04:09) : test_matrix mentionne MESSAGE_ID avec espaces (MessageQueue).
+Derniere mise a jour (2026-01-18 23:09:11) : test_tools mentionne message_id sans espaces (MessageQueue).
+Derniere mise a jour (2026-01-18 23:14:12) : local_usage rappelle message_id sans espaces (MessageQueue).
+Derniere mise a jour (2026-01-18 23:20:08) : publish_test_message refuse CONTENT_TYPE espaces + tests (MessageQueue).
+Derniere mise a jour (2026-01-18 23:24:11) : tests_summary mentionne content_type non blanc (MessageQueue).
+Derniere mise a jour (2026-01-18 23:29:11) : test_matrix mentionne CONTENT_TYPE blanc (MessageQueue).
+Derniere mise a jour (2026-01-18 23:34:11) : runbook rappelle contraintes message_id/content_type (MessageQueue).
+Derniere mise a jour (2026-01-18 23:39:35) : help publish_test_message mentionne message_id/content_type (MessageQueue).
+Derniere mise a jour (2026-01-18 23:44:11) : tests_summary mentionne help detaille publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-18 23:49:15) : test_tools mentionne content_type blanc et message_id avec espaces (MessageQueue).
+Derniere mise a jour (2026-01-18 23:55:17) : test_publish_test_message couvre CONTENT_TYPE vide (MessageQueue).
+Derniere mise a jour (2026-01-18 23:59:14) : tests_summary mentionne content_type vide/blanc (MessageQueue).
+Derniere mise a jour (2026-01-19 00:04:17) : test_matrix mentionne CONTENT_TYPE vide (MessageQueue).
+Derniere mise a jour (2026-01-19 00:09:15) : test_tools mentionne content_type vide/blanc (MessageQueue).
+Derniere mise a jour (2026-01-19 00:14:23) : test_publish_test_message couvre MESSAGE_ID vide (MessageQueue).
+Derniere mise a jour (2026-01-19 00:19:11) : test_tools mentionne message_id vide (MessageQueue).
+Derniere mise a jour (2026-01-19 00:24:12) : tests_summary mentionne message_id vide/espaces (MessageQueue).
+Derniere mise a jour (2026-01-19 00:29:42) : test_tools detaille tests content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 00:34:39) : tests_summary note champs JSON empty_message_id/whitespace_content_type (MessageQueue).
+Derniere mise a jour (2026-01-19 00:39:14) : scripts_overview detaille tests content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 00:44:15) : scripts_overview note champs JSON empty_message_id/whitespace_content_type (MessageQueue).
+Derniere mise a jour (2026-01-19 00:49:21) : test_publish_test_message exige champs JSON empty_message_id/whitespace_content_type (MessageQueue).
+Derniere mise a jour (2026-01-19 00:54:14) : test_matrix note champs JSON empty_message_id/whitespace_content_type (MessageQueue).
+Derniere mise a jour (2026-01-19 00:59:12) : test_tools note champs JSON empty_message_id/whitespace_content_type (MessageQueue).
+Derniere mise a jour (2026-01-19 01:04:19) : corrige champs requis JSON publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-19 01:10:23) : tests maj defaults message_id/content_type + test ok (MessageQueue).
+Derniere mise a jour (2026-01-19 01:14:19) : script_env clarifie defaults content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 01:19:14) : troubleshooting_env clarifie defaults content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 01:24:18) : local_runbook clarifie defaults content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 01:29:33) : local_usage note defaults message_id/content_type (MessageQueue).
+Derniere mise a jour (2026-01-19 01:34:17) : e2e_local clarifie defaults content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 01:39:24) : quickstart note defaults content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 01:44:36) : troubleshooting rappelle defaults content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 01:49:20) : scripts_overview note defaults publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-19 01:54:37) : test_publish_test_message couvre content_type whitespace tab (MessageQueue).
+Derniere mise a jour (2026-01-19 01:59:19) : test_publish_test_message --json ok apres whitespace tab (MessageQueue).
+Derniere mise a jour (2026-01-19 02:04:14) : test_matrix mentionne content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:09:26) : tests_summary mentionne content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:14:28) : docs mentionnent content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:19:16) : quickstart precise content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:24:14) : local_usage precise content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:29:15) : e2e_local precise content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:34:15) : script_env precise content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:39:14) : troubleshooting_env precise content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:44:14) : local_runbook precise content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:49:21) : troubleshooting precise content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 02:54:27) : test_tools precise content_type blanc espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:00:03) : test_publish_test_message verifie message_id tab + docs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:04:16) : script_env precise message_id sans espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:09:19) : troubleshooting_env precise message_id sans espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:14:18) : local_runbook precise message_id sans espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:19:17) : local_usage precise message_id sans espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:24:17) : quickstart precise message_id sans espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:29:17) : troubleshooting precise message_id sans espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:34:22) : e2e_local precise message_id sans espaces/tabs (MessageQueue).
+Derniere mise a jour (2026-01-19 03:39:35) : test_publish_test_message couvre content_type whitespace newline (MessageQueue).
+Derniere mise a jour (2026-01-19 03:44:43) : docs precisent content_type blanc espaces/tabs/newlines (MessageQueue).
+Derniere mise a jour (2026-01-19 03:49:53) : docs precisent content_type blanc espaces/tabs/newlines partout (MessageQueue).
+Derniere mise a jour (2026-01-19 03:54:33) : test_publish_test_message couvre message_id whitespace newline (MessageQueue).
+Derniere mise a jour (2026-01-19 03:59:41) : docs precisent message_id espaces/tabs/newlines (MessageQueue).
+Derniere mise a jour (2026-01-19 04:04:58) : docs precisent message_id sans espaces/tabs/newlines (MessageQueue).
+Derniere mise a jour (2026-01-19 04:09:33) : scripts_overview detaille refus content_type/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 04:14:30) : local_runbook/local_usage mentionnent message_id newlines (MessageQueue).
+Derniere mise a jour (2026-01-19 04:19:39) : troubleshooting_env ajoute mention whitespace (MessageQueue).
+Derniere mise a jour (2026-01-19 04:24:28) : local_usage mentionne message_id sans espaces/tabs/newlines (MessageQueue).
+Derniere mise a jour (2026-01-19 04:31:19) : PROJETS_EXPLICATIONS.md etendu avec lignes 11-16 par projet.
+Derniere mise a jour (2026-01-19 04:35:36) : publish_test_message refuse JSON invalide + test associe (MessageQueue).
+Derniere mise a jour (2026-01-19 04:39:48) : docs tests_* mentionnent payload JSON invalide (MessageQueue).
+Derniere mise a jour (2026-01-19 04:44:39) : troubleshooting mentionne payload JSON invalide (MessageQueue).
+Derniere mise a jour (2026-01-19 04:49:36) : local_usage mentionne erreur JSON invalide (MessageQueue).
+Derniere mise a jour (2026-01-19 04:54:27) : script_env mentionne JSON valide pour publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-19 04:59:30) : quickstart note JSON invalide pour publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-19 05:04:49) : test_publish_test_message verifie message erreur JSON invalide (MessageQueue).
+Derniere mise a jour (2026-01-19 05:09:30) : troubleshooting_env ajoute JSON invalide publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-19 05:14:29) : local_runbook note JSON invalide publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-19 05:19:41) : help publish_test_message mentionne JSON valide + test (MessageQueue).
+Derniere mise a jour (2026-01-19 05:24:29) : tests_summary detaille message erreur JSON invalide (MessageQueue).
+Derniere mise a jour (2026-01-19 05:29:25) : troubleshooting_env precise message JSON invalide (MessageQueue).
+Derniere mise a jour (2026-01-19 05:34:28) : http_endpoints mentionne JSON invalide pour POST /students (MessageQueue).
+Derniere mise a jour (2026-01-19 05:39:29) : e2e_local precise PAYLOAD_FILE JSON valide (MessageQueue).
+Derniere mise a jour (2026-01-19 05:44:37) : test_publish_test_message verifie chemin JSON invalide (MessageQueue).
+Derniere mise a jour (2026-01-19 05:50:21) : publish_test_message JSON error en mode --json + test (MessageQueue).
+Derniere mise a jour (2026-01-19 05:54:25) : scripts_overview mentionne sortie JSON d'erreur (MessageQueue).
+Derniere mise a jour (2026-01-19 05:59:22) : test_matrix mentionne JSON erreur publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-19 06:04:24) : test_tools mentionne sortie JSON d'erreur (MessageQueue).
+Derniere mise a jour (2026-01-19 06:09:28) : tests_summary precise status=error JSON invalide (MessageQueue).
+Derniere mise a jour (2026-01-19 06:15:37) : publish_test_message JSON error payload manquant + docs/tests (MessageQueue).
+Derniere mise a jour (2026-01-19 06:20:42) : erreurs JSON en --json pour validations publish_test_message (MessageQueue).
+Derniere mise a jour (2026-01-19 06:24:49) : test_publish_test_message JSON erreur content_type trop long (MessageQueue).
+Derniere mise a jour (2026-01-19 06:30:15) : tests JSON erreurs longueurs exchange/routing/message_id (MessageQueue).
+Derniere mise a jour (2026-01-19 06:34:23) : test_matrix mentionne erreurs JSON longueurs (MessageQueue).
+Derniere mise a jour (2026-01-19 06:39:25) : script_env mentionne erreurs JSON en --json (MessageQueue).
+Derniere mise a jour (2026-01-19 06:44:36) : README MessageQueue mentionne erreurs JSON en --json.
+Derniere mise a jour (2026-01-19 06:49:54) : help mentionne status=error en --json + test (MessageQueue).
+Derniere mise a jour (2026-01-19 06:54:27) : local_usage mentionne status=error en --json (MessageQueue).
+Derniere mise a jour (2026-01-19 06:59:26) : local_runbook mentionne status=error en --json (MessageQueue).
+Derniere mise a jour (2026-01-19 07:04:24) : quickstart mentionne status=error en --json (MessageQueue).
+Derniere mise a jour (2026-01-19 07:09:27) : http_endpoints mentionne status=error pour POST /students (MessageQueue).
+Derniere mise a jour (2026-01-19 07:14:24) : troubleshooting mentionne status=error en --json (MessageQueue).
+Derniere mise a jour (2026-01-19 07:20:46) : publish_test_message JSON erreurs payload directory+readable + tests (MessageQueue).
+Derniere mise a jour (2026-01-19 07:24:46) : docs test_matrix/tests_summary ajoutent erreurs JSON payload (MessageQueue).
+Derniere mise a jour (2026-01-19 07:29:28) : troubleshooting_env ajoute payload not found/directory (MessageQueue).
+Derniere mise a jour (2026-01-19 07:34:30) : troubleshooting ajoute payload not found/directory (MessageQueue).
+Derniere mise a jour (2026-01-19 07:39:34) : test_tools detaille erreurs JSON payload manquant/illisible/dossier (MessageQueue).
+Derniere mise a jour (2026-01-19 07:44:32) : local_usage mentionne erreurs JSON payload manquant/illisible/dossier (MessageQueue).
+Derniere mise a jour (2026-01-19 07:49:27) : local_runbook mentionne erreurs JSON payload manquant/illisible/dossier (MessageQueue).
+Derniere mise a jour (2026-01-19 07:54:27) : quickstart mentionne erreurs JSON payload manquant/illisible/dossier (MessageQueue).
+Derniere mise a jour (2026-01-19 07:59:37) : json_error verifie python3 avant JSON (MessageQueue).
+Derniere mise a jour (2026-01-19 08:04:28) : scripts_overview note JSON errors si python3 dispo (MessageQueue).
+Derniere mise a jour (2026-01-19 08:09:24) : troubleshooting_env note --json sans python3 (MessageQueue).

@@ -20,6 +20,7 @@ Alternative rapide :
 - messages recus par chaque queue
 - PDF ou artefact genere dans `shared/pdfs/`
 - routing key `grant.1.contract` duplique bien dans `grant_contracts` et `grant_other_documents`
+Note: `PDF_OUTPUT_DIR` peut changer le repertoire de sortie.
 
 4) Nettoyage :
 ```bash

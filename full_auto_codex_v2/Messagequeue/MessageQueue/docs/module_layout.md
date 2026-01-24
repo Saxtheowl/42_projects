@@ -15,3 +15,4 @@ Chaque dossier contiendra un projet Java (Spring Boot ou console) avec :
 - build tool (Maven/Gradle)
 - config RabbitMQ (host, exchanges/queues)
 - sortie PDF vers `shared/pdfs/`
+- sortie PDF configurable via `PDF_OUTPUT_DIR`

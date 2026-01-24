@@ -8,5 +8,10 @@ if ! command -v mvn >/dev/null 2>&1; then
   exit 1
 fi
 
+if [[ "${1:-}" == "--list" ]]; then
+  echo "services/producer"
+  exit 0
+fi
+
 cd "${ROOT}/services/producer"
 mvn test

@@ -1,0 +1,8 @@
+{
+  "exchange": "grant",
+  "routing_key": "grant.student",
+  "doc_type": "financial",
+  "content_type": "application/pdf",
+  "message_id": "MSG-123456",
+  "payload": "docs/sample_student.json"
+}

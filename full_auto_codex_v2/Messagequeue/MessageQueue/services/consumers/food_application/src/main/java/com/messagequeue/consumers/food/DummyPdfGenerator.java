@@ -1,6 +1,7 @@
 package com.messagequeue.consumers.food;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -10,7 +11,11 @@ public class DummyPdfGenerator {
   private static final Logger log = LoggerFactory.getLogger(DummyPdfGenerator.class);
 
   public void generate(String docType) {
-    Path scriptPath = Path.of("..", "..", "..", "scripts", "generate_dummy_pdf.py");
+    if (isPdfDisabled()) {
+      log.info("PDF generation disabled (PDF_DISABLED=1).");
+      return;
+    }
+    Path scriptPath = resolveScriptPath();
     ProcessBuilder builder = new ProcessBuilder(scriptPath.toString());
     builder.environment().putAll(Map.of(
         "PDF_NAME", docType + "_dummy.pdf",
@@ -27,5 +32,22 @@ public class DummyPdfGenerator {
       Thread.currentThread().interrupt();
       log.warn("Failed to generate dummy PDF", exc);
     }
+  }
+
+  private Path resolveScriptPath() {
+    Path base = Path.of(System.getProperty("user.dir"));
+    Path direct = base.resolve("scripts").resolve("generate_dummy_pdf.py");
+    if (Files.exists(direct)) {
+      return direct;
+    }
+    return base.resolve("..").resolve("..").resolve("..")
+        .resolve("scripts").resolve("generate_dummy_pdf.py").normalize();
+  }
+
+  boolean isPdfDisabled() {
+    if ("1".equals(System.getenv("PDF_DISABLED"))) {
+      return true;
+    }
+    return "1".equals(System.getProperty("pdf.disabled"));
   }
 }

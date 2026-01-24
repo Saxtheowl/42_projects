@@ -11,6 +11,31 @@ QUEUE="${QUEUE:-food_application}"
 COUNT="${COUNT:-1}"
 ACK_MODE="${ACK_MODE:-ack_requeue_false}"
 TRUNCATE="${TRUNCATE:-50000}"
+OUTPUT="${OUTPUT:-raw}"
+
+silent=0
+json_output=0
+for arg in "$@"; do
+  if [[ "${arg}" == "--help" ]]; then
+    cat <<'EOF'
+Usage: ./scripts/consume_test_message.sh [--help] [--silent] [--json]
+
+Environment:
+  QUEUE      Queue name (default: food_application)
+  COUNT      Number of messages (default: 1)
+  ACK_MODE   ack_requeue_false|ack_requeue_true|ack_requeue_false (default: ack_requeue_false)
+  TRUNCATE   Response truncate size (default: 50000)
+EOF
+    exit 0
+  elif [[ "${arg}" == "--silent" ]]; then
+    silent=1
+  elif [[ "${arg}" == "--json" ]]; then
+    json_output=1
+  else
+    echo "Unknown option: ${arg}" >&2
+    exit 1
+  fi
+done
 
 if ! command -v curl >/dev/null 2>&1; then
   echo "curl is required." >&2
@@ -43,10 +68,36 @@ print(json.dumps(body))
 PY
 )
 
-curl -fsS -u "${USER}:${PASS}" \
+response=$(curl -fsS -u "${USER}:${PASS}" \
   -H "Content-Type: application/json" \
   -X POST "http://${HOST}:${PORT}/api/queues/${vhost_enc}/${QUEUE}/get" \
-  -d "${body}"
+  -d "${body}")
 
-echo
+if [[ "${silent}" -eq 1 ]]; then
+  exit 0
+fi
+
+if [[ "${json_output}" -eq 1 ]]; then
+  printf '%s\n' "${response}"
+  exit 0
+fi
+
+case "${OUTPUT}" in
+  raw)
+    printf '%s\n' "${response}"
+    ;;
+  pretty)
+    if command -v jq >/dev/null 2>&1; then
+      printf '%s\n' "${response}" | jq .
+    else
+      echo "jq not found; falling back to raw output." >&2
+      printf '%s\n' "${response}"
+    fi
+    ;;
+  *)
+    echo "Unknown OUTPUT: ${OUTPUT} (use raw or pretty)" >&2
+    exit 1
+    ;;
+esac
+
 echo "Fetched from queue '${QUEUE}'."

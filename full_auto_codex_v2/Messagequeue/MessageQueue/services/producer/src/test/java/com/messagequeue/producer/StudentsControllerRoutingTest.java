@@ -20,7 +20,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+    "exchanges.social=SOCIAL_ASSISTANCE_EXCHANGE",
+    "exchanges.grant=GRANT_EXCHANGE"
+})
 @AutoConfigureMockMvc
 class StudentsControllerRoutingTest {
 
@@ -51,5 +54,25 @@ class StudentsControllerRoutingTest {
         .send(eq("SOCIAL_ASSISTANCE_EXCHANGE"), eq(""), any(Message.class));
     verify(rabbitTemplate, times(1))
         .send(eq("GRANT_EXCHANGE"), eq("grant.2.contract"), any(Message.class));
+  }
+
+  @Test
+  void trimsGrantTypeBeforePublish() throws Exception {
+    Map<String, Object> payload = new HashMap<>();
+    payload.put("studentId", "S-4");
+    payload.put("firstName", "Alan");
+    payload.put("lastName", "Turing");
+    payload.put("email", "alan@example.com");
+    payload.put("grantType", " grant.1.contract ");
+
+    mockMvc.perform(post("/students")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsBytes(payload)))
+        .andExpect(status().isAccepted());
+
+    verify(rabbitTemplate, times(1))
+        .send(eq("SOCIAL_ASSISTANCE_EXCHANGE"), eq(""), any(Message.class));
+    verify(rabbitTemplate, times(1))
+        .send(eq("GRANT_EXCHANGE"), eq("grant.1.contract"), any(Message.class));
   }
 }

@@ -1,26 +1,38 @@
 # Outils de test (local)
 
 ## Scripts RabbitMQ
-- `scripts/check_rabbitmq.sh` : verifie l'API management.
-- `scripts/wait_rabbitmq.sh` : attend que l'API soit prete.
-- `scripts/bootstrap_rabbitmq.sh` : cree exchanges/queues/bindings.
-- `scripts/validate_rabbitmq.sh` : verifie la topologie.
-- `scripts/check_prereqs.sh` : verifie les prerequis locaux.
+- `scripts/check_rabbitmq.sh` : verifie l'API management (--silent, --json).
+- `scripts/wait_rabbitmq.sh` : attend que l'API soit prete (--silent, --json).
+- `scripts/bootstrap_rabbitmq.sh` : cree exchanges/queues/bindings (--silent, --json).
+- `scripts/create_bindings.sh` : cree exchanges/queues/bindings sans docker (--silent, --json).
+- `scripts/validate_rabbitmq.sh` : verifie la topologie (--silent, --json).
+- `scripts/check_prereqs.sh` : verifie les prerequis locaux (SKIP_DOCKER/SKIP_MVN, --silent, --json).
 - `scripts/load_env.sh` : charge un `.env` et affiche les variables utiles.
-- `scripts/smoke_local.sh` : smoke test complet en local.
-- `scripts/list_queues.sh` / `scripts/list_exchanges.sh` / `scripts/list_bindings.sh`
-- `scripts/publish_test_message.sh` / `scripts/consume_test_message.sh`
-- `scripts/publish_sample_keys.sh` : publie plusieurs routing keys d'exemple.
-- `scripts/post_sample.sh` : envoie un payload HTTP au producer.
-- `scripts/validate_payload.py` : valide un JSON localement.
-- `scripts/doctor.sh` : check global prerequis + payload + topologie.
+- `scripts/smoke_local.sh` : smoke test complet en local (--silent, --json).
+- `scripts/list_queues.sh` / `scripts/list_exchanges.sh` / `scripts/list_bindings.sh` (filtres CSV via env, --silent, --json).
+- `scripts/count_queue_messages.sh` : compte les messages par queue (QUEUES pour filtrer, --silent, --json).
+- `scripts/status_report.sh` : resume l'etat (queues/exchanges/bindings, filtres via env, --silent, --json).
+- `scripts/publish_test_message.sh` / `scripts/consume_test_message.sh` (publish copie grantType dans metadata et derive la routing key, valide exchange/routing/content_type/message_id, refuse content_type blanc (espaces/tabs/newlines) et message_id avec espaces/tabs/newlines, content_type vide/message_id vide -> defaults, --help, --silent, --json, --dry-run, STRICT_GRANT_TYPE, consume OUTPUT=pretty + --silent/--json).
+- `scripts/publish_sample_keys.sh` : publie plusieurs routing keys (ROUTING_KEYS, --silent, --json, PAYLOAD_FILE).
+- `scripts/post_sample.sh` : envoie un payload HTTP au producer (--help, --silent, --json, OUTPUT=pretty|status).
+- `scripts/validate_payload.py` : valide un JSON localement (champ requis + grantType routing key, --json).
+- `scripts/test_validate_payload.sh` : tests simples du validateur (cas ok/ko, --json).
+- `scripts/test_publish_test_message.sh` : tests dry-run pour publish_test_message (payload JSON invalide + sortie JSON d'erreur, payload manquant/illisible/dossier + sortie JSON d'erreur, erreurs JSON pour exchange/routing_key/message_id/content_type invalides + longueurs, CONTENT_TYPE blanc (espaces/tabs/newlines), CONTENT_TYPE vide -> default, MESSAGE_ID vide -> default, MESSAGE_ID avec espaces/tabs/newlines, --help, --json avec empty_message_id/whitespace_content_type).
+- `scripts/test_e2e_local.sh` : test dry-run JSON du e2e_local (QUEUE/COUNT/INDEX/OUTPUT, --help, --json).
+- `scripts/doctor.sh` : check global prerequis + payload + topologie + tests validate_payload/publish_test_message (--silent, --json).
 - `scripts/generate_dummy_pdf.py` : genere un PDF minimal dans shared/pdfs.
 - `scripts/simulate_consumer.py` : simule un consumer et genere un PDF.
-- `scripts/run_checks.sh` : lance un check global + routing matrix.
-- `scripts/build_modules.sh` : build les modules Maven (skip tests).
-- `scripts/test_producer.sh` : execute les tests du producer.
+  - Nettoyage apres test: `rm -f shared/pdfs/*`.
+  - Override possible via `PDF_OUTPUT_DIR`.
+- `scripts/run_checks.sh` : lance un check global + routing matrix (ou --skip-doctor/--skip-routing/--silent/--json).
+- `scripts/build_modules.sh` : build les modules Maven (skip tests, MODULES/--list).
+- `scripts/test_producer.sh` : execute les tests du producer (ou `--list`).
 - `scripts/tail_rabbitmq_logs.sh` : suit les logs RabbitMQ (docker compose).
-- `scripts/test_consumers.sh` : execute les tests des consumers.
-- `scripts/readme_toc.sh` : genere un sommaire du README.
-- `scripts/test_routing.sh` : verifie `grant.1.contract`.
-- `scripts/test_routing_matrix.sh` : verifie plusieurs routing keys.
+- `scripts/test_consumers.sh` : execute les tests des consumers (MODULES/--list).
+- `scripts/readme_toc.sh` : genere un sommaire du README (FILE).
+- `scripts/append_log.sh` : ajoute un log (progress + README racine).
+- `scripts/run_producer.sh` : lance le producer.
+- `scripts/run_consumer.sh` : lance un consumer specifie (ou `--list`).
+- `scripts/test_routing.sh` : verifie `grant.1.contract` (--silent, --json).
+- `scripts/test_routing_matrix.sh` : verifie plusieurs routing keys (override via `ROUTING_KEYS`, --silent, --json).
+- `scripts/e2e_local.sh` : publish -> consume -> PDF dummy (QUEUE/EXCHANGE/ROUTING_KEY, --silent, --json, --dry-run).

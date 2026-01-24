@@ -8,3 +8,4 @@ Recommandations :
 Exemple :
 - JSON invalide -> Nack sans requeue.
 - Ecriture PDF fail (disk full) -> Nack avec requeue.
+Note: verifier que `PDF_OUTPUT_DIR` est writable avant ACK.

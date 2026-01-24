@@ -15,3 +15,4 @@ Exemples :
 Notes :
 - Toujours inclure `studentId` si disponible.
 - Le timestamp doit etre en UTC ou l'heure locale mais stable (format 24h).
+- Les PDFs sont ecrits dans `shared/pdfs/` (override via `PDF_OUTPUT_DIR`).

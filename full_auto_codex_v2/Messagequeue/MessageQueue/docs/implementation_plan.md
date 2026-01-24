@@ -26,6 +26,7 @@ Chaque module est autonome (projet Java separe) et ecrit ses PDFs dans `shared/p
 - RABBITMQ_USER / RABBITMQ_PASS
 - RABBITMQ_VHOST (defaut: /)
 - PDF_OUTPUT_DIR (defaut: shared/pdfs)
+Note: PDF_OUTPUT_DIR doit etre accessible en ecriture par les consumers.
 
 ## Files/messages
 - Payload: voir `docs/payload_schema.md`

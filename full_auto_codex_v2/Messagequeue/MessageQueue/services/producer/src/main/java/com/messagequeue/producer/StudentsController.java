@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.Set;
+import java.util.List;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class StudentsController {
-  private static final String SOCIAL_EXCHANGE = "SOCIAL_ASSISTANCE_EXCHANGE";
-  private static final String GRANT_EXCHANGE = "GRANT_EXCHANGE";
-
   private final RabbitTemplate rabbitTemplate;
   private final ObjectMapper objectMapper;
-  private final Set<String> requiredFields =
-      Set.of("studentId", "firstName", "lastName", "email");
+  private final ExchangeNames exchangeNames;
+  private final List<String> requiredFields =
+      List.of("studentId", "firstName", "lastName", "email", "grantType");
 
-  public StudentsController(RabbitTemplate rabbitTemplate, ObjectMapper objectMapper) {
+  public StudentsController(RabbitTemplate rabbitTemplate, ObjectMapper objectMapper,
+                            ExchangeNames exchangeNames) {
     this.rabbitTemplate = rabbitTemplate;
     this.objectMapper = objectMapper;
+    this.exchangeNames = exchangeNames;
   }
 
   @PostMapping("/students")
@@ -41,21 +41,29 @@ public class StudentsController {
       }
     }
 
+    String grantType = ((String) payload.get("grantType")).trim();
+    String[] grantParts = grantType.split("\\.");
+    if (grantParts.length < 2 || !"grant".equals(grantParts[0])) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new PublishResponse(
+              "invalid grantType: expected routing key like grant.* or grant.*.*", ""));
+    }
+    for (String part : grantParts) {
+      if (part.isBlank()) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(new PublishResponse(
+                "invalid grantType: expected routing key like grant.* or grant.*.*", ""));
+      }
+    }
+
     byte[] body = objectMapper.writeValueAsBytes(payload);
 
     MessageProperties props = new MessageProperties();
     props.setContentType(MessageProperties.CONTENT_TYPE_JSON);
     Message message = new Message(body, props);
 
-    rabbitTemplate.send(SOCIAL_EXCHANGE, "", message);
-
-    String grantType = "grant.1.contract";
-    Object rawGrantType = payload.get("grantType");
-    if (rawGrantType instanceof String && !((String) rawGrantType).isBlank()) {
-      grantType = ((String) rawGrantType).trim();
-    }
-
-    rabbitTemplate.send(GRANT_EXCHANGE, grantType, message);
+    rabbitTemplate.send(exchangeNames.social(), "", message);
+    rabbitTemplate.send(exchangeNames.grant(), grantType, message);
 
     return ResponseEntity.status(HttpStatus.ACCEPTED)
         .body(new PublishResponse("queued", grantType));

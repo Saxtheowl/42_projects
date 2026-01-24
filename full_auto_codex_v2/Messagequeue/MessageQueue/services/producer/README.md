@@ -5,13 +5,17 @@ Objectif : exposer un endpoint HTTP et publier le payload JSON vers les exchange
 Endpoints proposes : voir `docs/http_endpoints.md`.
 Payload : `docs/sample_student.json`.
 
-TODO : initialiser un projet Spring Boot (web + amqp) et publier vers :
+Publie vers :
 - `SOCIAL_ASSISTANCE_EXCHANGE` (fanout)
 - `GRANT_EXCHANGE` (topic)
 
 ## Run local (stub)
 ```bash
 mvn spring-boot:run
+```
+Ou via script :
+```bash
+../../scripts/run_producer.sh
 ```
 
 ## Endpoints
@@ -23,3 +27,7 @@ mvn spring-boot:run
 - `RABBITMQ_USER` / `RABBITMQ_PASS`
 - `RABBITMQ_VHOST`
 - `PRODUCER_PORT`
+- `SOCIAL_EXCHANGE` / `GRANT_EXCHANGE`
+
+## Config exchanges
+Les noms des exchanges sont centralises dans `ExchangeNames`.

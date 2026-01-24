@@ -10,6 +10,7 @@ Optionnel (si disponible dans le payload) :
 - Programme / annee
 - Email
 - Informations specifiques (ex: justification, montant)
+Note: les PDFs sont ecrits dans `shared/pdfs/` (override via `PDF_OUTPUT_DIR`).
 
 ## PDF dummy (test local)
 Script pour generer un PDF minimal :

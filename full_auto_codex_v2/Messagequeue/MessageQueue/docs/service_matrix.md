@@ -9,3 +9,4 @@
 | grant_other_documents | GrantOtherDocumentsGenerator | grant_other_documents.pdf |
 
 Le format exact du nom de fichier est documente dans `docs/pdf_naming.md`.
+Les PDFs sont ecrits dans `shared/pdfs/` (override via `PDF_OUTPUT_DIR`).

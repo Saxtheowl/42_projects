@@ -23,6 +23,7 @@
 ## Dossier PDF
 Chemin cible commun (a definir dans la config de chaque service) :
 - `./shared/pdfs/`
+Note: override via `PDF_OUTPUT_DIR` si besoin.
 
 Chaque consumer doit ecrire des noms uniques, ex :
 `food_application_<timestamp>.pdf`

@@ -7,3 +7,5 @@ spring:
     virtual-host: ${RABBITMQ_VHOST:/}
 consumer:
   queue: ${CONSUMER_QUEUE:financial_assistance_application}
+exchanges:
+  social: ${SOCIAL_EXCHANGE:SOCIAL_ASSISTANCE_EXCHANGE}

@@ -6,17 +6,20 @@
 - `RABBITMQ_USER` / `RABBITMQ_PASS`
 - `RABBITMQ_VHOST` (ex: `/`)
 - `PDF_OUTPUT_DIR` (ex: `shared/pdfs`)
+- `PDF_DISABLED` (defaut: 0, desactive generation PDF dummy)
+- `pdf.disabled` (system property, defaut: 0, equivalent a PDF_DISABLED)
+Note: `PDF_OUTPUT_DIR` doit etre accessible en ecriture par les consumers.
 
 ## Producer (StudentsDataProducer)
-- `SOCIAL_ASSISTANCE_EXCHANGE`
-- `GRANT_EXCHANGE`
-- `DEFAULT_GRANT_ROUTING_KEY` (ex: `grant.application`)
+- `SOCIAL_EXCHANGE` (defaut: `SOCIAL_ASSISTANCE_EXCHANGE`)
+- `GRANT_EXCHANGE` (defaut: `GRANT_EXCHANGE`)
+- `PRODUCER_PORT` (defaut: `8080`)
 
 ## Consumers (social assistance)
-- `QUEUE_NAME` (ex: `food_application`)
-- `EXCHANGE_NAME` (ex: `SOCIAL_ASSISTANCE_EXCHANGE`)
+- `CONSUMER_QUEUE` (ex: `food_application`)
+- `SOCIAL_EXCHANGE` (defaut: `SOCIAL_ASSISTANCE_EXCHANGE`)
 
 ## Consumers (grants)
-- `QUEUE_NAME` (ex: `grant_contracts`)
-- `EXCHANGE_NAME` (ex: `GRANT_EXCHANGE`)
-- `ROUTING_KEY` (ex: `grant.1.*`)
+- `CONSUMER_QUEUE` (ex: `grant_contracts`)
+- `GRANT_EXCHANGE` (defaut: `GRANT_EXCHANGE`)
+- `CONSUMER_ROUTING_KEY` (ex: `grant.*.contract`)

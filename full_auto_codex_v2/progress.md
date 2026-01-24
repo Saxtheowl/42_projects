@@ -1,3 +1,16 @@
+2026-01-19 12:50:39 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local dry-run JSON renvoie un pdf_output_dir sans suffixe, avec indicateur pdf_output_dir_missing separe.
+2026-01-19 12:54:36 | Messagequeue/MessageQueue | IN_PROGRESS | docs_e2e_local mentionne pdf_output_dir exibant le chemin reel du dry-run.
+2026-01-19 13:10:03 | Messagequeue/MessageQueue | IN_PROGRESS | doc local_usage note la sortie JSON dry-run `pdf_output_dir`/`pdf_output_dir_missing`.
+2026-01-19 13:19:47 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook ajoute note sur pdf_output_dir + pdf_output_dir_missing du dry-run e2e.
+2026-01-19 13:54:43 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook recommande de precreer PDF_OUTPUT_DIR et verifier pdf_output_dir_missing=0.
+2026-01-19 14:04:35 | Messagequeue/MessageQueue | IN_PROGRESS | README principal cite local_runbook pour le dry-run pdf_output_dir.
+2026-01-19 14:09:43 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne precreation de PDF_OUTPUT_DIR pour pdf_output_dir_missing=0.
+2026-01-19 14:34:36 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook guide `PDF_OUTPUT_DIR=/tmp/mq-pdfs ./scripts/test_e2e_local.sh --json` et pdf_output_dir_missing=0.
+2026-01-19 15:09:59 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook conseille `jq '.pdf_output_dir,.pdf_output_dir_missing'` pour inspecter le JSON dry-run.
+2026-01-19 12:44:47 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary note pdf_output_dir_missing pour le dry-run e2e_local.
+2026-01-19 12:40:34 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local dry-run JSON ajoute pdf_output_dir_missing + test et doc associes.
+2026-01-19 12:36:05 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local accepte PDF_OUTPUT_DIR manquant en dry-run et cree le dossier hors dry-run + test/doc maj.
+2026-01-19 12:30:41 | Messagequeue/MessageQueue | IN_PROGRESS | Ajout d'un exemple `PDF_OUTPUT_DIR` dans la doc d'usage locale pour changer le dossier de sortie des PDF.
 2026-01-05 09:40:00 | C/ft_linux | IN_PROGRESS | `scripts/ensure_permissions.sh` a appliqué `chmod +x scripts/*.sh`, corrigeant 124 scripts et réduisant considérablement les `permission denied` rapportés par `run_reports.sh`; la validation reste bloquée tant que la chaîne cross et les artefacts kernel/manifests sont absents, mais les logs sont maintenant plus propres.
 2026-01-05 09:20:00 | C/ft_linux | IN_PROGRESS | `scripts/run_reports.sh` a régénéré les rollups history/trend (CSV/MD/HTML/JSON) et un grand nombre de rapports, mais la validation échoue parce que les outils cross (`x86_64-lfs-linux-gnu-gcc/ld/as`), `linux-6.6.54.config`, `fstab`, `grub.cfg`, `vmlinuz-*`, et plusieurs tarballs manifest absents, plus des permissions manquantes sur la majorité des scripts ; les artefacts existants (preflight/toolchain/rollup) sont produits mais Quickcheck/report states remontent des erreurs.
 2025-12-26 10:10:49 | C/ft_nmap | IN_PROGRESS | Export JSON (-o) et CSV (-C) ports+stats ajoutés, résolution unique réutilisée, scan non bloquant (poll) burst réglable (-c def 256/lim 1024), options -q/-S, résumé open/closed/timeout + débit; README/test local à jour.
@@ -1327,3 +1340,545 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2026-01-17 15:30:59 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script readme_toc.
 2026-01-17 15:35:28 | Messagequeue/MessageQueue | IN_PROGRESS | doc usage local (sommaire README).
 2026-01-17 15:40:46 | Messagequeue/MessageQueue | IN_PROGRESS | ajout docs_index.
+2026-01-17 15:46:23 | Messagequeue/MessageQueue | IN_PROGRESS | DummyPdfGenerator resolve script path.
+2026-01-17 15:51:24 | Messagequeue/MessageQueue | IN_PROGRESS | harmonisation DummyPdfGenerator.
+2026-01-17 15:55:28 | Messagequeue/MessageQueue | IN_PROGRESS | doc tests_consumers (script).
+2026-01-17 16:00:50 | Messagequeue/MessageQueue | IN_PROGRESS | ajout module_status.
+2026-01-17 16:05:41 | Messagequeue/MessageQueue | IN_PROGRESS | doc ports.
+2026-01-17 16:10:34 | Messagequeue/MessageQueue | IN_PROGRESS | producer declare exchanges.
+2026-01-17 16:15:49 | Messagequeue/MessageQueue | IN_PROGRESS | producer exchanges configurables.
+2026-01-17 16:20:37 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test config exchanges.
+2026-01-17 16:26:19 | Messagequeue/MessageQueue | IN_PROGRESS | extraction ExchangeNames pour producer.
+2026-01-17 16:30:31 | Messagequeue/MessageQueue | IN_PROGRESS | doc ExchangeNames producer.
+2026-01-17 16:35:41 | Messagequeue/MessageQueue | IN_PROGRESS | test routing par defaut (grantType absent).
+2026-01-17 16:40:46 | Messagequeue/MessageQueue | IN_PROGRESS | ajout api_contract.
+2026-01-17 16:45:41 | Messagequeue/MessageQueue | IN_PROGRESS | exemple curl API contract.
+2026-01-17 16:50:46 | Messagequeue/MessageQueue | IN_PROGRESS | test validation email vide.
+2026-01-17 16:55:29 | Messagequeue/MessageQueue | IN_PROGRESS | doc tests producer (couverture).
+2026-01-17 17:00:48 | Messagequeue/MessageQueue | IN_PROGRESS | ajout tests_summary.
+2026-01-17 17:05:40 | Messagequeue/MessageQueue | IN_PROGRESS | docs_index inclut tests_summary.
+2026-01-17 17:10:31 | Messagequeue/MessageQueue | IN_PROGRESS | note Maven dans tests_summary.
+2026-01-17 17:16:20 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script append_log.
+2026-01-17 17:20:32 | Messagequeue/MessageQueue | IN_PROGRESS | doc usage local (append_log).
+2026-01-17 17:25:30 | Messagequeue/MessageQueue | IN_PROGRESS | ajout doc logging.
+2026-01-17 17:30:45 | Messagequeue/MessageQueue | IN_PROGRESS | ajout security_notes.
+2026-01-17 17:42:33 | Messagequeue/MessageQueue | IN_PROGRESS | bindings exchanges/queues pour consumers
+2026-01-17 17:44:47 | Messagequeue/MessageQueue | IN_PROGRESS | ajout script create_bindings (topologie sans docker)
+2026-01-17 17:46:04 | Messagequeue/MessageQueue | IN_PROGRESS | validate_rabbitmq aligne routing keys/queues via env
+2026-01-17 17:50:41 | Messagequeue/MessageQueue | IN_PROGRESS | doc usage local: create_bindings
+2026-01-17 17:55:45 | Messagequeue/MessageQueue | IN_PROGRESS | doctor hint create_bindings when topology invalid
+2026-01-17 18:01:03 | Messagequeue/MessageQueue | IN_PROGRESS | bootstrap_rabbitmq aligne routing keys/queues via env
+2026-01-17 18:06:50 | Messagequeue/MessageQueue | IN_PROGRESS | test_routing scripts utilisent routing keys env
+2026-01-17 18:11:04 | Messagequeue/MessageQueue | IN_PROGRESS | test_routing_matrix supporte ROUTING_KEYS
+2026-01-17 18:15:42 | Messagequeue/MessageQueue | IN_PROGRESS | doc ROUTING_KEYS test_routing_matrix
+2026-01-17 18:20:48 | Messagequeue/MessageQueue | IN_PROGRESS | smoke_local utilise GRANT_EXCHANGE/queues env
+2026-01-17 18:26:15 | Messagequeue/MessageQueue | IN_PROGRESS | count_queue_messages supporte filtre QUEUES
+2026-01-17 18:31:11 | Messagequeue/MessageQueue | IN_PROGRESS | list_exchanges/list_bindings filtres CSV
+2026-01-17 18:36:23 | Messagequeue/MessageQueue | IN_PROGRESS | status_report filtres via env
+2026-01-17 18:40:51 | Messagequeue/MessageQueue | IN_PROGRESS | list_queues supporte filtre QUEUES
+2026-01-17 18:45:46 | Messagequeue/MessageQueue | IN_PROGRESS | run_modules mentionne run_producer/run_consumer
+2026-01-17 18:50:38 | Messagequeue/MessageQueue | IN_PROGRESS | runbook local: alternative create_bindings
+2026-01-17 18:55:41 | Messagequeue/MessageQueue | IN_PROGRESS | status_report affiche filtres actifs
+2026-01-17 19:00:51 | Messagequeue/MessageQueue | IN_PROGRESS | doc usage local: status_report filtre
+2026-01-17 19:06:11 | Messagequeue/MessageQueue | IN_PROGRESS | publish_sample_keys supporte ROUTING_KEYS
+2026-01-17 19:10:45 | Messagequeue/MessageQueue | IN_PROGRESS | doc override ROUTING_KEYS publish_sample_keys
+2026-01-17 19:15:53 | Messagequeue/MessageQueue | IN_PROGRESS | publish_sample_keys respecte GRANT_EXCHANGE env
+2026-01-17 19:20:40 | Messagequeue/MessageQueue | IN_PROGRESS | README producer: run_producer + exchanges
+2026-01-17 19:25:43 | Messagequeue/MessageQueue | IN_PROGRESS | runbook local: run_producer/run_consumer
+2026-01-17 19:30:57 | Messagequeue/MessageQueue | IN_PROGRESS | run_consumer supporte --list
+2026-01-17 19:36:00 | Messagequeue/MessageQueue | IN_PROGRESS | test_consumers supporte --list
+2026-01-17 19:41:24 | Messagequeue/MessageQueue | IN_PROGRESS | build_modules supporte MODULES/--list
+2026-01-17 19:45:55 | Messagequeue/MessageQueue | IN_PROGRESS | test_producer supporte --list
+2026-01-17 19:51:06 | Messagequeue/MessageQueue | IN_PROGRESS | doc readme_toc FILE env
+2026-01-17 19:55:45 | Messagequeue/MessageQueue | IN_PROGRESS | docs_index complete docs recentes
+2026-01-17 20:01:05 | Messagequeue/MessageQueue | IN_PROGRESS | check_prereqs supporte SKIP_DOCKER/SKIP_MVN
+2026-01-17 20:06:27 | Messagequeue/MessageQueue | IN_PROGRESS | PDF_DISABLED pour generation PDF dummy
+2026-01-17 20:12:23 | Messagequeue/MessageQueue | IN_PROGRESS | tests PDF_DISABLED via pdf.disabled
+2026-01-17 20:16:09 | Messagequeue/MessageQueue | IN_PROGRESS | test_consumers supporte MODULES
+2026-01-17 20:20:55 | Messagequeue/MessageQueue | IN_PROGRESS | doc usage local: ROUTING_KEYS test_routing_matrix
+2026-01-17 20:25:49 | Messagequeue/MessageQueue | IN_PROGRESS | doc pdf.disabled system property
+2026-01-17 20:30:50 | Messagequeue/MessageQueue | IN_PROGRESS | doc PDF_DISABLED consumers + tests pdf.disabled
+2026-01-17 20:36:10 | Messagequeue/MessageQueue | IN_PROGRESS | run_checks supporte --skip-routing
+2026-01-17 20:41:08 | Messagequeue/MessageQueue | IN_PROGRESS | run_checks supporte --skip-doctor
+2026-01-17 20:47:43 | Messagequeue/MessageQueue | IN_PROGRESS | grantType requis + tests/docs
+2026-01-17 20:51:31 | Messagequeue/MessageQueue | IN_PROGRESS | grantType routing key dans schema + sample
+2026-01-17 20:55:53 | Messagequeue/MessageQueue | IN_PROGRESS | doc routing keys lie grantType payload
+2026-01-17 21:01:18 | Messagequeue/MessageQueue | IN_PROGRESS | validate_payload grantType routing key
+2026-01-17 21:06:08 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_validate_payload script
+2026-01-17 21:11:07 | Messagequeue/MessageQueue | IN_PROGRESS | doctor lance test_validate_payload
+2026-01-17 21:15:46 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message force grantType metadata
+2026-01-17 21:20:44 | Messagequeue/MessageQueue | IN_PROGRESS | doc publish_test_message metadata grantType
+2026-01-17 21:26:06 | Messagequeue/MessageQueue | IN_PROGRESS | run_checks accepte plusieurs flags
+2026-01-17 21:31:12 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message derive routing key from payload
+2026-01-17 21:35:58 | Messagequeue/MessageQueue | IN_PROGRESS | consume_test_message --help
+2026-01-17 21:40:58 | Messagequeue/MessageQueue | IN_PROGRESS | consume_test_message OUTPUT pretty
+2026-01-17 21:45:58 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message --help
+2026-01-17 21:51:01 | Messagequeue/MessageQueue | IN_PROGRESS | smoke_local routing key derive payload
+2026-01-17 21:55:52 | Messagequeue/MessageQueue | IN_PROGRESS | doc smoke_local routing key derive
+2026-01-17 22:01:24 | Messagequeue/MessageQueue | IN_PROGRESS | validation grantType routing key au producer
+2026-01-17 22:05:50 | Messagequeue/MessageQueue | IN_PROGRESS | doc tests_producer grantType format
+2026-01-17 22:10:50 | Messagequeue/MessageQueue | IN_PROGRESS | test_validate_payload cas grantType segment vide
+2026-01-17 22:15:47 | Messagequeue/MessageQueue | IN_PROGRESS | test producer grantType segment vide
+2026-01-17 22:21:08 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message STRICT_GRANT_TYPE
+2026-01-17 22:25:52 | Messagequeue/MessageQueue | IN_PROGRESS | valide grantType avant publish
+2026-01-17 22:30:57 | Messagequeue/MessageQueue | IN_PROGRESS | doc endpoint grantType routing key
+2026-01-17 22:36:07 | Messagequeue/MessageQueue | IN_PROGRESS | post_sample --help OUTPUT pretty
+2026-01-17 22:41:12 | Messagequeue/MessageQueue | IN_PROGRESS | post_sample --silent
+2026-01-17 22:45:44 | Messagequeue/MessageQueue | IN_PROGRESS | post_sample reject unknown flags
+2026-01-17 22:51:11 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message --silent + flags
+2026-01-17 22:56:33 | Messagequeue/MessageQueue | IN_PROGRESS | publish_sample_keys flags + payload
+2026-01-17 23:01:39 | Messagequeue/MessageQueue | IN_PROGRESS | consume_test_message --silent + flags
+2026-01-17 23:06:06 | Messagequeue/MessageQueue | IN_PROGRESS | run_checks --silent
+2026-01-17 23:10:55 | Messagequeue/MessageQueue | IN_PROGRESS | doc run_checks --silent usage
+2026-01-17 23:15:56 | Messagequeue/MessageQueue | IN_PROGRESS | doc local_usage post_sample
+2026-01-17 23:21:14 | Messagequeue/MessageQueue | IN_PROGRESS | post_sample OUTPUT status
+2026-01-17 23:25:54 | Messagequeue/MessageQueue | IN_PROGRESS | doc local_usage OUTPUT=status
+2026-01-17 23:30:56 | Messagequeue/MessageQueue | IN_PROGRESS | maj todo_next
+2026-01-17 23:36:20 | Messagequeue/MessageQueue | IN_PROGRESS | test_routing_matrix --silent + help
+2026-01-17 23:41:25 | Messagequeue/MessageQueue | IN_PROGRESS | test_routing --silent + help
+2026-01-17 23:46:33 | Messagequeue/MessageQueue | IN_PROGRESS | smoke_local --silent
+2026-01-17 23:51:34 | Messagequeue/MessageQueue | IN_PROGRESS | doctor --silent + docs
+2026-01-17 23:56:33 | Messagequeue/MessageQueue | IN_PROGRESS | status_report --silent + help
+2026-01-18 00:01:28 | Messagequeue/MessageQueue | IN_PROGRESS | count_queue_messages --silent + help
+2026-01-18 00:06:31 | Messagequeue/MessageQueue | IN_PROGRESS | list_queues --silent + help
+2026-01-18 00:11:18 | Messagequeue/MessageQueue | IN_PROGRESS | list_exchanges --silent + help
+2026-01-18 00:16:05 | Messagequeue/MessageQueue | IN_PROGRESS | list_bindings --silent + help
+2026-01-18 00:21:40 | Messagequeue/MessageQueue | IN_PROGRESS | check_prereqs --silent + help
+2026-01-18 00:26:19 | Messagequeue/MessageQueue | IN_PROGRESS | check_rabbitmq --silent + help
+2026-01-18 00:31:23 | Messagequeue/MessageQueue | IN_PROGRESS | wait_rabbitmq --silent + help
+2026-01-18 00:36:24 | Messagequeue/MessageQueue | IN_PROGRESS | bootstrap_rabbitmq --silent + help
+2026-01-18 00:41:33 | Messagequeue/MessageQueue | IN_PROGRESS | create_bindings --silent + help
+2026-01-18 00:47:07 | Messagequeue/MessageQueue | IN_PROGRESS | validate_rabbitmq --silent + docs.
+2026-01-18 00:51:57 | Messagequeue/MessageQueue | IN_PROGRESS | validate_rabbitmq --json + docs.
+2026-01-18 00:57:10 | Messagequeue/MessageQueue | IN_PROGRESS | list_queues/count_queue_messages --json + docs.
+2026-01-18 01:01:38 | Messagequeue/MessageQueue | IN_PROGRESS | list_exchanges/list_bindings --json + docs.
+2026-01-18 01:06:48 | Messagequeue/MessageQueue | IN_PROGRESS | status_report --json + docs.
+2026-01-18 01:11:29 | Messagequeue/MessageQueue | IN_PROGRESS | check_rabbitmq --json + docs.
+2026-01-18 01:16:14 | Messagequeue/MessageQueue | IN_PROGRESS | wait_rabbitmq --json + docs.
+2026-01-18 01:21:39 | Messagequeue/MessageQueue | IN_PROGRESS | check_prereqs --json + docs.
+2026-01-18 01:26:47 | Messagequeue/MessageQueue | IN_PROGRESS | run_checks --json + docs.
+2026-01-18 01:31:57 | Messagequeue/MessageQueue | IN_PROGRESS | doctor --json + docs.
+2026-01-18 01:37:36 | Messagequeue/MessageQueue | IN_PROGRESS | test_routing/test_routing_matrix --json + docs.
+2026-01-18 01:42:32 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message/publish_sample_keys --json + docs.
+2026-01-18 01:46:27 | Messagequeue/MessageQueue | IN_PROGRESS | consume_test_message --json + docs.
+2026-01-18 01:51:58 | Messagequeue/MessageQueue | IN_PROGRESS | smoke_local --json + docs.
+2026-01-18 01:56:47 | Messagequeue/MessageQueue | IN_PROGRESS | validate_payload --json + docs.
+2026-01-18 02:01:00 | Messagequeue/MessageQueue | IN_PROGRESS | fix post_sample extra fi.
+2026-01-18 02:06:22 | Messagequeue/MessageQueue | IN_PROGRESS | post_sample --json + docs.
+2026-01-18 02:11:42 | Messagequeue/MessageQueue | IN_PROGRESS | bootstrap_rabbitmq/create_bindings --json + docs.
+2026-01-18 02:17:50 | Messagequeue/MessageQueue | IN_PROGRESS | test_validate_payload --json + docs
+2026-01-18 02:22:53 | Messagequeue/MessageQueue | IN_PROGRESS | ajout e2e_local script + docs
+2026-01-18 02:26:14 | Messagequeue/MessageQueue | IN_PROGRESS | doc e2e_local + runbook
+2026-01-18 02:31:34 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local purge option + docs
+2026-01-18 02:36:03 | Messagequeue/MessageQueue | IN_PROGRESS | doc tests_summary/test_matrix e2e_local
+2026-01-18 02:41:40 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local dry-run + docs
+2026-01-18 02:45:51 | Messagequeue/MessageQueue | IN_PROGRESS | README e2e_local usage section
+2026-01-18 02:51:47 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local payload validation toggle + docs
+2026-01-18 02:55:54 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary payload section
+2026-01-18 03:00:52 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix payload section
+2026-01-18 03:06:28 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local COUNT support + docs
+2026-01-18 03:11:22 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local INDEX selection + docs
+2026-01-18 03:16:48 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local OUTPUT=all + docs
+2026-01-18 03:21:29 | Messagequeue/MessageQueue | IN_PROGRESS | add test_e2e_local dry-run
+2026-01-18 03:25:54 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix e2e_local dry-run item
+2026-01-18 03:31:34 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_e2e_local JSON parsing; run test
+2026-01-18 03:36:14 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local --help + docs
+2026-01-18 03:41:24 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local --json + docs
+2026-01-18 03:46:08 | Messagequeue/MessageQueue | IN_PROGRESS | doc e2e_local OUTPUT=all JSON note
+2026-01-18 03:51:23 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local env overrides + docs
+2026-01-18 03:56:00 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validate queue/count/index
+2026-01-18 04:00:49 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_e2e_local env propagation; run test
+2026-01-18 04:05:58 | Messagequeue/MessageQueue | IN_PROGRESS | README add test_e2e_local dry-run usage
+2026-01-18 04:11:17 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local enforce OUTPUT=all json + docs
+2026-01-18 04:15:55 | Messagequeue/MessageQueue | IN_PROGRESS | run test_e2e_local --json
+2026-01-18 04:21:01 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validate OUTPUT values
+2026-01-18 04:25:51 | Messagequeue/MessageQueue | IN_PROGRESS | run test_e2e_local --json after OUTPUT check
+2026-01-18 04:31:04 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validate count/index numeric
+2026-01-18 04:35:58 | Messagequeue/MessageQueue | IN_PROGRESS | run test_e2e_local --json after count/index validation
+2026-01-18 04:41:11 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix mark e2e_local dry-run done
+2026-01-18 04:46:10 | Messagequeue/MessageQueue | IN_PROGRESS | run payload validation/tests + mark test_matrix
+2026-01-18 04:51:51 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local preflight check_rabbitmq + docs
+2026-01-18 04:56:08 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validate COUNT/INDEX ranges
+2026-01-18 05:01:03 | Messagequeue/MessageQueue | IN_PROGRESS | doc e2e_local index/count constraint
+2026-01-18 05:06:10 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local check payload file exists + docs
+2026-01-18 05:11:08 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local resolve PAYLOAD_FILE from repo root
+2026-01-18 05:16:13 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validate payload_file path + run
+2026-01-18 05:21:45 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local resolve payload in dry-run output
+2026-01-18 05:26:30 | Messagequeue/MessageQueue | IN_PROGRESS | validate_payload resolves PAYLOAD_FILE from repo root
+2026-01-18 05:32:47 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local dry-run validates OUTPUT/COUNT/INDEX; test OUTPUT=all requires --json
+2026-01-18 05:36:03 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects INDEX>=COUNT when OUTPUT=single
+2026-01-18 05:41:04 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects COUNT=0 in dry-run
+2026-01-18 05:46:01 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects INDEX=-1 in dry-run
+2026-01-18 05:51:05 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects invalid OUTPUT in dry-run
+2026-01-18 05:56:05 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects non-numeric COUNT in dry-run
+2026-01-18 06:01:04 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects non-numeric INDEX in dry-run
+2026-01-18 06:06:05 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects negative COUNT in dry-run
+2026-01-18 06:11:15 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates ACK_MODE; test rejects invalid value
+2026-01-18 06:16:09 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates PURGE_QUEUE; test rejects invalid value
+2026-01-18 06:21:12 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates VALIDATE_PAYLOAD/CHECK_RABBITMQ; tests reject invalid values
+2026-01-18 06:26:28 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates DOC_TYPE format; test rejects spaces
+2026-01-18 06:31:32 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates QUEUE format; test rejects spaces
+2026-01-18 06:36:11 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates EXCHANGE format; test rejects spaces
+2026-01-18 06:41:13 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates ROUTING_KEY format; test rejects spaces
+2026-01-18 06:46:46 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local limits ROUTING_KEY length; test rejects >255
+2026-01-18 06:51:14 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local limits EXCHANGE length; test rejects >255
+2026-01-18 06:56:14 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local limits QUEUE length; test rejects >255
+2026-01-18 07:01:55 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates PDF_OUTPUT_DIR; test rejects file path
+2026-01-18 07:06:56 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local requires existing PAYLOAD_FILE in dry-run; test rejects missing
+2026-01-18 07:11:23 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local validates PDF_OUTPUT_DIR writable; test rejects non-writable
+2026-01-18 07:16:16 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local limits DOC_TYPE length; test rejects >255
+2026-01-18 07:21:19 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local rejects ROUTING_KEY with SOCIAL_ASSISTANCE_EXCHANGE
+2026-01-18 07:26:29 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local requires COUNT>=2 for OUTPUT=all; test rejects COUNT=1
+2026-01-18 07:31:09 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects OUTPUT=all COUNT=1 even with --json
+2026-01-18 07:36:47 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local requires INDEX=0 for OUTPUT=all; test defaults adjusted
+2026-01-18 07:41:38 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local requires .json PAYLOAD_FILE; test rejects non-json
+2026-01-18 07:46:19 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local requires non-empty PAYLOAD_FILE; test rejects empty file
+2026-01-18 07:51:20 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local requires readable PAYLOAD_FILE; test rejects unreadable file
+2026-01-18 07:56:19 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local requires COUNT=1 for OUTPUT=single; test rejects COUNT=2
+2026-01-18 08:01:16 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local allows COUNT>1 with OUTPUT=single
+2026-01-18 08:06:19 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks validate_payload/check_rabbitmq JSON fields
+2026-01-18 08:11:22 | Messagequeue/MessageQueue | IN_PROGRESS | doc e2e_local contraintes de validation
+2026-01-18 08:16:18 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks validate_payload/check_rabbitmq overrides
+2026-01-18 08:21:16 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates ack_mode in JSON
+2026-01-18 08:26:13 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates purge_queue in JSON
+2026-01-18 08:31:15 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates doc_type in JSON
+2026-01-18 08:36:12 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates exchange/routing_key in JSON
+2026-01-18 08:41:16 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates pdf_output_dir in JSON
+2026-01-18 08:46:24 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks routing_key empty for SOCIAL_ASSISTANCE_EXCHANGE
+2026-01-18 08:51:15 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks purge_queue override
+2026-01-18 08:56:23 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks output=all constraints in JSON
+2026-01-18 09:01:56 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks doc_type override in JSON
+2026-01-18 09:07:55 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates default queue/exchange and doc_type fallback in JSON
+2026-01-18 09:11:13 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates routing_key empty when social exchange inferred
+2026-01-18 09:16:10 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local requires check_rabbitmq in JSON output
+2026-01-18 09:21:14 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates check_rabbitmq values in JSON
+2026-01-18 09:26:15 | Messagequeue/MessageQueue | IN_PROGRESS | doc e2e_local JSON mention check_rabbitmq field
+2026-01-18 09:31:16 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates GRANT_EXCHANGE inference for grant_contracts
+2026-01-18 09:36:17 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates default pdf_output_dir in JSON
+2026-01-18 09:41:16 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local asserts payload_file is absolute under ROOT_DIR
+2026-01-18 09:46:13 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local asserts default payload_file path in JSON
+2026-01-18 09:51:30 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks pdf_output_dir override in JSON
+2026-01-18 09:56:44 | Messagequeue/MessageQueue | IN_PROGRESS | fix duplicate pdf_output_dir override test block
+2026-01-18 10:01:13 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local enforces output=all count/index in JSON validation
+2026-01-18 10:06:21 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local asserts PDF_OUTPUT_DIR override is absolute
+2026-01-18 10:11:16 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local verifies default ack_mode in JSON
+2026-01-18 10:16:17 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local verifies ack_mode override in JSON
+2026-01-18 10:21:20 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local verifies output default to single in JSON
+2026-01-18 10:26:16 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local verifies count default to 1 in JSON
+2026-01-18 10:31:17 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local verifies index default to 0 in JSON
+2026-01-18 10:36:20 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local verifies validate_payload default to 1 in JSON
+2026-01-18 10:41:19 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local verifies check_rabbitmq default to 1 in JSON
+2026-01-18 10:46:21 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local verifies purge_queue default to 0 in JSON
+2026-01-18 10:51:22 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local asserts payload_file ends with .json in JSON
+2026-01-18 10:56:24 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local asserts payload_file exists on disk in JSON
+2026-01-18 11:01:20 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local asserts payload_file is readable in JSON
+2026-01-18 11:06:16 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local asserts payload_file non-empty in JSON
+2026-01-18 11:11:29 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks social exchange inference for financial_assistance_application
+2026-01-18 11:16:21 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks social exchange inference for transportation_costs_application
+2026-01-18 11:21:21 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local checks social exchange inference for food_application
+2026-01-18 11:26:41 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates routing_key type in JSON
+2026-01-18 11:31:19 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates exchange type in JSON
+2026-01-18 11:36:21 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates pdf_output_dir type in JSON
+2026-01-18 11:41:27 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates doc_type type in JSON
+2026-01-18 11:46:23 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates queue type in JSON
+2026-01-18 11:51:25 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates count/index are strings in JSON
+2026-01-18 11:56:21 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates output type in JSON
+2026-01-18 12:01:19 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates validate_payload type in JSON
+2026-01-18 12:06:20 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates check_rabbitmq type in JSON
+2026-01-18 12:11:20 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates purge_queue type in JSON
+2026-01-18 12:16:22 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates ack_mode type in JSON
+2026-01-18 12:21:23 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates payload_file type in JSON
+2026-01-18 12:26:42 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects empty exchange string in JSON
+2026-01-18 12:31:28 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local enforces absolute pdf_output_dir when overridden in JSON
+2026-01-18 12:36:23 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local requires routing_key for non-social exchange in JSON
+2026-01-18 12:41:30 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates status type in JSON
+2026-01-18 12:46:26 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects empty status in JSON
+2026-01-18 12:51:38 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_e2e_local help INDEX default
+2026-01-18 12:56:22 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local help text verified after INDEX default fix
+2026-01-18 13:01:25 | Messagequeue/MessageQueue | IN_PROGRESS | no-op avoided; state already logged for help text verification
+2026-01-18 13:06:28 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates output values in JSON
+2026-01-18 13:11:31 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local enforces output=single index<count in JSON
+2026-01-18 13:16:28 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates doc_type regex in JSON
+2026-01-18 13:21:37 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates exchange regex in JSON
+2026-01-18 13:26:29 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates routing_key regex in JSON
+2026-01-18 13:31:29 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates doc_type length in JSON
+2026-01-18 13:36:28 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates exchange length in JSON
+2026-01-18 13:41:27 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates routing_key length in JSON
+2026-01-18 13:46:22 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local run after routing_key length check
+2026-01-18 13:51:29 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local asserts pdf_output_dir exists when overridden in JSON
+2026-01-18 13:58:09 | Messagequeue/MessageQueue | IN_PROGRESS | add DOC_TYPE dot rejection test in e2e local validator
+2026-01-18 14:01:25 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects PAYLOAD_FILE directory
+2026-01-18 14:06:30 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts relative PAYLOAD_FILE
+2026-01-18 14:11:22 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects decimal COUNT
+2026-01-18 14:16:22 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects decimal INDEX
+2026-01-18 14:21:29 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates EXCHANGE with dot
+2026-01-18 14:26:38 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts ROUTING_KEY dot with grant exchange
+2026-01-18 14:31:24 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts ROUTING_KEY hyphen with grant exchange
+2026-01-18 14:36:31 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts OUTPUT=all COUNT=2 INDEX=0
+2026-01-18 14:41:27 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts ROUTING_KEY underscore with grant exchange
+2026-01-18 14:46:44 | Messagequeue/MessageQueue | IN_PROGRESS | reject relative PDF_OUTPUT_DIR in e2e_local + tests
+2026-01-18 14:51:44 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts QUEUE dot/underscore with DOC_TYPE override
+2026-01-18 14:56:37 | Messagequeue/MessageQueue | IN_PROGRESS | allow DOC_TYPE dot + update tests
+2026-01-18 15:03:28 | Messagequeue/MessageQueue | IN_PROGRESS | derive grant ROUTING_KEY from payload in e2e_local
+2026-01-18 15:06:44 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local defaults routing_key when grantType missing
+2026-01-18 15:11:58 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates DOC_TYPE dot in JSON
+2026-01-18 15:16:28 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects non-existent PDF_OUTPUT_DIR
+2026-01-18 15:21:27 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts empty OUTPUT default
+2026-01-18 15:26:54 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local derives routing_key from custom grantType
+2026-01-18 15:31:44 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts EXCHANGE underscore
+2026-01-18 15:36:31 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts ack_requeue_true
+2026-01-18 15:41:30 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts PURGE_QUEUE=1
+2026-01-18 15:46:31 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts VALIDATE_PAYLOAD=0
+2026-01-18 15:51:31 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts CHECK_RABBITMQ=0
+2026-01-18 15:56:30 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts DOC_TYPE length 255
+2026-01-18 16:01:33 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts QUEUE length 255
+2026-01-18 16:06:31 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts EXCHANGE length 255
+2026-01-18 16:11:30 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts ROUTING_KEY length 255
+2026-01-18 16:16:33 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts writable PDF_OUTPUT_DIR
+2026-01-18 16:21:32 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts OUTPUT=single
+2026-01-18 16:26:31 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts COUNT=1 INDEX=0 OUTPUT=single
+2026-01-18 16:31:36 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts COUNT=2 INDEX=1 OUTPUT=single
+2026-01-18 16:36:48 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts COUNT leading zeros
+2026-01-18 16:41:34 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts INDEX leading zeros
+2026-01-18 16:46:42 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts QUEUE hyphen
+2026-01-18 16:51:37 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts EXCHANGE hyphen
+2026-01-18 16:56:37 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts mixed-symbol ROUTING_KEY
+2026-01-18 17:01:39 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local validates DOC_TYPE mixed symbols
+2026-01-18 17:06:37 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts ROUTING_KEY dot/underscore/hyphen
+2026-01-18 17:11:39 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts empty routing_key for social exchange
+2026-01-18 17:16:41 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local rejects OUTPUT=all with INDEX=1
+2026-01-18 17:21:37 | Messagequeue/MessageQueue | IN_PROGRESS | test_e2e_local accepts COUNT=3 INDEX=0 OUTPUT=single
+2026-01-18 17:28:03 | Messagequeue/MessageQueue | IN_PROGRESS | add root projects overview document
+2026-01-18 17:30:35 | Messagequeue/MessageQueue | IN_PROGRESS | rewrite PROJECTS_OVERVIEW.md with detailed French descriptions
+2026-01-18 19:48:37 | Messagequeue/MessageQueue | IN_PROGRESS | add reading guidance section in PROJECTS_OVERVIEW.md
+2026-01-18 19:49:17 | Messagequeue/MessageQueue | IN_PROGRESS | add conventions section in PROJECTS_OVERVIEW.md
+2026-01-18 19:50:12 | Messagequeue/MessageQueue | IN_PROGRESS | add glossary section to PROJECTS_OVERVIEW.md
+2026-01-18 19:53:58 | Messagequeue/MessageQueue | IN_PROGRESS | add Utilisation du panorama section
+2026-01-18 19:58:58 | Messagequeue/MessageQueue | IN_PROGRESS | add depot structure section in PROJECTS_OVERVIEW.md
+2026-01-18 20:03:59 | Messagequeue/MessageQueue | IN_PROGRESS | add verification guidance section in PROJECTS_OVERVIEW.md
+2026-01-18 20:08:32 | Messagequeue/MessageQueue | IN_PROGRESS | add dry-run option and tests for publish_test_message
+2026-01-18 20:09:47 | Messagequeue/MessageQueue | IN_PROGRESS | doctor runs publish_test_message dry-run tests
+2026-01-18 20:14:06 | Messagequeue/MessageQueue | IN_PROGRESS | document publish_test_message dry-run in local_usage
+2026-01-18 20:19:49 | Messagequeue/MessageQueue | IN_PROGRESS | add --json output for test_publish_test_message
+2026-01-18 20:24:11 | Messagequeue/MessageQueue | IN_PROGRESS | --json mode in test_publish_test_message returns JSON-only
+2026-01-18 20:29:18 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message --json suppresses non-JSON output
+2026-01-18 20:34:10 | Messagequeue/MessageQueue | IN_PROGRESS | document doctor --json publish_tests field
+2026-01-18 20:39:09 | Messagequeue/MessageQueue | IN_PROGRESS | record publish_test_message dry-run in test_matrix
+2026-01-18 20:44:07 | Messagequeue/MessageQueue | IN_PROGRESS | document publish_test_message dry-run in local_runbook
+2026-01-18 20:49:13 | Messagequeue/MessageQueue | IN_PROGRESS | add publish_test_message dry-run to quickstart
+2026-01-18 20:54:08 | Messagequeue/MessageQueue | IN_PROGRESS | add quickstart to docs index
+2026-01-18 20:59:12 | Messagequeue/MessageQueue | IN_PROGRESS | document doctor JSON fields in troubleshooting_env
+2026-01-18 21:04:26 | Messagequeue/MessageQueue | IN_PROGRESS | expand test_publish_test_message payload error cases
+2026-01-18 21:09:07 | Messagequeue/MessageQueue | IN_PROGRESS | document publish_test_message payload error cases in tests_summary
+2026-01-18 21:14:18 | Messagequeue/MessageQueue | IN_PROGRESS | validate publish_test_message payload readability
+2026-01-18 21:19:07 | Messagequeue/MessageQueue | IN_PROGRESS | document publish_test_message payload readability requirement
+2026-01-18 21:25:20 | Messagequeue/MessageQueue | IN_PROGRESS | validate exchange/routing key in publish_test_message + tests
+2026-01-18 21:29:23 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message validates long exchange/routing key
+2026-01-18 21:34:05 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne longueurs invalides publish_test_message
+2026-01-18 21:39:04 | Messagequeue/MessageQueue | IN_PROGRESS | note long exchange/routing key test in test_matrix
+2026-01-18 21:44:35 | Messagequeue/MessageQueue | IN_PROGRESS | extend publish_test_message help text and test it
+2026-01-18 21:49:05 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne test help publish_test_message
+2026-01-18 21:55:31 | Messagequeue/MessageQueue | IN_PROGRESS | validate long content_type in publish_test_message tests
+2026-01-18 21:59:38 | Messagequeue/MessageQueue | IN_PROGRESS | validate MESSAGE_ID length in publish_test_message + tests
+2026-01-18 22:04:10 | Messagequeue/MessageQueue | IN_PROGRESS | note MESSAGE_ID length check in test_matrix
+2026-01-18 22:09:06 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne content_type/message_id publish_test_message
+2026-01-18 22:14:15 | Messagequeue/MessageQueue | IN_PROGRESS | document publish_test_message param errors in troubleshooting_env
+2026-01-18 22:19:10 | Messagequeue/MessageQueue | IN_PROGRESS | document publish_test_message validations in test_tools
+2026-01-18 22:24:22 | Messagequeue/MessageQueue | IN_PROGRESS | note content_type/message_id constraints in e2e_local docs
+2026-01-18 22:29:13 | Messagequeue/MessageQueue | IN_PROGRESS | add MESSAGE_ID/CONTENT_TYPE override example in local_usage
+2026-01-18 22:34:10 | Messagequeue/MessageQueue | IN_PROGRESS | scripts_overview notes publish_test_message validations
+2026-01-18 22:39:58 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message checks non-empty message_id
+2026-01-18 22:44:07 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne message_id non vide
+2026-01-18 22:49:07 | Messagequeue/MessageQueue | IN_PROGRESS | note empty MESSAGE_ID check in test_matrix
+2026-01-18 22:54:41 | Messagequeue/MessageQueue | IN_PROGRESS | validate MESSAGE_ID whitespace in publish_test_message + tests
+2026-01-18 22:59:10 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne message_id sans espaces
+2026-01-18 23:04:09 | Messagequeue/MessageQueue | IN_PROGRESS | note MESSAGE_ID whitespace check in test_matrix
+2026-01-18 23:09:11 | Messagequeue/MessageQueue | IN_PROGRESS | document message_id whitespace validation in test_tools
+2026-01-18 23:14:12 | Messagequeue/MessageQueue | IN_PROGRESS | clarify message_id whitespace in local_usage
+2026-01-18 23:20:08 | Messagequeue/MessageQueue | IN_PROGRESS | validate whitespace-only CONTENT_TYPE in publish_test_message + tests
+2026-01-18 23:24:11 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne content_type non blanc
+2026-01-18 23:29:11 | Messagequeue/MessageQueue | IN_PROGRESS | note CONTENT_TYPE blank check in test_matrix
+2026-01-18 23:34:11 | Messagequeue/MessageQueue | IN_PROGRESS | runbook note message_id/content_type constraints
+2026-01-18 23:39:35 | Messagequeue/MessageQueue | IN_PROGRESS | expand publish_test_message help notes + test
+2026-01-18 23:44:11 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne help detaille publish_test_message
+2026-01-18 23:49:15 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools mentionne content_type blanc et message_id avec espaces
+2026-01-18 23:55:17 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message couvre CONTENT_TYPE vide
+2026-01-18 23:59:14 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne content_type vide/blanc
+2026-01-19 00:04:17 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix mentionne CONTENT_TYPE vide
+2026-01-19 00:09:15 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools mentionne content_type vide/blanc
+2026-01-19 00:14:23 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message couvre MESSAGE_ID vide
+2026-01-19 00:19:11 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools mentionne message_id vide
+2026-01-19 00:24:12 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne message_id vide/espaces
+2026-01-19 00:29:42 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools detaille tests content_type/message_id
+2026-01-19 00:34:39 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary note JSON fields empty_message_id/whitespace_content_type
+2026-01-19 00:39:14 | Messagequeue/MessageQueue | IN_PROGRESS | scripts_overview detaille tests content_type/message_id
+2026-01-19 00:44:15 | Messagequeue/MessageQueue | IN_PROGRESS | scripts_overview note champs JSON empty_message_id/whitespace_content_type
+2026-01-19 00:49:21 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message exige champs JSON empty_message_id/whitespace_content_type
+2026-01-19 00:54:14 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix note champs JSON empty_message_id/whitespace_content_type
+2026-01-19 00:59:12 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools note champs JSON empty_message_id/whitespace_content_type
+2026-01-19 01:04:19 | Messagequeue/MessageQueue | IN_PROGRESS | corrige champs requis JSON publish_test_message
+2026-01-19 01:10:23 | Messagequeue/MessageQueue | IN_PROGRESS | tests maj defaults message_id/content_type + test ok
+2026-01-19 01:14:19 | Messagequeue/MessageQueue | IN_PROGRESS | script_env clarifie defaults content_type/message_id
+2026-01-19 01:19:14 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting_env clarifie defaults content_type/message_id
+2026-01-19 01:24:18 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook clarifie defaults content_type/message_id
+2026-01-19 01:29:33 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage note defaults message_id/content_type
+2026-01-19 01:34:17 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local clarifie defaults content_type/message_id
+2026-01-19 01:39:24 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart note defaults content_type/message_id
+2026-01-19 01:44:36 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting rappelle defaults content_type/message_id
+2026-01-19 01:49:20 | Messagequeue/MessageQueue | IN_PROGRESS | scripts_overview note defaults publish_test_message
+2026-01-19 01:54:37 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message couvre content_type whitespace tab
+2026-01-19 01:59:19 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message --json ok apres whitespace tab
+2026-01-19 02:04:14 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix mentionne content_type blanc espaces/tabs
+2026-01-19 02:09:26 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary mentionne content_type blanc espaces/tabs
+2026-01-19 02:14:28 | Messagequeue/MessageQueue | IN_PROGRESS | docs mentionnent content_type blanc espaces/tabs
+2026-01-19 02:19:16 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart precise content_type blanc espaces/tabs
+2026-01-19 02:24:14 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage precise content_type blanc espaces/tabs
+2026-01-19 02:29:15 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local precise content_type blanc espaces/tabs
+2026-01-19 02:34:15 | Messagequeue/MessageQueue | IN_PROGRESS | script_env precise content_type blanc espaces/tabs
+2026-01-19 02:39:14 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting_env precise content_type blanc espaces/tabs
+2026-01-19 02:44:14 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook precise content_type blanc espaces/tabs
+2026-01-19 02:49:21 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting precise content_type blanc espaces/tabs
+2026-01-19 02:54:27 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools precise content_type blanc espaces/tabs
+2026-01-19 03:00:03 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message verifie message_id tab + docs
+2026-01-19 03:04:16 | Messagequeue/MessageQueue | IN_PROGRESS | script_env precise message_id sans espaces/tabs
+2026-01-19 03:09:19 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting_env precise message_id sans espaces/tabs
+2026-01-19 03:14:18 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook precise message_id sans espaces/tabs
+2026-01-19 03:19:17 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage precise message_id sans espaces/tabs
+2026-01-19 03:24:17 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart precise message_id sans espaces/tabs
+2026-01-19 03:29:17 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting precise message_id sans espaces/tabs
+2026-01-19 03:34:22 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local precise message_id sans espaces/tabs
+2026-01-19 03:39:35 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message couvre content_type whitespace newline
+2026-01-19 03:44:43 | Messagequeue/MessageQueue | IN_PROGRESS | docs precisent content_type blanc espaces/tabs/newlines
+2026-01-19 03:49:53 | Messagequeue/MessageQueue | IN_PROGRESS | docs precisent content_type blanc espaces/tabs/newlines partout
+2026-01-19 03:54:33 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message couvre message_id whitespace newline
+2026-01-19 03:59:41 | Messagequeue/MessageQueue | IN_PROGRESS | docs precisent message_id espaces/tabs/newlines
+2026-01-19 04:04:58 | Messagequeue/MessageQueue | IN_PROGRESS | docs precisent message_id sans espaces/tabs/newlines
+2026-01-19 04:09:33 | Messagequeue/MessageQueue | IN_PROGRESS | scripts_overview detaille refus content_type/message_id
+2026-01-19 04:14:30 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook/local_usage mentionnent message_id newlines
+2026-01-19 04:19:39 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting_env ajoute mention whitespace
+2026-01-19 04:24:28 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage mentionne message_id sans espaces/tabs/newlines
+2026-01-19 04:31:19 | Documentation/Repository | IN_PROGRESS | etend PROJETS_EXPLICATIONS.md avec lignes 11-16 par projet
+2026-01-19 04:35:36 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message refuse JSON invalide + test associe
+2026-01-19 04:39:48 | Messagequeue/MessageQueue | IN_PROGRESS | docs tests_* mentionnent payload JSON invalide
+2026-01-19 04:44:39 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting mentionne payload JSON invalide
+2026-01-19 04:49:36 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage mentionne erreur JSON invalide
+2026-01-19 04:54:27 | Messagequeue/MessageQueue | IN_PROGRESS | script_env mentionne JSON valide pour publish_test_message
+2026-01-19 04:59:30 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart note JSON invalide publish_test_message
+2026-01-19 05:04:49 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message verifie message erreur JSON invalide
+2026-01-19 05:09:30 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting_env ajoute JSON invalide publish_test_message
+2026-01-19 05:14:29 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook note JSON invalide publish_test_message
+2026-01-19 05:19:41 | Messagequeue/MessageQueue | IN_PROGRESS | help publish_test_message mentionne JSON valide + test help
+2026-01-19 05:24:29 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary detaille message erreur JSON invalide
+2026-01-19 05:29:25 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting_env precise message JSON invalide
+2026-01-19 05:34:28 | Messagequeue/MessageQueue | IN_PROGRESS | http_endpoints mentionne JSON invalide pour POST /students
+2026-01-19 05:39:29 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local precise PAYLOAD_FILE JSON valide
+2026-01-19 05:44:37 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message verifie chemin JSON invalide
+2026-01-19 05:50:21 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message JSON error en mode --json + test associe
+2026-01-19 05:54:25 | Messagequeue/MessageQueue | IN_PROGRESS | scripts_overview mentionne sortie JSON d erreur
+2026-01-19 05:59:22 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix mentionne JSON erreur publish_test_message
+2026-01-19 06:04:24 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools mentionne sortie JSON d erreur
+2026-01-19 06:09:28 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary precise status=error JSON invalide
+2026-01-19 06:15:37 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message JSON error pour payload manquant + docs/tests
+2026-01-19 06:20:42 | Messagequeue/MessageQueue | IN_PROGRESS | erreurs JSON en --json pour validations publish_test_message
+2026-01-19 06:24:49 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message JSON erreur content_type trop long
+2026-01-19 06:30:15 | Messagequeue/MessageQueue | IN_PROGRESS | tests JSON erreurs longueurs exchange/routing/message_id
+2026-01-19 06:34:23 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix mentionne erreurs JSON longueurs
+2026-01-19 06:39:25 | Messagequeue/MessageQueue | IN_PROGRESS | script_env mentionne erreurs JSON en --json
+2026-01-19 06:44:36 | Messagequeue/MessageQueue | IN_PROGRESS | README mentionne erreurs JSON en --json
+2026-01-19 06:49:54 | Messagequeue/MessageQueue | IN_PROGRESS | help mentionne status=error en --json + test
+2026-01-19 06:54:27 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage mentionne status=error en --json
+2026-01-19 06:59:26 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook mentionne status=error en --json
+2026-01-19 07:04:24 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart mentionne status=error en --json
+2026-01-19 07:09:27 | Messagequeue/MessageQueue | IN_PROGRESS | http_endpoints mentionne status=error pour POST /students
+2026-01-19 07:14:24 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting mentionne status=error en --json
+2026-01-19 07:20:46 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message JSON erreurs payload directory+readable + tests
+2026-01-19 07:24:46 | Messagequeue/MessageQueue | IN_PROGRESS | docs test_matrix/tests_summary ajoutent erreurs JSON payload
+2026-01-19 07:29:28 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting_env ajoute payload not found/directory
+2026-01-19 07:34:30 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting ajoute payload not found/directory
+2026-01-19 07:39:34 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools detaille erreurs JSON payload manquant/illisible/dossier
+2026-01-19 07:44:32 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage mentionne erreurs JSON payload manquant/illisible/dossier
+2026-01-19 07:49:27 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook mentionne erreurs JSON payload manquant/illisible/dossier
+2026-01-19 07:54:27 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart mentionne erreurs JSON payload manquant/illisible/dossier
+2026-01-19 07:59:37 | Messagequeue/MessageQueue | IN_PROGRESS | json_error verifie python3 avant JSON
+2026-01-19 08:04:28 | Messagequeue/MessageQueue | IN_PROGRESS | scripts_overview note JSON errors si python3 dispo
+2026-01-19 08:09:24 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting_env note --json sans python3
+2026-01-19 08:16:20 | Messagequeue/MessageQueue | IN_PROGRESS | troubleshooting ajoute verification python3 pour --json
+2026-01-19 08:19:37 | Messagequeue/MessageQueue | IN_PROGRESS | module_status detaille etapes PDF reel
+2026-01-19 08:24:34 | Messagequeue/MessageQueue | IN_PROGRESS | todo_next detaille e2e/pdf/ci
+2026-01-19 08:29:34 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary precise prerequis e2e_local
+2026-01-19 08:34:37 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart ajoute nettoyage PDFs
+2026-01-19 08:39:35 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage ajoute nettoyage PDFs e2e_local
+2026-01-19 08:44:42 | Messagequeue/MessageQueue | IN_PROGRESS | run_modules note nettoyage PDFs
+2026-01-19 08:49:44 | Messagequeue/MessageQueue | IN_PROGRESS | logging note chemin PDF par defaut
+2026-01-19 08:54:29 | Messagequeue/MessageQueue | IN_PROGRESS | security_notes ajoute restriction acces shared
+2026-01-19 08:59:54 | Messagequeue/MessageQueue | IN_PROGRESS | api_contract note generation PDF via consumers
+2026-01-19 09:04:38 | Messagequeue/MessageQueue | IN_PROGRESS | ports note PDF output dir
+2026-01-19 09:09:38 | Messagequeue/MessageQueue | IN_PROGRESS | sample_routing_keys relie sample_student.json
+2026-01-19 09:14:48 | Messagequeue/MessageQueue | IN_PROGRESS | service_env note PDF_OUTPUT_DIR writable
+2026-01-19 09:19:32 | Messagequeue/MessageQueue | IN_PROGRESS | http_endpoints note PDF via consumers
+2026-01-19 09:24:33 | Messagequeue/MessageQueue | IN_PROGRESS | scripts_overview note PDFs e2e_local
+2026-01-19 09:29:35 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local ajoute nettoyage PDFs
+2026-01-19 09:34:40 | Messagequeue/MessageQueue | IN_PROGRESS | module_layout note PDF_OUTPUT_DIR
+2026-01-19 09:39:35 | Messagequeue/MessageQueue | IN_PROGRESS | service_matrix note PDF_OUTPUT_DIR
+2026-01-19 09:44:34 | Messagequeue/MessageQueue | IN_PROGRESS | services note PDF_OUTPUT_DIR
+2026-01-19 09:49:38 | Messagequeue/MessageQueue | IN_PROGRESS | pdf_naming note PDF_OUTPUT_DIR
+2026-01-19 09:54:33 | Messagequeue/MessageQueue | IN_PROGRESS | pdf_contents note PDF_OUTPUT_DIR
+2026-01-19 09:59:33 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix note nettoyage shared/pdfs
+2026-01-19 10:04:40 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools note nettoyage PDFs dummy
+2026-01-19 10:09:36 | Messagequeue/MessageQueue | IN_PROGRESS | tests_consumers ajoute nettoyage PDFs
+2026-01-19 10:14:40 | Messagequeue/MessageQueue | IN_PROGRESS | tests_producer note pas de PDF
+2026-01-19 10:19:36 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary note nettoyage PDFs consumers
+2026-01-19 10:24:35 | Messagequeue/MessageQueue | IN_PROGRESS | todo_next ajoute mention PDF_OUTPUT_DIR
+2026-01-19 10:29:51 | Messagequeue/MessageQueue | IN_PROGRESS | consumer_ack note PDF_OUTPUT_DIR writable
+2026-01-19 10:34:35 | Messagequeue/MessageQueue | IN_PROGRESS | smoke_plan note PDF_OUTPUT_DIR
+2026-01-19 10:40:06 | Messagequeue/MessageQueue | IN_PROGRESS | docs_index note ordre alphabetique
+2026-01-19 10:44:51 | Messagequeue/MessageQueue | IN_PROGRESS | topology note PDF_OUTPUT_DIR
+2026-01-19 10:49:31 | Messagequeue/MessageQueue | IN_PROGRESS | queue_purpose note PDF_OUTPUT_DIR
+2026-01-19 10:54:34 | Messagequeue/MessageQueue | IN_PROGRESS | implementation_plan note PDF_OUTPUT_DIR writable
+2026-01-19 10:59:59 | Messagequeue/MessageQueue | IN_PROGRESS | script_env note PDF_OUTPUT_DIR writable
+2026-01-19 11:04:55 | Messagequeue/MessageQueue | IN_PROGRESS | run_modules mention PDF_OUTPUT_DIR
+2026-01-19 11:09:52 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary note PDF_OUTPUT_DIR
+2026-01-19 11:14:34 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart note PDF_OUTPUT_DIR
+2026-01-19 11:19:35 | Messagequeue/MessageQueue | IN_PROGRESS | local_usage note PDF_OUTPUT_DIR
+2026-01-19 11:24:33 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook note PDF_OUTPUT_DIR
+2026-01-19 11:29:45 | Messagequeue/MessageQueue | IN_PROGRESS | http_endpoints ajoute PDF_OUTPUT_DIR
+2026-01-19 11:34:53 | Messagequeue/MessageQueue | IN_PROGRESS | api_contract ajoute PDF_OUTPUT_DIR
+2026-01-19 11:39:39 | Messagequeue/MessageQueue | IN_PROGRESS | payload_schema note PDF_OUTPUT_DIR
+2026-01-19 11:44:37 | Messagequeue/MessageQueue | IN_PROGRESS | module_status note PDF_OUTPUT_DIR
+2026-01-19 11:49:39 | Messagequeue/MessageQueue | IN_PROGRESS | security_notes ajoute suppression PDFs tests
+2026-01-19 11:54:51 | Messagequeue/MessageQueue | IN_PROGRESS | test_matrix note PDF_OUTPUT_DIR pour PDFs
+2026-01-19 11:59:46 | Messagequeue/MessageQueue | IN_PROGRESS | logging note PDF_OUTPUT_DIR
+2026-01-19 12:04:50 | Messagequeue/MessageQueue | IN_PROGRESS | tests_consumers note PDF_OUTPUT_DIR
+2026-01-19 12:09:39 | Messagequeue/MessageQueue | IN_PROGRESS | test_tools note PDF_OUTPUT_DIR
+2026-01-19 12:14:52 | Messagequeue/MessageQueue | IN_PROGRESS | tests_producer note PDF_OUTPUT_DIR non utilise
+2026-01-19 12:19:40 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local note PDF_OUTPUT_DIR override
+2026-01-19 12:24:51 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary note PDF_OUTPUT_DIR pour smoke
+2026-01-19 15:14:34 | Documentation/Repository | IN_PROGRESS | Ajout d'une description du projet Messagequeue dans PROJETS_EXPLICATIONS pour clarifier les attentes PDF/JSON et la suite de tests.
+2026-01-19 16:29:59 | Messagequeue/MessageQueue | IN_PROGRESS | Ajout d'un contrat API détaillant fields JSON, validations, erreurs et workflow PDF pour publish_test_message.
+2026-01-19 16:40:00 | Messagequeue/MessageQueue | IN_PROGRESS | README mentionne le nouveau doc api_contract pour publish_test_message.
+2026-01-19 16:53:01 | Messagequeue/MessageQueue | IN_PROGRESS | README mentionne scripts/check_publish_payload pour valider le payload avant publish_test_message.
+2026-01-24 11:20:56 | Messagequeue/MessageQueue | IN_PROGRESS | docs/api_contract mentionne scripts/check_publish_payload pour valider localement le JSON de publish_test_message.
+2026-01-24 11:40:55 | Messagequeue/MessageQueue | IN_PROGRESS | tests/check_publish_payload exit=0 using docs/sample_publish_payload.json.
+2026-01-24 13:00:45 | Messagequeue/MessageQueue | IN_PROGRESS | README mentionne docs/sample_publish_payload et check_publish_payload script.
+2026-01-24 13:15:50 | Documentation/Repository | IN_PROGRESS | Ajout d'une section Documentation dans PROJETS_EXPLICATIONS.
+2026-01-24 13:45:42 | Messagequeue/MessageQueue | IN_PROGRESS | docs/api_contract mentionne sample_publish_payload et commande de vérification.
+2026-01-24 14:00:58 | Documentation/Repository | IN_PROGRESS | Messagequeue entry mentionne check_publish_payload script + sample payload.
+2026-01-24 14:15:51 | Messagequeue/MessageQueue | IN_PROGRESS | Added docs/publish_workflow.md and referenced it in README.
+2026-01-24 14:35:58 | Messagequeue/MessageQueue | IN_PROGRESS | Added verify_publish_payload.sh and documented it in README.
+2026-01-24 15:01:15 | full_auto_codex_v2 | IN_PROGRESS | Documented the current state and handoff requirements for the next LLM.
+2026-01-24 15:15:00 | full_auto_codex_v2 | IN_PROGRESS | Pointed README readers to `reports/next_llm_summary.md` so they can pick the right project and constraints before acting.
+2026-01-24 15:30:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added scripts/verify_pdf_output_dir.sh to ensure PDF_OUTPUT_DIR exists/writable before publish_test_message.
+2026-01-24 15:45:00 | Messagequeue/MessageQueue | IN_PROGRESS | Exercised verify_pdf_output_dir.sh with PDF_OUTPUT_DIR=/tmp/mq-pdfs and documented the Bash dependency in README.
+2026-01-24 15:55:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added usage note to docs/publish_workflow.md instructing readers to run verify_pdf_output_dir.sh before publish_test_message.
+2026-01-24 16:05:00 | Messagequeue/MessageQueue | IN_PROGRESS | Documented verify_pdf_output_dir.sh in docs/scripts_overview.md so helpers list mentions the check.
+2026-01-24 16:10:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added troubleshooting_env note covering verify_pdf_output_dir.sh for PDF write errors.
+2026-01-24 16:20:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added publish_test_message_with_check.sh and documented it in README/docs to ensure verify_pdf_output_dir.sh runs before publishing.
+2026-01-24 16:40:00 | Messagequeue/MessageQueue | IN_PROGRESS | Highlighted in README to prefer publish_test_message_with_check.sh for demos/CI, preventing PDF_OUTPUT_DIR failures.
+2026-01-24 16:55:00 | Messagequeue/MessageQueue | IN_PROGRESS | Updated quickstart to call publish_test_message_with_check.sh and mention PDF_OUTPUT_DIR readiness note.
+2026-01-24 17:05:00 | full_auto_codex_v2 | IN_PROGRESS | README root now recommends publish_test_message_with_check.sh so the project-wide documentation aligns with the new workflow.
+2026-01-24 17:25:00 | Messagequeue/MessageQueue | IN_PROGRESS | doctor.sh now runs publish_test_message_with_check.sh --dry-run to verify PDF_OUTPUT_DIR before smoke/check routines.
+2026-01-24 17:35:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added cleanup_pdf_output_dir.sh and mentioned it in Quickstart for PDF artifact cleanup before reruns.
+2026-01-24 17:45:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added inspect_pdf_output_dir.sh with quickstart note to report PDF counts between runs.
+2026-01-24 18:00:00 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary now mentions cleanup_pdf_output_dir.sh and inspect_pdf_output_dir.sh around publish_test_message runs.
+2026-01-24 18:15:00 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook now documents the PDF workflow that uses the new scripts for verify/cleanup/inspect around publish_test_message.
+2026-01-24 18:30:00 | Messagequeue/MessageQueue | IN_PROGRESS | Added prepare_pdf_output_dir.sh plus quickstart/README mentions for automating verify+cleanup before publish_test_message.

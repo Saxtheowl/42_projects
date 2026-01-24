@@ -16,3 +16,4 @@
 
 ## Fichier de sortie
 Tous les PDF doivent etre ecrits dans `shared/pdfs/` avec des noms uniques (prefixe type + studentId + timestamp).
+Le dossier peut etre override via `PDF_OUTPUT_DIR`.

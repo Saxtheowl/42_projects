@@ -1,10 +1,15 @@
 # Docs index
 
-Liste des documents disponibles :
+Liste des documents disponibles (ordre alphabétique) :
 
 - `docs/MessageQueue.pdf`
 - `docs/bootstrap_env.md`
 - `docs/consumer_ack.md`
+- `docs/api_contract.md`
+- `docs/logging.md`
+- `docs/module_status.md`
+- `docs/ports.md`
+- `docs/security_notes.md`
 - `docs/docs_index.md`
 - `docs/http_endpoints.md`
 - `docs/implementation_plan.md`
@@ -15,10 +20,12 @@ Liste des documents disponibles :
 - `docs/pdf_contents.md`
 - `docs/pdf_naming.md`
 - `docs/queue_purpose.md`
+- `docs/quickstart.md`
 - `docs/sample_routing_keys.md`
 - `docs/sample_student.json`
 - `docs/script_env.md`
 - `docs/scripts_overview.md`
+- `docs/e2e_local.md`
 - `docs/service_env.md`
 - `docs/service_matrix.md`
 - `docs/services.md`
@@ -32,3 +39,4 @@ Liste des documents disponibles :
 - `docs/troubleshooting.md`
 - `docs/troubleshooting_env.md`
 - `docs/run_modules.md`
+- `docs/tests_summary.md`
