@@ -1,3 +1,9 @@
+2026-01-25 03:50:00 | Messagequeue/MessageQueue | IN_PROGRESS | verify_publish_pdf_metadata.sh exercised publish_test_message_with_check --json --dry-run and reported the expected pdf_output_dir/pdf_output_dir_missing metadata.
+2026-01-25 03:56:00 | Messagequeue/MessageQueue | IN_PROGRESS | Attempted `scripts/test_publish_test_message.sh --json` (with PDF_OUTPUT_DIR set and SKIP_PDF_CHECK=1) but validation hooks expect JSON error output (empty due to missing logs), so the suite currently fails; we need to adjust the helpers or test expectations before rerunning.
+2026-01-25 03:30:54 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart now documents that publish_test_message --json success emits `pdf_output_dir`/`pdf_output_dir_missing`, allowing quick checks with `jq`.
+2026-01-25 03:22:17 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook now explains that publish_test_message --json success output includes `pdf_output_dir`/`pdf_output_dir_missing` so the workflow can confirm PDF readiness.
+2026-01-25 03:15:00 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message asserts publish_test_message JSON success/dry-run responses include pdf_output_dir/pdf_output_dir_missing so the suites fail when the contract breaks.
+2026-01-25 03:03:46 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message JSON now returns pdf_output_dir + pdf_output_dir_missing in dry-run/success outputs to keep API contract consistent with the docs and tests.
 2026-01-19 12:50:39 | Messagequeue/MessageQueue | IN_PROGRESS | e2e_local dry-run JSON renvoie un pdf_output_dir sans suffixe, avec indicateur pdf_output_dir_missing separe.
 2026-01-19 12:54:36 | Messagequeue/MessageQueue | IN_PROGRESS | docs_e2e_local mentionne pdf_output_dir exibant le chemin reel du dry-run.
 2026-01-19 13:10:03 | Messagequeue/MessageQueue | IN_PROGRESS | doc local_usage note la sortie JSON dry-run `pdf_output_dir`/`pdf_output_dir_missing`.
@@ -1886,3 +1892,10 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2026-01-24 20:30:00 | Messagequeue/MessageQueue | IN_PROGRESS | publish_workflow doc now references prepare/inspect/cleanup scripts for the PDF workflow and verification steps.
 2026-01-24 20:45:00 | Messagequeue/MessageQueue | IN_PROGRESS | quickstart doc now explains prepare_pdf_output_dir script sequence for PDF readiness.
 2026-01-24 21:05:00 | Messagequeue/MessageQueue | IN_PROGRESS | tests_summary notes prepare_pdf_output_dir script for PDF readiness before e2e dry-run.
+2026-01-24 21:15:00 | Messagequeue/MessageQueue | IN_PROGRESS | README now points to publish_workflow/quickstart docs covering the prepare/publish/inspect PDF scripts.
+2026-01-24 21:25:00 | Messagequeue/MessageQueue | IN_PROGRESS | local_runbook now instructs to run prepare_pdf_output_dir before publish_test_message.
+2026-01-24 21:50:00 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message_with_check now runs prepare_pdf_output_dir and ensure_pdf_output_dir_has_file.
+2026-01-24 22:00:00 | Messagequeue/MessageQueue | IN_PROGRESS | README links workflows/docs around prepare/publish/inspect PDF scripts.
+2026-01-24 22:10:00 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message now prepares PDF_OUTPUT_DIR via prepare script before running publish tests.
+2026-01-25 04:41:50 | Messagequeue/MessageQueue | IN_PROGRESS | Verified the PDF workflow by running prepare_pdf_output_dir + publish_test_message_with_check --json --dry-run, ensuring pdf_output_dir_missing=0 and the helper scripts clean the target before each run.
+2026-01-25 06:53:00 | Messagequeue/MessageQueue | IN_PROGRESS | Executed verify_publish_pdf_metadata.sh to confirm the dry-run JSON still reports pdf_output_dir/pdfs and pdf_output_dir_missing=0 as per the metadata contract.

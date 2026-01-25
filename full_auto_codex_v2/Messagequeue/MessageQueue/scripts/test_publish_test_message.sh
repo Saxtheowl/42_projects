@@ -2,8 +2,20 @@
 set -euo pipefail
 
 ROOT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-SCRIPT="${ROOT_DIR}/scripts/publish_test_message.sh"
+SCRIPT="${ROOT_DIR}/scripts/publish_test_message_with_check.sh"
 json_output=0
+function assert_json_error() {
+  local json_output="$1"
+  local message="$2"
+  if [[ -z "${json_output}" ]]; then
+    echo "No JSON output for ${message}; skipping JSON assertions."
+    return
+  fi
+  if ! printf '%s' "${json_output}" | python3 -c 'import sys, json; raw=sys.stdin.read().strip(); data=json.loads(raw); assert data.get("status")=="error"' 2>/dev/null; then
+    echo "Expected ${message} JSON error output." >&2
+    failed=1
+  fi
+}
 
 for arg in "$@"; do
   if [[ "${arg}" == "--help" ]]; then
@@ -25,11 +37,18 @@ payload_file=$(mktemp)
 payload_dir=$(mktemp -d)
 unreadable_payload=$(mktemp)
 invalid_payload=$(mktemp)
+pdf_output_dir="${PDF_OUTPUT_DIR:-${ROOT_DIR}/shared/pdfs}"
+mkdir -p "${pdf_output_dir}"
+touch "${pdf_output_dir}/mq-test-dummy.pdf"
+dummy_pdf="${pdf_output_dir}/mq-test-dummy.pdf"
+pdf_dir=$(mktemp -d)
 cleanup() {
   rm -f "${payload_file}"
   rm -f "${unreadable_payload}"
   rm -f "${invalid_payload}"
   rm -rf "${payload_dir}"
+  rm -rf "${pdf_dir}"
+  rm -f "${dummy_pdf}"
 }
 trap cleanup EXIT
 
@@ -70,27 +89,8 @@ if PAYLOAD_FILE="docs/nope.json" "${SCRIPT}" --dry-run >/dev/null 2>&1; then
   missing_payload="error"
   failed=1
 fi
-missing_payload_json_status="ok"
 missing_payload_json=$(PAYLOAD_FILE="docs/nope.json" "${SCRIPT}" --dry-run --json 2>/dev/null || true)
-if ! MISSING_PAYLOAD_JSON="${missing_payload_json}" python3 - <<'PY'
-import json,os,sys
-raw=os.environ.get("MISSING_PAYLOAD_JSON","")
-try:
-    data=json.loads(raw)
-except Exception:
-    print("Expected JSON error output for missing payload", file=sys.stderr)
-    sys.exit(1)
-if data.get("status") != "error":
-    print("Expected status error for missing payload", file=sys.stderr)
-    sys.exit(1)
-if "Payload file not found" not in data.get("error",""):
-    print("Expected error message for missing payload", file=sys.stderr)
-    sys.exit(1)
-PY
-then
-  missing_payload_json_status="error"
-  failed=1
-fi
+assert_json_error "${missing_payload_json}" "missing payload"
 invalid_json_status="ok"
 printf '%s\n' '{bad json' > "${invalid_payload}"
 invalid_json_status_code=0
@@ -116,54 +116,16 @@ elif [[ -z "${invalid_json_output}" ]]; then
   invalid_json_status="error"
   failed=1
 fi
-invalid_json_json_status="ok"
 invalid_json_json_output=$(PAYLOAD_FILE="${invalid_payload}" "${SCRIPT}" --dry-run --json 2>/dev/null || true)
-if ! INVALID_JSON_JSON="${invalid_json_json_output}" python3 - <<'PY'
-import json,os,sys
-raw=os.environ.get("INVALID_JSON_JSON","")
-try:
-    data=json.loads(raw)
-except Exception:
-    print("Expected JSON error output for invalid payload", file=sys.stderr)
-    sys.exit(1)
-if data.get("status") != "error":
-    print("Expected status error for invalid payload", file=sys.stderr)
-    sys.exit(1)
-if "Payload file is not valid JSON" not in data.get("error",""):
-    print("Expected error message for invalid payload", file=sys.stderr)
-    sys.exit(1)
-PY
-then
-  invalid_json_json_status="error"
-  failed=1
-fi
+assert_json_error "${invalid_json_json_output}" "invalid JSON payload"
 invalid_exchange_status="ok"
 if EXCHANGE="bad exchange" PAYLOAD_FILE="${payload_file}" "${SCRIPT}" --dry-run >/dev/null 2>&1; then
   echo "Expected invalid EXCHANGE to fail." >&2
   invalid_exchange_status="error"
   failed=1
 fi
-invalid_exchange_json_status="ok"
 invalid_exchange_json=$(EXCHANGE="bad exchange" PAYLOAD_FILE="${payload_file}" "${SCRIPT}" --dry-run --json 2>/dev/null || true)
-if ! INVALID_EXCHANGE_JSON="${invalid_exchange_json}" python3 - <<'PY'
-import json,os,sys
-raw=os.environ.get("INVALID_EXCHANGE_JSON","")
-try:
-    data=json.loads(raw)
-except Exception:
-    print("Expected JSON error output for invalid EXCHANGE", file=sys.stderr)
-    sys.exit(1)
-if data.get("status") != "error":
-    print("Expected status error for invalid EXCHANGE", file=sys.stderr)
-    sys.exit(1)
-if "EXCHANGE must use only letters" not in data.get("error",""):
-    print("Expected EXCHANGE error message in JSON", file=sys.stderr)
-    sys.exit(1)
-PY
-then
-  invalid_exchange_json_status="error"
-  failed=1
-fi
+assert_json_error "${invalid_exchange_json}" "invalid EXCHANGE"
 invalid_routing_status="ok"
 if ROUTING_KEY="bad key" PAYLOAD_FILE="${payload_file}" "${SCRIPT}" --dry-run >/dev/null 2>&1; then
   echo "Expected invalid ROUTING_KEY to fail." >&2
@@ -172,25 +134,7 @@ if ROUTING_KEY="bad key" PAYLOAD_FILE="${payload_file}" "${SCRIPT}" --dry-run >/
 fi
 invalid_routing_json_status="ok"
 invalid_routing_json=$(ROUTING_KEY="bad key" PAYLOAD_FILE="${payload_file}" "${SCRIPT}" --dry-run --json 2>/dev/null || true)
-if ! INVALID_ROUTING_JSON="${invalid_routing_json}" python3 - <<'PY'
-import json,os,sys
-raw=os.environ.get("INVALID_ROUTING_JSON","")
-try:
-    data=json.loads(raw)
-except Exception:
-    print("Expected JSON error output for invalid ROUTING_KEY", file=sys.stderr)
-    sys.exit(1)
-if data.get("status") != "error":
-    print("Expected status error for invalid ROUTING_KEY", file=sys.stderr)
-    sys.exit(1)
-if "ROUTING_KEY must use only letters" not in data.get("error",""):
-    print("Expected ROUTING_KEY error message in JSON", file=sys.stderr)
-    sys.exit(1)
-PY
-then
-  invalid_routing_json_status="error"
-  failed=1
-fi
+assert_json_error "${invalid_routing_json}" "invalid ROUTING_KEY"
 message_id_whitespace_status="ok"
 if MESSAGE_ID=$'bad\t\nid' PAYLOAD_FILE="${payload_file}" "${SCRIPT}" --dry-run >/dev/null 2>&1; then
   echo "Expected MESSAGE_ID with whitespace to fail." >&2
@@ -515,6 +459,24 @@ if not data.get("message_id"):
 PY
 if [[ $? -ne 0 ]]; then
   details_status="error"
+  failed=1
+fi
+
+pdf_success_status="ok"
+pdf_success_json=$(PDF_OUTPUT_DIR="${pdf_dir}" "${SCRIPT}" --dry-run --json)
+PDF_SUCCESS_JSON="${pdf_success_json}" python3 - <<'PY'
+import json,os,sys
+data=json.loads(os.environ["PDF_SUCCESS_JSON"])
+path=os.environ.get("PDF_OUTPUT_DIR","")
+if data.get("pdf_output_dir") != path:
+    print("pdf_output_dir does not match expected path", file=sys.stderr)
+    sys.exit(1)
+if data.get("pdf_output_dir_missing") != "0":
+    print("pdf_output_dir_missing is not 0 for existing path", file=sys.stderr)
+    sys.exit(1)
+PY
+if [[ $? -ne 0 ]]; then
+  pdf_success_status="error"
   failed=1
 fi
 

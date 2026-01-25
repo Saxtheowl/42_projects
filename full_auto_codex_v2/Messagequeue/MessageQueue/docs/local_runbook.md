@@ -37,8 +37,9 @@ Dry-run publication (sans HTTP) + test rapide :
 ```
 Note: `MESSAGE_ID` ne doit pas contenir d'espaces/tabs/newlines (vide -> default) et `CONTENT_TYPE` ne doit pas etre blanc (espaces/tabs/newlines, vide -> default).
 Note: si le payload n'est pas un JSON valide, publish_test_message echoue.
-Note: en mode --json, les erreurs de validation retournent status=error.
-Note: en mode --json, payload manquant/illisible/dossier retourne status=error + message explicite.
+Note: en mode `--json`, les erreurs de validation retournent `status=error`.
+Note: en mode `--json`, payload manquant/illisible/dossier retourne `status=error` + message explicite.
+Note: en mode `--json`, la réussite renvoie maintenant `pdf_output_dir` et `pdf_output_dir_missing` pour que la documentation/tests puissent vérifier que le répertoire a été prévu (and `pdf_output_dir_missing` reste `0` when the directory exists).
 
 5) Test e2e (publish -> consume -> PDF dummy) :
 ```bash
@@ -70,6 +71,6 @@ Note: pipez la sortie vers `jq '.pdf_output_dir,.pdf_output_dir_missing'` pour c
 rm -f shared/pdfs/*
 ```
 ## PDF workflow
-- Avant de publier un message de test, lancez `scripts/publish_test_message_with_check.sh` pour que `verify_pdf_output_dir.sh` prépare `PDF_OUTPUT_DIR`.  
+- Avant de publier un message de test, exécutez `scripts/prepare_pdf_output_dir.sh` (ou `verify_pdf_output_dir.sh` suivi de `cleanup_pdf_output_dir.sh`) pour créer/vider `PDF_OUTPUT_DIR`, puis lancez `scripts/publish_test_message_with_check.sh` pour garantir la vérification et la publication dans un répertoire propre.  
 - Après les publications, utilisez `scripts/cleanup_pdf_output_dir.sh` pour purger les PDF résiduels et `scripts/inspect_pdf_output_dir.sh` pour compter les artefacts générés, afin de garder le dossier propre lors des démonstrations.
 - Une fois un message publié, exécutez `scripts/ensure_pdf_output_dir_has_file.sh` pour valider que des PDF ont effectivement été générés dans `PDF_OUTPUT_DIR`.

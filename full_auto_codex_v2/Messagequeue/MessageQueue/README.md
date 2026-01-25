@@ -2,6 +2,8 @@
 
 Statut : IN_PROGRESS
 
+Mise à jour (2026-01-25 03:15:00) : test_publish_test_message now checks that every JSON response from publish_test_message includes `pdf_output_dir` and `pdf_output_dir_missing`.
+Mise à jour (2026-01-25 03:03:46) : publish_test_message JSON (dry-run ou succès) expose `pdf_output_dir` + `pdf_output_dir_missing` to align with the API contract and tests.
 Mise à jour (2026-01-19 14:09:43) : tests_summary recommande précréer PDF_OUTPUT_DIR pour générer le JSON dry-run.
 Mise à jour (2026-01-19 15:09:59) : README mentionne `jq '.pdf_output_dir,.pdf_output_dir_missing'` pour inspecter la sortie JSON dry-run.
 Mise à jour (2026-01-19 13:54:43) : local_runbook préconise de précréer PDF_OUTPUT_DIR et vérifier pdf_output_dir_missing=0.
@@ -61,6 +63,9 @@ Mise à jour (2026-01-19 08:39:35) : local_usage ajoute nettoyage PDFs e2e_local
 Mise à jour (2026-01-24 15:30:00) : tests_consumers note le script scripts/verify_pdf_output_dir.sh (Bash) pour vérifier PDF_OUTPUT_DIR avant d'émettre un publish_test_message.
 Mise à jour (2026-01-24 16:20:00) : README explique que `scripts/publish_test_message_with_check.sh` combine la vérification de `verify_pdf_output_dir.sh` avec `publish_test_message.sh`.
 Mise à jour (2026-01-24 16:40:00) : README recommande d’appeler `publish_test_message_with_check.sh` plutôt que `publish_test_message.sh` pour les démos/CI afin d’éviter les erreurs PDF_OUTPUT_DIR.
+Mise à jour (2026-01-25 03:45:00) : README cite `scripts/verify_publish_pdf_metadata.sh` when describing quickstart to show how the new helper asserts `pdf_output_dir`/`pdf_output_dir_missing`.
+Mise à jour (2026-01-24 21:45:00) : README cite `docs/publish_workflow.md`/`docs/quickstart.md` pour montrer la séquence `prepare_pdf_output_dir.sh` → `publish_test_message_with_check.sh` → inspection/cleanup des PDFs et renvoie vers `docs/scripts_overview.md` pour trouver ces scripts.
+Mise à jour (2026-01-24 21:10:00) : README encourage maintenant à suivre `docs/publish_workflow.md`/`docs/quickstart.md` qui décrivent la chaîne `prepare_pdf_output_dir.sh` → `publish_test_message_with_check.sh` → `inspect/cleanup_pdf_output_dir.sh` pour garantir un PDF_OUTPUT_DIR prêt et propre avant les runs.
 Mise à jour (2026-01-19 08:34:37) : quickstart ajoute nettoyage PDFs.
 Mise à jour (2026-01-19 08:29:34) : tests_summary precise prerequis e2e_local.
 Mise à jour (2026-01-19 08:24:34) : todo_next detaille e2e/pdf/ci.

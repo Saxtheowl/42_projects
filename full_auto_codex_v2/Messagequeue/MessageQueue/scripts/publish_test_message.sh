@@ -16,6 +16,19 @@ CONTENT_TYPE="${CONTENT_TYPE:-application/json}"
 MESSAGE_ID="${MESSAGE_ID:-mq-test-$(date +%s)}"
 STRICT_GRANT_TYPE="${STRICT_GRANT_TYPE:-0}"
 
+DEFAULT_PDF_OUTPUT_DIR="${ROOT_DIR}/shared/pdfs"
+PDF_DIR="${PDF_OUTPUT_DIR:-${DEFAULT_PDF_OUTPUT_DIR}}"
+pdf_output_dir_missing="0"
+if [[ ! -e "${PDF_DIR}" ]]; then
+  pdf_output_dir_missing="1"
+elif [[ ! -d "${PDF_DIR}" ]]; then
+  pdf_output_dir_missing="1"
+fi
+
+if [[ ! -d "${PDF_DIR}" ]]; then
+  mkdir -p "${PDF_DIR}"
+fi
+
 silent=0
 json_output=0
 dry_run=0
@@ -62,10 +75,15 @@ fi
 json_error() {
   local message="$1"
   if [[ "${json_output}" -eq 1 ]] && command -v python3 >/dev/null 2>&1; then
-    MSG="${message}" python3 - <<'PY'
+    MSG="${message}" \
+    PDF_DIR="${PDF_DIR}" \
+    PDF_MISSING="${pdf_output_dir_missing}" \
+    python3 - <<'PY'
 import json,os
 msg=os.environ.get("MSG","")
-print(json.dumps({"status":"error","error":msg}))
+pdf=os.environ.get("PDF_DIR","")
+missing=os.environ.get("PDF_MISSING","0")
+print(json.dumps({"status":"error","error":msg,"pdf_output_dir":pdf,"pdf_output_dir_missing":missing}))
 PY
   else
     echo "${message}" >&2
@@ -227,9 +245,11 @@ print(json.dumps(body))
 PY
 )
 
+pdf_dir_json="${PDF_DIR}"
+
 if [[ "${dry_run}" -eq 1 ]]; then
   if [[ "${json_output}" -eq 1 ]]; then
-    printf '%s\n' "{\"status\":\"dry_run\",\"exchange\":\"${EXCHANGE}\",\"routing_key\":\"${ROUTING_KEY}\",\"payload_file\":\"${PAYLOAD_FILE}\",\"content_type\":\"${CONTENT_TYPE}\",\"message_id\":\"${MESSAGE_ID}\"}"
+    printf '%s\n' "{\"status\":\"dry_run\",\"exchange\":\"${EXCHANGE}\",\"routing_key\":\"${ROUTING_KEY}\",\"payload_file\":\"${PAYLOAD_FILE}\",\"content_type\":\"${CONTENT_TYPE}\",\"message_id\":\"${MESSAGE_ID}\",\"pdf_output_dir\":\"${pdf_dir_json}\",\"pdf_output_dir_missing\":\"${pdf_output_dir_missing}\"}"
   elif [[ "${silent}" -eq 0 ]]; then
     echo "Dry run: EXCHANGE=${EXCHANGE} ROUTING_KEY=${ROUTING_KEY}"
     echo "PAYLOAD_FILE=${PAYLOAD_FILE} CONTENT_TYPE=${CONTENT_TYPE} MESSAGE_ID=${MESSAGE_ID}"
@@ -243,7 +263,7 @@ curl -fsS -u "${USER}:${PASS}" \
   -d "${body}" >/dev/null
 
 if [[ "${json_output}" -eq 1 ]]; then
-  printf '%s\n' "{\"status\":\"ok\",\"exchange\":\"${EXCHANGE}\",\"routing_key\":\"${ROUTING_KEY}\"}"
+  printf '%s\n' "{\"status\":\"ok\",\"exchange\":\"${EXCHANGE}\",\"routing_key\":\"${ROUTING_KEY}\",\"pdf_output_dir\":\"${PDF_DIR}\",\"pdf_output_dir_missing\":\"${pdf_output_dir_missing}\"}"
 elif [[ "${silent}" -eq 0 ]]; then
   echo "Published payload to ${EXCHANGE} (routing_key='${ROUTING_KEY}')."
 fi
