@@ -54,6 +54,28 @@ class WordleGameTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             game.evaluate_guess("cr4ne")
 
+    def test_target_added_to_dictionary(self) -> None:
+        game = WordleGame(target="crane", allowed_words=["apple"])
+        self.assertTrue(game.is_valid_guess("crane"))
+
+    def test_invalid_max_attempts_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            WordleGame(target="crane", allowed_words=self.words, max_attempts=0)
+
+    def test_is_valid_guess_case_insensitive(self) -> None:
+        game = WordleGame(target="crane", allowed_words=["crane"])
+        self.assertTrue(game.is_valid_guess("CRANE"))
+
+    def test_game_over_after_max_attempts(self) -> None:
+        game = WordleGame(target="crane", allowed_words=["crane", "apple"], max_attempts=1)
+        game.apply_guess("apple")
+        self.assertTrue(game.is_over)
+        self.assertFalse(game.has_won)
+
+    def test_is_valid_guess_rejects_unknown_word(self) -> None:
+        game = WordleGame(target="crane", allowed_words=["crane", "apple"])
+        self.assertFalse(game.is_valid_guess("delta"))
+
     def test_feedback_renderer(self) -> None:
         game = WordleGame(target="stone", allowed_words=self.words)
         statuses = game.evaluate_guess("scale")

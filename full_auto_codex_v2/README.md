@@ -1,3 +1,48 @@
+Derniere mise a jour (2026-01-26 10:37:52) : Wordle/Wordle IN_PROGRESS : ajout tests case-insensitive + fin de partie apres max_attempts.
+Derniere mise a jour (2026-01-26 10:42:00) : Wordle/Wordle IN_PROGRESS : ajout test is_valid_guess sur mot inconnu.
+Derniere mise a jour (2026-01-26 10:47:02) : Wordle/Wordle DONE : tests run_tests.sh OK.
+Derniere mise a jour (2026-01-26 10:52:54) : Web/hello_node IN_PROGRESS : ajout run_tests_skip_net.sh + doc tests.
+Derniere mise a jour (2026-01-26 10:58:31) : Web/hello_node WAITING : tests skip net OK, sockets locales bloquees.
+Derniere mise a jour (2026-01-26 10:58:31) : Python/Django_Training_D01 DONE : ajout tests cas limites + run_tests OK.
+Derniere mise a jour (2026-01-26 11:02:32) : Web/hello_node WAITING : ajout run_tests_auto.sh + tests OK (auto skip reseau).
+Derniere mise a jour (2026-01-26 11:10:50) : Unix/UNIX_leaning_project WAITING : tests interactifs en echec (out of pty devices).
+Derniere mise a jour (2026-01-26 11:11:01) : Unix/A_completely_UNIX_project DONE : ajout tests erreurs + run_tests OK.
+Derniere mise a jour (2026-01-26 11:13:46) : C/Ft_turing DONE : ajout cas invalides + tests OK.
+Derniere mise a jour (2026-01-26 11:17:37) : C/Libasm WAITING : ajout tests zero-length/chaines vides (nasm manquant).
+Derniere mise a jour (2026-01-26 11:23:08) : Unix/UNIX_Project WAITING : tests skip si ptrace bloque (skipped=2).
+Derniere mise a jour (2026-01-26 10:32:07) : Wordle/Wordle DONE : ajout tests max_attempts invalide + target ajoute au dictionnaire.
+Derniere mise a jour (2026-01-26 10:32:07) : Messagequeue/MessageQueue WAITING : blocage .env tracke (decision utilisateur requise).
+Derniere mise a jour (2026-01-25 19:21:51) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_check_rabbitmq_json + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 19:16:54) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_wait_rabbitmq_json + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 19:11:55) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_append_log + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 19:06:57) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_validate_rabbitmq_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 19:01:57) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_bootstrap_rabbitmq_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:56:51) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_wait_rabbitmq_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:51:54) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_check_rabbitmq_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:46:46) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_doctor_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:41:50) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_topology_helpers_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:36:48) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_status_report_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:31:47) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_run_checks_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:27:14) : Messagequeue/MessageQueue IN_PROGRESS : fix test_smoke_local_help (rg --).
+Derniere mise a jour (2026-01-25 18:26:50) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_smoke_local_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:22:22) : Messagequeue/MessageQueue IN_PROGRESS : fix test_readme_toc (ancre ponctuation).
+Derniere mise a jour (2026-01-25 18:21:51) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_readme_toc + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:16:51) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_load_env + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:12:08) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_check_publish_payload + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:06:46) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_check_prereqs + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 18:05:08) : Messagequeue/MessageQueue IN_PROGRESS : fix test_verify_publish_payload (python -c).
+Derniere mise a jour (2026-01-25 18:03:17) : Messagequeue/MessageQueue IN_PROGRESS : fix verify_publish_payload.sh (argument vide).
+Derniere mise a jour (2026-01-25 18:02:35) : Messagequeue/MessageQueue IN_PROGRESS : verify_publish_payload.sh resolve chemins relatifs PAYLOAD/DIR.
+Derniere mise a jour (2026-01-25 18:02:13) : Messagequeue/MessageQueue IN_PROGRESS : fix verify_publish_payload.sh (chemin script python).
+Derniere mise a jour (2026-01-25 18:01:45) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_verify_publish_payload + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 17:57:10) : Messagequeue/MessageQueue IN_PROGRESS : fix test_publish_test_message_with_check (extraction JSON).
+Derniere mise a jour (2026-01-25 17:56:46) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_publish_test_message_with_check + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 17:51:48) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_prepare_pdf_output_dir + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 17:46:50) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_inspect_pdf_output_dir + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 17:41:47) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_cleanup_pdf_output_dir + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 17:36:42) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_ensure_pdf_output_dir_has_file + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 17:32:12) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_verify_pdf_output_dir + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 17:28:35) : Messagequeue/MessageQueue IN_PROGRESS : ajout script test_verify_publish_pdf_metadata + docs test_tools/scripts_overview/tests_summary pour metadata PDF.
 Derniere mise a jour (2026-01-19 15:09:59) : Messagequeue/MessageQueue IN_PROGRESS : README rappelle `jq '.pdf_output_dir,.pdf_output_dir_missing'` la sortie JSON dry-run.
 Derniere mise a jour (2026-01-19 14:09:43) : Messagequeue/MessageQueue IN_PROGRESS : tests_summary recommande pré-créer PDF_OUTPUT_DIR plus `pdf_output_dir_missing=0` pour le dry-run.
 Derniere mise a jour (2026-01-19 14:04:35) : Messagequeue/MessageQueue IN_PROGRESS : README renvoie vers local_runbook + tests_summary pour les détails `pdf_output_dir`.
@@ -1204,3 +1249,177 @@ Derniere mise a jour (2026-01-19 07:54:27) : quickstart mentionne erreurs JSON p
 Derniere mise a jour (2026-01-19 07:59:37) : json_error verifie python3 avant JSON (MessageQueue).
 Derniere mise a jour (2026-01-19 08:04:28) : scripts_overview note JSON errors si python3 dispo (MessageQueue).
 Derniere mise a jour (2026-01-19 08:09:24) : troubleshooting_env note --json sans python3 (MessageQueue).
+Derniere mise a jour (2026-01-25 19:26:52) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_check_prereqs_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 19:32:10) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_setup_env + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 19:37:04) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_and_validate accepte --help/--silent/--json + test.
+Derniere mise a jour (2026-01-25 19:41:59) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow accepte --help/--silent/--json + test.
+Derniere mise a jour (2026-01-25 19:47:08) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_all accepte --help/--silent/--json + test.
+Derniere mise a jour (2026-01-25 19:51:59) : Messagequeue/MessageQueue IN_PROGRESS : setup_env accepte --help + test.
+Derniere mise a jour (2026-01-25 19:57:02) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_consume_test_message_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:01:57) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_validate_payload_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:06:54) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_post_sample_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:11:55) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_publish_sample_keys_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:17:25) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_publish_sample_keys_json + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:18:16) : Messagequeue/MessageQueue IN_PROGRESS : fix test_publish_sample_keys_json (stubs).
+Derniere mise a jour (2026-01-25 20:22:02) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_list_exchanges_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:27:33) : Messagequeue/MessageQueue IN_PROGRESS : tail_rabbitmq_logs accepte --help + test.
+Derniere mise a jour (2026-01-25 20:32:06) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_create_bindings_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:37:01) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_list_queues_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:42:02) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_list_bindings_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:47:10) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_list_bindings_json + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:48:45) : Messagequeue/MessageQueue IN_PROGRESS : fix test_list_bindings_json (stub curl).
+Derniere mise a jour (2026-01-25 20:50:07) : Messagequeue/MessageQueue IN_PROGRESS : fix test_list_bindings_json (stub curl).
+Derniere mise a jour (2026-01-25 20:51:14) : Messagequeue/MessageQueue IN_PROGRESS : fix list_bindings.sh (import os).
+Derniere mise a jour (2026-01-25 20:52:42) : Messagequeue/MessageQueue IN_PROGRESS : fix list_bindings.sh (python -c).
+Derniere mise a jour (2026-01-25 20:53:54) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_list_queues_json + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:54:37) : Messagequeue/MessageQueue IN_PROGRESS : fix list_queues.sh (python -c).
+Derniere mise a jour (2026-01-25 20:57:11) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_list_exchanges_json + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 20:58:10) : Messagequeue/MessageQueue IN_PROGRESS : fix list_exchanges.sh (python -c).
+Derniere mise a jour (2026-01-25 20:59:12) : Messagequeue/MessageQueue IN_PROGRESS : fix test_list_exchanges_json (attendu type).
+Derniere mise a jour (2026-01-25 21:02:13) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_count_queue_messages_json + fix count_queue_messages.
+Derniere mise a jour (2026-01-25 21:07:15) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_validate_payload_json + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 21:12:16) : Messagequeue/MessageQueue IN_PROGRESS : load_env accepte --help + test.
+Derniere mise a jour (2026-01-25 21:17:22) : Messagequeue/MessageQueue IN_PROGRESS : ensure_pdf_output_dir_has_file accepte --help + test.
+Derniere mise a jour (2026-01-25 21:22:24) : Messagequeue/MessageQueue IN_PROGRESS : cleanup_pdf_output_dir accepte --help + test.
+Derniere mise a jour (2026-01-25 21:27:20) : Messagequeue/MessageQueue IN_PROGRESS : inspect_pdf_output_dir accepte --help + test.
+Derniere mise a jour (2026-01-25 21:32:14) : Messagequeue/MessageQueue IN_PROGRESS : prepare_pdf_output_dir accepte --help + test.
+Derniere mise a jour (2026-01-25 21:37:20) : Messagequeue/MessageQueue IN_PROGRESS : verify_pdf_output_dir accepte --help + test.
+Derniere mise a jour (2026-01-25 21:42:22) : Messagequeue/MessageQueue IN_PROGRESS : consume_test_message help OUTPUT + test.
+Derniere mise a jour (2026-01-25 21:47:24) : Messagequeue/MessageQueue IN_PROGRESS : publish_test_message_with_check accepte --help + test.
+Derniere mise a jour (2026-01-25 21:52:12) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_publish_test_message_help + docs test_tools/scripts_overview/tests_summary.
+Derniere mise a jour (2026-01-25 21:57:20) : Messagequeue/MessageQueue IN_PROGRESS : verify_publish_payload accepte --help + test.
+Derniere mise a jour (2026-01-25 22:02:27) : Messagequeue/MessageQueue IN_PROGRESS : verify_publish_pdf_metadata accepte --help + test.
+Derniere mise a jour (2026-01-25 22:08:02) : Messagequeue/MessageQueue IN_PROGRESS : run_producer accepte --help + test.
+Derniere mise a jour (2026-01-25 22:12:55) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer accepte --help + test.
+Derniere mise a jour (2026-01-25 22:18:03) : Messagequeue/MessageQueue IN_PROGRESS : reset_local accepte --help + test.
+Derniere mise a jour (2026-01-25 22:22:57) : Messagequeue/MessageQueue IN_PROGRESS : purge_queues accepte --help + test.
+Derniere mise a jour (2026-01-25 22:28:33) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_check_prereqs_json_missing + docs.
+Derniere mise a jour (2026-01-25 22:29:29) : Messagequeue/MessageQueue IN_PROGRESS : fix test_check_prereqs_json_missing (JSON vide).
+Derniere mise a jour (2026-01-25 22:30:44) : Messagequeue/MessageQueue IN_PROGRESS : fix test_check_prereqs_json_missing (stub docker).
+Derniere mise a jour (2026-01-25 22:33:36) : Messagequeue/MessageQueue IN_PROGRESS : check_prereqs --json conserve les libelles manquants.
+Derniere mise a jour (2026-01-25 22:35:47) : Messagequeue/MessageQueue IN_PROGRESS : build_modules --help/--list + tests.
+Derniere mise a jour (2026-01-25 22:37:59) : Messagequeue/MessageQueue IN_PROGRESS : test_producer/test_consumers --help/--list + tests.
+Derniere mise a jour (2026-01-25 22:45:16) : Messagequeue/MessageQueue IN_PROGRESS : doctor JSON parsing fixe + tests doctor/run_checks --json.
+Derniere mise a jour (2026-01-25 22:47:51) : Messagequeue/MessageQueue IN_PROGRESS : test_routing_matrix queue_count fixe + test JSON.
+Derniere mise a jour (2026-01-25 22:52:22) : Messagequeue/MessageQueue IN_PROGRESS : test_routing ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 22:57:53) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_rabbitmq ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 23:01:57) : Messagequeue/MessageQueue IN_PROGRESS : test_routing_matrix --help + test.
+Derniere mise a jour (2026-01-25 23:06:56) : Messagequeue/MessageQueue IN_PROGRESS : test_routing --help + test.
+Derniere mise a jour (2026-01-25 23:12:35) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_and_validate ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 23:17:44) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_all ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 23:22:13) : Messagequeue/MessageQueue IN_PROGRESS : create_bindings test JSON.
+Derniere mise a jour (2026-01-25 23:27:04) : Messagequeue/MessageQueue IN_PROGRESS : tail_rabbitmq_logs refus --json + test.
+Derniere mise a jour (2026-01-25 23:32:44) : Messagequeue/MessageQueue IN_PROGRESS : status_report --json silencieux + test JSON.
+Derniere mise a jour (2026-01-25 23:37:22) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow --json silencieux + test JSON.
+Derniere mise a jour (2026-01-25 23:42:42) : Messagequeue/MessageQueue IN_PROGRESS : smoke_local ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 23:47:15) : Messagequeue/MessageQueue IN_PROGRESS : wait_rabbitmq test timeout JSON.
+Derniere mise a jour (2026-01-25 23:52:05) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json skips.
+Derniere mise a jour (2026-01-25 23:57:13) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test help supplementaire.
+Derniere mise a jour (2026-01-26 00:02:03) : Messagequeue/MessageQueue IN_PROGRESS : status_report test json erreur.
+Derniere mise a jour (2026-01-26 00:07:18) : Messagequeue/MessageQueue IN_PROGRESS : check_rabbitmq test json error.
+Derniere mise a jour (2026-01-26 00:12:07) : Messagequeue/MessageQueue IN_PROGRESS : doctor test json error.
+Derniere mise a jour (2026-01-26 00:17:01) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json error.
+Derniere mise a jour (2026-01-26 00:22:03) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer test --list.
+Derniere mise a jour (2026-01-26 00:28:07) : Messagequeue/MessageQueue IN_PROGRESS : run_producer --list + test.
+Derniere mise a jour (2026-01-26 00:32:01) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer test help supplementaire.
+Derniere mise a jour (2026-01-26 00:37:03) : Messagequeue/MessageQueue IN_PROGRESS : run_producer test help supplementaire.
+Derniere mise a jour (2026-01-26 00:42:03) : Messagequeue/MessageQueue IN_PROGRESS : script_env documente run_consumer.
+Derniere mise a jour (2026-01-26 00:48:28) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer/run_producer ROOT_OVERRIDE + tests.
+Derniere mise a jour (2026-01-26 00:53:05) : Messagequeue/MessageQueue IN_PROGRESS : create_bindings JSON error + test.
+Derniere mise a jour (2026-01-26 00:57:07) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_and_validate test help supplementaire.
+Derniere mise a jour (2026-01-26 01:02:10) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_all test help supplementaire.
+Derniere mise a jour (2026-01-26 01:07:08) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_rabbitmq test help supplementaire.
+Derniere mise a jour (2026-01-26 01:12:36) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_rabbitmq JSON error + test.
+Derniere mise a jour (2026-01-26 01:17:12) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_and_validate test json error.
+Derniere mise a jour (2026-01-26 01:22:13) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_all test json error.
+Derniere mise a jour (2026-01-26 01:27:18) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json skip-routing.
+Derniere mise a jour (2026-01-26 01:32:20) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json skip-doctor.
+Derniere mise a jour (2026-01-26 01:37:17) : Messagequeue/MessageQueue IN_PROGRESS : doctor test json prereqs invalid.
+Derniere mise a jour (2026-01-26 01:42:20) : Messagequeue/MessageQueue IN_PROGRESS : doctor test json rabbitmq invalid.
+Derniere mise a jour (2026-01-26 01:47:16) : Messagequeue/MessageQueue IN_PROGRESS : doctor test json topology invalid.
+Derniere mise a jour (2026-01-26 01:52:23) : Messagequeue/MessageQueue IN_PROGRESS : status_report test json filtres.
+Derniere mise a jour (2026-01-26 01:57:38) : Messagequeue/MessageQueue IN_PROGRESS : smoke_local test json error.
+Derniere mise a jour (2026-01-26 02:02:40) : Messagequeue/MessageQueue IN_PROGRESS : status_report JSON robuste + test payloads invalides.
+Derniere mise a jour (2026-01-26 02:07:17) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer test sans argument.
+Derniere mise a jour (2026-01-26 02:12:18) : Messagequeue/MessageQueue IN_PROGRESS : run_producer test option inconnue.
+Derniere mise a jour (2026-01-26 02:17:38) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer option inconnue + test.
+Derniere mise a jour (2026-01-26 02:22:41) : Messagequeue/MessageQueue IN_PROGRESS : bootstrap_rabbitmq json missing python + test.
+Derniere mise a jour (2026-01-26 02:27:47) : Messagequeue/MessageQueue IN_PROGRESS : run_producer test sans mvn.
+Derniere mise a jour (2026-01-26 02:32:16) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer test sans mvn.
+Derniere mise a jour (2026-01-26 02:37:38) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer test consumer invalide.
+Derniere mise a jour (2026-01-26 02:42:21) : Messagequeue/MessageQueue IN_PROGRESS : run_consumer test dossier manquant.
+Derniere mise a jour (2026-01-26 02:47:48) : Messagequeue/MessageQueue IN_PROGRESS : run_producer test dossier manquant.
+Derniere mise a jour (2026-01-26 02:52:30) : Messagequeue/MessageQueue IN_PROGRESS : build_modules test filtre MODULES.
+Derniere mise a jour (2026-01-26 02:56:58) : Messagequeue/MessageQueue IN_PROGRESS : build_modules test MODULES sans correspondance.
+Derniere mise a jour (2026-01-26 03:01:58) : Messagequeue/MessageQueue IN_PROGRESS : build_modules test MODULES vide.
+Derniere mise a jour (2026-01-26 03:06:59) : Messagequeue/MessageQueue IN_PROGRESS : build_modules test option inconnue.
+Derniere mise a jour (2026-01-26 03:12:00) : Messagequeue/MessageQueue IN_PROGRESS : build_modules test mvn en echec.
+Derniere mise a jour (2026-01-26 03:17:03) : Messagequeue/MessageQueue IN_PROGRESS : build_modules test MODULES dupliques.
+Derniere mise a jour (2026-01-26 03:22:01) : Messagequeue/MessageQueue IN_PROGRESS : build_modules test MODULES avec espaces.
+Derniere mise a jour (2026-01-26 03:27:53) : Messagequeue/MessageQueue IN_PROGRESS : build_modules ROOT_OVERRIDE + test.
+Derniere mise a jour (2026-01-26 03:32:31) : Messagequeue/MessageQueue IN_PROGRESS : build_modules --list filtre via MODULES.
+Derniere mise a jour (2026-01-26 03:36:52) : Messagequeue/MessageQueue IN_PROGRESS : docs build_modules mention ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 03:42:17) : Messagequeue/MessageQueue IN_PROGRESS : build_modules help mention ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 03:47:05) : Messagequeue/MessageQueue IN_PROGRESS : build_modules --list test MODULES vide.
+Derniere mise a jour (2026-01-26 03:52:02) : Messagequeue/MessageQueue IN_PROGRESS : build_modules --list test option inconnue.
+Derniere mise a jour (2026-01-26 03:57:03) : Messagequeue/MessageQueue IN_PROGRESS : build_modules --list test ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 04:02:03) : Messagequeue/MessageQueue IN_PROGRESS : build_modules test mvn echec module suivant.
+Derniere mise a jour (2026-01-26 04:08:11) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers ROOT_OVERRIDE + list filtre MODULES.
+Derniere mise a jour (2026-01-26 04:12:48) : Messagequeue/MessageQueue IN_PROGRESS : test_producer ROOT_OVERRIDE + tests.
+Derniere mise a jour (2026-01-26 04:17:04) : Messagequeue/MessageQueue IN_PROGRESS : test_producer test mvn absent.
+Derniere mise a jour (2026-01-26 04:22:06) : Messagequeue/MessageQueue IN_PROGRESS : test_producer test option inconnue.
+Derniere mise a jour (2026-01-26 04:27:07) : Messagequeue/MessageQueue IN_PROGRESS : test_producer --list test ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 04:32:07) : Messagequeue/MessageQueue IN_PROGRESS : test_producer test dossier manquant.
+Derniere mise a jour (2026-01-26 04:37:14) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers --list test MODULES vide.
+Derniere mise a jour (2026-01-26 04:42:07) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers --list test option inconnue.
+Derniere mise a jour (2026-01-26 04:47:26) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers help ROOT_OVERRIDE + test mvn absent.
+Derniere mise a jour (2026-01-26 04:52:11) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers test dossier manquant.
+Derniere mise a jour (2026-01-26 04:57:06) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers test option inconnue.
+Derniere mise a jour (2026-01-26 05:02:10) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers --list test ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 05:07:13) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers test MODULES avec espaces.
+Derniere mise a jour (2026-01-26 05:12:37) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers test MODULES dupliques.
+Derniere mise a jour (2026-01-26 05:17:12) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers test MODULES sans correspondance.
+Derniere mise a jour (2026-01-26 05:22:14) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers test mvn en echec.
+Derniere mise a jour (2026-01-26 05:27:16) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers test mvn echec module suivant.
+Derniere mise a jour (2026-01-26 05:32:14) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers test MODULES vide.
+Derniere mise a jour (2026-01-26 05:37:15) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers --list filtre + ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 05:42:30) : Messagequeue/MessageQueue IN_PROGRESS : test_producer test mvn en echec.
+Derniere mise a jour (2026-01-26 05:47:34) : Messagequeue/MessageQueue IN_PROGRESS : test_producer --list ignore MODULES.
+Derniere mise a jour (2026-01-26 05:52:35) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers --list MODULES sans correspondance.
+Derniere mise a jour (2026-01-26 05:57:15) : Messagequeue/MessageQueue IN_PROGRESS : test_consumers --list ROOT_OVERRIDE seul.
+Derniere mise a jour (2026-01-26 06:03:07) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test prereqs manquants.
+Derniere mise a jour (2026-01-26 06:07:16) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test option inconnue.
+Derniere mise a jour (2026-01-26 06:17:04) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test help mention json.
+Derniere mise a jour (2026-01-26 06:22:52) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 06:27:39) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow help mention ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 06:32:24) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test json prereqs ko.
+Derniere mise a jour (2026-01-26 06:37:28) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test propagation --silent.
+Derniere mise a jour (2026-01-26 06:43:27) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test propagation --json.
+Derniere mise a jour (2026-01-26 06:47:26) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test --silent sans message final.
+Derniere mise a jour (2026-01-26 06:52:31) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test --json sans message final.
+Derniere mise a jour (2026-01-26 06:57:20) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test ROOT_OVERRIDE scripts manquants.
+Derniere mise a jour (2026-01-26 07:02:27) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test json smoke ko.
+Derniere mise a jour (2026-01-26 07:07:29) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test json status_report ko.
+Derniere mise a jour (2026-01-26 07:12:33) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test json+silent combo.
+Derniere mise a jour (2026-01-26 07:17:27) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test --silent sans json implicite.
+Derniere mise a jour (2026-01-26 07:23:12) : Messagequeue/MessageQueue IN_PROGRESS : run_local_flow test --json inclut --silent.
+Derniere mise a jour (2026-01-26 07:28:06) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json propagation.
+Derniere mise a jour (2026-01-26 07:32:26) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test --silent sans message final.
+Derniere mise a jour (2026-01-26 07:37:26) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test option inconnue.
+Derniere mise a jour (2026-01-26 07:42:34) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test --json sans message final.
+Derniere mise a jour (2026-01-26 07:47:28) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test skip-doctor message.
+Derniere mise a jour (2026-01-26 07:52:31) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test skip-routing message.
+Derniere mise a jour (2026-01-26 07:57:28) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test skip-both message.
+Derniere mise a jour (2026-01-26 08:02:28) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test ROOT_OVERRIDE scripts manquants.
+Derniere mise a jour (2026-01-26 08:07:40) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json routing error.
+Derniere mise a jour (2026-01-26 08:12:30) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json doctor error.
+Derniere mise a jour (2026-01-26 08:17:38) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json skip both.
+Derniere mise a jour (2026-01-26 08:22:30) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json skip-doctor routing ok.
+Derniere mise a jour (2026-01-26 08:27:35) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json skip-routing doctor ok.
+Derniere mise a jour (2026-01-26 08:32:35) : Messagequeue/MessageQueue IN_PROGRESS : run_checks help mention ROOT_OVERRIDE.
+Derniere mise a jour (2026-01-26 08:37:40) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json skip-doctor sans message.
+Derniere mise a jour (2026-01-26 08:42:40) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test json skip-routing sans message.
+Derniere mise a jour (2026-01-26 08:47:33) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test --silent skip-both sans messages.
+Derniere mise a jour (2026-01-26 08:52:44) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test message final.
+Derniere mise a jour (2026-01-26 08:57:36) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test --silent skip-doctor sans message.
+Derniere mise a jour (2026-01-26 09:02:41) : Messagequeue/MessageQueue IN_PROGRESS : run_checks test --silent skip-routing sans message.

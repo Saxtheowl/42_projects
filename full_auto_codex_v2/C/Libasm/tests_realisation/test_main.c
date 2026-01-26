@@ -47,6 +47,7 @@ static void test_strlen(void)
 	check_size("strlen empty", ft_strlen(""), strlen(""));
 	check_size("strlen hello", ft_strlen("hello"), strlen("hello"));
 	check_size("strlen long", ft_strlen("abcdefghijklmnopqrstuvwxyz"), strlen("abcdefghijklmnopqrstuvwxyz"));
+	check_size("strlen spaces", ft_strlen("hello world"), strlen("hello world"));
 }
 
 static void test_strcpy(void)
@@ -57,6 +58,10 @@ static void test_strcpy(void)
 	if (ret != dest)
 		fail("ft_strcpy should return destination pointer");
 	check_str("strcpy", dest, src);
+	ret = ft_strcpy(dest, "");
+	if (ret != dest)
+		fail("ft_strcpy should return destination pointer (empty src)");
+	check_str("strcpy empty", dest, "");
 }
 
 static void test_strcmp(void)
@@ -64,6 +69,7 @@ static void test_strcmp(void)
 	check_int("strcmp equal", ft_strcmp("abc", "abc"), strcmp("abc", "abc"));
 	check_int("strcmp lt", ft_strcmp("abc", "abd") < 0, 1);
 	check_int("strcmp gt", ft_strcmp("abd", "abc") > 0, 1);
+	check_int("strcmp empty", ft_strcmp("", ""), strcmp("", ""));
 }
 
 static void test_strdup(void)
@@ -154,6 +160,23 @@ static void test_read_success(void)
 	}
 }
 
+static void test_write_zero_length(void)
+{
+	errno = 0;
+	ssize_t res = ft_write(1, "noop", 0);
+	if (res != 0)
+		fail("ft_write zero length should return 0");
+}
+
+static void test_read_zero_length(void)
+{
+	char buffer[8] = {0};
+	errno = 0;
+	ssize_t res = ft_read(0, buffer, 0);
+	if (res != 0)
+		fail("ft_read zero length should return 0");
+}
+
 static void test_read_error(void)
 {
 	char buffer[16];
@@ -175,8 +198,10 @@ int main(void)
 	test_strcmp();
 	test_strdup();
 	test_write_success();
+	test_write_zero_length();
 	test_write_error();
 	test_read_success();
+	test_read_zero_length();
 	test_read_error();
 
 	if (g_failures != 0)

@@ -2,11 +2,36 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
-if ! command -v mvn >/dev/null 2>&1; then
-  echo "mvn is required." >&2
-  exit 1
+if [[ -n "${ROOT_OVERRIDE:-}" ]]; then
+  ROOT="${ROOT_OVERRIDE}"
 fi
+
+usage() {
+  cat <<'EOF'
+Usage: ./scripts/build_modules.sh [--help] [--list]
+
+Environment:
+  MODULES  CSV list of module names or paths to build (default: all modules)
+  ROOT_OVERRIDE  Override repository root for tests/stubs
+EOF
+}
+
+list_only=0
+for arg in "$@"; do
+  case "${arg}" in
+    --help)
+      usage
+      exit 0
+      ;;
+    --list)
+      list_only=1
+      ;;
+    *)
+      echo "Unknown option: ${arg}" >&2
+      exit 1
+      ;;
+  esac
+done
 
 modules=(
   "services/producer"
@@ -16,13 +41,6 @@ modules=(
   "services/consumers/contracts"
   "services/consumers/grant_other_documents"
 )
-
-if [[ "${1:-}" == "--list" ]]; then
-  for module in "${modules[@]}"; do
-    echo "${module}"
-  done
-  exit 0
-fi
 
 MODULES="${MODULES:-}"
 if [[ -n "${MODULES}" ]]; then
@@ -51,6 +69,18 @@ if [[ -n "${MODULES}" ]]; then
     exit 1
   fi
   modules=("${filtered[@]}")
+fi
+
+if [[ "${list_only}" -eq 1 ]]; then
+  for module in "${modules[@]}"; do
+    echo "${module}"
+  done
+  exit 0
+fi
+
+if ! command -v mvn >/dev/null 2>&1; then
+  echo "mvn is required." >&2
+  exit 1
 fi
 
 for module in "${modules[@]}"; do

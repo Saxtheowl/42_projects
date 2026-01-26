@@ -2,7 +2,7 @@
 
 Statut : WAITING (tests reseau bloques sans sockets locales)
 
-Derniere mise a jour (2026-01-16 23:30:12) : en attente (sockets locales bloquees; utiliser HELLO_NODE_SKIP_NET=1 pour checks non reseau).
+Derniere mise a jour (2026-01-26 11:02:32) : ajout run_tests_auto.sh (auto-skip reseau), tests OK avec sockets bloquees.
 
 ## Synthèse
 Portage local des dix exercices d'initiation Node.js du sujet *hello_node*. Chaque sous-dossier `ex0X/` contient un script autonome ciblant l'API standard (`fs`, `http`, `net`), sans dépendances externes, conforme aux attentes de correction pair-à-pair.
@@ -36,6 +36,8 @@ Pour servir les fichiers et tester rapidement, il est possible d'utiliser `node`
 ## Tests
 - `./tests_realisation/run_tests.sh` : exécute toutes les vérifications (I/O, HTTP, TCP) via Node.js.
 - `HELLO_NODE_SKIP_NET=1 ./tests_realisation/run_tests.sh` : saute les tests réseau si l'environnement bloque les sockets locales.
+- `./tests_realisation/run_tests_skip_net.sh` : raccourci pour exécuter la suite en mode sans réseau.
+- `./tests_realisation/run_tests_auto.sh` : tente les tests réseau, sinon bascule automatiquement en mode sans réseau.
 
 ## Répartition des PDF
 - `Sujet_hello_node.pdf` : unique support décrivant les exercices 00 à 09.

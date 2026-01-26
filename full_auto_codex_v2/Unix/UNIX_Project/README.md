@@ -1,5 +1,9 @@
 # ft_strace
 
+Statut : WAITING (ptrace bloque)
+
+Derniere mise a jour (2026-01-26 11:23:08) : tests OK (skipped=2) avec ptrace bloque.
+
 ## Synthèse
 Réimplémentation minimale de `strace` (sans options) qui intercepte les appels système d’un binaire Linux via `ptrace(2)`. Le programme affiche chaque syscall avec ses six registres arguments et la valeur de retour, gère les signaux et assure la compatibilité avec les binaires ELF 64 bits et 32 bits.
 

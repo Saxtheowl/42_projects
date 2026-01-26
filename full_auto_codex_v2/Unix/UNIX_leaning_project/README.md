@@ -1,5 +1,9 @@
 # ft_select
 
+Statut : WAITING (tests interactifs bloques: plus de pty disponibles)
+
+Derniere mise a jour (2026-01-26 11:10:50) : tests interactifs en echec (out of pty devices).
+
 ## Synthèse
 Interface terminale interactive inspirée du sujet *ft_select* : le programme affiche les arguments fournis, permet de naviguer au clavier (flèches), de sélectionner/désélectionner (`SPACE`), d’effacer (`DEL`/`BACKSPACE`) et de valider (`ENTER`). Les sélections sont renvoyées sur la sortie standard, séparées par des espaces, afin d’être réutilisables dans des scripts shell.
 

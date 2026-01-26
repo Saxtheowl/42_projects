@@ -18,6 +18,20 @@ def run_command(*args: str) -> subprocess.CompletedProcess[str]:
 
 
 class FtStraceTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        probe = run_command("/bin/true")
+        blocked = (
+            probe.returncode != 0
+            and "ptrace(PTRACE_TRACEME)" in probe.stderr
+            and ("Operation not permitted" in probe.stderr or "EPERM" in probe.stderr)
+        )
+        cls._ptrace_blocked = blocked
+
+    def setUp(self) -> None:
+        if getattr(self, "_ptrace_blocked", False):
+            self.skipTest("ptrace is blocked in this environment")
+
     def test_basic_execve(self) -> None:
         result = run_command("/bin/true")
         self.assertEqual(result.returncode, 0, msg=result.stderr)

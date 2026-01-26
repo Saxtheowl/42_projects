@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import unittest
+from tempfile import NamedTemporaryFile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,6 +51,30 @@ class NmOtoolTests(unittest.TestCase):
             "0000000000001000\t554889e5 4883ec10 488d3d12 000000c3\n"
         )
         self.assertEqual(result.stdout, expected)
+
+    def test_missing_file_reports_error(self) -> None:
+        missing = ROOT / "tests_realisation" / "fixtures" / "missing.macho"
+        result = subprocess.run(
+            [str(BIN_NM), str(missing)],
+            text=True,
+            capture_output=True,
+            check=False,
+            cwd=ROOT,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("cannot open file", result.stderr)
+
+    def test_empty_file_reports_error(self) -> None:
+        with NamedTemporaryFile(dir=ROOT / "tests_realisation" / "fixtures", suffix=".macho") as tmp:
+            result = subprocess.run(
+                [str(BIN_OTOOL), tmp.name],
+                text=True,
+                capture_output=True,
+                check=False,
+                cwd=ROOT,
+            )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("empty file", result.stderr)
 
 
 if __name__ == "__main__":

@@ -2,6 +2,29 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -n "${ROOT_OVERRIDE:-}" ]]; then
+  ROOT="${ROOT_OVERRIDE}"
+fi
+
+for arg in "$@"; do
+  case "${arg}" in
+    --help)
+      cat <<'EOF'
+Usage: ./scripts/run_consumer.sh <consumer_dir> | --list | --help
+
+Examples:
+  food_application | financial_assistance | transportation_costs | contracts | grant_other_documents
+EOF
+      exit 0
+      ;;
+    --list)
+      ;;
+    -*)
+      echo "Unknown option: ${arg}" >&2
+      exit 1
+      ;;
+  esac
+done
 
 list_consumers() {
   ls -1 "${ROOT}/services/consumers"

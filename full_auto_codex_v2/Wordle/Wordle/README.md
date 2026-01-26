@@ -2,7 +2,7 @@
 
 Statut : DONE
 
-Derniere mise a jour (2026-01-16 22:44:49) : passage DONE (tests OK).
+Derniere mise a jour (2026-01-26 10:47:02) : tests OK, passage DONE.
 
 ## Synthèse
 Implémentation console du jeu Wordle conforme au rush `Wordle.pdf`. Le projet propose un moteur Python réutilisable (`wordle.game`) et une interface CLI (`play.py`) permettant de jouer localement avec un dictionnaire de cinq lettres fourni.

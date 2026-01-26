@@ -2,6 +2,9 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -n "${ROOT_OVERRIDE:-}" ]]; then
+  ROOT="${ROOT_OVERRIDE}"
+fi
 
 HOST="${RABBITMQ_HOST:-localhost}"
 PORT="${RABBITMQ_PORT:-15672}"
@@ -67,10 +70,7 @@ purge_queue() {
 queue_count() {
   local queue="$1"
   curl -fsS -u "${USER}:${PASS}" "http://${HOST}:${PORT}/api/queues/${vhost_enc}/${queue}" \
-    | python3 - <<'PY'
-import json,sys
-print(json.load(sys.stdin).get("messages", 0))
-PY
+    | python3 -c 'import json,sys; print(json.load(sys.stdin).get("messages", 0))'
 }
 
 publish_key() {

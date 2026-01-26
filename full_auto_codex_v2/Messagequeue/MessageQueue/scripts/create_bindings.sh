@@ -49,16 +49,26 @@ EOF
   fi
 done
 
-if [[ "${json_output}" -eq 1 ]]; then
-  trap 'printf "%s\n" "{\"status\":\"error\",\"step\":\"create_bindings\"}"' ERR
-fi
+json_error() {
+  if [[ "${json_output}" -eq 1 ]]; then
+    printf '%s\n' '{"status":"error","step":"create_bindings"}'
+  fi
+}
 
 if ! command -v curl >/dev/null 2>&1; then
-  echo "curl is required." >&2
+  if [[ "${json_output}" -eq 1 ]]; then
+    json_error
+  else
+    echo "curl is required." >&2
+  fi
   exit 1
 fi
 if ! command -v python3 >/dev/null 2>&1; then
-  echo "python3 is required." >&2
+  if [[ "${json_output}" -eq 1 ]]; then
+    json_error
+  else
+    echo "python3 is required." >&2
+  fi
   exit 1
 fi
 
@@ -75,7 +85,7 @@ api_put() {
   curl -fsS -u "${USER}:${PASS}" \
     -H "Content-Type: application/json" \
     -X PUT "http://${HOST}:${PORT}${path}" \
-    -d "${payload}" >/dev/null
+    -d "${payload}" >/dev/null || { json_error; return 1; }
 }
 
 api_post() {
@@ -84,7 +94,7 @@ api_post() {
   curl -fsS -u "${USER}:${PASS}" \
     -H "Content-Type: application/json" \
     -X POST "http://${HOST}:${PORT}${path}" \
-    -d "${payload}" >/dev/null
+    -d "${payload}" >/dev/null || { json_error; return 1; }
 }
 
 if [[ "${silent}" -eq 0 ]]; then

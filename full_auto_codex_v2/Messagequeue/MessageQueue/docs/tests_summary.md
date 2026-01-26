@@ -9,7 +9,161 @@
 - Validation payload (schema + grantType) via `./scripts/validate_payload.py`
 - Tests payload (cas ok/ko) via `./scripts/test_validate_payload.sh`
 - Tests publish_test_message (help detaille, dry-run, routing key, payload JSON invalide + message d'erreur + status=error en --json, payload manquant/illisible/dossier + status=error en --json, erreurs JSON en --json pour exchange/routing_key/message_id/content_type invalides + longueurs, payload illisible/dossier, longueurs invalides, content_type blanc (espaces/tabs/newlines), content_type vide -> default, message_id vide -> default, message_id avec espaces/tabs/newlines) via `./scripts/test_publish_test_message.sh`
+- Verification publish_test_message help via `./scripts/test_publish_test_message_help.sh`.
 - Sortie `--json` publish_test_message: champs `empty_message_id` et `whitespace_content_type` exposes.
+- Verification metadata PDF publish_test_message (pdf_output_dir/pdf_output_dir_missing) via `./scripts/test_verify_publish_pdf_metadata.sh`.
+- Verification verify_publish_pdf_metadata help via `./scripts/test_verify_publish_pdf_metadata_help.sh`.
+- Verification preparation PDF output dir via `./scripts/test_verify_pdf_output_dir.sh`.
+- Verification verify_pdf_output_dir help via `./scripts/test_verify_pdf_output_dir_help.sh`.
+- Verification presence PDF dans PDF_OUTPUT_DIR via `./scripts/test_ensure_pdf_output_dir_has_file.sh`.
+- Verification ensure_pdf_output_dir_has_file help via `./scripts/test_ensure_pdf_output_dir_has_file_help.sh`.
+- Verification cleanup PDFs via `./scripts/test_cleanup_pdf_output_dir.sh`.
+- Verification cleanup_pdf_output_dir help via `./scripts/test_cleanup_pdf_output_dir_help.sh`.
+- Verification inspection PDFs via `./scripts/test_inspect_pdf_output_dir.sh`.
+- Verification inspect_pdf_output_dir help via `./scripts/test_inspect_pdf_output_dir_help.sh`.
+- Verification preparation PDF output dir via `./scripts/test_prepare_pdf_output_dir.sh`.
+- Verification prepare_pdf_output_dir help via `./scripts/test_prepare_pdf_output_dir_help.sh`.
+- Verification publish_test_message_with_check dry-run via `./scripts/test_publish_test_message_with_check.sh`.
+- Verification publish_test_message_with_check help via `./scripts/test_publish_test_message_with_check_help.sh`.
+- Verification verify_publish_payload via `./scripts/test_verify_publish_payload.sh`.
+- Verification verify_publish_payload help via `./scripts/test_verify_publish_payload_help.sh`.
+- Verification check_prereqs via `./scripts/test_check_prereqs.sh` (SKIP_DOCKER=1 SKIP_MVN=1).
+- Verification check_prereqs json missing via `./scripts/test_check_prereqs_json_missing.sh`.
+- Verification check_prereqs help via `./scripts/test_check_prereqs_help.sh`.
+- Verification build_modules help via `./scripts/test_build_modules_help.sh`.
+- Verification build_modules list via `./scripts/test_build_modules_list.sh`.
+- Verification build_modules filter via `./scripts/test_build_modules_filter.sh`.
+- Verification build_modules no match via `./scripts/test_build_modules_no_match.sh`.
+- Verification build_modules empty MODULES via `./scripts/test_build_modules_empty_modules_env.sh`.
+- Verification build_modules unknown option via `./scripts/test_build_modules_unknown_option.sh`.
+- Verification build_modules mvn failure via `./scripts/test_build_modules_mvn_failure.sh`.
+- Verification build_modules mvn failure mid-run via `./scripts/test_build_modules_mvn_failure_non_first_module.sh`.
+- Verification build_modules duplicate targets via `./scripts/test_build_modules_duplicate_targets.sh`.
+- Verification build_modules MODULES whitespace via `./scripts/test_build_modules_modules_whitespace.sh`.
+- Verification build_modules ROOT_OVERRIDE via `./scripts/test_build_modules_root_override.sh`.
+- Verification build_modules list filter via `./scripts/test_build_modules_list_filter.sh`.
+- Verification build_modules list empty MODULES via `./scripts/test_build_modules_list_empty_modules_env.sh`.
+- Verification build_modules list unknown option via `./scripts/test_build_modules_list_unknown_option.sh`.
+- Verification build_modules list ROOT_OVERRIDE via `./scripts/test_build_modules_list_root_override.sh`.
+- Verification test_producer help via `./scripts/test_test_producer_help.sh`.
+- Verification test_producer list via `./scripts/test_test_producer_list.sh`.
+- Verification test_producer ROOT_OVERRIDE via `./scripts/test_test_producer_root_override.sh`.
+- Verification test_producer missing mvn via `./scripts/test_test_producer_missing_mvn.sh`.
+- Verification test_producer unknown option via `./scripts/test_test_producer_unknown_option.sh`.
+- Verification test_producer list ROOT_OVERRIDE via `./scripts/test_test_producer_list_root_override.sh`.
+- Verification test_producer missing dir via `./scripts/test_test_producer_missing_dir.sh`.
+- Verification test_producer mvn failure via `./scripts/test_test_producer_mvn_failure.sh`.
+- Verification test_producer list MODULES ignored via `./scripts/test_test_producer_list_filter_modules.sh`.
+- Verification test_consumers help via `./scripts/test_test_consumers_help.sh`.
+- Verification test_consumers list via `./scripts/test_test_consumers_list.sh`.
+- Verification test_consumers list filter via `./scripts/test_test_consumers_list_filter.sh`.
+- Verification test_consumers ROOT_OVERRIDE via `./scripts/test_test_consumers_root_override.sh`.
+- Verification test_consumers list empty MODULES via `./scripts/test_test_consumers_list_empty_modules_env.sh`.
+- Verification test_consumers list unknown option via `./scripts/test_test_consumers_list_unknown_option.sh`.
+- Verification test_consumers missing mvn via `./scripts/test_test_consumers_missing_mvn.sh`.
+- Verification test_consumers missing dir via `./scripts/test_test_consumers_missing_dir.sh`.
+- Verification test_consumers unknown option via `./scripts/test_test_consumers_unknown_option.sh`.
+- Verification test_consumers list ROOT_OVERRIDE via `./scripts/test_test_consumers_list_root_override.sh`.
+- Verification test_consumers MODULES whitespace via `./scripts/test_test_consumers_modules_whitespace.sh`.
+- Verification test_consumers duplicate targets via `./scripts/test_test_consumers_duplicate_targets.sh`.
+- Verification test_consumers no match via `./scripts/test_test_consumers_no_match.sh`.
+- Verification test_consumers mvn failure via `./scripts/test_test_consumers_mvn_failure.sh`.
+- Verification test_consumers mvn failure mid-run via `./scripts/test_test_consumers_mvn_failure_non_first_module.sh`.
+- Verification test_consumers empty MODULES via `./scripts/test_test_consumers_empty_modules_env.sh`.
+- Verification test_consumers list filter ROOT_OVERRIDE via `./scripts/test_test_consumers_list_filter_root_override.sh`.
+- Verification test_consumers list MODULES mismatch via `./scripts/test_test_consumers_list_filter_modules_ignored.sh`.
+- Verification test_consumers list ROOT_OVERRIDE only via `./scripts/test_test_consumers_root_override_list_only.sh`.
+- Verification setup_env via `./scripts/test_setup_env.sh`.
+- Verification setup_env help via `./scripts/test_setup_env_help.sh`.
+- Verification consume_test_message help via `./scripts/test_consume_test_message_help.sh`.
+- Verification consume_test_message OUTPUT help via `./scripts/test_consume_test_message_output_help.sh`.
+- Verification validate_payload help via `./scripts/test_validate_payload_help.sh`.
+- Verification validate_payload json via `./scripts/test_validate_payload_json.sh`.
+- Verification post_sample help via `./scripts/test_post_sample_help.sh`.
+- Verification publish_sample_keys help via `./scripts/test_publish_sample_keys_help.sh`.
+- Verification publish_sample_keys json via `./scripts/test_publish_sample_keys_json.sh`.
+- Verification list_exchanges help via `./scripts/test_list_exchanges_help.sh`.
+- Verification list_exchanges json via `./scripts/test_list_exchanges_json.sh`.
+- Verification tail_rabbitmq_logs help via `./scripts/test_tail_rabbitmq_logs_help.sh`.
+- Verification tail_rabbitmq_logs json reject via `./scripts/test_tail_rabbitmq_logs_json.sh`.
+- Verification create_bindings help via `./scripts/test_create_bindings_help.sh`.
+- Verification create_bindings json via `./scripts/test_create_bindings_json.sh`.
+- Verification create_bindings json error via `./scripts/test_create_bindings_json_error.sh`.
+- Verification list_queues help via `./scripts/test_list_queues_help.sh`.
+- Verification list_queues json via `./scripts/test_list_queues_json.sh`.
+- Verification list_bindings help via `./scripts/test_list_bindings_help.sh`.
+- Verification list_bindings json via `./scripts/test_list_bindings_json.sh`.
+- Verification bootstrap_and_validate help via `./scripts/test_bootstrap_and_validate_help.sh`.
+- Verification bootstrap_and_validate json via `./scripts/test_bootstrap_and_validate_json.sh`.
+- Verification bootstrap_and_validate help extra via `./scripts/test_bootstrap_and_validate_help_extra.sh`.
+- Verification bootstrap_and_validate json error via `./scripts/test_bootstrap_and_validate_json_error.sh`.
+- Verification run_local_flow help via `./scripts/test_run_local_flow_help.sh`.
+- Verification run_local_flow json via `./scripts/test_run_local_flow_json.sh`.
+- Verification run_local_flow help extra via `./scripts/test_run_local_flow_help_extra.sh`.
+- Verification bootstrap_all help via `./scripts/test_bootstrap_all_help.sh`.
+- Verification bootstrap_all json via `./scripts/test_bootstrap_all_json.sh`.
+- Verification bootstrap_all help extra via `./scripts/test_bootstrap_all_help_extra.sh`.
+- Verification bootstrap_all json error via `./scripts/test_bootstrap_all_json_error.sh`.
+- Verification check_publish_payload via `./scripts/test_check_publish_payload.sh`.
+- Verification load_env via `./scripts/test_load_env.sh`.
+- Verification load_env help via `./scripts/test_load_env_help.sh`.
+- Verification readme_toc via `./scripts/test_readme_toc.sh`.
+- Verification reset_local help via `./scripts/test_reset_local_help.sh`.
+- Verification purge_queues help via `./scripts/test_purge_queues_help.sh`.
+- Verification smoke_local help via `./scripts/test_smoke_local_help.sh`.
+- Verification smoke_local json via `./scripts/test_smoke_local_json.sh`.
+- Verification smoke_local json error via `./scripts/test_smoke_local_json_error.sh`.
+- Verification run_checks help via `./scripts/test_run_checks_help.sh`.
+- Verification run_checks json via `./scripts/test_run_checks_json.sh`.
+- Verification run_checks json skips via `./scripts/test_run_checks_json_skips.sh`.
+- Verification run_checks json error via `./scripts/test_run_checks_json_error.sh`.
+- Verification run_checks json skip routing via `./scripts/test_run_checks_json_skip_routing.sh`.
+- Verification run_checks json skip doctor via `./scripts/test_run_checks_json_skip_doctor.sh`.
+- Verification test_routing_matrix json via `./scripts/test_test_routing_matrix_json.sh`.
+- Verification test_routing_matrix help via `./scripts/test_test_routing_matrix_help.sh`.
+- Verification test_routing help via `./scripts/test_test_routing_help.sh`.
+- Verification test_routing json via `./scripts/test_test_routing_json.sh`.
+- Verification run_producer help via `./scripts/test_run_producer_help.sh`.
+- Verification run_producer list via `./scripts/test_run_producer_list.sh`.
+- Verification run_producer help extra via `./scripts/test_run_producer_help_extra.sh`.
+- Verification run_producer ROOT_OVERRIDE via `./scripts/test_run_producer_root_override.sh`.
+- Verification run_producer unknown option via `./scripts/test_run_producer_unknown_option.sh`.
+- Verification run_producer missing mvn via `./scripts/test_run_producer_missing_mvn.sh`.
+- Verification run_consumer help via `./scripts/test_run_consumer_help.sh`.
+- Verification run_consumer list via `./scripts/test_run_consumer_list.sh`.
+- Verification run_consumer help extra via `./scripts/test_run_consumer_help_extra.sh`.
+- Verification run_consumer ROOT_OVERRIDE via `./scripts/test_run_consumer_list_root_override.sh`.
+- Verification run_consumer missing arg via `./scripts/test_run_consumer_missing_arg.sh`.
+- Verification run_consumer unknown option via `./scripts/test_run_consumer_unknown_option.sh`.
+- Verification run_consumer missing mvn via `./scripts/test_run_consumer_missing_mvn.sh`.
+- Verification run_consumer invalid consumer via `./scripts/test_run_consumer_invalid_consumer.sh`.
+- Verification run_consumer missing dir via `./scripts/test_run_consumer_missing_consumer_dir.sh`.
+- Verification status_report help via `./scripts/test_status_report_help.sh`.
+- Verification status_report json via `./scripts/test_status_report_json.sh`.
+- Verification status_report json error via `./scripts/test_status_report_json_error.sh`.
+- Verification status_report json filters via `./scripts/test_status_report_json_filters.sh`.
+- Verification status_report json invalid payloads via `./scripts/test_status_report_json_invalid_payloads.sh`.
+- Verification topology helpers help via `./scripts/test_topology_helpers_help.sh`.
+- Verification count_queue_messages json via `./scripts/test_count_queue_messages_json.sh`.
+- Verification doctor help via `./scripts/test_doctor_help.sh`.
+- Verification doctor json via `./scripts/test_doctor_json.sh`.
+- Verification doctor json error via `./scripts/test_doctor_json_error.sh`.
+- Verification doctor json invalid prereqs via `./scripts/test_doctor_json_invalid_prereqs.sh`.
+- Verification doctor json invalid rabbitmq via `./scripts/test_doctor_json_invalid_rabbitmq.sh`.
+- Verification doctor json invalid topology via `./scripts/test_doctor_json_invalid_topology.sh`.
+- Verification check_rabbitmq help via `./scripts/test_check_rabbitmq_help.sh`.
+- Verification check_rabbitmq json via `./scripts/test_check_rabbitmq_json.sh`.
+- Verification check_rabbitmq json error via `./scripts/test_check_rabbitmq_json_error.sh`.
+- Verification wait_rabbitmq help via `./scripts/test_wait_rabbitmq_help.sh`.
+- Verification wait_rabbitmq json via `./scripts/test_wait_rabbitmq_json.sh`.
+- Verification wait_rabbitmq timeout json via `./scripts/test_wait_rabbitmq_timeout_json.sh`.
+- Verification bootstrap_rabbitmq help via `./scripts/test_bootstrap_rabbitmq_help.sh`.
+- Verification bootstrap_rabbitmq json via `./scripts/test_bootstrap_rabbitmq_json.sh`.
+- Verification bootstrap_rabbitmq help extra via `./scripts/test_bootstrap_rabbitmq_help_extra.sh`.
+- Verification bootstrap_rabbitmq json error via `./scripts/test_bootstrap_rabbitmq_json_error.sh`.
+- Verification bootstrap_rabbitmq json missing python via `./scripts/test_bootstrap_rabbitmq_json_missing_python.sh`.
+- Verification validate_rabbitmq help via `./scripts/test_validate_rabbitmq_help.sh`.
+- Verification append_log via `./scripts/test_append_log.sh`.
 
 ## Consumers
 - Dummy PDF generator basic test (one per consumer)
@@ -30,6 +184,152 @@ Executer les tests :
 - Producer: `./scripts/test_producer.sh`
 - Consumers: `./scripts/test_consumers.sh`
 - Publish (dry-run): `./scripts/test_publish_test_message.sh`
+  - Verifier publish_test_message help: `./scripts/test_publish_test_message_help.sh`
+  - Verifier metadata PDF: `./scripts/test_verify_publish_pdf_metadata.sh`
+  - Verifier verify_publish_pdf_metadata help: `./scripts/test_verify_publish_pdf_metadata_help.sh`
+  - Verifier PDF_OUTPUT_DIR: `./scripts/test_verify_pdf_output_dir.sh`
+  - Verifier verify_pdf_output_dir help: `./scripts/test_verify_pdf_output_dir_help.sh`
+  - Verifier presence PDF_OUTPUT_DIR: `./scripts/test_ensure_pdf_output_dir_has_file.sh`
+  - Verifier ensure_pdf_output_dir_has_file help: `./scripts/test_ensure_pdf_output_dir_has_file_help.sh`
+  - Verifier cleanup PDF_OUTPUT_DIR: `./scripts/test_cleanup_pdf_output_dir.sh`
+  - Verifier cleanup_pdf_output_dir help: `./scripts/test_cleanup_pdf_output_dir_help.sh`
+  - Verifier inspect PDF_OUTPUT_DIR: `./scripts/test_inspect_pdf_output_dir.sh`
+  - Verifier inspect_pdf_output_dir help: `./scripts/test_inspect_pdf_output_dir_help.sh`
+  - Verifier prepare PDF_OUTPUT_DIR: `./scripts/test_prepare_pdf_output_dir.sh`
+  - Verifier prepare_pdf_output_dir help: `./scripts/test_prepare_pdf_output_dir_help.sh`
+  - Verifier publish_test_message_with_check: `./scripts/test_publish_test_message_with_check.sh`
+  - Verifier publish_test_message_with_check help: `./scripts/test_publish_test_message_with_check_help.sh`
+  - Verifier verify_publish_payload: `./scripts/test_verify_publish_payload.sh`
+  - Verifier verify_publish_payload help: `./scripts/test_verify_publish_payload_help.sh`
+  - Verifier check_prereqs: `./scripts/test_check_prereqs.sh`
+  - Verifier check_prereqs json missing: `./scripts/test_check_prereqs_json_missing.sh`
+  - Verifier check_prereqs help: `./scripts/test_check_prereqs_help.sh`
+  - Verifier setup_env: `./scripts/test_setup_env.sh`
+  - Verifier setup_env help: `./scripts/test_setup_env_help.sh`
+  - Verifier consume_test_message help: `./scripts/test_consume_test_message_help.sh`
+  - Verifier consume_test_message OUTPUT help: `./scripts/test_consume_test_message_output_help.sh`
+  - Verifier validate_payload help: `./scripts/test_validate_payload_help.sh`
+  - Verifier validate_payload json: `./scripts/test_validate_payload_json.sh`
+  - Verifier post_sample help: `./scripts/test_post_sample_help.sh`
+  - Verifier publish_sample_keys help: `./scripts/test_publish_sample_keys_help.sh`
+  - Verifier publish_sample_keys json: `./scripts/test_publish_sample_keys_json.sh`
+  - Verifier list_exchanges help: `./scripts/test_list_exchanges_help.sh`
+  - Verifier list_exchanges json: `./scripts/test_list_exchanges_json.sh`
+  - Verifier tail_rabbitmq_logs help: `./scripts/test_tail_rabbitmq_logs_help.sh`
+  - Verifier tail_rabbitmq_logs json: `./scripts/test_tail_rabbitmq_logs_json.sh`
+  - Verifier create_bindings help: `./scripts/test_create_bindings_help.sh`
+  - Verifier create_bindings json: `./scripts/test_create_bindings_json.sh`
+  - Verifier create_bindings json error: `./scripts/test_create_bindings_json_error.sh`
+  - Verifier list_queues help: `./scripts/test_list_queues_help.sh`
+  - Verifier list_queues json: `./scripts/test_list_queues_json.sh`
+  - Verifier list_bindings help: `./scripts/test_list_bindings_help.sh`
+  - Verifier list_bindings json: `./scripts/test_list_bindings_json.sh`
+  - Verifier bootstrap_and_validate help: `./scripts/test_bootstrap_and_validate_help.sh`
+  - Verifier bootstrap_and_validate json: `./scripts/test_bootstrap_and_validate_json.sh`
+  - Verifier bootstrap_and_validate help extra: `./scripts/test_bootstrap_and_validate_help_extra.sh`
+  - Verifier bootstrap_and_validate json error: `./scripts/test_bootstrap_and_validate_json_error.sh`
+  - Verifier run_local_flow help: `./scripts/test_run_local_flow_help.sh`
+  - Verifier run_local_flow json: `./scripts/test_run_local_flow_json.sh`
+  - Verifier run_local_flow help extra: `./scripts/test_run_local_flow_help_extra.sh`
+  - Verifier run_local_flow missing mvn: `./scripts/test_run_local_flow_missing_mvn.sh`
+  - Verifier run_local_flow option inconnue: `./scripts/test_run_local_flow_unknown_option.sh`
+  - Verifier run_local_flow help mention json: `./scripts/test_run_local_flow_json_help_mentions.sh`
+  - Verifier run_local_flow ROOT_OVERRIDE: `./scripts/test_run_local_flow_root_override.sh`
+  - Verifier run_local_flow json prereqs ko: `./scripts/test_run_local_flow_json_fail_prereqs.sh`
+  - Verifier run_local_flow silent propagation: `./scripts/test_run_local_flow_silent_propagation.sh`
+  - Verifier run_local_flow json propagation: `./scripts/test_run_local_flow_json_propagation.sh`
+  - Verifier run_local_flow silent no completion: `./scripts/test_run_local_flow_silent_no_completion.sh`
+  - Verifier run_local_flow json no completion: `./scripts/test_run_local_flow_json_no_completion.sh`
+  - Verifier run_local_flow ROOT_OVERRIDE scripts manquants: `./scripts/test_run_local_flow_missing_scripts_root_override.sh`
+  - Verifier run_local_flow json smoke ko: `./scripts/test_run_local_flow_json_fail_smoke.sh`
+  - Verifier run_local_flow json status_report ko: `./scripts/test_run_local_flow_json_fail_status_report.sh`
+  - Verifier run_local_flow json+silent combo: `./scripts/test_run_local_flow_json_silent_combo.sh`
+  - Verifier run_local_flow silent pas de json implicite: `./scripts/test_run_local_flow_silent_ignores_json_flag.sh`
+  - Verifier run_local_flow json inclut silent: `./scripts/test_run_local_flow_json_no_silent_flag.sh`
+  - Verifier bootstrap_all help: `./scripts/test_bootstrap_all_help.sh`
+  - Verifier bootstrap_all json: `./scripts/test_bootstrap_all_json.sh`
+  - Verifier bootstrap_all help extra: `./scripts/test_bootstrap_all_help_extra.sh`
+  - Verifier bootstrap_all json error: `./scripts/test_bootstrap_all_json_error.sh`
+  - Verifier check_publish_payload: `./scripts/test_check_publish_payload.sh`
+  - Verifier load_env: `./scripts/test_load_env.sh`
+  - Verifier load_env help: `./scripts/test_load_env_help.sh`
+  - Verifier readme_toc: `./scripts/test_readme_toc.sh`
+  - Verifier reset_local help: `./scripts/test_reset_local_help.sh`
+  - Verifier purge_queues help: `./scripts/test_purge_queues_help.sh`
+  - Verifier smoke_local help: `./scripts/test_smoke_local_help.sh`
+  - Verifier smoke_local json: `./scripts/test_smoke_local_json.sh`
+  - Verifier smoke_local json error: `./scripts/test_smoke_local_json_error.sh`
+  - Verifier run_checks help: `./scripts/test_run_checks_help.sh`
+  - Verifier run_checks json: `./scripts/test_run_checks_json.sh`
+  - Verifier run_checks json skips: `./scripts/test_run_checks_json_skips.sh`
+  - Verifier run_checks json error: `./scripts/test_run_checks_json_error.sh`
+  - Verifier run_checks json skip routing: `./scripts/test_run_checks_json_skip_routing.sh`
+  - Verifier run_checks json skip doctor: `./scripts/test_run_checks_json_skip_doctor.sh`
+  - Verifier run_checks json propagation: `./scripts/test_run_checks_json_propagation.sh`
+  - Verifier run_checks silent no completion: `./scripts/test_run_checks_silent_no_completion.sh`
+  - Verifier run_checks option inconnue: `./scripts/test_run_checks_unknown_option.sh`
+  - Verifier run_checks json no completion: `./scripts/test_run_checks_json_no_completion.sh`
+  - Verifier run_checks skip doctor message: `./scripts/test_run_checks_skip_doctor_message.sh`
+  - Verifier run_checks skip routing message: `./scripts/test_run_checks_skip_routing_message.sh`
+  - Verifier run_checks skip both message: `./scripts/test_run_checks_skip_both_message.sh`
+  - Verifier run_checks ROOT_OVERRIDE scripts manquants: `./scripts/test_run_checks_missing_scripts_root_override.sh`
+  - Verifier run_checks json routing error: `./scripts/test_run_checks_json_routing_error.sh`
+  - Verifier run_checks json doctor error: `./scripts/test_run_checks_json_doctor_error.sh`
+  - Verifier run_checks json skip both: `./scripts/test_run_checks_json_skip_both.sh`
+  - Verifier run_checks json skip doctor routing ok: `./scripts/test_run_checks_json_skip_doctor_routing_only.sh`
+  - Verifier run_checks json skip routing doctor ok: `./scripts/test_run_checks_json_skip_routing_doctor_only.sh`
+  - Verifier run_checks json skip doctor no message: `./scripts/test_run_checks_json_skip_doctor_no_message.sh`
+  - Verifier run_checks json skip routing no message: `./scripts/test_run_checks_json_skip_routing_no_message.sh`
+  - Verifier run_checks silent skip both no messages: `./scripts/test_run_checks_silent_skip_both_no_messages.sh`
+  - Verifier run_checks completion message: `./scripts/test_run_checks_no_silent_completion.sh`
+  - Verifier run_checks silent skip doctor no message: `./scripts/test_run_checks_silent_skip_doctor_no_message.sh`
+  - Verifier run_checks silent skip routing no message: `./scripts/test_run_checks_silent_skip_routing_no_message.sh`
+  - Verifier test_routing_matrix json: `./scripts/test_test_routing_matrix_json.sh`
+  - Verifier test_routing_matrix help: `./scripts/test_test_routing_matrix_help.sh`
+  - Verifier test_routing help: `./scripts/test_test_routing_help.sh`
+  - Verifier test_routing json: `./scripts/test_test_routing_json.sh`
+  - Verifier run_producer help: `./scripts/test_run_producer_help.sh`
+  - Verifier run_producer list: `./scripts/test_run_producer_list.sh`
+  - Verifier run_producer help extra: `./scripts/test_run_producer_help_extra.sh`
+  - Verifier run_producer ROOT_OVERRIDE: `./scripts/test_run_producer_root_override.sh`
+  - Verifier run_producer unknown option: `./scripts/test_run_producer_unknown_option.sh`
+  - Verifier run_producer missing mvn: `./scripts/test_run_producer_missing_mvn.sh`
+  - Verifier run_producer missing dir: `./scripts/test_run_producer_missing_dir.sh`
+  - Verifier run_consumer help: `./scripts/test_run_consumer_help.sh`
+  - Verifier run_consumer list: `./scripts/test_run_consumer_list.sh`
+  - Verifier run_consumer help extra: `./scripts/test_run_consumer_help_extra.sh`
+  - Verifier run_consumer ROOT_OVERRIDE: `./scripts/test_run_consumer_list_root_override.sh`
+  - Verifier run_consumer missing arg: `./scripts/test_run_consumer_missing_arg.sh`
+  - Verifier run_consumer unknown option: `./scripts/test_run_consumer_unknown_option.sh`
+  - Verifier run_consumer missing mvn: `./scripts/test_run_consumer_missing_mvn.sh`
+  - Verifier run_consumer invalid consumer: `./scripts/test_run_consumer_invalid_consumer.sh`
+  - Verifier run_consumer missing dir: `./scripts/test_run_consumer_missing_consumer_dir.sh`
+  - Verifier status_report help: `./scripts/test_status_report_help.sh`
+  - Verifier status_report json: `./scripts/test_status_report_json.sh`
+  - Verifier status_report json error: `./scripts/test_status_report_json_error.sh`
+  - Verifier status_report json filters: `./scripts/test_status_report_json_filters.sh`
+  - Verifier status_report json invalid payloads: `./scripts/test_status_report_json_invalid_payloads.sh`
+  - Verifier topology helpers help: `./scripts/test_topology_helpers_help.sh`
+  - Verifier count_queue_messages json: `./scripts/test_count_queue_messages_json.sh`
+  - Verifier doctor help: `./scripts/test_doctor_help.sh`
+  - Verifier doctor json: `./scripts/test_doctor_json.sh`
+  - Verifier doctor json error: `./scripts/test_doctor_json_error.sh`
+  - Verifier doctor json invalid prereqs: `./scripts/test_doctor_json_invalid_prereqs.sh`
+  - Verifier doctor json invalid rabbitmq: `./scripts/test_doctor_json_invalid_rabbitmq.sh`
+  - Verifier doctor json invalid topology: `./scripts/test_doctor_json_invalid_topology.sh`
+  - Verifier check_rabbitmq help: `./scripts/test_check_rabbitmq_help.sh`
+  - Verifier check_rabbitmq json: `./scripts/test_check_rabbitmq_json.sh`
+  - Verifier check_rabbitmq json error: `./scripts/test_check_rabbitmq_json_error.sh`
+  - Verifier wait_rabbitmq help: `./scripts/test_wait_rabbitmq_help.sh`
+  - Verifier wait_rabbitmq json: `./scripts/test_wait_rabbitmq_json.sh`
+  - Verifier wait_rabbitmq timeout json: `./scripts/test_wait_rabbitmq_timeout_json.sh`
+  - Verifier bootstrap_rabbitmq help: `./scripts/test_bootstrap_rabbitmq_help.sh`
+  - Verifier bootstrap_rabbitmq json: `./scripts/test_bootstrap_rabbitmq_json.sh`
+  - Verifier bootstrap_rabbitmq help extra: `./scripts/test_bootstrap_rabbitmq_help_extra.sh`
+  - Verifier bootstrap_rabbitmq json error: `./scripts/test_bootstrap_rabbitmq_json_error.sh`
+  - Verifier bootstrap_rabbitmq json missing python: `./scripts/test_bootstrap_rabbitmq_json_missing_python.sh`
+  - Verifier validate_rabbitmq help: `./scripts/test_validate_rabbitmq_help.sh`
+  - Verifier append_log: `./scripts/test_append_log.sh`
   - Avant/après publication, utiliser `./scripts/cleanup_pdf_output_dir.sh` pour assurer un dossier propre et `./scripts/inspect_pdf_output_dir.sh` pour vérifier les artefacts PDF générés.
 - Smoke: `./scripts/e2e_local.sh`
 - Smoke (dry-run): `./scripts/test_e2e_local.sh`

@@ -1,5 +1,9 @@
 # ft_turing
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-26 11:13:46) : tests OK (21/21) apres ajout cas invalides.
+
 ## Synthèse actuelle
 Sujet 42 « ft_turing » : implémenter un vérificateur/simulateur de machine de Turing. Charger une description (états, alphabet, transitions), valider sa cohérence, exécuter pas à pas avec limite pour éviter les boucles, option verbose pour tracer transitions et ruban.
 

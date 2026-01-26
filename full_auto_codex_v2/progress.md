@@ -1899,3 +1899,224 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2026-01-24 22:10:00 | Messagequeue/MessageQueue | IN_PROGRESS | test_publish_test_message now prepares PDF_OUTPUT_DIR via prepare script before running publish tests.
 2026-01-25 04:41:50 | Messagequeue/MessageQueue | IN_PROGRESS | Verified the PDF workflow by running prepare_pdf_output_dir + publish_test_message_with_check --json --dry-run, ensuring pdf_output_dir_missing=0 and the helper scripts clean the target before each run.
 2026-01-25 06:53:00 | Messagequeue/MessageQueue | IN_PROGRESS | Executed verify_publish_pdf_metadata.sh to confirm the dry-run JSON still reports pdf_output_dir/pdfs and pdf_output_dir_missing=0 as per the metadata contract.
+2026-01-25 16:11:39 | Messagequeue/MessageQueue | IN_PROGRESS | Extended publish_workflow.md to describe running verify_publish_pdf_metadata.sh after each JSON dry-run (pdf_output_dir/pdf_output_dir_missing contract) so readers know to call the metadata check before logging success.
+2026-01-25 16:15:00 | Messagequeue/MessageQueue | IN_PROGRESS | Ran prepare_pdf_output_dir + publish_test_message_with_check --json --dry-run and verify_publish_pdf_metadata.sh to prove pdf_output_dir_present and pdf_output_dir_missing=0 for the metadata contract used by docs/api_contract.md.
+2026-01-25 17:28:35 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_verify_publish_pdf_metadata + docs test_tools/scripts_overview/tests_summary
+2026-01-25 17:32:12 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_verify_pdf_output_dir + docs test_tools/scripts_overview/tests_summary
+2026-01-25 17:36:42 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_ensure_pdf_output_dir_has_file + docs test_tools/scripts_overview/tests_summary
+2026-01-25 17:41:47 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_cleanup_pdf_output_dir + docs test_tools/scripts_overview/tests_summary
+2026-01-25 17:46:50 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_inspect_pdf_output_dir + docs test_tools/scripts_overview/tests_summary
+2026-01-25 17:51:48 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_prepare_pdf_output_dir + docs test_tools/scripts_overview/tests_summary
+2026-01-25 17:56:46 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_publish_test_message_with_check + docs test_tools/scripts_overview/tests_summary
+2026-01-25 17:57:10 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_publish_test_message_with_check extraction JSON
+2026-01-25 18:01:45 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_verify_publish_payload + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:02:13 | Messagequeue/MessageQueue | IN_PROGRESS | fix verify_publish_payload.sh chemin script python
+2026-01-25 18:02:35 | Messagequeue/MessageQueue | IN_PROGRESS | verify_publish_payload.sh resolve chemins relatifs PAYLOAD/DIR
+2026-01-25 18:03:17 | Messagequeue/MessageQueue | IN_PROGRESS | fix verify_publish_payload.sh argument vide
+2026-01-25 18:05:08 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_verify_publish_payload lecture JSON
+2026-01-25 18:06:46 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_check_prereqs + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:12:08 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_check_publish_payload + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:16:51 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_load_env + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:21:51 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_readme_toc + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:22:22 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_readme_toc ancre ponctuation
+2026-01-25 18:26:50 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_smoke_local_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:27:14 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_smoke_local_help rg --
+2026-01-25 18:31:47 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_run_checks_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:36:48 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_status_report_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:41:50 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_topology_helpers_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:46:46 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_doctor_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:51:54 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_check_rabbitmq_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 18:56:51 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_wait_rabbitmq_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 19:01:57 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_bootstrap_rabbitmq_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 19:06:57 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_validate_rabbitmq_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 19:11:55 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_append_log + docs test_tools/scripts_overview/tests_summary
+2026-01-25 19:16:54 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_wait_rabbitmq_json + docs test_tools/scripts_overview/tests_summary
+2026-01-25 19:21:51 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_check_rabbitmq_json + docs test_tools/scripts_overview/tests_summary
+2026-01-25 19:26:52 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_check_prereqs_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 19:32:10 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_setup_env + docs test_tools/scripts_overview/tests_summary
+2026-01-25 19:37:04 | Messagequeue/MessageQueue | IN_PROGRESS | bootstrap_and_validate accepte --help/--silent/--json + test
+2026-01-25 19:41:59 | Messagequeue/MessageQueue | IN_PROGRESS | run_local_flow accepte --help/--silent/--json + test
+2026-01-25 19:47:08 | Messagequeue/MessageQueue | IN_PROGRESS | bootstrap_all accepte --help/--silent/--json + test
+2026-01-25 19:51:59 | Messagequeue/MessageQueue | IN_PROGRESS | setup_env accepte --help + test
+2026-01-25 19:57:02 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_consume_test_message_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:01:57 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_validate_payload_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:06:54 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_post_sample_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:11:55 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_publish_sample_keys_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:17:25 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_publish_sample_keys_json + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:18:16 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_publish_sample_keys_json stubs
+2026-01-25 20:22:02 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_list_exchanges_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:27:33 | Messagequeue/MessageQueue | IN_PROGRESS | tail_rabbitmq_logs accepte --help + test
+2026-01-25 20:32:06 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_create_bindings_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:37:01 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_list_queues_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:42:02 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_list_bindings_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:47:10 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_list_bindings_json + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:48:45 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_list_bindings_json stub curl
+2026-01-25 20:50:07 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_list_bindings_json stub curl
+2026-01-25 20:51:14 | Messagequeue/MessageQueue | IN_PROGRESS | fix list_bindings.sh import os
+2026-01-25 20:52:42 | Messagequeue/MessageQueue | IN_PROGRESS | fix list_bindings.sh python -c
+2026-01-25 20:53:54 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_list_queues_json + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:54:37 | Messagequeue/MessageQueue | IN_PROGRESS | fix list_queues.sh python -c
+2026-01-25 20:57:11 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_list_exchanges_json + docs test_tools/scripts_overview/tests_summary
+2026-01-25 20:58:10 | Messagequeue/MessageQueue | IN_PROGRESS | fix list_exchanges.sh python -c
+2026-01-25 20:59:12 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_list_exchanges_json attendu type
+2026-01-25 21:02:13 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_count_queue_messages_json + fix count_queue_messages
+2026-01-25 21:07:15 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_validate_payload_json + docs test_tools/scripts_overview/tests_summary
+2026-01-25 21:12:16 | Messagequeue/MessageQueue | IN_PROGRESS | load_env accepte --help + test
+2026-01-25 21:17:22 | Messagequeue/MessageQueue | IN_PROGRESS | ensure_pdf_output_dir_has_file accepte --help + test
+2026-01-25 21:22:24 | Messagequeue/MessageQueue | IN_PROGRESS | cleanup_pdf_output_dir accepte --help + test
+2026-01-25 21:27:20 | Messagequeue/MessageQueue | IN_PROGRESS | inspect_pdf_output_dir accepte --help + test
+2026-01-25 21:32:14 | Messagequeue/MessageQueue | IN_PROGRESS | prepare_pdf_output_dir accepte --help + test
+2026-01-25 21:37:20 | Messagequeue/MessageQueue | IN_PROGRESS | verify_pdf_output_dir accepte --help + test
+2026-01-25 21:42:22 | Messagequeue/MessageQueue | IN_PROGRESS | consume_test_message help OUTPUT + test
+2026-01-25 21:47:24 | Messagequeue/MessageQueue | IN_PROGRESS | publish_test_message_with_check accepte --help + test
+2026-01-25 21:52:12 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_publish_test_message_help + docs test_tools/scripts_overview/tests_summary
+2026-01-25 21:57:20 | Messagequeue/MessageQueue | IN_PROGRESS | verify_publish_payload accepte --help + test
+2026-01-25 22:02:27 | Messagequeue/MessageQueue | IN_PROGRESS | verify_publish_pdf_metadata accepte --help + test
+2026-01-25 22:08:02 | Messagequeue/MessageQueue | IN_PROGRESS | run_producer accepte --help + test
+2026-01-25 22:12:55 | Messagequeue/MessageQueue | IN_PROGRESS | run_consumer accepte --help + test
+2026-01-25 22:18:03 | Messagequeue/MessageQueue | IN_PROGRESS | reset_local accepte --help + test
+2026-01-25 22:22:57 | Messagequeue/MessageQueue | IN_PROGRESS | purge_queues accepte --help + test
+2026-01-25 22:28:33 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test_check_prereqs_json_missing + docs
+2026-01-25 22:29:29 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_check_prereqs_json_missing JSON vide
+2026-01-25 22:30:44 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_check_prereqs_json_missing stub docker
+2026-01-25 22:33:36 | Messagequeue/MessageQueue | IN_PROGRESS | fix check_prereqs --json missing list + test
+2026-01-25 22:35:47 | Messagequeue/MessageQueue | IN_PROGRESS | ajout --help/--list pour build_modules + tests
+2026-01-25 22:37:59 | Messagequeue/MessageQueue | IN_PROGRESS | ajout --help/--list test_producer/test_consumers + tests
+2026-01-25 22:45:16 | Messagequeue/MessageQueue | IN_PROGRESS | fix doctor JSON parsing + add doctor/run_checks json tests
+2026-01-25 22:47:51 | Messagequeue/MessageQueue | IN_PROGRESS | fix test_routing_matrix queue_count pipe + add json test
+2026-01-25 22:52:22 | Messagequeue/MessageQueue | IN_PROGRESS | ajout ROOT_OVERRIDE test_routing + test json
+2026-01-25 22:57:53 | Messagequeue/MessageQueue | IN_PROGRESS | ajout ROOT_OVERRIDE bootstrap_rabbitmq + test json
+2026-01-25 23:01:57 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test help pour test_routing_matrix
+2026-01-25 23:06:56 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test help pour test_routing
+2026-01-25 23:12:35 | Messagequeue/MessageQueue | IN_PROGRESS | ajout ROOT_OVERRIDE bootstrap_and_validate + test json
+2026-01-25 23:17:44 | Messagequeue/MessageQueue | IN_PROGRESS | ajout ROOT_OVERRIDE bootstrap_all + test json
+2026-01-25 23:22:13 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test json create_bindings
+2026-01-25 23:27:04 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test refus --json tail_rabbitmq_logs
+2026-01-25 23:32:44 | Messagequeue/MessageQueue | IN_PROGRESS | status_report --json silencieux + test json
+2026-01-25 23:37:22 | Messagequeue/MessageQueue | IN_PROGRESS | run_local_flow --json silencieux + test json
+2026-01-25 23:42:42 | Messagequeue/MessageQueue | IN_PROGRESS | smoke_local ROOT_OVERRIDE + test json
+2026-01-25 23:47:15 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test wait_rabbitmq timeout json
+2026-01-25 23:52:05 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json skips
+2026-01-25 23:57:13 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test help supplementaire run_local_flow
+2026-01-26 00:02:03 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test status_report json error
+2026-01-26 00:07:18 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test json error check_rabbitmq
+2026-01-26 00:12:07 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test doctor json error
+2026-01-26 00:17:01 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json error
+2026-01-26 00:22:03 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_consumer --list
+2026-01-26 00:28:07 | Messagequeue/MessageQueue | IN_PROGRESS | run_producer ajoute --list + test
+2026-01-26 00:32:01 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test help supplementaire run_consumer
+2026-01-26 00:37:03 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test help supplementaire run_producer
+2026-01-26 00:42:03 | Messagequeue/MessageQueue | IN_PROGRESS | doc script_env: run_consumer section
+2026-01-26 00:48:28 | Messagequeue/MessageQueue | IN_PROGRESS | run_consumer/run_producer ROOT_OVERRIDE + tests
+2026-01-26 00:53:05 | Messagequeue/MessageQueue | IN_PROGRESS | create_bindings JSON error output + test
+2026-01-26 00:57:07 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test help supplementaire bootstrap_and_validate
+2026-01-26 01:02:10 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test help supplementaire bootstrap_all
+2026-01-26 01:07:08 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test help supplementaire bootstrap_rabbitmq
+2026-01-26 01:12:36 | Messagequeue/MessageQueue | IN_PROGRESS | bootstrap_rabbitmq JSON error output + test
+2026-01-26 01:17:12 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test json error bootstrap_and_validate
+2026-01-26 01:22:13 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test json error bootstrap_all
+2026-01-26 01:27:18 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json skip-routing
+2026-01-26 01:32:20 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json skip-doctor
+2026-01-26 01:37:17 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test doctor json prereqs invalid
+2026-01-26 01:42:20 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test doctor json rabbitmq invalid
+2026-01-26 01:47:16 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test doctor json topology invalid
+2026-01-26 01:52:23 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test status_report json filtres
+2026-01-26 01:57:38 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test smoke_local json error
+2026-01-26 02:02:40 | Messagequeue/MessageQueue | IN_PROGRESS | status_report JSON robust + test invalid payloads
+2026-01-26 02:07:17 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_consumer sans argument
+2026-01-26 02:12:18 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_producer option inconnue
+2026-01-26 02:17:38 | Messagequeue/MessageQueue | IN_PROGRESS | run_consumer option inconnue geree + test
+2026-01-26 02:22:41 | Messagequeue/MessageQueue | IN_PROGRESS | bootstrap_rabbitmq json missing python + test
+2026-01-26 02:27:47 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_producer sans mvn
+2026-01-26 02:32:16 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_consumer sans mvn
+2026-01-26 02:37:38 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_consumer consumer invalide
+2026-01-26 02:42:21 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_consumer dossier manquant
+2026-01-26 02:47:48 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_producer dossier manquant
+2026-01-26 02:52:30 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules filtre MODULES
+2026-01-26 02:56:58 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules MODULES sans correspondance
+2026-01-26 03:01:58 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules MODULES vide
+2026-01-26 03:06:59 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules option inconnue
+2026-01-26 03:12:00 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules mvn en echec
+2026-01-26 03:17:03 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules MODULES dupliques
+2026-01-26 03:22:01 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules MODULES avec espaces
+2026-01-26 03:27:53 | Messagequeue/MessageQueue | IN_PROGRESS | build_modules support ROOT_OVERRIDE + test
+2026-01-26 03:32:31 | Messagequeue/MessageQueue | IN_PROGRESS | build_modules --list respecte MODULES + test
+2026-01-26 03:36:52 | Messagequeue/MessageQueue | IN_PROGRESS | docs build_modules mention ROOT_OVERRIDE
+2026-01-26 03:42:17 | Messagequeue/MessageQueue | IN_PROGRESS | build_modules help mention ROOT_OVERRIDE
+2026-01-26 03:47:05 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules --list MODULES vide
+2026-01-26 03:52:02 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules --list option inconnue
+2026-01-26 03:57:03 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules --list ROOT_OVERRIDE
+2026-01-26 04:02:03 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test build_modules mvn echec module suivant
+2026-01-26 04:08:11 | Messagequeue/MessageQueue | IN_PROGRESS | test_consumers ROOT_OVERRIDE + list filtre MODULES
+2026-01-26 04:12:48 | Messagequeue/MessageQueue | IN_PROGRESS | test_producer ROOT_OVERRIDE + tests
+2026-01-26 04:17:04 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_producer mvn absent
+2026-01-26 04:22:06 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_producer option inconnue
+2026-01-26 04:27:07 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_producer --list ROOT_OVERRIDE
+2026-01-26 04:32:07 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_producer dossier manquant
+2026-01-26 04:37:14 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers --list MODULES vide
+2026-01-26 04:42:07 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers --list option inconnue
+2026-01-26 04:47:26 | Messagequeue/MessageQueue | IN_PROGRESS | test_consumers help ROOT_OVERRIDE + test mvn absent
+2026-01-26 04:52:11 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers dossier manquant
+2026-01-26 04:57:06 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers option inconnue
+2026-01-26 05:02:10 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers --list ROOT_OVERRIDE
+2026-01-26 05:07:13 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers MODULES avec espaces
+2026-01-26 05:12:37 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers MODULES dupliques
+2026-01-26 05:17:12 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers MODULES sans correspondance
+2026-01-26 05:22:14 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers mvn en echec
+2026-01-26 05:27:16 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers mvn echec module suivant
+2026-01-26 05:32:14 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers MODULES vide
+2026-01-26 05:37:15 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers --list filtre + ROOT_OVERRIDE
+2026-01-26 05:42:30 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_producer mvn en echec
+2026-01-26 05:47:34 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_producer --list ignore MODULES
+2026-01-26 05:52:35 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers --list MODULES sans correspondance
+2026-01-26 05:57:15 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test test_consumers --list ROOT_OVERRIDE seul
+2026-01-26 06:03:07 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow prereqs manquants
+2026-01-26 06:07:16 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow option inconnue
+2026-01-26 06:17:04 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow help mention json
+2026-01-26 06:22:52 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow ROOT_OVERRIDE
+2026-01-26 06:27:39 | Messagequeue/MessageQueue | IN_PROGRESS | run_local_flow help mention ROOT_OVERRIDE
+2026-01-26 06:32:24 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow json prereqs ko
+2026-01-26 06:37:28 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow propagation --silent
+2026-01-26 06:43:27 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow propagation --json
+2026-01-26 06:47:26 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow --silent sans message final
+2026-01-26 06:52:31 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow --json sans message final
+2026-01-26 06:57:20 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow ROOT_OVERRIDE scripts manquants
+2026-01-26 07:02:27 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow json smoke ko
+2026-01-26 07:07:29 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow json status_report ko
+2026-01-26 07:12:33 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow json+silent combo
+2026-01-26 07:17:27 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow --silent sans json implicite
+2026-01-26 07:23:12 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_local_flow --json inclut --silent
+2026-01-26 07:28:06 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json propagation
+2026-01-26 07:32:26 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks --silent sans message final
+2026-01-26 07:37:26 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks option inconnue
+2026-01-26 07:42:34 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks --json sans message final
+2026-01-26 07:47:28 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks skip-doctor message
+2026-01-26 07:52:31 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks skip-routing message
+2026-01-26 07:57:28 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks skip-both message
+2026-01-26 08:02:28 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks ROOT_OVERRIDE scripts manquants
+2026-01-26 08:07:40 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json routing error
+2026-01-26 08:12:30 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json doctor error
+2026-01-26 08:17:38 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json skip both
+2026-01-26 08:22:30 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json skip-doctor routing ok
+2026-01-26 08:27:35 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json skip-routing doctor ok
+2026-01-26 08:32:35 | Messagequeue/MessageQueue | IN_PROGRESS | run_checks help mention ROOT_OVERRIDE
+2026-01-26 08:37:40 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json skip-doctor sans message
+2026-01-26 08:42:40 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks json skip-routing sans message
+2026-01-26 08:47:33 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks --silent skip-both sans messages
+2026-01-26 08:52:44 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks message final
+2026-01-26 08:57:36 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks --silent skip-doctor sans message
+2026-01-26 09:02:41 | Messagequeue/MessageQueue | IN_PROGRESS | ajout test run_checks --silent skip-routing sans message
+2026-01-26 10:32:07 | Messagequeue/MessageQueue | WAITING | blocage .env tracke, decision utilisateur requise
+2026-01-26 10:32:07 | Wordle/Wordle | DONE | ajout tests max_attempts invalide + target ajoute au dictionnaire
+2026-01-26 10:37:52 | Wordle/Wordle | IN_PROGRESS | ajout tests case-insensitive + fin de partie apres max_attempts
+2026-01-26 10:42:00 | Wordle/Wordle | IN_PROGRESS | ajout test is_valid_guess sur mot inconnu
+2026-01-26 10:47:02 | Wordle/Wordle | DONE | tests run_tests.sh OK
+2026-01-26 10:52:54 | Web/hello_node | IN_PROGRESS | ajout run_tests_skip_net.sh + docs commandes
+2026-01-26 10:58:31 | Web/hello_node | WAITING | tests run_tests_skip_net.sh OK, sockets locales bloquees
+2026-01-26 10:58:31 | Python/Django_Training_D01 | DONE | ajout tests cas limites + run_tests OK
+2026-01-26 11:02:32 | Web/hello_node | WAITING | ajout run_tests_auto.sh + tests OK (auto skip reseau)
+2026-01-26 11:10:50 | Unix/UNIX_leaning_project | WAITING | tests interactifs en echec (out of pty devices)
+2026-01-26 11:11:01 | Unix/A_completely_UNIX_project | DONE | ajout tests erreurs + run_tests OK
+2026-01-26 11:13:46 | C/Ft_turing | DONE | ajout invalid_blank_multi + invalid_initial_unknown + tests OK
+2026-01-26 11:17:37 | C/Libasm | WAITING | ajout tests zero-length/chaines vides (nasm manquant)
+2026-01-26 11:23:08 | Unix/UNIX_Project | WAITING | tests skip si ptrace bloque (skipped=2)

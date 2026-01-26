@@ -49,9 +49,8 @@ print(urllib.parse.quote(v, safe=""))
 PY
 )
 
-output=$(curl -fsS -u "${USER}:${PASS}" "http://${HOST}:${PORT}/api/bindings/${vhost_enc}" \
-  | SOURCES="${SOURCES}" DESTINATIONS="${DESTINATIONS}" ROUTING_KEYS="${ROUTING_KEYS}" JSON_OUTPUT="${json_output}" python3 - <<'PY'
-import json,sys
+python_code=$(cat <<'PY'
+import json,sys,os
 def parse_set(value):
     items=set()
     raw=value.strip()
@@ -89,6 +88,10 @@ else:
     for src,dst,rk in sorted(bindings):
         print(f"{src} -> {dst} ({rk})")
 PY
+)
+
+output=$(curl -fsS -u "${USER}:${PASS}" "http://${HOST}:${PORT}/api/bindings/${vhost_enc}" \
+  | SOURCES="${SOURCES}" DESTINATIONS="${DESTINATIONS}" ROUTING_KEYS="${ROUTING_KEYS}" JSON_OUTPUT="${json_output}" python3 -c "${python_code}"
 )
 
 if [[ "${json_output}" -eq 1 || "${silent}" -eq 0 ]]; then

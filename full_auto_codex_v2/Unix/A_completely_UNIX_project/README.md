@@ -1,5 +1,9 @@
 # ft_nm / ft_otool
 
+Statut : DONE
+
+Derniere mise a jour (2026-01-26 11:11:01) : tests run_tests.sh OK apres ajout tests erreurs.
+
 ## Synthèse
 Réimplémentation en C des commandes `nm` (sans options) et `otool -t` pour des binaires Mach-O 64 bits. Le projet fournit deux exécutables `ft_nm` et `ft_otool`, construits selon la norme 42 avec un Makefile principal et une `libft` minimale. Les fichiers sont analysés via `mmap`, et toutes les vérifications de bornes sont effectuées pour éviter les corruptions mémoire.
 

@@ -45,9 +45,8 @@ print(urllib.parse.quote(v, safe=""))
 PY
 )
 
-output=$(curl -fsS -u "${USER}:${PASS}" "http://${HOST}:${PORT}/api/exchanges/${vhost_enc}" \
-  | EXCHANGES="${EXCHANGES}" JSON_OUTPUT="${json_output}" python3 - <<'PY'
-import json,sys
+python_code=$(cat <<'PY'
+import json,sys,os
 targets=set()
 raw=os.environ.get("EXCHANGES","").strip()
 if raw:
@@ -72,6 +71,10 @@ else:
     for item in items:
         print(f"{item['name']}\t{item['type']}")
 PY
+)
+
+output=$(curl -fsS -u "${USER}:${PASS}" "http://${HOST}:${PORT}/api/exchanges/${vhost_enc}" \
+  | EXCHANGES="${EXCHANGES}" JSON_OUTPUT="${json_output}" python3 -c "${python_code}"
 )
 
 if [[ "${json_output}" -eq 1 || "${silent}" -eq 0 ]]; then

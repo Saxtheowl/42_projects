@@ -14,23 +14,89 @@ Ce dossier regroupe les scripts d'aide pour demarrer, configurer et valider Rabb
 - publish_test_message.sh : publie un message JSON de test (copie grantType dans metadata, routing key derivee, valide exchange/routing/content_type/message_id, refuse content_type blanc (espaces/tabs/newlines) et message_id avec espaces/tabs/newlines, content_type/message_id vides -> defaults, refuse payload JSON invalide, sortie JSON d'erreur en --json si python3 dispo, --help, --silent, --json, --dry-run, STRICT_GRANT_TYPE).
 - publish_sample_keys.sh : publie un lot de routing keys (ROUTING_KEYS, --silent, --json, PAYLOAD_FILE).
 - verify_pdf_output_dir.sh : verifie que `PDF_OUTPUT_DIR` est defini, accessible et modifiable avant d'invoquer publish_test_message ou les consumers qui ecrivent des PDF.
+- verify_publish_pdf_metadata.sh : lance publish_test_message_with_check en dry-run JSON et verifie `pdf_output_dir` + `pdf_output_dir_missing=0`.
 - post_sample.sh : envoie un payload JSON au producer HTTP (--help, --silent, --json, OUTPUT=pretty|status).
 - validate_payload.py : valide un payload JSON localement (champ requis + grantType routing key, --json).
 - test_validate_payload.sh : tests simples du validateur (ok/ko, --json).
 - test_publish_test_message.sh : tests dry-run pour publish_test_message (payload JSON invalide, CONTENT_TYPE blanc (espaces/tabs/newlines), CONTENT_TYPE vide -> default, MESSAGE_ID vide -> default, MESSAGE_ID avec espaces/tabs/newlines, --help, --json avec empty_message_id/whitespace_content_type).
+- test_publish_test_message_help.sh : test publish_test_message.sh --help (options).
+- test_verify_publish_pdf_metadata.sh : tests rapide du helper verify_publish_pdf_metadata (payload valide/invalide).
+- test_verify_publish_pdf_metadata_help.sh : test verify_publish_pdf_metadata.sh --help.
+- test_verify_pdf_output_dir.sh : tests rapide du helper verify_pdf_output_dir (PDF_OUTPUT_DIR absent/creer/readonly).
+- test_verify_pdf_output_dir_help.sh : test verify_pdf_output_dir.sh --help.
+- test_ensure_pdf_output_dir_has_file.sh : tests rapide du helper ensure_pdf_output_dir_has_file (dossier manquant/vide/avec PDF).
+- test_ensure_pdf_output_dir_has_file_help.sh : test ensure_pdf_output_dir_has_file.sh --help.
+- test_cleanup_pdf_output_dir.sh : tests rapide du helper cleanup_pdf_output_dir (dossier manquant, suppression PDFs).
+- test_cleanup_pdf_output_dir_help.sh : test cleanup_pdf_output_dir.sh --help.
+- test_inspect_pdf_output_dir.sh : tests rapide du helper inspect_pdf_output_dir (dossier manquant, comptage PDFs).
+- test_inspect_pdf_output_dir_help.sh : test inspect_pdf_output_dir.sh --help.
+- test_prepare_pdf_output_dir.sh : tests rapide du helper prepare_pdf_output_dir (creation/clean/skip clean).
+- test_prepare_pdf_output_dir_help.sh : test prepare_pdf_output_dir.sh --help.
+- test_publish_test_message_with_check.sh : test dry-run JSON de publish_test_message_with_check (pas de PDF requis).
+- test_publish_test_message_with_check_help.sh : test publish_test_message_with_check.sh --help.
+- test_verify_publish_payload.sh : test verify_publish_payload (payload OK/KO + JSON).
+- test_verify_publish_payload_help.sh : test verify_publish_payload.sh --help.
+- test_check_prereqs.sh : test check_prereqs (skip docker/mvn + JSON).
+- test_check_prereqs_json_missing.sh : test check_prereqs --json (manquants).
+- test_check_prereqs_help.sh : test check_prereqs.sh --help (env + options).
+- test_setup_env.sh : test setup_env.sh (src manquant + copie + no-op).
+- test_setup_env_help.sh : test setup_env.sh --help (SRC/DST).
+- test_consume_test_message_help.sh : test consume_test_message.sh --help (env + options).
+- test_consume_test_message_output_help.sh : test consume_test_message.sh --help (OUTPUT).
+- test_validate_payload_help.sh : test validate_payload.py --help (options + payload).
+- test_validate_payload_json.sh : test validate_payload.py --json (ok/erreur).
+- test_post_sample_help.sh : test post_sample.sh --help (OUTPUT + json).
+- test_publish_sample_keys_help.sh : test publish_sample_keys.sh --help (routing keys + options).
+- test_publish_sample_keys_json.sh : test publish_sample_keys.sh --json (liste publiee).
+- test_list_exchanges_help.sh : test list_exchanges.sh --help (EXCHANGES + options).
+- test_list_exchanges_json.sh : test list_exchanges.sh --json (filtrage).
+- test_tail_rabbitmq_logs_help.sh : test tail_rabbitmq_logs.sh --help (SERVICE/FOLLOW/TAIL).
+- test_create_bindings_help.sh : test create_bindings.sh --help (env + options).
+- test_list_queues_help.sh : test list_queues.sh --help (QUEUES + options).
+- test_list_queues_json.sh : test list_queues.sh --json (filtrage).
+- test_list_bindings_help.sh : test list_bindings.sh --help (filtres + options).
+- test_list_bindings_json.sh : test list_bindings.sh --json (filtrage).
+- test_bootstrap_and_validate_help.sh : test bootstrap_and_validate.sh --help (silent/json).
+- test_bootstrap_and_validate_json.sh : test bootstrap_and_validate.sh --json (ROOT_OVERRIDE).
+- test_run_local_flow_help.sh : test run_local_flow.sh --help (silent/json).
+- test_run_local_flow_json.sh : test run_local_flow.sh --json (ROOT_OVERRIDE).
+- test_bootstrap_all_help.sh : test bootstrap_all.sh --help (silent/json).
+- test_bootstrap_all_json.sh : test bootstrap_all.sh --json (ROOT_OVERRIDE).
+- test_check_publish_payload.sh : test check_publish_payload.py (payload ok/ko + JSON).
+- test_load_env.sh : test load_env.sh (env manquant + variables set/unset).
+- test_load_env_help.sh : test load_env.sh --help (ENV_FILE).
+- test_readme_toc.sh : test readme_toc.sh (README manquant + anchors).
+- test_reset_local_help.sh : test reset_local.sh --help (CLEAN_PDFS/PURGE_QUEUES/STOP_DOCKER).
+- test_purge_queues_help.sh : test purge_queues.sh --help (QUEUES).
+- test_smoke_local_help.sh : test smoke_local.sh --help (silent/json).
+- test_run_checks_help.sh : test run_checks.sh --help (skip/silent/json).
+- test_run_producer_help.sh : test run_producer.sh --help.
+- test_run_consumer_help.sh : test run_consumer.sh --help.
+- test_status_report_help.sh : test status_report.sh --help (silent/json + filtres).
+- test_topology_helpers_help.sh : test list_queues/list_exchanges/list_bindings/count_queue_messages --help.
+- test_count_queue_messages_json.sh : test count_queue_messages.sh --json (filtrage).
+- test_doctor_help.sh : test doctor.sh --help (silent/json).
+- test_check_rabbitmq_help.sh : test check_rabbitmq.sh --help (env + options).
+- test_check_rabbitmq_json.sh : test check_rabbitmq.sh --json (port invalide -> error).
+- test_wait_rabbitmq_help.sh : test wait_rabbitmq.sh --help (env + TIMEOUT).
+- test_wait_rabbitmq_json.sh : test wait_rabbitmq.sh --json (timeout=0 -> error).
+- test_bootstrap_rabbitmq_help.sh : test bootstrap_rabbitmq.sh --help (env + options).
+- test_bootstrap_rabbitmq_json.sh : test bootstrap_rabbitmq.sh --json (ROOT_OVERRIDE).
+- test_validate_rabbitmq_help.sh : test validate_rabbitmq.sh --help (env + options).
+- test_append_log.sh : test append_log.sh (progress.md + README.md).
 - test_e2e_local.sh : test dry-run JSON du e2e_local (--help, --json).
-- doctor.sh : verifie prerequis, payload, tests validate_payload/publish_test_message et topologie si disponible (--silent, --json).
+- doctor.sh : verifie prerequis, payload, tests validate_payload/publish_test_message et topologie si disponible (--silent, --json, ROOT_OVERRIDE).
 - generate_dummy_pdf.py : genere un PDF minimal dans shared/pdfs.
 - simulate_consumer.py : simule un consumer et genere un PDF.
-- run_checks.sh : enchaine doctor + routing matrix (ou --skip-doctor/--skip-routing/--silent/--json).
-- build_modules.sh : build maven des modules (skip tests, MODULES/--list).
-- test_producer.sh : lance les tests Maven du producer (ou `--list`).
+- run_checks.sh : enchaine doctor + routing matrix (ou --skip-doctor/--skip-routing/--silent/--json, ROOT_OVERRIDE).
+- build_modules.sh : build maven des modules (skip tests, MODULES, ROOT_OVERRIDE, --list, --help).
+- test_producer.sh : lance les tests Maven du producer (ou `--list`, `--help`, ROOT_OVERRIDE).
 - tail_rabbitmq_logs.sh : suit les logs docker compose du broker.
-- test_consumers.sh : execute les tests Maven des consumers (MODULES/--list).
+- test_consumers.sh : execute les tests Maven des consumers (MODULES, ROOT_OVERRIDE, --list, --help).
 - readme_toc.sh : genere un sommaire des sections du README (FILE).
 - append_log.sh : ajoute une ligne dans progress.md et README racine.
-- run_producer.sh : lance le producer (mvn spring-boot:run).
-- run_consumer.sh : lance un consumer specifie (ou `--list`).
+- run_producer.sh : lance le producer (mvn spring-boot:run, --list, ROOT_OVERRIDE).
+- run_consumer.sh : lance un consumer specifie (ou `--list`, ROOT_OVERRIDE).
 - consume_test_message.sh : recupere des messages depuis une queue (--help, --silent, --json, OUTPUT=pretty).
 - count_queue_messages.sh : compte les messages par queue (filtre via QUEUES, --silent, --json).
 - list_queues.sh / list_exchanges.sh / list_bindings.sh : inventaire topologie (filtres CSV via env, --silent, --json).

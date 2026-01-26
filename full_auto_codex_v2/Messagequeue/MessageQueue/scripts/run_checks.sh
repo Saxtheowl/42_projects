@@ -2,6 +2,9 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -n "${ROOT_OVERRIDE:-}" ]]; then
+  ROOT="${ROOT_OVERRIDE}"
+fi
 
 skip_doctor=0
 skip_routing=0
@@ -19,6 +22,8 @@ Options:
   --skip-doctor   Skip doctor.sh.
   --silent        Suppress output (errors still shown).
   --json          Output JSON summary.
+Environment:
+  ROOT_OVERRIDE  Override repository root for tests/stubs
 EOF
       exit 0
       ;;

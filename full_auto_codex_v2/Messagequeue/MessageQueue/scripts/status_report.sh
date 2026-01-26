@@ -2,6 +2,9 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -n "${ROOT_OVERRIDE:-}" ]]; then
+  ROOT="${ROOT_OVERRIDE}"
+fi
 silent=0
 json_output=0
 
@@ -22,6 +25,7 @@ EOF
     silent=1
   elif [[ "${arg}" == "--json" ]]; then
     json_output=1
+    silent=1
   else
     echo "Unknown option: ${arg}" >&2
     exit 1
@@ -75,6 +79,12 @@ if [[ "${json_output}" -eq 1 ]]; then
   QUEUES_JSON="${queues_json}" EXCHANGES_JSON="${exchanges_json}" BINDINGS_JSON="${bindings_json}" \
   python3 - <<'PY'
 import json,os
+def safe_load(raw, default):
+    try:
+        return json.loads(raw) if raw.strip() else default
+    except json.JSONDecodeError:
+        return default
+
 filters={
     "queue_filter": os.environ.get("QUEUE_FILTER",""),
     "exchange_filter": os.environ.get("EXCHANGE_FILTER",""),
@@ -85,9 +95,9 @@ filters={
 payload={
     "status": "ok",
     "filters": filters,
-    "queues": json.loads(os.environ.get("QUEUES_JSON","[]")),
-    "exchanges": json.loads(os.environ.get("EXCHANGES_JSON","[]")),
-    "bindings": json.loads(os.environ.get("BINDINGS_JSON","[]")),
+    "queues": safe_load(os.environ.get("QUEUES_JSON",""), []),
+    "exchanges": safe_load(os.environ.get("EXCHANGES_JSON",""), []),
+    "bindings": safe_load(os.environ.get("BINDINGS_JSON",""), []),
 }
 print(json.dumps(payload))
 PY

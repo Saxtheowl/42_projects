@@ -13,8 +13,9 @@
    - Lancez `./scripts/publish_test_message_with_check.sh docs/sample_publish_payload.json` ou utilisez directement `./scripts/publish_test_message_with_check --json docs/sample_publish_payload.json` pour combiner la vérification du répertoire et la publication.
    - En mode `--json`, vous obtenez `status=ok`/`status=error` avec les champs `pdf_output_dir`/`pdf_output_dir_missing`.
 
-4. Vérification des artefacts
+4. Vérification des artefacts et métadonnées
    - Si `status=ok`, vérifiez que `PDF_OUTPUT_DIR` contient les PDF attendus (les docs `run_modules`, `smoke_plan` détaillent les chemins).
+   - Après chaque publication en mode JSON, exécutez `./scripts/verify_publish_pdf_metadata.sh <path-to-json>` (ou configure la variable `PAYLOAD_FILE` / `PDF_OUTPUT_DIR`) pour confirmer que `pdf_output_dir` est présent, `pdf_output_dir_missing=0` et les champs relatifs aux PDF répondent au contrat décrit dans `docs/api_contract.md`.
    - Utilisez `./scripts/inspect_pdf_output_dir.sh` pour compter les PDF générés et `jq '.pdf_output_dir,.pdf_output_dir_missing'` pour confirmer les chemins.
    - Nettoyez le dossier pour les runs suivants avec `./scripts/cleanup_pdf_output_dir.sh`, ou laissez `inspect`/`ensure_pdf_output_dir_has_file.sh` confirmer la présence d’un artefact pour les démonstrations.
 

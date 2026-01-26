@@ -77,13 +77,8 @@ fi
 
 if [[ "${json_output}" -eq 1 ]]; then
   if command -v python3 >/dev/null 2>&1; then
-    printf '%s' "${missing_items[*]}" | python3 - <<'PY'
-import json,sys
-data=sys.stdin.read().strip()
-missing=data.split() if data else []
-status="error" if missing else "ok"
-print(json.dumps({"status": status, "missing": missing}))
-PY
+    python_code=$'import json,sys\nmissing=[line.strip() for line in sys.stdin if line.strip()]\nstatus="error" if missing else "ok"\nprint(json.dumps({"status": status, "missing": missing}))'
+    printf '%s\n' "${missing_items[@]}" | python3 -c "${python_code}"
   else
     printf '%s\n' "{\"status\":\"error\",\"missing\":[\"python3\"]}"
   fi

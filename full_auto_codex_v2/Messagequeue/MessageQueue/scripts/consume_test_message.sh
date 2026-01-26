@@ -25,6 +25,7 @@ Environment:
   COUNT      Number of messages (default: 1)
   ACK_MODE   ack_requeue_false|ack_requeue_true|ack_requeue_false (default: ack_requeue_false)
   TRUNCATE   Response truncate size (default: 50000)
+  OUTPUT     raw|pretty (default: raw)
 EOF
     exit 0
   elif [[ "${arg}" == "--silent" ]]; then

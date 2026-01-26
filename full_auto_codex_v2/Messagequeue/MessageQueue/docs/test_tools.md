@@ -13,11 +13,155 @@
 - `scripts/count_queue_messages.sh` : compte les messages par queue (QUEUES pour filtrer, --silent, --json).
 - `scripts/status_report.sh` : resume l'etat (queues/exchanges/bindings, filtres via env, --silent, --json).
 - `scripts/publish_test_message.sh` / `scripts/consume_test_message.sh` (publish copie grantType dans metadata et derive la routing key, valide exchange/routing/content_type/message_id, refuse content_type blanc (espaces/tabs/newlines) et message_id avec espaces/tabs/newlines, content_type vide/message_id vide -> defaults, --help, --silent, --json, --dry-run, STRICT_GRANT_TYPE, consume OUTPUT=pretty + --silent/--json).
+- `scripts/verify_pdf_output_dir.sh` : verifie que `PDF_OUTPUT_DIR` est defini, accessible et modifiable avant d'invoquer publish_test_message ou les consumers qui ecrivent des PDF.
+- `scripts/verify_publish_pdf_metadata.sh` : verifie que la sortie JSON de publish_test_message_with_check expose `pdf_output_dir` + `pdf_output_dir_missing=0` (dry-run JSON).
 - `scripts/publish_sample_keys.sh` : publie plusieurs routing keys (ROUTING_KEYS, --silent, --json, PAYLOAD_FILE).
 - `scripts/post_sample.sh` : envoie un payload HTTP au producer (--help, --silent, --json, OUTPUT=pretty|status).
 - `scripts/validate_payload.py` : valide un JSON localement (champ requis + grantType routing key, --json).
 - `scripts/test_validate_payload.sh` : tests simples du validateur (cas ok/ko, --json).
 - `scripts/test_publish_test_message.sh` : tests dry-run pour publish_test_message (payload JSON invalide + sortie JSON d'erreur, payload manquant/illisible/dossier + sortie JSON d'erreur, erreurs JSON pour exchange/routing_key/message_id/content_type invalides + longueurs, CONTENT_TYPE blanc (espaces/tabs/newlines), CONTENT_TYPE vide -> default, MESSAGE_ID vide -> default, MESSAGE_ID avec espaces/tabs/newlines, --help, --json avec empty_message_id/whitespace_content_type).
+- `scripts/test_publish_test_message_help.sh` : valide `publish_test_message.sh --help` (options).
+- `scripts/test_verify_publish_pdf_metadata.sh` : valide que `verify_publish_pdf_metadata.sh` reussit avec un payload valide et echoue si le JSON du payload est invalide.
+- `scripts/test_verify_publish_pdf_metadata_help.sh` : valide `verify_publish_pdf_metadata.sh --help`.
+- `scripts/test_verify_pdf_output_dir.sh` : valide que `verify_pdf_output_dir.sh` echoue si PDF_OUTPUT_DIR est absent/non writable et cree le dossier manquant.
+- `scripts/test_verify_pdf_output_dir_help.sh` : valide `verify_pdf_output_dir.sh --help`.
+- `scripts/test_ensure_pdf_output_dir_has_file.sh` : valide que `ensure_pdf_output_dir_has_file.sh` echoue si le dossier est manquant/vide et reussit avec un PDF.
+- `scripts/test_ensure_pdf_output_dir_has_file_help.sh` : valide `ensure_pdf_output_dir_has_file.sh --help`.
+- `scripts/test_cleanup_pdf_output_dir.sh` : valide que `cleanup_pdf_output_dir.sh` reussit si le dossier manque et supprime seulement les PDFs.
+- `scripts/test_cleanup_pdf_output_dir_help.sh` : valide `cleanup_pdf_output_dir.sh --help`.
+- `scripts/test_inspect_pdf_output_dir.sh` : valide que `inspect_pdf_output_dir.sh` echoue si le dossier manque et compte les PDFs.
+- `scripts/test_inspect_pdf_output_dir_help.sh` : valide `inspect_pdf_output_dir.sh --help`.
+- `scripts/test_prepare_pdf_output_dir.sh` : valide que `prepare_pdf_output_dir.sh` cree/clean le dossier (et SKIP_PDF_PREPARE_CLEAN garde les PDFs).
+- `scripts/test_prepare_pdf_output_dir_help.sh` : valide `prepare_pdf_output_dir.sh --help`.
+- `scripts/test_publish_test_message_with_check.sh` : valide le dry-run JSON de publish_test_message_with_check (pas de PDF requis).
+- `scripts/test_publish_test_message_with_check_help.sh` : valide `publish_test_message_with_check.sh --help`.
+- `scripts/test_verify_publish_payload.sh` : valide verify_publish_payload (payload OK, JSON, payload invalide).
+- `scripts/test_verify_publish_payload_help.sh` : valide `verify_publish_payload.sh --help`.
+- `scripts/test_check_prereqs.sh` : valide check_prereqs (skip docker/mvn + sortie JSON).
+- `scripts/test_check_prereqs_json_missing.sh` : valide check_prereqs --json (manquants).
+- `scripts/test_check_prereqs_help.sh` : valide `check_prereqs.sh --help` (env + options).
+- `scripts/test_setup_env.sh` : valide setup_env.sh (src manquant + copie + no-op).
+- `scripts/test_setup_env_help.sh` : valide `setup_env.sh --help` (SRC/DST).
+- `scripts/test_consume_test_message_help.sh` : valide `consume_test_message.sh --help` (env + options).
+- `scripts/test_consume_test_message_output_help.sh` : valide `consume_test_message.sh --help` (OUTPUT).
+- `scripts/test_validate_payload_help.sh` : valide `validate_payload.py --help` (options + payload).
+- `scripts/test_validate_payload_json.sh` : valide `validate_payload.py --json` (ok/erreur).
+- `scripts/test_post_sample_help.sh` : valide `post_sample.sh --help` (OUTPUT + json).
+- `scripts/test_publish_sample_keys_help.sh` : valide `publish_sample_keys.sh --help` (routing keys + options).
+- `scripts/test_publish_sample_keys_json.sh` : valide `publish_sample_keys.sh --json` (liste publiee).
+- `scripts/test_list_exchanges_help.sh` : valide `list_exchanges.sh --help` (EXCHANGES + options).
+- `scripts/test_list_exchanges_json.sh` : valide `list_exchanges.sh --json` (filtrage).
+- `scripts/test_tail_rabbitmq_logs_help.sh` : valide `tail_rabbitmq_logs.sh --help` (SERVICE/FOLLOW/TAIL).
+- `scripts/test_tail_rabbitmq_logs_json.sh` : valide que `tail_rabbitmq_logs.sh --json` est refuse.
+- `scripts/test_create_bindings_help.sh` : valide `create_bindings.sh --help` (env + options).
+- `scripts/test_create_bindings_json.sh` : valide `create_bindings.sh --json` (curl stub).
+- `scripts/test_create_bindings_json_error.sh` : valide `create_bindings.sh --json` (curl error).
+- `scripts/test_list_queues_help.sh` : valide `list_queues.sh --help` (QUEUES + options).
+- `scripts/test_list_queues_json.sh` : valide `list_queues.sh --json` (filtrage).
+- `scripts/test_list_bindings_help.sh` : valide `list_bindings.sh --help` (filtres + options).
+- `scripts/test_list_bindings_json.sh` : valide `list_bindings.sh --json` (filtrage).
+- `scripts/test_bootstrap_and_validate_help.sh` : valide `bootstrap_and_validate.sh --help` (silent/json).
+- `scripts/test_bootstrap_and_validate_json.sh` : valide `bootstrap_and_validate.sh --json` (ROOT_OVERRIDE).
+- `scripts/test_bootstrap_and_validate_help_extra.sh` : valide `bootstrap_and_validate.sh --help` (mention --json).
+- `scripts/test_bootstrap_and_validate_json_error.sh` : valide `bootstrap_and_validate.sh --json` (check_rabbitmq error).
+- `scripts/test_run_local_flow_help.sh` : valide `run_local_flow.sh --help` (silent/json).
+- `scripts/test_run_local_flow_help_extra.sh` : valide `run_local_flow.sh --help` (contenu --json).
+- `scripts/test_run_local_flow_json.sh` : valide `run_local_flow.sh --json` (ROOT_OVERRIDE).
+- `scripts/test_run_local_flow_missing_mvn.sh` : valide `run_local_flow.sh` (prereqs manquants).
+- `scripts/test_run_local_flow_unknown_option.sh` : valide `run_local_flow.sh` (option inconnue -> erreur).
+- `scripts/test_run_local_flow_json_help_mentions.sh` : valide `run_local_flow.sh --help` (mentions --json/--silent).
+- `scripts/test_run_local_flow_root_override.sh` : valide `run_local_flow.sh` (ROOT_OVERRIDE + stubs).
+- `scripts/test_run_local_flow_json_fail_prereqs.sh` : valide `run_local_flow.sh --json` (check_prereqs error stoppe le flow).
+- `scripts/test_run_local_flow_silent_propagation.sh` : valide `run_local_flow.sh --silent` (propagation vers sous-scripts).
+- `scripts/test_run_local_flow_json_propagation.sh` : valide `run_local_flow.sh --json` (propagation vers sous-scripts).
+- `scripts/test_run_local_flow_silent_no_completion.sh` : valide `run_local_flow.sh --silent` (pas de message final).
+- `scripts/test_run_local_flow_json_no_completion.sh` : valide `run_local_flow.sh --json` (pas de message final).
+- `scripts/test_run_local_flow_missing_scripts_root_override.sh` : valide `run_local_flow.sh` (ROOT_OVERRIDE sans scripts -> erreur).
+- `scripts/test_run_local_flow_json_fail_smoke.sh` : valide `run_local_flow.sh --json` (smoke_local error stoppe le flow).
+- `scripts/test_run_local_flow_json_fail_status_report.sh` : valide `run_local_flow.sh --json` (status_report error stoppe le flow).
+- `scripts/test_run_local_flow_json_silent_combo.sh` : valide `run_local_flow.sh --json --silent` (propagation combo).
+- `scripts/test_run_local_flow_silent_ignores_json_flag.sh` : valide `run_local_flow.sh --silent` (pas de --json implicite).
+- `scripts/test_run_local_flow_json_no_silent_flag.sh` : valide `run_local_flow.sh --json` (inclut --silent implicite).
+- `scripts/test_bootstrap_all_help.sh` : valide `bootstrap_all.sh --help` (silent/json).
+- `scripts/test_bootstrap_all_json.sh` : valide `bootstrap_all.sh --json` (ROOT_OVERRIDE + docker stub).
+- `scripts/test_bootstrap_all_help_extra.sh` : valide `bootstrap_all.sh --help` (mention --json).
+- `scripts/test_bootstrap_all_json_error.sh` : valide `bootstrap_all.sh --json` (wait_rabbitmq error).
+- `scripts/test_check_publish_payload.sh` : valide check_publish_payload.py (payload ok/ko + JSON).
+- `scripts/test_load_env.sh` : valide load_env.sh (env manquant + variables set/unset).
+- `scripts/test_load_env_help.sh` : valide `load_env.sh --help` (ENV_FILE).
+- `scripts/test_readme_toc.sh` : valide readme_toc.sh (README manquant + ancrages).
+- `scripts/test_reset_local_help.sh` : valide `reset_local.sh --help` (CLEAN_PDFS/PURGE_QUEUES/STOP_DOCKER).
+- `scripts/test_purge_queues_help.sh` : valide `purge_queues.sh --help` (QUEUES).
+- `scripts/test_smoke_local_help.sh` : valide `smoke_local.sh --help` (options --silent/--json).
+- `scripts/test_smoke_local_json.sh` : valide `smoke_local.sh --json` (ROOT_OVERRIDE + stubs).
+- `scripts/test_smoke_local_json_error.sh` : valide `smoke_local.sh --json` (docker/compose absent).
+- `scripts/test_run_checks_help.sh` : valide `run_checks.sh --help` (skip/quiet/json).
+- `scripts/test_run_checks_json.sh` : valide `run_checks.sh --json` (ROOT_OVERRIDE).
+- `scripts/test_run_checks_json_skips.sh` : valide `run_checks.sh --json --skip-doctor --skip-routing`.
+- `scripts/test_run_checks_json_error.sh` : valide `run_checks.sh --json` (doctor error).
+- `scripts/test_run_checks_json_skip_routing.sh` : valide `run_checks.sh --json --skip-routing`.
+- `scripts/test_run_checks_json_skip_doctor.sh` : valide `run_checks.sh --json --skip-doctor`.
+- `scripts/test_run_checks_json_propagation.sh` : valide `run_checks.sh --json` (propagation --silent).
+- `scripts/test_run_checks_silent_no_completion.sh` : valide `run_checks.sh --silent` (pas de message final).
+- `scripts/test_run_checks_unknown_option.sh` : valide `run_checks.sh` (option inconnue -> erreur).
+- `scripts/test_run_checks_json_no_completion.sh` : valide `run_checks.sh --json` (pas de message final).
+- `scripts/test_run_checks_skip_doctor_message.sh` : valide `run_checks.sh --skip-doctor` (message skip).
+- `scripts/test_run_checks_skip_routing_message.sh` : valide `run_checks.sh --skip-routing` (message skip).
+- `scripts/test_run_checks_skip_both_message.sh` : valide `run_checks.sh --skip-doctor --skip-routing` (messages skip).
+- `scripts/test_run_checks_missing_scripts_root_override.sh` : valide `run_checks.sh` (ROOT_OVERRIDE sans scripts -> erreur).
+- `scripts/test_run_checks_json_routing_error.sh` : valide `run_checks.sh --json` (routing error).
+- `scripts/test_run_checks_json_doctor_error.sh` : valide `run_checks.sh --json` (doctor error).
+- `scripts/test_run_checks_json_skip_both.sh` : valide `run_checks.sh --json --skip-doctor --skip-routing`.
+- `scripts/test_run_checks_json_skip_doctor_routing_only.sh` : valide `run_checks.sh --json --skip-doctor` (routing ok).
+- `scripts/test_run_checks_json_skip_routing_doctor_only.sh` : valide `run_checks.sh --json --skip-routing` (doctor ok).
+- `scripts/test_run_checks_json_skip_doctor_no_message.sh` : valide `run_checks.sh --json --skip-doctor` (pas de message).
+- `scripts/test_run_checks_json_skip_routing_no_message.sh` : valide `run_checks.sh --json --skip-routing` (pas de message).
+- `scripts/test_run_checks_silent_skip_both_no_messages.sh` : valide `run_checks.sh --silent --skip-doctor --skip-routing` (pas de messages).
+- `scripts/test_run_checks_no_silent_completion.sh` : valide `run_checks.sh` (message final affiche).
+- `scripts/test_run_checks_silent_skip_doctor_no_message.sh` : valide `run_checks.sh --silent --skip-doctor` (pas de message).
+- `scripts/test_run_checks_silent_skip_routing_no_message.sh` : valide `run_checks.sh --silent --skip-routing` (pas de message).
+- `scripts/test_run_producer_help.sh` : valide `run_producer.sh --help`.
+- `scripts/test_run_producer_list.sh` : valide `run_producer.sh --list` (sans appel mvn).
+- `scripts/test_run_producer_help_extra.sh` : valide `run_producer.sh --help` (mention --list).
+- `scripts/test_run_producer_root_override.sh` : valide `run_producer.sh` (ROOT_OVERRIDE + mvn stub).
+- `scripts/test_run_producer_unknown_option.sh` : valide `run_producer.sh` option inconnue.
+- `scripts/test_run_producer_missing_mvn.sh` : valide `run_producer.sh` sans mvn.
+- `scripts/test_run_producer_missing_dir.sh` : valide `run_producer.sh` quand le dossier producer manque.
+- `scripts/test_run_consumer_help.sh` : valide `run_consumer.sh --help`.
+- `scripts/test_run_consumer_list.sh` : valide `run_consumer.sh --list` (sans appel mvn).
+- `scripts/test_run_consumer_help_extra.sh` : valide `run_consumer.sh --help` (mention --list).
+- `scripts/test_run_consumer_list_root_override.sh` : valide `run_consumer.sh --list` (ROOT_OVERRIDE).
+- `scripts/test_run_consumer_missing_arg.sh` : valide `run_consumer.sh` sans arguments.
+- `scripts/test_run_consumer_unknown_option.sh` : valide `run_consumer.sh` option inconnue.
+- `scripts/test_run_consumer_missing_mvn.sh` : valide `run_consumer.sh` sans mvn.
+- `scripts/test_run_consumer_invalid_consumer.sh` : valide `run_consumer.sh` consumer invalide.
+- `scripts/test_run_consumer_missing_consumer_dir.sh` : valide `run_consumer.sh` quand le dossier consumer manque.
+- `scripts/test_status_report_help.sh` : valide `status_report.sh --help` (silent/json + filtres).
+- `scripts/test_status_report_json.sh` : valide `status_report.sh --json` (ROOT_OVERRIDE + stubs).
+- `scripts/test_status_report_json_error.sh` : valide `status_report.sh --json` (API unreachable).
+- `scripts/test_status_report_json_filters.sh` : valide `status_report.sh --json` (filtres).
+- `scripts/test_status_report_json_invalid_payloads.sh` : valide `status_report.sh --json` (payloads JSON invalides).
+- `scripts/test_topology_helpers_help.sh` : valide les --help de list_queues/list_exchanges/list_bindings/count_queue_messages.
+- `scripts/test_count_queue_messages_json.sh` : valide `count_queue_messages.sh --json` (filtrage).
+- `scripts/test_doctor_help.sh` : valide `doctor.sh --help` (silent/json).
+- `scripts/test_doctor_json.sh` : valide `doctor.sh --json` (ROOT_OVERRIDE).
+- `scripts/test_doctor_json_error.sh` : valide `doctor.sh --json` (prereqs error).
+- `scripts/test_doctor_json_invalid_prereqs.sh` : valide `doctor.sh --json` (prereqs JSON invalide).
+- `scripts/test_doctor_json_invalid_rabbitmq.sh` : valide `doctor.sh --json` (rabbitmq JSON invalide).
+- `scripts/test_doctor_json_invalid_topology.sh` : valide `doctor.sh --json` (topology JSON invalide).
+- `scripts/test_check_rabbitmq_help.sh` : valide `check_rabbitmq.sh --help` (env + options).
+- `scripts/test_check_rabbitmq_json.sh` : valide `check_rabbitmq.sh --json` (port invalide -> error).
+- `scripts/test_check_rabbitmq_json_error.sh` : valide `check_rabbitmq.sh --json` (curl failure).
+- `scripts/test_wait_rabbitmq_help.sh` : valide `wait_rabbitmq.sh --help` (env + TIMEOUT).
+- `scripts/test_wait_rabbitmq_json.sh` : valide `wait_rabbitmq.sh --json` (timeout=0 -> status error).
+- `scripts/test_wait_rabbitmq_timeout_json.sh` : valide `wait_rabbitmq.sh --json` (timeout=0 expose timeout).
+- `scripts/test_bootstrap_rabbitmq_help.sh` : valide `bootstrap_rabbitmq.sh --help` (env + options).
+- `scripts/test_bootstrap_rabbitmq_json.sh` : valide `bootstrap_rabbitmq.sh --json` (ROOT_OVERRIDE + curl stub).
+- `scripts/test_bootstrap_rabbitmq_help_extra.sh` : valide `bootstrap_rabbitmq.sh --help` (mention GRANT_EXCHANGE).
+- `scripts/test_bootstrap_rabbitmq_json_error.sh` : valide `bootstrap_rabbitmq.sh --json` (curl error).
+- `scripts/test_bootstrap_rabbitmq_json_missing_python.sh` : valide `bootstrap_rabbitmq.sh --json` (python3 absent).
+- `scripts/test_validate_rabbitmq_help.sh` : valide `validate_rabbitmq.sh --help` (env + options).
+- `scripts/test_append_log.sh` : valide append_log.sh (ajout dans progress.md + README.md).
 - `scripts/test_e2e_local.sh` : test dry-run JSON du e2e_local (QUEUE/COUNT/INDEX/OUTPUT, --help, --json).
 - `scripts/doctor.sh` : check global prerequis + payload + topologie + tests validate_payload/publish_test_message (--silent, --json).
 - `scripts/generate_dummy_pdf.py` : genere un PDF minimal dans shared/pdfs.
@@ -25,10 +169,57 @@
   - Nettoyage apres test: `rm -f shared/pdfs/*`.
   - Override possible via `PDF_OUTPUT_DIR`.
 - `scripts/run_checks.sh` : lance un check global + routing matrix (ou --skip-doctor/--skip-routing/--silent/--json).
-- `scripts/build_modules.sh` : build les modules Maven (skip tests, MODULES/--list).
+- `scripts/build_modules.sh` : build les modules Maven (skip tests, MODULES/ROOT_OVERRIDE/--list).
+- `scripts/test_build_modules_help.sh` : valide `build_modules.sh --help`.
+- `scripts/test_build_modules_list.sh` : valide `build_modules.sh --list` (sans appel mvn).
+- `scripts/test_build_modules_filter.sh` : valide `build_modules.sh` (filtrage MODULES via noms/chemins).
+- `scripts/test_build_modules_no_match.sh` : valide `build_modules.sh` (MODULES sans correspondance -> erreur).
+- `scripts/test_build_modules_empty_modules_env.sh` : valide `build_modules.sh` (MODULES vide/apres trim -> erreur).
+- `scripts/test_build_modules_unknown_option.sh` : valide `build_modules.sh` (option inconnue -> erreur).
+- `scripts/test_build_modules_mvn_failure.sh` : valide `build_modules.sh` (mvn en echec -> sortie non nulle).
+- `scripts/test_build_modules_mvn_failure_non_first_module.sh` : valide `build_modules.sh` (mvn en echec sur un module suivant).
+- `scripts/test_build_modules_duplicate_targets.sh` : valide `build_modules.sh` (MODULES duplique -> build unique).
+- `scripts/test_build_modules_modules_whitespace.sh` : valide `build_modules.sh` (MODULES avec espaces -> trim OK).
+- `scripts/test_build_modules_root_override.sh` : valide `build_modules.sh` (ROOT_OVERRIDE).
+- `scripts/test_build_modules_list_filter.sh` : valide `build_modules.sh --list` (MODULES filtre la liste).
+- `scripts/test_build_modules_list_empty_modules_env.sh` : valide `build_modules.sh --list` (MODULES vide -> erreur).
+- `scripts/test_build_modules_list_unknown_option.sh` : valide `build_modules.sh --list` (option inconnue -> erreur).
+- `scripts/test_build_modules_list_root_override.sh` : valide `build_modules.sh --list` (ROOT_OVERRIDE).
 - `scripts/test_producer.sh` : execute les tests du producer (ou `--list`).
+- `scripts/test_test_producer_help.sh` : valide `test_producer.sh --help`.
+- `scripts/test_test_producer_list.sh` : valide `test_producer.sh --list` (sans appel mvn).
+- `scripts/test_test_producer_root_override.sh` : valide `test_producer.sh` (ROOT_OVERRIDE).
+- `scripts/test_test_producer_missing_mvn.sh` : valide `test_producer.sh` (mvn absent -> erreur).
+- `scripts/test_test_producer_unknown_option.sh` : valide `test_producer.sh` (option inconnue -> erreur).
+- `scripts/test_test_producer_list_root_override.sh` : valide `test_producer.sh --list` (ROOT_OVERRIDE).
+- `scripts/test_test_producer_missing_dir.sh` : valide `test_producer.sh` (dossier producer manquant).
+- `scripts/test_test_producer_mvn_failure.sh` : valide `test_producer.sh` (mvn en echec -> sortie non nulle).
+- `scripts/test_test_producer_list_filter_modules.sh` : valide `test_producer.sh --list` (MODULES ignore).
 - `scripts/tail_rabbitmq_logs.sh` : suit les logs RabbitMQ (docker compose).
 - `scripts/test_consumers.sh` : execute les tests des consumers (MODULES/--list).
+- `scripts/test_test_consumers_help.sh` : valide `test_consumers.sh --help`.
+- `scripts/test_test_consumers_list.sh` : valide `test_consumers.sh --list` (sans appel mvn).
+- `scripts/test_test_consumers_list_filter.sh` : valide `test_consumers.sh --list` (MODULES filtre la liste).
+- `scripts/test_test_consumers_root_override.sh` : valide `test_consumers.sh` (ROOT_OVERRIDE).
+- `scripts/test_test_consumers_list_empty_modules_env.sh` : valide `test_consumers.sh --list` (MODULES vide -> erreur).
+- `scripts/test_test_consumers_list_unknown_option.sh` : valide `test_consumers.sh --list` (option inconnue -> erreur).
+- `scripts/test_test_consumers_missing_mvn.sh` : valide `test_consumers.sh` (mvn absent -> erreur).
+- `scripts/test_test_consumers_missing_dir.sh` : valide `test_consumers.sh` (dossier consumer manquant).
+- `scripts/test_test_consumers_unknown_option.sh` : valide `test_consumers.sh` (option inconnue -> erreur).
+- `scripts/test_test_consumers_list_root_override.sh` : valide `test_consumers.sh --list` (ROOT_OVERRIDE).
+- `scripts/test_test_consumers_modules_whitespace.sh` : valide `test_consumers.sh --list` (MODULES avec espaces -> trim OK).
+- `scripts/test_test_consumers_duplicate_targets.sh` : valide `test_consumers.sh` (MODULES duplique -> test unique).
+- `scripts/test_test_consumers_no_match.sh` : valide `test_consumers.sh` (MODULES sans correspondance -> erreur).
+- `scripts/test_test_consumers_mvn_failure.sh` : valide `test_consumers.sh` (mvn en echec -> sortie non nulle).
+- `scripts/test_test_consumers_mvn_failure_non_first_module.sh` : valide `test_consumers.sh` (mvn en echec sur module suivant).
+- `scripts/test_test_consumers_empty_modules_env.sh` : valide `test_consumers.sh` (MODULES vide -> erreur).
+- `scripts/test_test_consumers_list_filter_root_override.sh` : valide `test_consumers.sh --list` (MODULES filtre + ROOT_OVERRIDE).
+- `scripts/test_test_consumers_list_filter_modules_ignored.sh` : valide `test_consumers.sh --list` (MODULES sans correspondance -> erreur).
+- `scripts/test_test_consumers_root_override_list_only.sh` : valide `test_consumers.sh --list` (ROOT_OVERRIDE seul).
+- `scripts/test_test_routing_matrix_json.sh` : valide `test_routing_matrix.sh --json` (ROOT_OVERRIDE + curl stub).
+- `scripts/test_test_routing_matrix_help.sh` : valide `test_routing_matrix.sh --help`.
+- `scripts/test_test_routing_help.sh` : valide `test_routing.sh --help`.
+- `scripts/test_test_routing_json.sh` : valide `test_routing.sh --json` (ROOT_OVERRIDE + curl stub).
 - `scripts/readme_toc.sh` : genere un sommaire du README (FILE).
 - `scripts/append_log.sh` : ajoute un log (progress + README racine).
 - `scripts/run_producer.sh` : lance le producer.

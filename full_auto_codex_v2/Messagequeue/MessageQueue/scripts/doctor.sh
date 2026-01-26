@@ -2,6 +2,9 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -n "${ROOT_OVERRIDE:-}" ]]; then
+  ROOT="${ROOT_OVERRIDE}"
+fi
 silent=0
 json_output=0
 
@@ -27,16 +30,8 @@ done
 
 if [[ "${json_output}" -eq 1 ]]; then
   prereqs_json=$("${ROOT}/scripts/check_prereqs.sh" --json || true)
-  prereqs_status=$(printf '%s' "${prereqs_json}" | python3 - <<'PY'
-import json,sys
-raw=sys.stdin.read().strip()
-try:
-    data=json.loads(raw) if raw else {}
-except json.JSONDecodeError:
-    data={}
-print(data.get("status","error"))
-PY
-)
+  json_status_code=$'import json,sys\nraw=sys.stdin.read().strip()\ntry:\n    data=json.loads(raw) if raw else {}\nexcept json.JSONDecodeError:\n    data={}\nprint(data.get(\"status\",\"error\"))'
+  prereqs_status=$(printf '%s' "${prereqs_json}" | python3 -c "${json_status_code}")
 else
   "${ROOT}/scripts/check_prereqs.sh"
 fi
@@ -48,29 +43,11 @@ fi
 if [[ "${json_output}" -eq 1 ]]; then
   failed=0
   rabbitmq_json=$("${ROOT}/scripts/check_rabbitmq.sh" --json || true)
-  rabbitmq_status=$(printf '%s' "${rabbitmq_json}" | python3 - <<'PY'
-import json,sys
-raw=sys.stdin.read().strip()
-try:
-    data=json.loads(raw) if raw else {}
-except json.JSONDecodeError:
-    data={}
-print(data.get("status","error"))
-PY
-)
+  rabbitmq_status=$(printf '%s' "${rabbitmq_json}" | python3 -c "${json_status_code}")
   topology_status="skipped"
   if [[ "${rabbitmq_status}" == "ok" ]]; then
     topology_json=$("${ROOT}/scripts/validate_rabbitmq.sh" --json || true)
-    topology_status=$(printf '%s' "${topology_json}" | python3 - <<'PY'
-import json,sys
-raw=sys.stdin.read().strip()
-try:
-    data=json.loads(raw) if raw else {}
-except json.JSONDecodeError:
-    data={}
-print(data.get("status","error"))
-PY
-)
+    topology_status=$(printf '%s' "${topology_json}" | python3 -c "${json_status_code}")
   fi
 
   payload_status="ok"

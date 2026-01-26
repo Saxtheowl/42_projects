@@ -2,7 +2,7 @@
 
 Statut : DONE
 
-Derniere mise a jour (2026-01-16 22:09:50) : passage DONE (tests OK).
+Derniere mise a jour (2026-01-26 10:58:31) : tests OK apres ajout cas limites (no-args, token vide).
 
 ## Synthèse
 Jour 01 de la piscine Python/Django : exercices fondamentaux en Python (variables, dictionnaires, parsing de fichiers, détection état/capitale) et génération d'une page HTML représentant la table périodique. Les scripts sont autonomes et vivent dans `ex00` → `ex07`. Le scaffold Django initial reste présent mais n'est pas utilisé pour ces exercices.

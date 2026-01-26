@@ -7,6 +7,24 @@ USER="${RABBITMQ_USER:-guest}"
 PASS="${RABBITMQ_PASS:-guest}"
 VHOST="${RABBITMQ_VHOST:-/}"
 
+for arg in "$@"; do
+  case "${arg}" in
+    --help)
+      cat <<'EOF'
+Usage: ./scripts/purge_queues.sh [--help]
+
+Environment:
+  QUEUES  CSV list of queues to purge (default: standard set)
+EOF
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: ${arg}" >&2
+      exit 1
+      ;;
+  esac
+done
+
 if [[ -n "${QUEUES:-}" ]]; then
   IFS=',' read -r -a QUEUE_LIST <<<"${QUEUES}"
   for i in "${!QUEUE_LIST[@]}"; do

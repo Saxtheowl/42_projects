@@ -1,6 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+for arg in "$@"; do
+  case "${arg}" in
+    --help)
+      cat <<'EOF'
+Usage: ./scripts/load_env.sh [--help]
+
+Environment:
+  ENV_FILE  Path to env file (default: .env)
+EOF
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: ${arg}" >&2
+      exit 1
+      ;;
+  esac
+done
+
 ENV_FILE="${ENV_FILE:-.env}"
 
 if [ ! -f "${ENV_FILE}" ]; then

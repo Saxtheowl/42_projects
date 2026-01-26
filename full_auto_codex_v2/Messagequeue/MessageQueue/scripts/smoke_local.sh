@@ -2,6 +2,9 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -n "${ROOT_OVERRIDE:-}" ]]; then
+  ROOT="${ROOT_OVERRIDE}"
+fi
 
 GRANT_EXCHANGE="${GRANT_EXCHANGE:-GRANT_EXCHANGE}"
 CONTRACTS_QUEUE="${CONTRACTS_QUEUE:-grant_contracts}"

@@ -81,6 +81,9 @@ def test_ex03():
     stdout, _, code = run_script("ex03/capital_city.py", ["Nowhere"])
     assert_equal(code, 0, "ex03 exit code (unknown)")
     assert_equal(stdout, "Unknown state", "ex03 unknown state")
+    stdout, _, code = run_script("ex03/capital_city.py")
+    assert_equal(code, 0, "ex03 exit code (no args)")
+    assert_equal(stdout, "", "ex03 no args should be silent")
 
 
 def test_ex04():
@@ -90,6 +93,9 @@ def test_ex04():
     stdout, _, code = run_script("ex04/state.py", ["Atlantis"])
     assert_equal(code, 0, "ex04 exit code (unknown)")
     assert_equal(stdout, "Unknown capital city", "ex04 unknown capital")
+    stdout, _, code = run_script("ex04/state.py")
+    assert_equal(code, 0, "ex04 exit code (no args)")
+    assert_equal(stdout, "", "ex04 no args should be silent")
 
 
 def test_ex05():
@@ -103,6 +109,9 @@ def test_ex05():
     assert_equal(code, 0, "ex05 exit code (unknown)")
     assert_equal(stdout, "Neverland is neither a capital city nor a state",
                  "ex05 unknown")
+    stdout, _, code = run_script("ex05/all_in.py", ["Oregon, , Salem"])
+    assert_equal(code, 0, "ex05 exit code (empty token)")
+    assert_equal(stdout, "", "ex05 empty token should be silent")
 
 
 def test_ex06():

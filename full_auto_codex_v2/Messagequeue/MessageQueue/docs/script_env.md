@@ -72,6 +72,17 @@
 - `OTHER_ROUTING_KEY` (defaut: grant.*)
 - `--silent` (pas d'output)
 - `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
+
+## bootstrap_and_validate.sh
+- `--silent` (pas d'output)
+- `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
+
+## bootstrap_all.sh
+- `--silent` (pas d'output)
+- `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
 
 ## validate_rabbitmq.sh
 - `SOCIAL_EXCHANGE` (defaut: SOCIAL_ASSISTANCE_EXCHANGE)
@@ -104,6 +115,9 @@ Note: `PDF_OUTPUT_DIR` doit etre writable.
 
 ## build_modules.sh
 - `MODULES` (CSV, defaut: tous les modules; accepte nom ou chemin)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
+- `--list` (affiche les modules sans build; respecte MODULES)
+- `--help` (usage)
 
 ## list_exchanges.sh
 - `EXCHANGES` (CSV, defaut: toutes les exchanges)
@@ -128,6 +142,17 @@ Note: `PDF_OUTPUT_DIR` doit etre writable.
 ## setup_env.sh
 - `SRC` (defaut: .env.example)
 - `DST` (defaut: .env)
+
+## test_producer.sh
+- `--list` (affiche le module sans lancer mvn)
+- `--help` (usage)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
+
+## test_consumers.sh
+- `MODULES` (CSV, defaut: tous les modules; accepte nom ou chemin)
+- `--list` (affiche les modules sans lancer mvn)
+- `--help` (usage)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
 
 ## reset_local.sh
 - `CLEAN_PDFS` (defaut: 1)
@@ -160,10 +185,17 @@ Note: `PDF_OUTPUT_DIR` doit etre writable.
 - `--skip-doctor` (skip doctor, combinable)
 - `--silent` (pas d'output)
 - `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
+
+## run_local_flow.sh
+- `--silent` (pas d'output)
+- `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
 
 ## doctor.sh
 - `--silent` (pas d'output)
 - `--json` (sortie JSON, champs: status, prereqs, rabbitmq, topology, payload, payload_tests, publish_tests)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
 
 ## test_routing.sh
 - `GRANT_EXCHANGE` (defaut: GRANT_EXCHANGE)
@@ -174,6 +206,7 @@ Note: `PDF_OUTPUT_DIR` doit etre writable.
 - `ROUTING_KEY` (defaut: grant.1.contract)
 - `--silent` (pas d'output)
 - `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
 
 ## test_routing_matrix.sh
 - `GRANT_EXCHANGE` (defaut: GRANT_EXCHANGE)
@@ -184,6 +217,7 @@ Note: `PDF_OUTPUT_DIR` doit etre writable.
 - `ROUTING_KEYS` (CSV, defaut: grant.application,grant.guarantee,grant.1.contract,grant.2.contract)
 - `--silent` (pas d'output)
 - `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
 
 ## test_consumers.sh
 - `MODULES` (CSV, defaut: tous les consumers; accepte nom ou chemin)
@@ -203,6 +237,7 @@ Note: `PDF_OUTPUT_DIR` doit etre writable.
 - `ROUTING_KEY` (defaut: vide; publish derive du payload, test_routing force grant.1.contract)
 - `--silent` (pas d'output)
 - `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
 
 ## status_report.sh
 - `QUEUE_FILTER` (CSV, defaut: toutes les queues)
@@ -212,6 +247,18 @@ Note: `PDF_OUTPUT_DIR` doit etre writable.
 - `ROUTING_KEY_FILTER` (CSV, defaut: toutes les routing keys)
 - `--silent` (pas d'output)
 - `--json` (sortie JSON)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
+
+## run_producer.sh
+- `--help` (affiche l'usage)
+- `--list` (affiche le module sans lancer mvn)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
+
+## run_consumer.sh
+- `MODULE` (defaut: food_application)
+- `--list` (affiche les modules disponibles)
+- `--help` (affiche l'usage)
+- `ROOT_OVERRIDE` (chemin racine alternatif pour tests/stubs)
 
 ## e2e_local.sh
 - `QUEUE` (defaut: food_application)

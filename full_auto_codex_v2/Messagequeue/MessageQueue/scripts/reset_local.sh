@@ -7,6 +7,26 @@ CLEAN_PDFS="${CLEAN_PDFS:-1}"
 PURGE_QUEUES="${PURGE_QUEUES:-0}"
 STOP_DOCKER="${STOP_DOCKER:-1}"
 
+for arg in "$@"; do
+  case "${arg}" in
+    --help)
+      cat <<'EOF'
+Usage: ./scripts/reset_local.sh [--help]
+
+Environment:
+  CLEAN_PDFS   Remove shared/pdfs contents (default: 1)
+  PURGE_QUEUES Purge queues (default: 0)
+  STOP_DOCKER  Stop docker compose (default: 1)
+EOF
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: ${arg}" >&2
+      exit 1
+      ;;
+  esac
+done
+
 if [ "${CLEAN_PDFS}" -eq 1 ]; then
   rm -f "${ROOT}/shared/pdfs"/*
   echo "Cleaned shared/pdfs"

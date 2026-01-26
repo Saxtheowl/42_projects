@@ -67,6 +67,22 @@ class FtSelectTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         subprocess.run(["make"], cwd=PROJECT_DIR, check=True)
 
+    def test_usage_no_args(self) -> None:
+        result = subprocess.run([str(BINARY)], cwd=PROJECT_DIR, capture_output=True, text=True, check=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Usage: ft_select item1 item2 ...", result.stderr)
+
+    def test_requires_tty(self) -> None:
+        result = subprocess.run(
+            [str(BINARY), "alpha"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("ft_select: stdin/stdout must be a tty", result.stderr)
+
     def test_select_single_item(self) -> None:
         code, out = run_interactive(["alpha", "beta"], b" \n")
         self.assertEqual(code, 0)

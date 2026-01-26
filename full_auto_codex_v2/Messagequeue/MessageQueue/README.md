@@ -1,7 +1,86 @@
 # Message Queue
 
-Statut : IN_PROGRESS
+Statut : WAITING (decision requise sur le fichier inattendu .env)
 
+Mise à jour (2026-01-26 10:32:07) : blocage (fichier .env tracké, decision utilisateur requise).
+Mise à jour (2026-01-25 22:30:44) : fix test_check_prereqs_json_missing (stub docker compose).
+Mise à jour (2026-01-25 22:29:29) : fix test_check_prereqs_json_missing (assert JSON output).
+Mise à jour (2026-01-25 22:28:33) : ajout test `test_check_prereqs_json_missing.sh` + docs associees.
+Mise à jour (2026-01-25 22:22:57) : purge_queues accepte --help + ajout test associe.
+Mise à jour (2026-01-25 22:18:03) : reset_local accepte --help + ajout test associe.
+Mise à jour (2026-01-25 22:12:55) : run_consumer accepte --help + ajout test associe.
+Mise à jour (2026-01-25 22:08:02) : run_producer accepte --help + ajout test associe.
+Mise à jour (2026-01-25 22:02:27) : verify_publish_pdf_metadata accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:57:20) : verify_publish_payload accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:52:12) : ajout test `test_publish_test_message_help.sh` + docs associees pour publish_test_message.
+Mise à jour (2026-01-25 21:47:24) : publish_test_message_with_check accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:42:22) : consume_test_message help mentionne OUTPUT + ajout test associe.
+Mise à jour (2026-01-25 21:37:20) : verify_pdf_output_dir accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:32:14) : prepare_pdf_output_dir accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:27:20) : inspect_pdf_output_dir accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:22:24) : cleanup_pdf_output_dir accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:17:22) : ensure_pdf_output_dir_has_file accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:12:16) : load_env accepte --help + ajout test associe.
+Mise à jour (2026-01-25 21:07:15) : ajout test `test_validate_payload_json.sh` + docs associees pour validate_payload.
+Mise à jour (2026-01-25 21:02:13) : ajout test `test_count_queue_messages_json.sh` + fix count_queue_messages (python -c).
+Mise à jour (2026-01-25 20:59:12) : fix test_list_exchanges_json (attendu avec type).
+Mise à jour (2026-01-25 20:58:10) : fix list_exchanges.sh (python -c + import os).
+Mise à jour (2026-01-25 20:57:11) : ajout test `test_list_exchanges_json.sh` + docs associees pour list_exchanges.
+Mise à jour (2026-01-25 20:54:37) : fix list_queues.sh (python -c + import os).
+Mise à jour (2026-01-25 20:53:54) : ajout test `test_list_queues_json.sh` + docs associees pour list_queues.
+Mise à jour (2026-01-25 20:52:42) : fix list_bindings.sh (pipeline python via -c).
+Mise à jour (2026-01-25 20:51:14) : fix list_bindings.sh (import os dans le helper Python).
+Mise à jour (2026-01-25 20:50:07) : fix test_list_bindings_json (stub curl robust).
+Mise à jour (2026-01-25 20:48:45) : fix test_list_bindings_json (stub curl exit 0).
+Mise à jour (2026-01-25 20:47:10) : ajout test `test_list_bindings_json.sh` + docs associees pour list_bindings.
+Mise à jour (2026-01-25 20:42:02) : ajout test `test_list_bindings_help.sh` + docs associees pour list_bindings.
+Mise à jour (2026-01-25 20:37:01) : ajout test `test_list_queues_help.sh` + docs associees pour list_queues.
+Mise à jour (2026-01-25 20:32:06) : ajout test `test_create_bindings_help.sh` + docs associees pour create_bindings.
+Mise à jour (2026-01-25 20:27:33) : tail_rabbitmq_logs accepte --help + ajout test associe.
+Mise à jour (2026-01-25 20:22:02) : ajout test `test_list_exchanges_help.sh` + docs associees pour list_exchanges.
+Mise à jour (2026-01-25 20:18:16) : fix test_publish_sample_keys_json (stub scripts locaux).
+Mise à jour (2026-01-25 20:17:25) : ajout test `test_publish_sample_keys_json.sh` + docs associees pour publish_sample_keys.
+Mise à jour (2026-01-25 20:11:55) : ajout test `test_publish_sample_keys_help.sh` + docs associees pour publish_sample_keys.
+Mise à jour (2026-01-25 20:06:54) : ajout test `test_post_sample_help.sh` + docs associees pour post_sample.
+Mise à jour (2026-01-25 20:01:57) : ajout test `test_validate_payload_help.sh` + docs associees pour validate_payload.
+Mise à jour (2026-01-25 19:57:02) : ajout test `test_consume_test_message_help.sh` + docs associees pour consume_test_message.
+Mise à jour (2026-01-25 19:51:59) : setup_env accepte --help + ajout test associe.
+Mise à jour (2026-01-25 19:47:08) : bootstrap_all accepte --help/--silent/--json + ajout test associe.
+Mise à jour (2026-01-25 19:41:59) : run_local_flow accepte --help/--silent/--json + ajout test associe.
+Mise à jour (2026-01-25 19:37:04) : bootstrap_and_validate accepte --help/--silent/--json + ajout test associe.
+Mise à jour (2026-01-25 19:32:10) : ajout test `test_setup_env.sh` + docs associees pour setup_env.
+Mise à jour (2026-01-25 19:26:52) : ajout test `test_check_prereqs_help.sh` + docs associees pour check_prereqs.
+Mise à jour (2026-01-25 19:21:51) : ajout test `test_check_rabbitmq_json.sh` + docs associees pour check_rabbitmq.
+Mise à jour (2026-01-25 19:16:54) : ajout test `test_wait_rabbitmq_json.sh` + docs associees pour wait_rabbitmq.
+Mise à jour (2026-01-25 19:11:55) : ajout test `test_append_log.sh` + docs associees pour append_log.
+Mise à jour (2026-01-25 19:06:57) : ajout test `test_validate_rabbitmq_help.sh` + docs associees pour validate_rabbitmq.
+Mise à jour (2026-01-25 19:01:57) : ajout test `test_bootstrap_rabbitmq_help.sh` + docs associees pour bootstrap_rabbitmq.
+Mise à jour (2026-01-25 18:56:51) : ajout test `test_wait_rabbitmq_help.sh` + docs associees pour wait_rabbitmq.
+Mise à jour (2026-01-25 18:51:54) : ajout test `test_check_rabbitmq_help.sh` + docs associees pour check_rabbitmq.
+Mise à jour (2026-01-25 18:46:46) : ajout test `test_doctor_help.sh` + docs associees pour doctor.
+Mise à jour (2026-01-25 18:41:50) : ajout test `test_topology_helpers_help.sh` + docs associees pour helpers de topologie.
+Mise à jour (2026-01-25 18:36:48) : ajout test `test_status_report_help.sh` + docs associees pour status_report.
+Mise à jour (2026-01-25 18:31:47) : ajout test `test_run_checks_help.sh` + docs associees pour run_checks.
+Mise à jour (2026-01-25 18:27:14) : fix test_smoke_local_help (rg --).
+Mise à jour (2026-01-25 18:26:50) : ajout test `test_smoke_local_help.sh` + docs associees pour smoke_local.
+Mise à jour (2026-01-25 18:22:22) : fix test_readme_toc (libelle ancre section avec ponctuation).
+Mise à jour (2026-01-25 18:21:51) : ajout test `test_readme_toc.sh` + docs associees pour readme_toc.
+Mise à jour (2026-01-25 18:16:51) : ajout test `test_load_env.sh` + docs associees pour load_env.
+Mise à jour (2026-01-25 18:12:08) : ajout test `test_check_publish_payload.sh` + docs associees pour check_publish_payload.
+Mise à jour (2026-01-25 18:06:46) : ajout test `test_check_prereqs.sh` + docs associees pour check_prereqs.
+Mise à jour (2026-01-25 18:05:08) : fix test_verify_publish_payload (lecture JSON via python -c).
+Mise à jour (2026-01-25 18:03:17) : fix verify_publish_payload.sh pour ne pas passer d'argument vide a python.
+Mise à jour (2026-01-25 18:02:35) : verify_publish_payload.sh resolve PAYLOAD/DIR relatifs depuis le root projet.
+Mise à jour (2026-01-25 18:02:13) : fix verify_publish_payload.sh pour utiliser le chemin absolu du script Python.
+Mise à jour (2026-01-25 18:01:45) : ajout test `test_verify_publish_payload.sh` + docs associees pour verify_publish_payload.
+Mise à jour (2026-01-25 17:57:10) : fix test_publish_test_message_with_check pour extraire la ligne JSON.
+Mise à jour (2026-01-25 17:56:46) : ajout test `test_publish_test_message_with_check.sh` + docs associees pour valider le dry-run JSON.
+Mise à jour (2026-01-25 17:51:48) : ajout test `test_prepare_pdf_output_dir.sh` + docs associees pour valider prepare_pdf_output_dir.
+Mise à jour (2026-01-25 17:46:50) : ajout test `test_inspect_pdf_output_dir.sh` + docs associees pour valider inspect_pdf_output_dir.
+Mise à jour (2026-01-25 17:41:47) : ajout test `test_cleanup_pdf_output_dir.sh` + docs associees pour valider le nettoyage PDF_OUTPUT_DIR.
+Mise à jour (2026-01-25 17:36:42) : ajout test `test_ensure_pdf_output_dir_has_file.sh` + docs associees pour valider la presence de PDFs.
+Mise à jour (2026-01-25 17:32:12) : ajout test `test_verify_pdf_output_dir.sh` + docs associees pour valider la preparation de PDF_OUTPUT_DIR.
+Mise à jour (2026-01-25 17:28:35) : ajout du script `test_verify_publish_pdf_metadata.sh` et documentation associee (test_tools, scripts_overview, tests_summary) pour valider la metadata PDF.
 Mise à jour (2026-01-25 03:15:00) : test_publish_test_message now checks that every JSON response from publish_test_message includes `pdf_output_dir` and `pdf_output_dir_missing`.
 Mise à jour (2026-01-25 03:03:46) : publish_test_message JSON (dry-run ou succès) expose `pdf_output_dir` + `pdf_output_dir_missing` to align with the API contract and tests.
 Mise à jour (2026-01-19 14:09:43) : tests_summary recommande précréer PDF_OUTPUT_DIR pour générer le JSON dry-run.
@@ -64,6 +143,7 @@ Mise à jour (2026-01-24 15:30:00) : tests_consumers note le script scripts/veri
 Mise à jour (2026-01-24 16:20:00) : README explique que `scripts/publish_test_message_with_check.sh` combine la vérification de `verify_pdf_output_dir.sh` avec `publish_test_message.sh`.
 Mise à jour (2026-01-24 16:40:00) : README recommande d’appeler `publish_test_message_with_check.sh` plutôt que `publish_test_message.sh` pour les démos/CI afin d’éviter les erreurs PDF_OUTPUT_DIR.
 Mise à jour (2026-01-25 03:45:00) : README cite `scripts/verify_publish_pdf_metadata.sh` when describing quickstart to show how the new helper asserts `pdf_output_dir`/`pdf_output_dir_missing`.
+Mise à jour (2026-01-25 16:15:00) : README now recommends running `scripts/verify_publish_pdf_metadata.sh` on the JSON output of `publish_test_message_with_check --json` to verify the metadata contract (path present, `pdf_output_dir_missing=0`) before logging success.
 Mise à jour (2026-01-24 21:45:00) : README cite `docs/publish_workflow.md`/`docs/quickstart.md` pour montrer la séquence `prepare_pdf_output_dir.sh` → `publish_test_message_with_check.sh` → inspection/cleanup des PDFs et renvoie vers `docs/scripts_overview.md` pour trouver ces scripts.
 Mise à jour (2026-01-24 21:10:00) : README encourage maintenant à suivre `docs/publish_workflow.md`/`docs/quickstart.md` qui décrivent la chaîne `prepare_pdf_output_dir.sh` → `publish_test_message_with_check.sh` → `inspect/cleanup_pdf_output_dir.sh` pour garantir un PDF_OUTPUT_DIR prêt et propre avant les runs.
 Mise à jour (2026-01-19 08:34:37) : quickstart ajoute nettoyage PDFs.
@@ -1391,6 +1471,58 @@ Derniere mise a jour (2026-01-19 07:54:27) : quickstart mentionne erreurs JSON p
 Derniere mise a jour (2026-01-19 07:59:37) : json_error verifie python3 avant JSON.
 Derniere mise a jour (2026-01-19 08:04:28) : scripts_overview note JSON errors si python3 dispo.
 Derniere mise a jour (2026-01-19 08:09:24) : troubleshooting_env note --json sans python3.
+Derniere mise a jour (2026-01-25 22:33:36) : check_prereqs --json conserve les libelles manquants (docker compose).
+Derniere mise a jour (2026-01-25 22:35:47) : build_modules ajoute --help/--list sans prerequis mvn + tests.
+Derniere mise a jour (2026-01-25 22:37:59) : test_producer/test_consumers ajoutent --help/--list + tests.
+Derniere mise a jour (2026-01-25 22:45:16) : doctor JSON parsing fixe + tests doctor/run_checks --json.
+Derniere mise a jour (2026-01-25 22:47:51) : test_routing_matrix queue_count fixe + test JSON.
+Derniere mise a jour (2026-01-25 22:52:22) : test_routing ajoute ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 22:57:53) : bootstrap_rabbitmq ajoute ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 23:01:57) : test_routing_matrix ajoute test --help.
+Derniere mise a jour (2026-01-25 23:06:56) : test_routing ajoute test --help.
+Derniere mise a jour (2026-01-25 23:12:35) : bootstrap_and_validate ajoute ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 23:17:44) : bootstrap_all ajoute ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 23:22:13) : create_bindings ajoute test JSON.
+Derniere mise a jour (2026-01-25 23:27:04) : tail_rabbitmq_logs ajoute test refus --json.
+Derniere mise a jour (2026-01-25 23:32:44) : status_report --json devient silencieux + test JSON.
+Derniere mise a jour (2026-01-25 23:37:22) : run_local_flow --json silencieux + test JSON.
+Derniere mise a jour (2026-01-25 23:42:42) : smoke_local ajoute ROOT_OVERRIDE + test JSON.
+Derniere mise a jour (2026-01-25 23:47:15) : wait_rabbitmq ajoute test timeout JSON.
+Derniere mise a jour (2026-01-25 23:52:05) : run_checks ajoute test json avec skips.
+Derniere mise a jour (2026-01-25 23:57:13) : run_local_flow ajoute test help supplementaire.
+Derniere mise a jour (2026-01-26 00:02:03) : status_report ajoute test json erreur.
+Derniere mise a jour (2026-01-26 00:07:18) : check_rabbitmq ajoute test json error.
+Derniere mise a jour (2026-01-26 00:12:07) : doctor ajoute test json error.
+Derniere mise a jour (2026-01-26 00:17:01) : run_checks ajoute test json error.
+Derniere mise a jour (2026-01-26 00:22:03) : run_consumer ajoute test --list.
+Derniere mise a jour (2026-01-26 00:28:07) : run_producer ajoute --list + test.
+Derniere mise a jour (2026-01-26 00:32:01) : run_consumer ajoute test help supplementaire.
+Derniere mise a jour (2026-01-26 00:37:03) : run_producer ajoute test help supplementaire.
+Derniere mise a jour (2026-01-26 00:42:03) : script_env documente run_consumer.
+Derniere mise a jour (2026-01-26 00:48:28) : run_consumer/run_producer ajoutent ROOT_OVERRIDE + tests.
+Derniere mise a jour (2026-01-26 00:53:05) : create_bindings JSON error + test.
+Derniere mise a jour (2026-01-26 00:57:07) : bootstrap_and_validate ajoute test help supplementaire.
+Derniere mise a jour (2026-01-26 01:02:10) : bootstrap_all ajoute test help supplementaire.
+Derniere mise a jour (2026-01-26 01:07:08) : bootstrap_rabbitmq ajoute test help supplementaire.
+Derniere mise a jour (2026-01-26 01:12:36) : bootstrap_rabbitmq JSON error + test.
+Derniere mise a jour (2026-01-26 01:17:12) : bootstrap_and_validate ajoute test json error.
+Derniere mise a jour (2026-01-26 01:22:13) : bootstrap_all ajoute test json error.
+Derniere mise a jour (2026-01-26 01:27:18) : run_checks ajoute test json skip-routing.
+Derniere mise a jour (2026-01-26 01:32:20) : run_checks ajoute test json skip-doctor.
+Derniere mise a jour (2026-01-26 01:37:17) : doctor ajoute test json prereqs invalid.
+Derniere mise a jour (2026-01-26 01:42:20) : doctor ajoute test json rabbitmq invalid.
+Derniere mise a jour (2026-01-26 01:47:16) : doctor ajoute test json topology invalid.
+Derniere mise a jour (2026-01-26 01:52:23) : status_report ajoute test json filtres.
+Derniere mise a jour (2026-01-26 01:57:38) : smoke_local ajoute test json error.
+Derniere mise a jour (2026-01-26 02:02:40) : status_report JSON robuste + test payloads invalides.
+Derniere mise a jour (2026-01-26 02:07:17) : run_consumer ajoute test sans argument.
+Derniere mise a jour (2026-01-26 02:12:18) : run_producer ajoute test option inconnue.
+Derniere mise a jour (2026-01-26 02:17:38) : run_consumer gere option inconnue + test.
+Derniere mise a jour (2026-01-26 02:22:41) : bootstrap_rabbitmq json missing python + test.
+Derniere mise a jour (2026-01-26 02:27:47) : run_producer ajoute test sans mvn.
+Derniere mise a jour (2026-01-26 02:32:16) : run_consumer ajoute test sans mvn.
+Derniere mise a jour (2026-01-26 02:37:38) : run_consumer ajoute test consumer invalide.
+Derniere mise a jour (2026-01-26 09:02:41) : run_checks test --silent skip-routing sans message.
 
 ## Contrat JSON
 Voir docs/api_contract.md pour les contraintes du payload publish_test_message et les validations attendues par test_matrix/test_publish_test_message/test_e2e_local.
