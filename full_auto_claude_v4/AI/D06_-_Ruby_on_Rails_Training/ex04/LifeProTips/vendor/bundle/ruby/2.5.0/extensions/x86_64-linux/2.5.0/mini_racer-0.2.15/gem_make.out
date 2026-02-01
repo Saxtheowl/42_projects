@@ -1,0 +1,189 @@
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/mini_racer-0.2.15/ext/mini_racer_extension
+/usr/local/bin/ruby -I /usr/local/lib/ruby/site_ruby/2.5.0 -r ./siteconf20260201-19-1al8xnr.rb extconf.rb
+checking for -lpthread... yes
+creating Makefile
+
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/mini_racer-0.2.15/ext/mini_racer_extension
+make "DESTDIR=" clean
+
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/mini_racer-0.2.15/ext/mini_racer_extension
+make "DESTDIR="
+compiling mini_racer_extension.cc
+cc1plus: warning: command line option ‘-Wimplicit-int’ is valid for C/ObjC but not for C++
+mini_racer_extension.cc: In function ‘void prepare_result(v8::MaybeLocal<v8::Value>, v8::TryCatch&, v8::Isolate*, v8::Local<v8::Context>, EvalResult&)’:
+mini_racer_extension.cc:240:93: error: no matching function for call to ‘v8::Object::Get(v8::MaybeLocal<v8::String>)’
+             Local<Object> JSON = context->Global()->Get(String::NewFromUtf8(isolate, "JSON"))
+                                                                                             ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note:   candidate expects 2 arguments, 1 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, uint32_t)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note:   candidate expects 2 arguments, 1 provided
+mini_racer_extension.cc:243:96: error: no matching function for call to ‘v8::Object::Get(v8::MaybeLocal<v8::String>)’
+             Local<Function> stringify = JSON->Get(v8::String::NewFromUtf8(isolate, "stringify"))
+                                                                                                ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note:   candidate expects 2 arguments, 1 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, uint32_t)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note:   candidate expects 2 arguments, 1 provided
+mini_racer_extension.cc:244:33: error: expected primary-expression before ‘>’ token
+                     .As<Function>();
+                                 ^
+mini_racer_extension.cc:244:35: error: expected primary-expression before ‘)’ token
+                     .As<Function>();
+                                   ^
+mini_racer_extension.cc:298:56: error: conversion from ‘v8::MaybeLocal<v8::String>’ to non-scalar type ‘v8::Local<v8::String>’ requested
+                 Local<String> tmp = String::NewFromUtf8(isolate, "JavaScript was terminated (either by timeout or explicitly)");
+                                     ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+mini_racer_extension.cc: In function ‘VALUE convert_v8_to_ruby(v8::Isolate*, v8::Local<v8::Context>, v8::Local<v8::Value>)’:
+mini_racer_extension.cc:403:44: error: no matching function for call to ‘v8::Array::Get(uint32_t&)’
+           Local<Value> element = arr->Get(i);
+                                            ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note:   candidate expects 2 arguments, 1 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, uint32_t)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note:   candidate expects 2 arguments, 1 provided
+mini_racer_extension.cc:434:45: error: no matching function for call to ‘v8::Array::Get(uint32_t&)’
+              Local<Value> key = props->Get(i);
+                                             ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note:   candidate expects 2 arguments, 1 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, uint32_t)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note:   candidate expects 2 arguments, 1 provided
+mini_racer_extension.cc:436:55: error: no matching function for call to ‘v8::Object::Get(v8::Local<v8::Value>&)’
+              Local<Value> prop_value = object->Get(key);
+                                                       ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note:   candidate expects 2 arguments, 1 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, uint32_t)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note:   candidate expects 2 arguments, 1 provided
+mini_racer_extension.cc: In function ‘v8::Local<v8::Value> convert_ruby_to_v8(v8::Isolate*, v8::Local<v8::Context>, VALUE)’:
+mini_racer_extension.cc:527:81: error: no matching function for call to ‘v8::Array::Set(int&, v8::Local<v8::Value>)’
+       array->Set(i, convert_ruby_to_v8(isolate, context, rb_ary_entry(value, i)));
+                                                                                 ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3664:37: note: candidate: ‘v8::Maybe<bool> v8::Object::Set(v8::Local<v8::Context>, v8::Local<v8::Value>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT Maybe<bool> Set(Local<Context> context,
+                                     ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3664:37: note:   candidate expects 3 arguments, 2 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3667:37: note: candidate: ‘v8::Maybe<bool> v8::Object::Set(v8::Local<v8::Context>, uint32_t, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT Maybe<bool> Set(Local<Context> context, uint32_t index,
+                                     ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3667:37: note:   candidate expects 3 arguments, 2 provided
+mini_racer_extension.cc:537:78: error: no matching function for call to ‘v8::Object::Set(v8::Local<v8::Value>, v8::Local<v8::Value>)’
+                   convert_ruby_to_v8(isolate, context, rb_ary_entry(pair, 1)));
+                                                                              ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3664:37: note: candidate: ‘v8::Maybe<bool> v8::Object::Set(v8::Local<v8::Context>, v8::Local<v8::Value>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT Maybe<bool> Set(Local<Context> context,
+                                     ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3664:37: note:   candidate expects 3 arguments, 2 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3667:37: note: candidate: ‘v8::Maybe<bool> v8::Object::Set(v8::Local<v8::Context>, uint32_t, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT Maybe<bool> Set(Local<Context> context, uint32_t index,
+                                     ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3667:37: note:   candidate expects 3 arguments, 2 provided
+mini_racer_extension.cc:566:79: error: no matching function for call to ‘v8::EscapableHandleScope::Escape(v8::MaybeLocal<v8::String>)’
+       return scope.Escape(String::NewFromUtf8(isolate, "Undefined Conversion"));
+                                                                               ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:1229:22: note: candidate: ‘template<class T> v8::Local<T> v8::EscapableHandleScope::Escape(v8::Local<T>)’
+   V8_INLINE Local<T> Escape(Local<T> value) {
+                      ^~~~~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:1229:22: note:   template argument deduction/substitution failed:
+mini_racer_extension.cc:566:79: note:   ‘v8::MaybeLocal<v8::String>’ is not derived from ‘v8::Local<T>’
+       return scope.Escape(String::NewFromUtf8(isolate, "Undefined Conversion"));
+                                                                               ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:1251:22: note: candidate: ‘v8::internal::Address* v8::EscapableHandleScope::Escape(v8::internal::Address*)’
+   internal::Address* Escape(internal::Address* escape_value);
+                      ^~~~~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:1251:22: note:   no known conversion for argument 1 from ‘v8::MaybeLocal<v8::String>’ to ‘v8::internal::Address*’ {aka ‘long unsigned int*’}
+mini_racer_extension.cc: In function ‘void* gvl_ruby_callback(void*)’:
+mini_racer_extension.cc:1065:141: error: no matching function for call to ‘v8::Isolate::ThrowException(v8::MaybeLocal<v8::String>)’
+         args->GetIsolate()->ThrowException(String::NewFromUtf8(args->GetIsolate(), "Terminated execution during transition from Ruby to JS"));
+                                                                                                                                             ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:8773:16: note: candidate: ‘v8::Local<v8::Value> v8::Isolate::ThrowException(v8::Local<v8::Value>)’
+   Local<Value> ThrowException(Local<Value> exception);
+                ^~~~~~~~~~~~~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:8773:16: note:   no known conversion for argument 1 from ‘v8::MaybeLocal<v8::String>’ to ‘v8::Local<v8::Value>’
+mini_racer_extension.cc:1079:101: error: no matching function for call to ‘v8::Isolate::ThrowException(v8::MaybeLocal<v8::String>)’
+         args->GetIsolate()->ThrowException(String::NewFromUtf8(args->GetIsolate(), "Ruby exception"));
+                                                                                                     ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:8773:16: note: candidate: ‘v8::Local<v8::Value> v8::Isolate::ThrowException(v8::Local<v8::Value>)’
+   Local<Value> ThrowException(Local<Value> exception);
+                ^~~~~~~~~~~~~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:8773:16: note:   no known conversion for argument 1 from ‘v8::MaybeLocal<v8::String>’ to ‘v8::Local<v8::Value>’
+mini_racer_extension.cc: In function ‘VALUE rb_external_function_notify_v8(VALUE)’:
+mini_racer_extension.cc:1152:46: error: no matching function for call to ‘v8::Object::Set(v8::Local<v8::String>&, v8::Local<v8::Function>)’
+                             .ToLocalChecked());
+                                              ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3664:37: note: candidate: ‘v8::Maybe<bool> v8::Object::Set(v8::Local<v8::Context>, v8::Local<v8::Value>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT Maybe<bool> Set(Local<Context> context,
+                                     ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3664:37: note:   candidate expects 3 arguments, 2 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3667:37: note: candidate: ‘v8::Maybe<bool> v8::Object::Set(v8::Local<v8::Context>, uint32_t, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT Maybe<bool> Set(Local<Context> context, uint32_t index,
+                                     ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3667:37: note:   candidate expects 3 arguments, 2 provided
+mini_racer_extension.cc:1176:58: error: no matching function for call to ‘v8::Object::Set(v8::Local<v8::String>&, v8::Local<v8::Function>)’
+                                         .ToLocalChecked());
+                                                          ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3664:37: note: candidate: ‘v8::Maybe<bool> v8::Object::Set(v8::Local<v8::Context>, v8::Local<v8::Value>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT Maybe<bool> Set(Local<Context> context,
+                                     ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3664:37: note:   candidate expects 3 arguments, 2 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3667:37: note: candidate: ‘v8::Maybe<bool> v8::Object::Set(v8::Local<v8::Context>, uint32_t, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT Maybe<bool> Set(Local<Context> context, uint32_t index,
+                                     ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3667:37: note:   candidate expects 3 arguments, 2 provided
+mini_racer_extension.cc: In function ‘VALUE rb_context_call_unsafe(int, VALUE*, VALUE)’:
+mini_racer_extension.cc:1577:50: error: conversion from ‘v8::MaybeLocal<v8::String>’ to non-scalar type ‘v8::Local<v8::String>’ requested
+         Local<String> fname = String::NewFromUtf8(isolate, call.function_name);
+                               ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+mini_racer_extension.cc:1578:65: error: no matching function for call to ‘v8::Object::Get(v8::Local<v8::String>&)’
+         MaybeLocal<v8::Value> val = context->Global()->Get(fname);
+                                                                 ^
+In file included from mini_racer_extension.cc:5:
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, v8::Local<v8::Value>)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3711:43: note:   candidate expects 2 arguments, 1 provided
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note: candidate: ‘v8::MaybeLocal<v8::Value> v8::Object::Get(v8::Local<v8::Context>, uint32_t)’
+   V8_WARN_UNUSED_RESULT MaybeLocal<Value> Get(Local<Context> context,
+                                           ^~~
+/app/vendor/bundle/ruby/2.5.0/gems/libv8-8.4.255.0.1-x86_64-linux/vendor/v8/include/v8.h:3714:43: note:   candidate expects 2 arguments, 1 provided
+At global scope:
+cc1plus: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1plus: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1plus: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+make: *** [Makefile:211: mini_racer_extension.o] Error 1
+
+make failed, exit code 2

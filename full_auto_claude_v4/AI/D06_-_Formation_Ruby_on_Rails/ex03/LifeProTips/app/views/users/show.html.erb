@@ -1,0 +1,12 @@
+<h1>User: <%= @user.name %></h1>
+
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Total votes received:</strong> <%= @user.total_votes_received %></p>
+<p><strong>Privileges:</strong> <%= @user.privileges.join(', ') %></p>
+<p><strong>Admin:</strong> <%= @user.admin? ? 'Yes' : 'No' %></p>
+
+<% if current_user == @user || current_user&.admin? %>
+  <p><%= link_to 'Edit', edit_user_path(@user) %></p>
+<% end %>
+
+<p><%= link_to 'Back', root_path %></p>

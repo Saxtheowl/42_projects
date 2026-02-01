@@ -1,0 +1,61 @@
+<h1><%= @user.name %></h1>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Since:</strong>
+  <%= @user.since %>
+</p>
+
+<p>
+  <strong>Admin:</strong>
+  <%= @user.admin %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @user.country %>
+</p>
+
+<h2>User Stats</h2>
+<p>
+  <strong>Fame (total likes):</strong>
+  <%= @user.fame %>
+</p>
+
+<p>
+  <strong>Senior:</strong>
+  <%= @user.senior? %>
+</p>
+
+<p>
+  <strong>Junior:</strong>
+  <%= @user.junior? %>
+</p>
+
+<h2>User's Cuicuis</h2>
+<ul>
+  <% @user.cuicuis.each do |cuicui| %>
+    <li><%= cuicui.content %> - <%= cuicui.likes.count %> likes</li>
+  <% end %>
+</ul>
+
+<h2>Top Cuicuis (by likes)</h2>
+<ol>
+  <% @user.top_cuicui.each do |cuicui| %>
+    <li><%= cuicui.content %> - <%= cuicui.likes.count %> likes</li>
+  <% end %>
+</ol>
+
+<h2>Recent Responses (5 latest comments on user's cuicuis)</h2>
+<ul>
+  <% @user.responses.each do |comment| %>
+    <li><%= comment.content %> - by User #<%= comment.user_id %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

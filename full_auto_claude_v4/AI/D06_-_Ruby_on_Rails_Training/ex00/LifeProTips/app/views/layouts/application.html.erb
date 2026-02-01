@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LifeProTips</title>
+  <% unless Rails.env.test? %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <% end %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+    <div class="user-line">
+      <% if logged_in? %>
+        Welcome <%= current_user.name %> !
+        <% if current_user.admin? %>
+          <%= link_to 'Administrate_users', admin_users_path %>
+          <%= link_to 'Administrate_posts', admin_posts_path %>
+        <% end %>
+        <%= link_to 'Log_out', logout_path, method: :delete %>
+      <% else %>
+        Welcome <%= visitor_name %> !
+        <%= link_to 'Sign_in', signup_path %>
+        <%= link_to 'Log_in', login_path %>
+      <% end %>
+    </div>
+  </header>
+
+  <main>
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert"><%= flash[:alert] %></div>
+    <% end %>
+
+    <%= yield %>
+  </main>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<%= form_for @survey, html: { class: 'form-horizontal' } do |f| %>
+  <% if @survey.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @survey.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :intro, 'Introduction (Rich Text)', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :intro, class: 'form-control', rows: 5 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :thank_you, 'Thank You Message (Rich Text)', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :thank_you, class: 'form-control', rows: 5 %>
+    </div>
+  </div>
+
+  <h4>Questions (Yes/No)</h4>
+  <div class="questions-container">
+    <%= f.fields_for :survey_questions do |q_form| %>
+      <div class="question-row well">
+        <div class="row">
+          <div class="col-md-10">
+            <%= q_form.text_field :question, class: 'form-control', placeholder: 'Question text' %>
+          </div>
+          <div class="col-md-2">
+            <%= q_form.hidden_field :_destroy %>
+            <button type="button" class="btn btn-danger remove-question">Remove</button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <button type="button" class="btn btn-success add-question">Add Question</button>
+
+  <script type="text/html" class="question-template">
+    <div class="question-row well">
+      <div class="row">
+        <div class="col-md-10">
+          <input type="text" name="survey[survey_questions_attributes][NEW_RECORD][question]" class="form-control" placeholder="Question text">
+        </div>
+        <div class="col-md-2">
+          <input type="hidden" name="survey[survey_questions_attributes][NEW_RECORD][_destroy]" value="0">
+          <button type="button" class="btn btn-danger remove-question">Remove</button>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script>
+    $(document).on('click', '.add-question', function(e) {
+      e.preventDefault();
+      var template = $('.question-template').html();
+      var timestamp = new Date().getTime();
+      template = template.replace(/NEW_RECORD/g, timestamp);
+      $('.questions-container').append(template);
+    });
+
+    $(document).on('click', '.remove-question', function(e) {
+      e.preventDefault();
+      var container = $(this).closest('.question-row');
+      container.find('input[name*="_destroy"]').val('1');
+      container.hide();
+    });
+  </script>
+
+  <hr>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: 'btn btn-primary' %>
+      <%= link_to 'Cancel', surveys_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

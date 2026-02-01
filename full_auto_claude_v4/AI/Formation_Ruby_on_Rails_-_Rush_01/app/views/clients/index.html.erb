@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1>Clients</h1>
+  </div>
+  <div class="col-md-4 text-right">
+    <%= link_to 'New Client', new_client_path, class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-md-6">
+      <strong>Order by:</strong>
+      <%= link_to 'Alphabetical', clients_path, class: "btn btn-xs #{params[:order].blank? ? 'btn-primary' : 'btn-default'}" %>
+      <%= link_to 'Company', clients_path(order: 'company'), class: "btn btn-xs #{params[:order] == 'company' ? 'btn-primary' : 'btn-default'}" %>
+    </div>
+    <div class="col-md-6 text-right">
+      <%= form_tag import_clients_path, method: :post, multipart: true, class: 'form-inline' do %>
+        <%= file_field_tag :file, class: 'form-control', style: 'display: inline-block; width: auto;' %>
+        <%= submit_tag 'Import CSV', class: 'btn btn-default' %>
+      <% end %>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Company</th>
+        <th>Position</th>
+        <th>Assigned To</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @clients.each do |client| %>
+        <tr>
+          <td><%= link_to client.full_name, client %></td>
+          <td><%= client.email %></td>
+          <td><%= client.phone %></td>
+          <td><%= client.company&.name %></td>
+          <td><%= client.position %></td>
+          <td><%= client.user&.full_name %></td>
+          <td class="table-actions">
+            <%= link_to 'View', client, class: 'btn btn-xs btn-primary' %>
+            <%= link_to 'Edit', edit_client_path(client), class: 'btn btn-xs btn-default' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @clients.empty? %>
+    <p class="text-muted text-center">No clients found.</p>
+  <% end %>
+</div>

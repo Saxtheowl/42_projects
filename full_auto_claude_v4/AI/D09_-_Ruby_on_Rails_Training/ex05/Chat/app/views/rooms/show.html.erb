@@ -1,0 +1,10 @@
+<h1>Chat</h1>
+
+<div id="messages">
+  <%= render @messages %>
+</div>
+
+<%= form_with model: Message.new, local: false do |form| %>
+  <%= form.text_field :content, placeholder: "Type your message..." %>
+  <%= form.submit "Send" %>
+<% end %>

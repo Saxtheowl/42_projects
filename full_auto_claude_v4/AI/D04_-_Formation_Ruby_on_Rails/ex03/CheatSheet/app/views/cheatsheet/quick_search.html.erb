@@ -1,0 +1,152 @@
+<div class="container mt-4">
+  <h1>Quick Search</h1>
+  <p class="text-muted">Search through all commands and concepts</p>
+
+  <table id="cheatsheet-table" class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Category</th>
+        <th>Item</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Convention -->
+      <tr><td>Convention</td><td>Class names</td><td>CamelCase</td></tr>
+      <tr><td>Convention</td><td>Methods and variables</td><td>snake_case</td></tr>
+      <tr><td>Convention</td><td>Database tables</td><td>plural_snake_case</td></tr>
+      <tr><td>Convention</td><td>Model files</td><td>singular_snake_case.rb</td></tr>
+      <tr><td>Convention</td><td>Controller files</td><td>plural_snake_case_controller.rb</td></tr>
+      <tr><td>Convention</td><td>View folders</td><td>plural_snake_case/</td></tr>
+      <tr><td>Convention</td><td>Constants</td><td>SCREAMING_SNAKE_CASE</td></tr>
+
+      <!-- Console -->
+      <tr><td>Console</td><td>rails console</td><td>Start Rails console</td></tr>
+      <tr><td>Console</td><td>rails c</td><td>Shortcut for rails console</td></tr>
+      <tr><td>Console</td><td>reload!</td><td>Reload console environment</td></tr>
+      <tr><td>Console</td><td>exit</td><td>Exit the console</td></tr>
+      <tr><td>Console</td><td>app.get "/path"</td><td>Make GET request in console</td></tr>
+      <tr><td>Console</td><td>helper.method_name</td><td>Call helper methods</td></tr>
+
+      <!-- Ruby Basics -->
+      <tr><td>Ruby</td><td>puts "text"</td><td>Print with newline</td></tr>
+      <tr><td>Ruby</td><td>print "text"</td><td>Print without newline</td></tr>
+      <tr><td>Ruby</td><td>gets.chomp</td><td>Get user input</td></tr>
+      <tr><td>Ruby</td><td>#comment</td><td>Single line comment</td></tr>
+      <tr><td>Ruby</td><td>=begin =end</td><td>Multi-line comment</td></tr>
+      <tr><td>Ruby</td><td>variable = value</td><td>Variable assignment</td></tr>
+
+      <!-- Ruby Concepts -->
+      <tr><td>Ruby Concepts</td><td>class MyClass; end</td><td>Class definition</td></tr>
+      <tr><td>Ruby Concepts</td><td>def method_name; end</td><td>Instance method</td></tr>
+      <tr><td>Ruby Concepts</td><td>def self.method_name; end</td><td>Class method</td></tr>
+      <tr><td>Ruby Concepts</td><td>class Child < Parent; end</td><td>Inheritance</td></tr>
+      <tr><td>Ruby Concepts</td><td>module MyModule; end</td><td>Module</td></tr>
+      <tr><td>Ruby Concepts</td><td>include MyModule</td><td>Include module</td></tr>
+      <tr><td>Ruby Concepts</td><td>extend MyModule</td><td>Extend module</td></tr>
+      <tr><td>Ruby Concepts</td><td>attr_accessor :name</td><td>Attr accessor</td></tr>
+
+      <!-- Ruby Numbers -->
+      <tr><td>Ruby Numbers</td><td>5 + 3</td><td>Addition => 8</td></tr>
+      <tr><td>Ruby Numbers</td><td>5 - 3</td><td>Subtraction => 2</td></tr>
+      <tr><td>Ruby Numbers</td><td>5 * 3</td><td>Multiplication => 15</td></tr>
+      <tr><td>Ruby Numbers</td><td>5 / 3</td><td>Division => 1</td></tr>
+      <tr><td>Ruby Numbers</td><td>5.0 / 3</td><td>Float division => 1.666...</td></tr>
+      <tr><td>Ruby Numbers</td><td>5 % 3</td><td>Modulo => 2</td></tr>
+      <tr><td>Ruby Numbers</td><td>5 ** 3</td><td>Exponent => 125</td></tr>
+      <tr><td>Ruby Numbers</td><td>-5.abs</td><td>Absolute => 5</td></tr>
+      <tr><td>Ruby Numbers</td><td>3.7.round</td><td>Round => 4</td></tr>
+
+      <!-- Ruby Strings -->
+      <tr><td>Ruby Strings</td><td>.length</td><td>Return string length</td></tr>
+      <tr><td>Ruby Strings</td><td>.reverse</td><td>Reverse the string</td></tr>
+      <tr><td>Ruby Strings</td><td>.upcase</td><td>Convert to uppercase</td></tr>
+      <tr><td>Ruby Strings</td><td>.downcase</td><td>Convert to lowercase</td></tr>
+      <tr><td>Ruby Strings</td><td>.capitalize</td><td>Capitalize first letter</td></tr>
+      <tr><td>Ruby Strings</td><td>.include?("x")</td><td>Check if contains "x"</td></tr>
+      <tr><td>Ruby Strings</td><td>.gsub("a","b")</td><td>Replace "a" with "b"</td></tr>
+      <tr><td>Ruby Strings</td><td>.split(" ")</td><td>Split into array</td></tr>
+      <tr><td>Ruby Strings</td><td>.strip</td><td>Remove whitespace</td></tr>
+      <tr><td>Ruby Strings</td><td>"#{var}"</td><td>String interpolation</td></tr>
+
+      <!-- Ruby Arrays -->
+      <tr><td>Ruby Arrays</td><td>arr = []</td><td>Create empty array</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr[0]</td><td>Access first element</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr[-1]</td><td>Access last element</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr.push(x)</td><td>Add element to end</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr << x</td><td>Shovel operator (add)</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr.pop</td><td>Remove last element</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr.shift</td><td>Remove first element</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr.unshift(x)</td><td>Add to beginning</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr.each { |x| }</td><td>Iterate over elements</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr.map { |x| }</td><td>Transform elements</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr.select { |x| }</td><td>Filter elements</td></tr>
+      <tr><td>Ruby Arrays</td><td>arr.sort</td><td>Sort array</td></tr>
+
+      <!-- Ruby Hashes -->
+      <tr><td>Ruby Hashes</td><td>hash = {}</td><td>Create empty hash</td></tr>
+      <tr><td>Ruby Hashes</td><td>hash = { key: value }</td><td>Symbol key syntax</td></tr>
+      <tr><td>Ruby Hashes</td><td>hash["key"]</td><td>Access by key</td></tr>
+      <tr><td>Ruby Hashes</td><td>hash[:key]</td><td>Access by symbol</td></tr>
+      <tr><td>Ruby Hashes</td><td>hash.keys</td><td>Get all keys</td></tr>
+      <tr><td>Ruby Hashes</td><td>hash.values</td><td>Get all values</td></tr>
+      <tr><td>Ruby Hashes</td><td>hash.each { |k,v| }</td><td>Iterate over pairs</td></tr>
+      <tr><td>Ruby Hashes</td><td>hash.merge(other)</td><td>Merge two hashes</td></tr>
+      <tr><td>Ruby Hashes</td><td>hash.delete(:key)</td><td>Delete a key</td></tr>
+
+      <!-- Rails Folder Structure -->
+      <tr><td>Rails Structure</td><td>app/</td><td>Main application code</td></tr>
+      <tr><td>Rails Structure</td><td>app/controllers/</td><td>Controller classes</td></tr>
+      <tr><td>Rails Structure</td><td>app/models/</td><td>Model classes</td></tr>
+      <tr><td>Rails Structure</td><td>app/views/</td><td>View templates</td></tr>
+      <tr><td>Rails Structure</td><td>app/helpers/</td><td>View helpers</td></tr>
+      <tr><td>Rails Structure</td><td>app/assets/</td><td>CSS, JS, images</td></tr>
+      <tr><td>Rails Structure</td><td>config/</td><td>Configuration files</td></tr>
+      <tr><td>Rails Structure</td><td>config/routes.rb</td><td>URL routing</td></tr>
+      <tr><td>Rails Structure</td><td>db/</td><td>Database files</td></tr>
+      <tr><td>Rails Structure</td><td>db/migrate/</td><td>Database migrations</td></tr>
+      <tr><td>Rails Structure</td><td>public/</td><td>Static files</td></tr>
+      <tr><td>Rails Structure</td><td>Gemfile</td><td>Ruby dependencies</td></tr>
+
+      <!-- Rails Commands -->
+      <tr><td>Rails Commands</td><td>rails new app_name</td><td>Create new Rails app</td></tr>
+      <tr><td>Rails Commands</td><td>rails server / rails s</td><td>Start development server</td></tr>
+      <tr><td>Rails Commands</td><td>rails generate / rails g</td><td>Generate code</td></tr>
+      <tr><td>Rails Commands</td><td>rails g controller Name</td><td>Generate controller</td></tr>
+      <tr><td>Rails Commands</td><td>rails g model Name</td><td>Generate model</td></tr>
+      <tr><td>Rails Commands</td><td>rails g migration Name</td><td>Generate migration</td></tr>
+      <tr><td>Rails Commands</td><td>rails db:migrate</td><td>Run migrations</td></tr>
+      <tr><td>Rails Commands</td><td>rails db:rollback</td><td>Rollback last migration</td></tr>
+      <tr><td>Rails Commands</td><td>rails db:seed</td><td>Run seed file</td></tr>
+      <tr><td>Rails Commands</td><td>rails routes</td><td>Show all routes</td></tr>
+      <tr><td>Rails Commands</td><td>bundle install</td><td>Install gems</td></tr>
+
+      <!-- Rails ERB -->
+      <tr><td>Rails ERB</td><td>&lt;%= %&gt;</td><td>Execute and output result</td></tr>
+      <tr><td>Rails ERB</td><td>&lt;% %&gt;</td><td>Execute without output</td></tr>
+      <tr><td>Rails ERB</td><td>&lt;%# %&gt;</td><td>ERB comment</td></tr>
+      <tr><td>Rails ERB</td><td>&lt;%= link_to "text", path %&gt;</td><td>Create link</td></tr>
+      <tr><td>Rails ERB</td><td>&lt;%= image_tag "file.png" %&gt;</td><td>Display image</td></tr>
+      <tr><td>Rails ERB</td><td>&lt;%= render "partial" %&gt;</td><td>Render partial</td></tr>
+      <tr><td>Rails ERB</td><td>&lt;%= form_with %&gt;</td><td>Create form</td></tr>
+      <tr><td>Rails ERB</td><td>&lt;%= yield %&gt;</td><td>Insert view content</td></tr>
+      <tr><td>Rails ERB</td><td>&lt;%= content_for :name %&gt;</td><td>Named content block</td></tr>
+
+      <!-- Editor -->
+      <tr><td>Editor</td><td>VS Code</td><td>Popular editor with Rails extensions</td></tr>
+      <tr><td>Editor</td><td>RubyMine</td><td>Full-featured Ruby IDE</td></tr>
+      <tr><td>Editor</td><td>Sublime Text</td><td>Lightweight editor</td></tr>
+      <tr><td>Editor</td><td>Vim/Neovim</td><td>Terminal-based editor</td></tr>
+      <tr><td>Editor</td><td>rubocop</td><td>Ruby style checker</td></tr>
+      <tr><td>Editor</td><td>solargraph</td><td>Ruby language server</td></tr>
+
+      <!-- Help -->
+      <tr><td>Help</td><td>Rails Guides</td><td>guides.rubyonrails.org</td></tr>
+      <tr><td>Help</td><td>Rails API</td><td>api.rubyonrails.org</td></tr>
+      <tr><td>Help</td><td>Ruby Docs</td><td>ruby-doc.org</td></tr>
+      <tr><td>Help</td><td>Stack Overflow</td><td>stackoverflow.com</td></tr>
+      <tr><td>Help</td><td>RubyGems</td><td>rubygems.org</td></tr>
+      <tr><td>Help</td><td>Rails Tutorial</td><td>railstutorial.org</td></tr>
+    </tbody>
+  </table>
+</div>

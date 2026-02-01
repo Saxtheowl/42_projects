@@ -1,0 +1,28 @@
+<h1>Admin: Votes</h1>
+
+<% @votes_by_post.each do |post, votes| %>
+  <% next unless post %>
+  <h3><%= post.title %></h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Voter</th>
+        <th>Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% votes.each do |vote| %>
+        <tr>
+          <td><%= vote.voter_name %></td>
+          <td><%= vote.value == 1 ? 'Upvote' : 'Downvote' %></td>
+          <td>
+            <%= link_to 'Delete', admin_vote_path(vote), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<p><%= link_to 'Back', root_path %></p>

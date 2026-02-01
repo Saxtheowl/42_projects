@@ -1,0 +1,29 @@
+<h1>Top Cuicuis (Most Liked)</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Content</th>
+      <th>User</th>
+      <th>Likes</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cuicuis.each_with_index do |cuicui, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= cuicui.content %></td>
+        <td><%= cuicui.user.name if cuicui.user %></td>
+        <td><%= cuicui.likes.count %></td>
+        <td><%= link_to 'Show', cuicui %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'All Cuicuis', cuicuis_path %> |
+<%= link_to 'Users', users_path %>

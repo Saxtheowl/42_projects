@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  seek_well:
+    build:
+      context: ./ex00/Seek_well
+      dockerfile: Dockerfile
+    volumes:
+      - ./ex00/Seek_well:/app
+    working_dir: /app
+    command: ["tail", "-f", "/dev/null"]
+
+  tweetos:
+    build:
+      context: ./ex01/tweetos_aka_hello_rails
+      dockerfile: Dockerfile
+    volumes:
+      - ./ex01/tweetos_aka_hello_rails:/app
+    working_dir: /app
+    command: ["tail", "-f", "/dev/null"]

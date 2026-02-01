@@ -1,0 +1,29 @@
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/json-2.7.6/ext/json/ext/parser
+/usr/local/bin/ruby -I /usr/local/lib/ruby/site_ruby/2.5.0 -r ./siteconf20260201-1-14d96kg.rb extconf.rb
+checking for rb_enc_raise() in ruby.h... yes
+checking for rb_enc_interned_str() in ruby.h... no
+checking for whether -std=c99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/json-2.7.6/ext/json/ext/parser
+make "DESTDIR=" clean
+
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/json-2.7.6/ext/json/ext/parser
+make "DESTDIR="
+compiling parser.c
+parser.rl: In function ‘JSON_parse_float’:
+parser.rl:378:21: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+                     const char *method_name_beg = last_colon + 1;
+                     ^~~~~
+parser.rl:390:9: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+         long len = p - json->memo;
+         ^~~~
+parser.rl: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+linking shared-object json/ext/parser.so
+
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/json-2.7.6/ext/json/ext/parser
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 parser.so ./.gem.20260201-1-1kf31ai/json/ext

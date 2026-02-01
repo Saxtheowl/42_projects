@@ -1,0 +1,60 @@
+<%= form_for @client, html: { class: 'form-horizontal' } do |f| %>
+  <% if @client.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @client.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :first_name, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :first_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :last_name, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :last_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :phone, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :phone, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :company_id, 'Company', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.collection_select :company_id, @companies, :id, :name, { include_blank: 'No company' }, { class: 'form-control' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :position, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :position, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: 'btn btn-primary' %>
+      <%= link_to 'Cancel', clients_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

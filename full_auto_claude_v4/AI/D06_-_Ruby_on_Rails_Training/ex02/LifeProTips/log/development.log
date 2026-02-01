@@ -1,0 +1,349 @@
+  [1m[36m (9.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (8.2ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20160101000001)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "admin" boolean DEFAULT 'f', "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_name" ON "users" ("name")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_name' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160101000001"]]
+  [1m[36m (7.8ms)[0m  [1mcommit transaction[0m
+Migrating to CreatePosts (20160101000002)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "title" varchar NOT NULL, "content" text NOT NULL, "edited_by_id" integer, "edited_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.3ms)[0m  CREATE  INDEX "index_posts_on_user_id" ON "posts" ("user_id")
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_posts_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_posts_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  CREATE UNIQUE INDEX "index_posts_on_title" ON "posts" ("title")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_posts_on_title' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_posts_on_title' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_posts_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_posts_on_user_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_posts_on_edited_by_id" ON "posts" ("edited_by_id")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160101000002"]]
+  [1m[36m (12.1ms)[0m  [1mcommit transaction[0m
+Migrating to CreateVotes (20160101000003)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "votes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "post_id" integer NOT NULL, "value" integer NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_votes_on_user_id" ON "votes" ("user_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_votes_on_post_id" ON "votes" ("post_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_post_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_post_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_user_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1mCREATE UNIQUE INDEX "index_votes_on_user_id_and_post_id" ON "votes" ("user_id", "post_id")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160101000003"]]
+  [1m[36m (9.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_posts_on_edited_by_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_posts_on_edited_by_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_posts_on_title' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_posts_on_title' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_posts_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_posts_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_name' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_user_id_and_post_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_user_id_and_post_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_post_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_post_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_user_id' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mVote Load (0.2ms)[0m  SELECT "votes".* FROM "votes"
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts"  ORDER BY "posts"."created_at" DESC[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'admin' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'admin@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "admin", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["name", "admin"], ["email", "admin@example.com"], ["password_digest", "$2a$12$wMm8g7NVV7OUb8onRnmELuEQjLyBZNkre8X8vFQ7OcF2304VDqiWu"], ["admin", "t"], ["created_at", "2026-02-01 15:52:11.309772"], ["updated_at", "2026-02-01 15:52:11.309772"]]
+  [1m[36m (10.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."name" = 'bob' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'bob@example.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "bob"], ["email", "bob@example.com"], ["password_digest", "$2a$12$Kayl.8IUdtbrvDiqTIN1TODIl25t8JEeQe6s4dP43cBf2p8wbI6MS"], ["created_at", "2026-02-01 15:52:11.665711"], ["updated_at", "2026-02-01 15:52:11.665711"]]
+  [1m[35m (7.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'alice' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'alice@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "alice"], ["email", "alice@example.com"], ["password_digest", "$2a$12$/AgwFsBmiBSRnQuZIWpa3.PWmIVaYJ5rwDs62R1dYWGYYATmOiSMq"], ["created_at", "2026-02-01 15:52:12.003600"], ["updated_at", "2026-02-01 15:52:12.003600"]]
+  [1m[36m (6.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."name" = 'charlie' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'charlie@example.com' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "charlie"], ["email", "charlie@example.com"], ["password_digest", "$2a$12$im81btrFih7nyjOD3mH3X.hPa96JJL8LGkhAcEVQd6lR1pTACa0JO"], ["created_at", "2026-02-01 15:52:12.310306"], ["updated_at", "2026-02-01 15:52:12.310306"]]
+  [1m[35m (5.9ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'diana' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'diana@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "diana"], ["email", "diana@example.com"], ["password_digest", "$2a$12$RzKVJLfuMysg01tgiopFquNU6Qk7QzRCsRL1cKdaby56B8gRceZcm"], ["created_at", "2026-02-01 15:52:12.614032"], ["updated_at", "2026-02-01 15:52:12.614032"]]
+  [1m[36m (6.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts" WHERE "posts"."title" = 'How to check if water is too hot' LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "posts" ("user_id", "title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 2], ["title", "How to check if water is too hot"], ["content", "Test the water temperature with the inside of your wrist before bathing a baby."], ["created_at", "2026-02-01 15:52:12.647111"], ["updated_at", "2026-02-01 15:52:12.647111"]]
+  [1m[36m (7.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts" WHERE "posts"."title" = 'Save money on groceries' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("user_id", "title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 3], ["title", "Save money on groceries"], ["content", "Make a shopping list before going to the store and stick to it."], ["created_at", "2026-02-01 15:52:12.660192"], ["updated_at", "2026-02-01 15:52:12.660192"]]
+  [1m[36m (8.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts" WHERE "posts"."title" = 'Better sleep habits' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "posts" ("user_id", "title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 4], ["title", "Better sleep habits"], ["content", "Stop using electronic devices at least 30 minutes before bedtime."], ["created_at", "2026-02-01 15:52:12.674049"], ["updated_at", "2026-02-01 15:52:12.674049"]]
+  [1m[36m (6.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts" WHERE "posts"."title" = 'Productivity tip' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "posts" ("user_id", "title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 1], ["title", "Productivity tip"], ["content", "Use the Pomodoro technique: work for 25 minutes, then take a 5 minute break."], ["created_at", "2026-02-01 15:52:12.686451"], ["updated_at", "2026-02-01 15:52:12.686451"]]
+  [1m[36m (10.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 3 AND "votes"."post_id" = 1) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 3], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:12.713777"], ["updated_at", "2026-02-01 15:52:12.713777"]]
+  [1m[36m (7.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 4 AND "votes"."post_id" = 1) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 4], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:12.726372"], ["updated_at", "2026-02-01 15:52:12.726372"]]
+  [1m[36m (8.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 5 AND "votes"."post_id" = 1) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 5], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:12.741198"], ["updated_at", "2026-02-01 15:52:12.741198"]]
+  [1m[36m (6.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 1 AND "votes"."post_id" = 1) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 1], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:12.753381"], ["updated_at", "2026-02-01 15:52:12.753381"]]
+  [1m[36m (6.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mVote Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 3 AND "votes"."post_id" = 4) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 3], ["post_id", 4], ["value", 1], ["created_at", "2026-02-01 15:52:12.765205"], ["updated_at", "2026-02-01 15:52:12.765205"]]
+  [1m[36m (6.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 4 AND "votes"."post_id" = 4) LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 4], ["post_id", 4], ["value", 1], ["created_at", "2026-02-01 15:52:12.777157"], ["updated_at", "2026-02-01 15:52:12.777157"]]
+  [1m[36m (6.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 5 AND "votes"."post_id" = 4) LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 5], ["post_id", 4], ["value", 1], ["created_at", "2026-02-01 15:52:12.787744"], ["updated_at", "2026-02-01 15:52:12.787744"]]
+  [1m[36m (6.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."name" = 'voter0' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'voter0@example.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "voter0"], ["email", "voter0@example.com"], ["password_digest", "$2a$12$6AmPDJbkcvBqNGx8OWJT3eYIo5ri/l4aZINRsP.1SOzc4rZKv4qZO"], ["created_at", "2026-02-01 15:52:13.161799"], ["updated_at", "2026-02-01 15:52:13.161799"]]
+  [1m[35m (6.9ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.5ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 6 AND "votes"."post_id" = 1) LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 6], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:13.175547"], ["updated_at", "2026-02-01 15:52:13.175547"]]
+  [1m[35m (8.0ms)[0m  commit transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'voter1' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'voter1@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "voter1"], ["email", "voter1@example.com"], ["password_digest", "$2a$12$zJX0dgWKfpu51Yhf2NMQCeKBe9xRNJJUPBGjPGP8dRqA8pqYN4Za."], ["created_at", "2026-02-01 15:52:13.491792"], ["updated_at", "2026-02-01 15:52:13.491792"]]
+  [1m[36m (6.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 7 AND "votes"."post_id" = 1) LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 7], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:13.504850"], ["updated_at", "2026-02-01 15:52:13.504850"]]
+  [1m[36m (6.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."name" = 'voter2' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'voter2@example.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "voter2"], ["email", "voter2@example.com"], ["password_digest", "$2a$12$QXxpKK7Z5YuRE6XSrbI.sOXySSGb8fub9MsG7AdeMVz4vw69lKn2K"], ["created_at", "2026-02-01 15:52:13.853582"], ["updated_at", "2026-02-01 15:52:13.853582"]]
+  [1m[35m (7.0ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.2ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 8 AND "votes"."post_id" = 1) LIMIT 1
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 8], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:13.868234"], ["updated_at", "2026-02-01 15:52:13.868234"]]
+  [1m[35m (6.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'voter3' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'voter3@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "voter3"], ["email", "voter3@example.com"], ["password_digest", "$2a$12$WFHe0HRK4rTbDpFR06ygvOv1k8VuzYY69vZPPbo6nHS6venFh5Sga"], ["created_at", "2026-02-01 15:52:14.244610"], ["updated_at", "2026-02-01 15:52:14.244610"]]
+  [1m[36m (6.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 9 AND "votes"."post_id" = 1) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 9], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:14.257857"], ["updated_at", "2026-02-01 15:52:14.257857"]]
+  [1m[36m (9.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."name" = 'voter4' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'voter4@example.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "voter4"], ["email", "voter4@example.com"], ["password_digest", "$2a$12$YL2xGmw8O/aPe6x8LSP7TOeM7r99T89UJDbszeeEoa71KlVcGQ1lu"], ["created_at", "2026-02-01 15:52:14.638171"], ["updated_at", "2026-02-01 15:52:14.638171"]]
+  [1m[35m (6.8ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.2ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 10 AND "votes"."post_id" = 1) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 10], ["post_id", 1], ["value", 1], ["created_at", "2026-02-01 15:52:14.650985"], ["updated_at", "2026-02-01 15:52:14.650985"]]
+  [1m[35m (7.0ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.3ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 2 AND "votes"."post_id" = 2) LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 2], ["post_id", 2], ["value", 1], ["created_at", "2026-02-01 15:52:14.664313"], ["updated_at", "2026-02-01 15:52:14.664313"]]
+  [1m[35m (6.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.3ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 4 AND "votes"."post_id" = 2) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 4], ["post_id", 2], ["value", 1], ["created_at", "2026-02-01 15:52:14.677424"], ["updated_at", "2026-02-01 15:52:14.677424"]]
+  [1m[35m (7.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.2ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 5 AND "votes"."post_id" = 2) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 5], ["post_id", 2], ["value", 1], ["created_at", "2026-02-01 15:52:14.692158"], ["updated_at", "2026-02-01 15:52:14.692158"]]
+  [1m[35m (7.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.2ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 1 AND "votes"."post_id" = 2) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 1], ["post_id", 2], ["value", 1], ["created_at", "2026-02-01 15:52:14.706842"], ["updated_at", "2026-02-01 15:52:14.706842"]]
+  [1m[35m (6.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.3ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 2 AND "votes"."post_id" = 3) LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 2], ["post_id", 3], ["value", 1], ["created_at", "2026-02-01 15:52:14.721055"], ["updated_at", "2026-02-01 15:52:14.721055"]]
+  [1m[35m (6.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.3ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 3 AND "votes"."post_id" = 3) LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 3], ["post_id", 3], ["value", 1], ["created_at", "2026-02-01 15:52:14.734451"], ["updated_at", "2026-02-01 15:52:14.734451"]]
+  [1m[35m (6.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.2ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 5 AND "votes"."post_id" = 3) LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 5], ["post_id", 3], ["value", 1], ["created_at", "2026-02-01 15:52:14.748979"], ["updated_at", "2026-02-01 15:52:14.748979"]]
+  [1m[35m (9.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.2ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 1 AND "votes"."post_id" = 3) LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 1], ["post_id", 3], ["value", 1], ["created_at", "2026-02-01 15:52:14.764039"], ["updated_at", "2026-02-01 15:52:14.764039"]]
+  [1m[35m (7.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'voter_charlie0' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'voter_charlie0@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "voter_charlie0"], ["email", "voter_charlie0@example.com"], ["password_digest", "$2a$12$WNAcPOEo0oahpXt1v3Xb8OC7t7PVVFg/TLICk8pJWy.DBEvl9kXTK"], ["created_at", "2026-02-01 15:52:15.196049"], ["updated_at", "2026-02-01 15:52:15.196049"]]
+  [1m[36m (7.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 11 AND "votes"."post_id" = 3) LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 11], ["post_id", 3], ["value", 1], ["created_at", "2026-02-01 15:52:15.211968"], ["updated_at", "2026-02-01 15:52:15.211968"]]
+  [1m[36m (8.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."name" = 'voter_charlie1' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'voter_charlie1@example.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "voter_charlie1"], ["email", "voter_charlie1@example.com"], ["password_digest", "$2a$12$ciB5JQH4Q.eo7kchtNG7jusi.EgNQ5WZw4s2Slbq8QwMmQDNHTkjW"], ["created_at", "2026-02-01 15:52:15.674730"], ["updated_at", "2026-02-01 15:52:15.674730"]]
+  [1m[35m (7.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVote Exists (0.2ms)[0m  SELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 12 AND "votes"."post_id" = 3) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 12], ["post_id", 3], ["value", 1], ["created_at", "2026-02-01 15:52:15.688225"], ["updated_at", "2026-02-01 15:52:15.688225"]]
+  [1m[35m (7.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."name" = 'voter_charlie2' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'voter_charlie2@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "voter_charlie2"], ["email", "voter_charlie2@example.com"], ["password_digest", "$2a$12$4B.IuwEiUJ//35D8HX1EkO2dpKf/PUAG5ALyUtpzpDXACmQdMhN5K"], ["created_at", "2026-02-01 15:52:16.114537"], ["updated_at", "2026-02-01 15:52:16.114537"]]
+  [1m[36m (6.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mVote Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "votes" WHERE ("votes"."user_id" = 13 AND "votes"."post_id" = 3) LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("user_id", "post_id", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["user_id", 13], ["post_id", 3], ["value", 1], ["created_at", "2026-02-01 15:52:16.125956"], ["updated_at", "2026-02-01 15:52:16.125956"]]
+  [1m[36m (6.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts" WHERE ("posts"."title" = 'Save money on groceries' AND "posts"."id" != 2) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "posts" SET "content" = ?, "edited_by_id" = ?, "edited_at" = ?, "updated_at" = ? WHERE "posts"."id" = ?  [["content", "Make a shopping list before going to the store, stick to it, and never shop hungry!"], ["edited_by_id", 2], ["edited_at", "2026-02-01 15:52:16.135195"], ["updated_at", "2026-02-01 15:52:16.138106"], ["id", 2]]
+  [1m[36m (6.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.3ms)[0m  [1mSELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?[0m  [["user_id", 2]]
+  [1m[35m (0.3ms)[0m  SELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?  [["user_id", 2]]
+  [1m[36m (0.2ms)[0m  [1mSELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?[0m  [["user_id", 2]]
+  [1m[35m (0.2ms)[0m  SELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?  [["user_id", 2]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35m (0.2ms)[0m  SELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?  [["user_id", 3]]
+  [1m[36m (0.2ms)[0m  [1mSELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?[0m  [["user_id", 3]]
+  [1m[35m (0.2ms)[0m  SELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?  [["user_id", 3]]
+  [1m[36m (0.2ms)[0m  [1mSELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?[0m  [["user_id", 3]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36m (0.2ms)[0m  [1mSELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?[0m  [["user_id", 4]]
+  [1m[35m (0.2ms)[0m  SELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?  [["user_id", 4]]
+  [1m[36m (0.2ms)[0m  [1mSELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?[0m  [["user_id", 4]]
+  [1m[35m (0.2ms)[0m  SELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?  [["user_id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35m (0.1ms)[0m  SELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?  [["user_id", 5]]
+  [1m[36m (0.2ms)[0m  [1mSELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?[0m  [["user_id", 5]]
+  [1m[35m (0.2ms)[0m  SELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?  [["user_id", 5]]
+  [1m[36m (0.2ms)[0m  [1mSELECT SUM("votes"."value") FROM "votes" INNER JOIN "posts" ON "posts"."id" = "votes"."post_id" WHERE "posts"."user_id" = ?[0m  [["user_id", 5]]

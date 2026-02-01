@@ -1,0 +1,15 @@
+<h1>Cuicui</h1>
+
+<p><strong>Content:</strong> <%= @cuicui.content %></p>
+<p><strong>User:</strong> <%= link_to @cuicui.user.name, @cuicui.user %></p>
+<p><strong>Likes:</strong> <%= @cuicui.likes.count %></p>
+
+<h2>Comments</h2>
+<ul>
+  <% @cuicui.comments.each do |comment| %>
+    <li><%= comment.content %> - by <%= comment.user.name %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_cuicui_path(@cuicui) %> |
+<%= link_to 'Back', cuicuis_path %>

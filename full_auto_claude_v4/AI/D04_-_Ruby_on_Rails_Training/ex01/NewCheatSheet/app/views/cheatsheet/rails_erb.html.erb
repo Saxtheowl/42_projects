@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <h1>Rails ERB</h1>
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Syntax</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>&lt;%= %&gt;</td><td>Execute and output result</td></tr>
+      <tr><td>&lt;% %&gt;</td><td>Execute without output</td></tr>
+      <tr><td>&lt;%# %&gt;</td><td>ERB comment</td></tr>
+      <tr><td>&lt;%= link_to "text", path %&gt;</td><td>Create link</td></tr>
+      <tr><td>&lt;%= image_tag "file.png" %&gt;</td><td>Display image</td></tr>
+      <tr><td>&lt;%= render "partial" %&gt;</td><td>Render partial</td></tr>
+      <tr><td>&lt;%= form_with %&gt;</td><td>Create form</td></tr>
+      <tr><td>&lt;%= yield %&gt;</td><td>Insert view content</td></tr>
+      <tr><td>&lt;%= content_for :name %&gt;</td><td>Named content block</td></tr>
+    </tbody>
+  </table>
+</div>

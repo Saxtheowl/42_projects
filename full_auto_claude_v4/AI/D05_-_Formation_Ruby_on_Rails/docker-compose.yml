@@ -1,0 +1,15 @@
+version: '3'
+services:
+  seek_well:
+    build: .
+    volumes:
+      - ./Seek_well:/app
+    working_dir: /app
+    command: bash
+
+  tweetos:
+    build: .
+    volumes:
+      - ./tweetos_aka_hello_rails:/app
+    working_dir: /app
+    command: bash

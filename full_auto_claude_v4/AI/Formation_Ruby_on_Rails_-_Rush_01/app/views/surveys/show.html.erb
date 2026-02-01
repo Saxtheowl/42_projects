@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @survey.title %></h1>
+  </div>
+  <div class="col-md-4 text-right">
+    <% if @survey.published? %>
+      <span class="label label-success">Published</span>
+      <%= link_to 'Public Link', public_show_survey_path(@survey), class: 'btn btn-info', target: '_blank' %>
+    <% else %>
+      <span class="label label-warning">Draft</span>
+    <% end %>
+    <%= link_to 'Edit', edit_survey_path(@survey), class: 'btn btn-default' %>
+    <%= link_to 'Back', surveys_path, class: 'btn btn-default' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <h3>Introduction</h3>
+      <% if @survey.intro.present? %>
+        <%= @survey.intro.html_safe %>
+      <% else %>
+        <p class="text-muted">No introduction set.</p>
+      <% end %>
+
+      <hr>
+
+      <h3>Questions</h3>
+      <ol>
+        <% @survey.survey_questions.each do |question| %>
+          <li><%= question.question %></li>
+        <% end %>
+      </ol>
+
+      <hr>
+
+      <h3>Thank You Message</h3>
+      <% if @survey.thank_you.present? %>
+        <%= @survey.thank_you.html_safe %>
+      <% else %>
+        <p class="text-muted">No thank you message set.</p>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-box">
+      <h2><%= @responses_count %></h2>
+      <p>Responses</p>
+    </div>
+
+    <div class="card">
+      <h4>Results Summary</h4>
+      <% @survey.survey_questions.each do |question| %>
+        <% yes_count = question.survey_answers.where(answer: true).count %>
+        <% no_count = question.survey_answers.where(answer: false).count %>
+        <% total = yes_count + no_count %>
+        <p><strong><%= question.question %></strong></p>
+        <div class="progress">
+          <div class="progress-bar progress-bar-success" style="width: <%= total > 0 ? (yes_count.to_f / total * 100).round : 0 %>%">
+            Yes (<%= yes_count %>)
+          </div>
+          <div class="progress-bar progress-bar-danger" style="width: <%= total > 0 ? (no_count.to_f / total * 100).round : 0 %>%">
+            No (<%= no_count %>)
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

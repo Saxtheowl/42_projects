@@ -1,0 +1,8 @@
+#!/home/roro/work/projects/42_projects/full_auto_claude_v4/AI/Machine_Learning_-_Module_00/venv/bin/python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+from fontTools.ttx import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())

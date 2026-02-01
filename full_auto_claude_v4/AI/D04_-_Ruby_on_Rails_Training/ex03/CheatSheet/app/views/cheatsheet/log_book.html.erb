@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <h1>Log Book</h1>
+  <p class="text-muted">Keep a technical diary</p>
+
+  <%= form_with url: write_entry_path, method: :post, local: true, class: "mb-4" do |f| %>
+    <div class="mb-3">
+      <%= text_area_tag :entry_text, nil, class: "form-control", rows: 3, placeholder: "Write your entry..." %>
+    </div>
+    <%= submit_tag "Write", class: "btn btn-primary" %>
+  <% end %>
+
+  <h2>Entries</h2>
+  <% @entries.each do |entry| %>
+    <div class="card mb-2">
+      <div class="card-body">
+        <p class="mb-0"><%= entry %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @entries.empty? %>
+    <p class="text-muted">No entries yet. Start writing!</p>
+  <% end %>
+</div>

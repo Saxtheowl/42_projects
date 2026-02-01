@@ -1,0 +1,24 @@
+<h1>Life Pro Tips</h1>
+
+<% if logged_in? %>
+  <p><%= link_to 'New Post', new_post_path %></p>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= link_to post.title, post_path(post) %></td>
+        <td><%= post.author_name %></td>
+        <td><%= post.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

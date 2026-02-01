@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1>Projects</h1>
+  </div>
+  <div class="col-md-4 text-right">
+    <% if current_user.can_create_project? %>
+      <%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="card">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Client</th>
+        <th>Manager</th>
+        <th>Quotes</th>
+        <th>Orders</th>
+        <th>Invoices</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= link_to project.name, project %></td>
+          <td><%= project.client.full_name %></td>
+          <td><%= project.user.full_name %></td>
+          <td><%= project.quotes.count %></td>
+          <td><%= project.orders.count %></td>
+          <td><%= project.invoices.count %></td>
+          <td class="table-actions">
+            <%= link_to 'View', project, class: 'btn btn-xs btn-primary' %>
+            <%= link_to 'Edit', edit_project_path(project), class: 'btn btn-xs btn-default' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @projects.empty? %>
+    <p class="text-muted text-center">No projects found.</p>
+  <% end %>
+</div>

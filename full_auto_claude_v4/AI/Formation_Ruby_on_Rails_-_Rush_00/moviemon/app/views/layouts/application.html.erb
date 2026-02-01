@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MovieMon</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  </head>
+
+  <body>
+    <div class="gameboy">
+      <div class="gameboy-top">
+        <div class="top-bar">
+          <div class="bar-line"></div>
+          <span class="bar-text">DOT MATRIX WITH STEREO SOUND</span>
+          <div class="bar-line"></div>
+        </div>
+      </div>
+
+      <div class="gameboy-body">
+        <div class="screen-area">
+          <div class="power-led">
+            <%= link_to '', power_path, class: 'power-link' %>
+          </div>
+          <span class="battery-label">BATTERY</span>
+
+          <div class="screen">
+            <%= yield %>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="dpad-area">
+            <div class="dpad">
+              <% up_link = defined?(@up_link) ? @up_link : '#' %>
+              <% down_link = defined?(@down_link) ? @down_link : '#' %>
+              <% left_link = defined?(@left_link) ? @left_link : '#' %>
+              <% right_link = defined?(@right_link) ? @right_link : '#' %>
+
+              <%= link_to '', up_link, class: 'dpad-btn dpad-up' %>
+              <%= link_to '', down_link, class: 'dpad-btn dpad-down' %>
+              <%= link_to '', left_link, class: 'dpad-btn dpad-left' %>
+              <%= link_to '', right_link, class: 'dpad-btn dpad-right' %>
+              <div class="dpad-center"></div>
+            </div>
+          </div>
+
+          <div class="middle-btns">
+            <% select_link = defined?(@select_link) ? @select_link : '#' %>
+            <% start_link = defined?(@start_link) ? @start_link : '#' %>
+
+            <%= link_to '', select_link, class: 'btn-select' %>
+            <span class="btn-label">SELECT</span>
+
+            <%= link_to '', start_link, class: 'btn-start' %>
+            <span class="btn-label">START</span>
+          </div>
+
+          <div class="ab-btns">
+            <% b_link = defined?(@b_link) ? @b_link : '#' %>
+            <% a_link = defined?(@a_link) ? @a_link : '#' %>
+
+            <div class="btn-wrapper">
+              <%= link_to '', b_link, class: 'btn-b' %>
+              <span class="ab-label">B</span>
+            </div>
+            <div class="btn-wrapper">
+              <%= link_to '', a_link, class: 'btn-a' %>
+              <span class="ab-label">A</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="speaker">
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+          <div class="speaker-line"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

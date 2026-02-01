@@ -1,0 +1,11 @@
+<h1><%= @chatroom.name %></h1>
+<p><%= link_to 'Back to chatrooms', chatrooms_path %></p>
+
+<div id="messages" data-chatroom-id="<%= @chatroom.id %>">
+  <%= render @messages %>
+</div>
+
+<%= form_with model: [@chatroom, @message], local: false do |form| %>
+  <%= form.text_field :content, placeholder: "Type your message..." %>
+  <%= form.submit "Send" %>
+<% end %>

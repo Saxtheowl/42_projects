@@ -1,0 +1,35 @@
+<h1>Product Catalog</h1>
+
+<div class="catalog-layout">
+  <div class="main-content">
+    <div class="actions-bar">
+      <% if user_signed_in? %>
+        <%= link_to 'New Product', new_product_path, class: 'btn' %>
+      <% end %>
+    </div>
+
+    <div class="products-grid">
+      <% @products.each do |product| %>
+        <div class="product-card">
+          <% if product.pict.present? %>
+            <%= image_tag product.pict.thumb.url, alt: product.name, class: 'product-image' %>
+          <% else %>
+            <div class="product-image placeholder">No Image</div>
+          <% end %>
+          <div class="product-info">
+            <h3><%= link_to product.name, product %></h3>
+            <p class="brand"><%= product.brand.name %></p>
+            <p class="price"><%= number_to_currency(product.price) %></p>
+            <%= button_to 'Add to Cart', add_to_cart_path(product), method: :post, class: 'btn btn-cart' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= paginate @products %>
+  </div>
+
+  <aside class="sidebar">
+    <%= render 'carts/cart' %>
+  </aside>
+</div>

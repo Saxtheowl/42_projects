@@ -1,0 +1,33 @@
+<% @up_link = save_navigate_path(direction: 'up', mode: @mode, from: @from) %>
+<% @down_link = save_navigate_path(direction: 'down', mode: @mode, from: @from) %>
+<% @select_link = @from == 'title' ? title_path : worldmap_path %>
+
+<% if @mode == 'save' %>
+  <% @a_link = save_game_path(slot: $selected) %>
+<% else %>
+  <% @a_link = load_game_path(slot: $selected) %>
+<% end %>
+
+<div class="save-slots-screen">
+  <h2><%= @mode == 'save' ? 'Save Game' : 'Load Game' %></h2>
+
+  <div class="slots">
+    <% 3.times do |i| %>
+      <div class="slot <%= $selected == i ? 'selected' : '' %>">
+        <span class="slot-letter"><%= ('A'.ord + i).chr %></span>
+        <% save_data = @saves[i.to_s] %>
+        <% if save_data %>
+          <span class="slot-info">
+            Captured: <%= save_data['captured']&.length || 0 %>
+          </span>
+        <% else %>
+          <span class="slot-info">Empty</span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="save-legend">
+    <p>[Up/Down] Select | [A] <%= @mode.capitalize %> | [Select] Back</p>
+  </div>
+</div>

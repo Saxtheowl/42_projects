@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1>My Surveys</h1>
+  </div>
+  <div class="col-md-4 text-right">
+    <%= link_to 'New Survey', new_survey_path, class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="card">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Questions</th>
+        <th>Responses</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @surveys.each do |survey| %>
+        <tr>
+          <td><%= link_to survey.title, survey %></td>
+          <td>
+            <% if survey.published? %>
+              <span class="label label-success">Published</span>
+            <% else %>
+              <span class="label label-warning">Draft</span>
+            <% end %>
+          </td>
+          <td><%= survey.survey_questions.count %></td>
+          <td><%= survey.survey_responses.count %></td>
+          <td class="table-actions">
+            <%= link_to 'View', survey, class: 'btn btn-xs btn-primary' %>
+            <%= link_to 'Edit', edit_survey_path(survey), class: 'btn btn-xs btn-default' %>
+            <% if survey.published? %>
+              <%= link_to 'Public Link', public_show_survey_path(survey), class: 'btn btn-xs btn-info', target: '_blank' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @surveys.empty? %>
+    <p class="text-muted text-center">No surveys found.</p>
+  <% end %>
+</div>

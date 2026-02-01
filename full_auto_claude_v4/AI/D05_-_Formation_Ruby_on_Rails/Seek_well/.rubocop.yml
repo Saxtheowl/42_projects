@@ -1,0 +1,36 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Style/GlobalVars:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/AccessorMethodName:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/LineLength:
+  Max: 120

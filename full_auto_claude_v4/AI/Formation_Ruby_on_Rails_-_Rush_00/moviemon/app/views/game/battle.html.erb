@@ -1,0 +1,28 @@
+<% @a_link = fight_path %>
+<% @b_link = flee_path %>
+
+<% moviemon = $game.current_moviemon %>
+
+<div class="battle-screen">
+  <div class="battle-info">
+    <div class="moviemon-info">
+      <h2><%= moviemon[:title] %></h2>
+      <p class="director"><%= moviemon[:director] %></p>
+      <p class="energy">Energy: <%= moviemon[:energy] %>/<%= moviemon[:max_energy] %></p>
+    </div>
+
+    <div class="poster-area">
+      <img src="<%= moviemon[:poster] %>" alt="<%= moviemon[:title] %>" class="battle-poster" onerror="this.style.display='none'"/>
+    </div>
+  </div>
+
+  <div class="player-stats">
+    <p>YOU: <%= $game.player_energy %></p>
+    <p>Your Hit: <%= $game.player_hit_point %></p>
+  </div>
+
+  <div class="battle-actions">
+    <span>[A] Fight</span>
+    <span>[B] Run...</span>
+  </div>
+</div>

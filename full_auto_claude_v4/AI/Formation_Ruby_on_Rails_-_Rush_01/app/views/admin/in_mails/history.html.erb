@@ -1,0 +1,44 @@
+<h1>Mail Activity History</h1>
+
+<div class="card">
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-md-12">
+      <%= form_tag history_admin_in_mails_path, method: :get, class: 'form-inline' do %>
+        <div class="form-group">
+          <%= select_tag :user_id, options_from_collection_for_select(User.order(:last_name), :id, :full_name, params[:user_id]), include_blank: 'All Users', class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= select_tag :group, options_for_select(User::OPERATOR_GROUPS, params[:group]), include_blank: 'All Groups', class: 'form-control' %>
+        </div>
+        <%= submit_tag 'Filter', class: 'btn btn-default' %>
+      <% end %>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date/Time</th>
+        <th>Action</th>
+        <th>User</th>
+        <th>Details</th>
+        <th>Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @activity_logs.each do |log| %>
+        <tr>
+          <td><%= log.formatted_date %></td>
+          <td><%= log.action.humanize %></td>
+          <td><%= log.user&.full_name %></td>
+          <td><%= log.details %></td>
+          <td>
+            <% if log.trackable.present? %>
+              <%= link_to 'View', admin_in_mail_path(log.trackable), class: 'btn btn-xs btn-primary' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

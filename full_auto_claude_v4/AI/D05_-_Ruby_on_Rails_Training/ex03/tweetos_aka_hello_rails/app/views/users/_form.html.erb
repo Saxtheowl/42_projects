@@ -1,0 +1,41 @@
+<%= form_with model: user do |form| %>
+  <% if user.errors.any? %>
+    <div style="color: red;">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :since %>
+    <%= form.number_field :since %>
+  </div>
+
+  <div>
+    <%= form.label :admin %>
+    <%= form.check_box :admin %>
+  </div>
+
+  <div>
+    <%= form.label :country %>
+    <%= form.text_field :country %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

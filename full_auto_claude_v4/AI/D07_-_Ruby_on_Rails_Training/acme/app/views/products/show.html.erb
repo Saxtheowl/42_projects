@@ -1,0 +1,29 @@
+<div class="product-detail">
+  <div class="product-image-large">
+    <% if @product.pict.present? %>
+      <%= image_tag @product.pict.url, alt: @product.name %>
+    <% else %>
+      <div class="placeholder-large">No Image</div>
+    <% end %>
+  </div>
+
+  <div class="product-info-detail">
+    <h1><%= @product.name %></h1>
+    <p class="brand">
+      Brand: <%= link_to @product.brand.name, @product.brand %>
+    </p>
+    <p class="price"><%= number_to_currency(@product.price) %></p>
+    <div class="description">
+      <h3>Description</h3>
+      <p><%= @product.description %></p>
+    </div>
+
+    <div class="actions">
+      <% if user_signed_in? %>
+        <%= link_to 'Edit', edit_product_path(@product), class: 'btn' %>
+        <%= link_to 'Delete', @product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <% end %>
+      <%= link_to 'Back to Catalog', products_path, class: 'btn' %>
+    </div>
+  </div>
+</div>

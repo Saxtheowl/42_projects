@@ -1,0 +1,55 @@
+<h1>Shopping Cart</h1>
+
+<% if @cart.empty? %>
+  <p>Your cart is empty.</p>
+  <%= link_to 'Continue Shopping', products_path, class: 'btn' %>
+<% else %>
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart.cart_items.includes(:product).each do |item| %>
+        <tr>
+          <td>
+            <div class="cart-item-product">
+              <% if item.product.pict.present? %>
+                <%= image_tag item.product.pict.thumb.url, class: 'cart-item-image' %>
+              <% end %>
+              <%= link_to item.product.name, item.product %>
+            </div>
+          </td>
+          <td><%= number_to_currency(item.unit_price) %></td>
+          <td class="quantity-controls">
+            <%= button_to '-', decrement_cart_path(item), method: :post, class: 'btn-qty' %>
+            <span class="quantity"><%= item.quantity %></span>
+            <%= button_to '+', increment_cart_path(item), method: :post, class: 'btn-qty' %>
+          </td>
+          <td><%= number_to_currency(item.total_price) %></td>
+          <td>
+            <%= button_to 'Remove', remove_from_cart_path(item), method: :delete, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3"><strong>Total</strong></td>
+        <td><strong><%= number_to_currency(@cart.total_price) %></strong></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="cart-actions">
+    <%= button_to 'Empty Cart', clear_cart_path, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to empty your cart?' } %>
+    <%= link_to 'Continue Shopping', products_path, class: 'btn' %>
+    <%= button_to 'Checkout', checkout_cart_path, method: :post, class: 'btn btn-primary' %>
+  </div>
+<% end %>

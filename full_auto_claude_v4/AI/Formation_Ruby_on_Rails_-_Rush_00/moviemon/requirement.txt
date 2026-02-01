@@ -1,0 +1,30 @@
+# Ruby on Rails MovieMon - Dependencies
+
+# Ruby version
+ruby >= 2.3.0
+
+# Rails framework
+rails ~> 5.2.0
+
+# Web server
+puma ~> 3.11
+
+# Asset pipeline
+sass-rails ~> 5.0
+uglifier >= 1.3.0
+coffee-rails ~> 4.2
+
+# JSON handling (built-in)
+json
+
+# File utilities (built-in)
+fileutils
+
+# Pathname utilities (built-in)
+pathname
+
+# Net/HTTP for API calls (built-in)
+net/http
+
+# To install:
+# bundle install

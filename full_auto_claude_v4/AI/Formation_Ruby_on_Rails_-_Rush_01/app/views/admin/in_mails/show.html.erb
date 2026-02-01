@@ -1,0 +1,27 @@
+<h1>Message Details</h1>
+
+<div class="card">
+  <div class="row">
+    <div class="col-md-6">
+      <p><strong>From:</strong> <%= @in_mail.sender.full_name %></p>
+      <p><strong>To:</strong> <%= @in_mail.recipient&.full_name %></p>
+    </div>
+    <div class="col-md-6 text-right">
+      <p><strong>Date:</strong> <%= @in_mail.created_at.strftime('%Y-%m-%d %H:%M') %></p>
+      <p><strong>Status:</strong> <%= @in_mail.read? ? 'Read' : 'Unread' %></p>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3><%= @in_mail.subject %></h3>
+
+  <div class="well">
+    <%= simple_format(@in_mail.body) %>
+  </div>
+
+  <div class="text-right">
+    <%= link_to 'Delete', admin_in_mail_path(@in_mail), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <%= link_to 'Back', admin_in_mails_path, class: 'btn btn-default' %>
+  </div>
+</div>

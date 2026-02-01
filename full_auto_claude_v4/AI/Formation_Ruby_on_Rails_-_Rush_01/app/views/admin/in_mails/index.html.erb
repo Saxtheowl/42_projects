@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1>Mail System</h1>
+  </div>
+  <div class="col-md-4 text-right">
+    <%= link_to 'New Message', new_admin_in_mail_path, class: 'btn btn-primary' %>
+    <%= link_to 'History', history_admin_in_mails_path, class: 'btn btn-default' %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-md-12">
+      <%= form_tag admin_in_mails_path, method: :get, class: 'form-inline' do %>
+        <div class="form-group">
+          <%= select_tag :user_id, options_from_collection_for_select(User.order(:last_name), :id, :full_name, params[:user_id]), include_blank: 'All Users', class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= select_tag :group, options_for_select(User::OPERATOR_GROUPS, params[:group]), include_blank: 'All Groups', class: 'form-control' %>
+        </div>
+        <%= submit_tag 'Filter', class: 'btn btn-default' %>
+      <% end %>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Subject</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @in_mails.each do |mail| %>
+        <tr>
+          <td><%= mail.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+          <td><%= mail.sender.full_name %></td>
+          <td><%= mail.recipient&.full_name || 'Group/All' %></td>
+          <td><%= mail.subject %></td>
+          <td>
+            <% if mail.read? %>
+              <span class="label label-default">Read</span>
+            <% else %>
+              <span class="label label-success">Unread</span>
+            <% end %>
+          </td>
+          <td class="table-actions">
+            <%= link_to 'View', admin_in_mail_path(mail), class: 'btn btn-xs btn-primary' %>
+            <%= link_to 'Delete', admin_in_mail_path(mail), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

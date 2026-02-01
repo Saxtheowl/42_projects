@@ -1,0 +1,52 @@
+<h1>Admin Dashboard</h1>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="stat-box">
+      <h2><%= @users_count %></h2>
+      <p>Users</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-box">
+      <h2><%= @clients_count %></h2>
+      <p>Clients</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-box">
+      <h2><%= @projects_count %></h2>
+      <p>Projects</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-box">
+      <h2><%= Survey.count %></h2>
+      <p>Surveys</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Recent Activity</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Action</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recent_activity.each do |log| %>
+        <tr>
+          <td><%= log.formatted_date %></td>
+          <td><%= log.user&.full_name %></td>
+          <td><%= log.action.humanize %></td>
+          <td><%= log.details %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,25 @@
+<h1>Brands</h1>
+
+<div class="actions-bar">
+  <% if user_signed_in? %>
+    <%= link_to 'New Brand', new_brand_path, class: 'btn' %>
+  <% end %>
+</div>
+
+<div class="brands-grid">
+  <% @brands.each do |brand| %>
+    <div class="brand-card">
+      <% if brand.avatar.present? %>
+        <%= image_tag brand.avatar.thumb.url, alt: brand.name, class: 'brand-image' %>
+      <% else %>
+        <div class="brand-image placeholder">No Image</div>
+      <% end %>
+      <div class="brand-info">
+        <h3><%= link_to brand.name, brand %></h3>
+        <p><%= brand.products.count %> products</p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @brands %>

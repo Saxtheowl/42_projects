@@ -1,0 +1,41 @@
+<h1>Activity Logs</h1>
+
+<div class="card">
+  <%= form_tag backoffice_activity_logs_path, method: :get, class: 'form-inline' do %>
+    <div class="form-group">
+      <%= select_tag :user_id, options_from_collection_for_select(@users, :id, :full_name, params[:user_id]), include_blank: 'All Users', class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= select_tag :company_id, options_from_collection_for_select(@companies, :id, :name, params[:company_id]), include_blank: 'All Companies', class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= select_tag :client_id, options_from_collection_for_select(@clients, :id, :full_name, params[:client_id]), include_blank: 'All Clients', class: 'form-control' %>
+    </div>
+    <%= submit_tag 'Filter', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
+<div class="card">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date/Time</th>
+        <th>User</th>
+        <th>Action</th>
+        <th>Related To</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @activity_logs.each do |log| %>
+        <tr>
+          <td><%= log.formatted_date %></td>
+          <td><%= log.user&.full_name %></td>
+          <td><%= log.action.humanize %></td>
+          <td><%= "#{log.trackable_type} ##{log.trackable_id}" if log.trackable_type %></td>
+          <td><%= log.details %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

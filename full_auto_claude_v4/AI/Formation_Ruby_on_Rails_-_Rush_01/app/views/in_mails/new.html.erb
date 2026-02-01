@@ -1,0 +1,43 @@
+<h1>Compose Message</h1>
+
+<div class="card">
+  <%= form_for @in_mail, html: { class: 'form-horizontal' } do |f| %>
+    <% if @in_mail.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @in_mail.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :recipient_id, 'To', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.collection_select :recipient_id, @users, :id, :full_name, { prompt: 'Select recipient' }, { class: 'form-control' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :subject, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :subject, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :body, 'Message', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_area :body, class: 'form-control', rows: 10 %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit 'Send Message', class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', inbox_in_mails_path, class: 'btn btn-default' %>
+      </div>
+    </div>
+  <% end %>
+</div>

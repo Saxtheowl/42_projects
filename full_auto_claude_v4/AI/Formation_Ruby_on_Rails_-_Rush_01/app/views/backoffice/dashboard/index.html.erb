@@ -1,0 +1,59 @@
+<h1>Manager Dashboard</h1>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="stat-box">
+      <h2><%= @users_count %></h2>
+      <p>Users</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-box">
+      <h2><%= @clients_count %></h2>
+      <p>Clients</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-box">
+      <h2><%= @projects_count %></h2>
+      <p>Projects</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-box">
+      <h2><%= @surveys_count %></h2>
+      <p>Surveys</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <h3>Quick Actions</h3>
+      <ul class="list-group">
+        <li class="list-group-item"><%= link_to 'Manage User Groups', backoffice_users_path %></li>
+        <li class="list-group-item"><%= link_to 'View Activity Logs', backoffice_activity_logs_path %></li>
+        <li class="list-group-item"><%= link_to 'Global Statistics', backoffice_statistics_global_path %></li>
+        <li class="list-group-item"><%= link_to 'Export Clients', export_backoffice_clients_path %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <h3>User Distribution by Group</h3>
+      <table class="table">
+        <% User::OPERATOR_GROUPS.each do |group| %>
+          <tr>
+            <td><%= group %></td>
+            <td><%= User.where(operator_group: group).count %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td><em>No Group</em></td>
+          <td><%= User.where(operator_group: nil).count %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

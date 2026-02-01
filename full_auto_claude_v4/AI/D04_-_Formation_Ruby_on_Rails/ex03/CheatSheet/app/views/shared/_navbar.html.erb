@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container-fluid">
+    <%= link_to "CheatSheet", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to "Convention", convention_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Console", console_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Ruby</a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Ruby", ruby_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Concepts", ruby_concepts_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Numbers", ruby_numbers_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Strings", ruby_strings_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Arrays", ruby_arrays_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Hashes", ruby_hashes_path, class: "dropdown-item" %></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Rails</a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Folder Structure", rails_folder_structure_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Commands", rails_commands_path, class: "dropdown-item" %></li>
+            <li><%= link_to "ERB", rails_erb_path, class: "dropdown-item" %></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Editor", editor_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Help", help_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Quick Search", quick_search_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Log Book", log_book_path, class: "nav-link" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

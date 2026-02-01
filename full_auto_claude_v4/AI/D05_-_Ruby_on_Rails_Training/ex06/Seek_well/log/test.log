@@ -1,0 +1,222 @@
+  [1m[35m (8.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------
+FtQueryControllerTest: test_insert_time_stamp
+---------------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:07 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 42ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:07 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 34ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:07 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"Alice", "name_2"=>"Bob", "name_3"=>"", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 60ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/insert_time_stamp" for 127.0.0.1 at 2026-02-01 14:56:07 +0000
+Processing by FtQueryController#insert_time_stamp as HTML
+  Parameters: {"name"=>"Alice"}
+Redirected to http://www.example.com/
+Completed 302 Found in 14ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------
+FtQueryControllerTest: test_delete_all
+--------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:07 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:07 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 25ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:07 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"Alice", "name_2"=>"Bob", "name_3"=>"", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 64ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/delete_all" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#delete_all as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 13ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------
+FtQueryControllerTest: test_db_file_creation
+--------------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------
+FtQueryControllerTest: test_delete_last
+---------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 26ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.4ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"Alice", "name_2"=>"Bob", "name_3"=>"", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 68ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/delete_last" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#delete_last as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 13ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------
+FtQueryControllerTest: test_all_by_race
+---------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 28ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"Alice", "name_2"=>"Bob", "name_3"=>"", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 67ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"Charlie", "name_2"=>"Diana", "name_3"=>"", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 58ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/all_by_race" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#all_by_race as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------
+FtQueryControllerTest: test_update_name_anonymous_protected
+-----------------------------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 21ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"", "name_2"=>"", "name_3"=>"", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 57ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/update_name" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#update_name as HTML
+  Parameters: {"old_name"=>"anonymous", "new_name"=>"NotAnonymous"}
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------
+FtQueryControllerTest: test_start_race
+--------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 25ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"Alice", "name_2"=>"Bob", "name_3"=>"", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 51ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------
+FtQueryControllerTest: test_db_table_creation
+---------------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 25ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------
+FtQueryControllerTest: test_all_by_name
+---------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 24ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"Zoe", "name_2"=>"Alice", "name_3"=>"Bob", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 58ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/all_by_name" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#all_by_name as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------
+FtQueryControllerTest: test_db_drop_table
+-----------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 25ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/drop_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#drop_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 25ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------
+FtQueryControllerTest: test_update_name
+---------------------------------------
+Started GET "/create_db" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_db as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started GET "/create_table" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#create_table as HTML
+Redirected to http://www.example.com/
+Completed 302 Found in 23ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/start_race" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#start_race as HTML
+  Parameters: {"name_1"=>"Alice", "name_2"=>"Bob", "name_3"=>"", "name_4"=>""}
+Redirected to http://www.example.com/
+Completed 302 Found in 48ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+Started POST "/update_name" for 127.0.0.1 at 2026-02-01 14:56:08 +0000
+Processing by FtQueryController#update_name as HTML
+  Parameters: {"old_name"=>"Alice", "new_name"=>"Alicia"}
+Redirected to http://www.example.com/
+Completed 302 Found in 14ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m

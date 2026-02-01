@@ -1,0 +1,11 @@
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.1/ext/io/wait
+/usr/local/bin/ruby -I /usr/local/lib/ruby/site_ruby/2.5.0 -r ./siteconf20260201-1-8oclqm.rb extconf.rb
+
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.1/ext/io/wait
+make "DESTDIR=" clean
+
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.1/ext/io/wait
+make "DESTDIR="
+
+current directory: /app/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.1/ext/io/wait
+make "DESTDIR=" install

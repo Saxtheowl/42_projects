@@ -1,0 +1,6 @@
+<h1>Like</h1>
+
+<p><strong>User:</strong> <%= link_to @like.user.name, @like.user %></p>
+<p><strong>Cuicui:</strong> <%= link_to @like.cuicui.content, @like.cuicui %></p>
+
+<%= link_to 'Back', likes_path %>

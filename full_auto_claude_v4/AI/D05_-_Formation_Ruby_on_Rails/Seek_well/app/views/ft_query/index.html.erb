@@ -1,0 +1,98 @@
+<h1>Race Timer Application</h1>
+
+<div style="display: flex; gap: 20px;">
+  <div style="flex: 1;">
+    <h2>Database Controls</h2>
+    <%= link_to 'create_db', create_db_path, class: 'button' %>
+    <%= link_to 'create_table', create_table_path, class: 'button' %>
+    <%= link_to 'drop_table', drop_table_path, class: 'button' %>
+    <%= link_to 'delete_last', delete_last_path, class: 'button' %>
+    <%= link_to 'delete_all', delete_all_path, class: 'button' %>
+    <%= link_to 'all_by_name', all_by_name_path, class: 'button' %>
+    <%= link_to 'all_by_race', all_by_race_path, class: 'button' %>
+
+    <h2>Start Race</h2>
+    <%= form_tag start_race_path, method: :post do %>
+      <p>
+        <%= text_field_tag :name_1, $runner_1, placeholder: 'Runner 1' %>
+        <%= submit_tag 'Time 1', formaction: insert_time_stamp_path(name: $runner_1) %>
+      </p>
+      <p>
+        <%= text_field_tag :name_2, $runner_2, placeholder: 'Runner 2' %>
+        <%= submit_tag 'Time 2', formaction: insert_time_stamp_path(name: $runner_2) %>
+      </p>
+      <p>
+        <%= text_field_tag :name_3, $runner_3, placeholder: 'Runner 3' %>
+        <%= submit_tag 'Time 3', formaction: insert_time_stamp_path(name: $runner_3) %>
+      </p>
+      <p>
+        <%= text_field_tag :name_4, $runner_4, placeholder: 'Runner 4' %>
+        <%= submit_tag 'Time 4', formaction: insert_time_stamp_path(name: $runner_4) %>
+      </p>
+      <%= submit_tag 'Subscribe / Start race' %>
+    <% end %>
+
+    <h2>Update Name</h2>
+    <%= form_tag update_name_path, method: :post do %>
+      <%= text_field_tag :old_name, nil, placeholder: 'Old name' %>
+      <%= text_field_tag :new_name, nil, placeholder: 'New name' %>
+      <%= submit_tag 'Update' %>
+    <% end %>
+  </div>
+
+  <div style="flex: 2;">
+    <h2>Time Stamps</h2>
+    <% if @time_stamps.is_a?(Array) && @time_stamps.first.is_a?(String) %>
+      <p><%= @time_stamps.first %></p>
+    <% else %>
+      <table border="1">
+        <tr>
+          <th>ts_id</th>
+          <th>day</th>
+          <th>month</th>
+          <th>year</th>
+          <th>hour</th>
+          <th>min</th>
+          <th>sec</th>
+          <th>race</th>
+          <th>name</th>
+          <th>lap</th>
+        </tr>
+        <% @time_stamps.each do |ts| %>
+          <tr>
+            <% ts.each do |val| %>
+              <td><%= val %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+
+    <h2>All Records</h2>
+    <% if @all.is_a?(Array) && @all.first.is_a?(String) %>
+      <p><%= @all.first %></p>
+    <% elsif @all.is_a?(Array) && @all.any? %>
+      <table border="1">
+        <tr>
+          <th>ts_id</th>
+          <th>day</th>
+          <th>month</th>
+          <th>year</th>
+          <th>hour</th>
+          <th>min</th>
+          <th>sec</th>
+          <th>race</th>
+          <th>name</th>
+          <th>lap</th>
+        </tr>
+        <% @all.each do |record| %>
+          <tr>
+            <% record.each do |val| %>
+              <td><%= val %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+</div>

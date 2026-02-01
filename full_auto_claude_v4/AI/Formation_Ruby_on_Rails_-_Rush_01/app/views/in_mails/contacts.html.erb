@@ -1,0 +1,31 @@
+<h1>Contact List</h1>
+
+<div class="card">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Group</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.full_name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% if user.operator_group.present? %>
+              <span class="label label-info"><%= user.operator_group %></span>
+            <% end %>
+            <span class="label label-default"><%= user.role.capitalize %></span>
+          </td>
+          <td>
+            <%= link_to 'Send Message', new_in_mail_path(recipient_id: user.id), class: 'btn btn-xs btn-primary' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

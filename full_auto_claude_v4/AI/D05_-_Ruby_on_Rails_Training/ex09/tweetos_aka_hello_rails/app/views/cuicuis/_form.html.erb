@@ -1,0 +1,26 @@
+<%= form_with model: cuicui do |form| %>
+  <% if cuicui.errors.any? %>
+    <div style="color: red;">
+      <h2><%= pluralize(cuicui.errors.count, "error") %> prohibited this cuicui from being saved:</h2>
+      <ul>
+        <% cuicui.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div>
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

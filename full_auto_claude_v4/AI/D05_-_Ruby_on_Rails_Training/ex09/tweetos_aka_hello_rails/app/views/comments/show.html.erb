@@ -1,0 +1,8 @@
+<h1>Comment</h1>
+
+<p><strong>Content:</strong> <%= @comment.content %></p>
+<p><strong>Cuicui:</strong> <%= link_to @comment.cuicui.content, @comment.cuicui %></p>
+<p><strong>User:</strong> <%= link_to @comment.user.name, @comment.user %></p>
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', comments_path %>

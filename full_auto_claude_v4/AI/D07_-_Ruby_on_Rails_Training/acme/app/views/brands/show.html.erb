@@ -1,0 +1,36 @@
+<div class="brand-detail">
+  <div class="brand-header">
+    <% if @brand.avatar.present? %>
+      <%= image_tag @brand.avatar.url, alt: @brand.name, class: 'brand-avatar' %>
+    <% end %>
+    <h1><%= @brand.name %></h1>
+  </div>
+
+  <div class="actions">
+    <% if user_signed_in? %>
+      <%= link_to 'Edit', edit_brand_path(@brand), class: 'btn' %>
+      <%= link_to 'Delete', @brand, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <% end %>
+    <%= link_to 'Back to Brands', brands_path, class: 'btn' %>
+  </div>
+
+  <h2>Products by <%= @brand.name %></h2>
+
+  <div class="products-grid">
+    <% @products.each do |product| %>
+      <div class="product-card">
+        <% if product.pict.present? %>
+          <%= image_tag product.pict.thumb.url, alt: product.name, class: 'product-image' %>
+        <% else %>
+          <div class="product-image placeholder">No Image</div>
+        <% end %>
+        <div class="product-info">
+          <h3><%= link_to product.name, product %></h3>
+          <p class="price"><%= number_to_currency(product.price) %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= paginate @products %>
+</div>

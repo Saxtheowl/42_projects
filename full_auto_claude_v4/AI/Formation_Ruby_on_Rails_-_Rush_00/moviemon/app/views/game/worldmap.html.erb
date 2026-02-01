@@ -1,0 +1,33 @@
+<% @up_link = move_path(direction: 'up') %>
+<% @down_link = move_path(direction: 'down') %>
+<% @left_link = move_path(direction: 'left') %>
+<% @right_link = move_path(direction: 'right') %>
+<% @start_link = moviedex_path %>
+<% @select_link = save_slots_path(mode: 'save', from: 'worldmap') %>
+
+<div class="worldmap-screen">
+  <div class="stats-bar">
+    <span>Energy: <%= $game.player_energy %></span>
+    <span>Captured: <%= $game.captured.length %>/<%= $game.moviemons.length %></span>
+  </div>
+
+  <div class="map-grid">
+    <% Game::GRID_SIZE.times do |y| %>
+      <div class="map-row">
+        <% Game::GRID_SIZE.times do |x| %>
+          <div class="map-cell">
+            <% if x == $game.player_x && y == $game.player_y %>
+              <span class="player">@</span>
+            <% else %>
+              <span class="grass">.</span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="map-legend">
+    <p>[Arrows] Move | [Start] Moviedex | [Select] Save</p>
+  </div>
+</div>

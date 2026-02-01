@@ -1,0 +1,15 @@
+current directory: /app/vendor/bundle/gems/debug_inspector-1.2.0/ext/debug_inspector
+/usr/local/bin/ruby -I /usr/local/lib/ruby/site_ruby/2.3.0 -r ./siteconf20260201-1-s7631g.rb extconf.rb
+creating Makefile
+
+current directory: /app/vendor/bundle/gems/debug_inspector-1.2.0/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /app/vendor/bundle/gems/debug_inspector-1.2.0/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.so
+
+current directory: /app/vendor/bundle/gems/debug_inspector-1.2.0/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.so ./.gem.20260201-1-13scj4v

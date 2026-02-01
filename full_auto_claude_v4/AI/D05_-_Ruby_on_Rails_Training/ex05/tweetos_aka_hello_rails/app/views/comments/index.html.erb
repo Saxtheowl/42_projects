@@ -1,0 +1,28 @@
+<h1>Comments</h1>
+
+<%= link_to 'New Comment', new_comment_path %>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th>Cuicui</th>
+      <th>User</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.content %></td>
+        <td><%= link_to comment.cuicui.content.truncate(30), comment.cuicui %></td>
+        <td><%= comment.user.name %></td>
+        <td>
+          <%= link_to 'Show', comment %>
+          <%= link_to 'Edit', edit_comment_path(comment) %>
+          <%= link_to 'Delete', comment, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

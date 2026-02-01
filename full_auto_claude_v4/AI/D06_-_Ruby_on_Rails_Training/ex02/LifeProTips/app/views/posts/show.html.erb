@@ -1,0 +1,28 @@
+<h1><%= @post.title %></h1>
+
+<p><strong>Original author:</strong> <%= @post.author_name %></p>
+<p><strong>Content:</strong> <%= @post.content %></p>
+
+<% if @post.edited_by_id.present? %>
+  <p><strong>Edited by:</strong> <%= @post.editor_name %></p>
+  <p><strong>Date of modification:</strong> <%= @post.edited_at %></p>
+<% end %>
+
+<p><strong>Total votes:</strong> <%= @post.total_votes %></p>
+
+<% if logged_in? %>
+  <div class="voting">
+    <% if current_user.can_upvote? || current_user.admin? %>
+      <%= link_to 'Upvote', upvote_post_path(@post), method: :post %>
+    <% end %>
+    <% if current_user.can_downvote? || current_user.admin? %>
+      <%= link_to 'Downvote', downvote_post_path(@post), method: :post %>
+    <% end %>
+  </div>
+
+  <% if current_user == @post.user || current_user.can_edit_posts? || current_user.admin? %>
+    <p><%= link_to 'Edit', edit_post_path(@post) %></p>
+  <% end %>
+<% end %>
+
+<p><%= link_to 'Back', posts_path %></p>

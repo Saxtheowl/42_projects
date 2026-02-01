@@ -1,0 +1,29 @@
+source "https://rubygems.org"
+
+ruby "3.2.10"
+
+gem "rails", "~> 7.1.5"
+gem "sprockets-rails"
+gem "sqlite3", ">= 1.4"
+gem "puma", ">= 5.0"
+gem "importmap-rails"
+gem "turbo-rails"
+gem "stimulus-rails"
+gem "jbuilder"
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "bootsnap", require: false
+
+# Required gems for exercises
+gem "bootstrap", "~> 5.3"
+gem "sassc-rails"
+gem "rubycritic", require: false
+gem "jquery-datatables-rails"
+gem "jquery-rails"
+
+group :development, :test do
+  gem "debug", platforms: %i[ mri windows ]
+end
+
+group :development do
+  gem "web-console"
+end

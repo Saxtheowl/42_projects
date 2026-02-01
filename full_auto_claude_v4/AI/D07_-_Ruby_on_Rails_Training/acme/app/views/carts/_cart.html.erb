@@ -1,0 +1,20 @@
+<div class="cart-widget">
+  <h3>Cart (<%= @cart.total_items %> items)</h3>
+  <% if @cart.empty? %>
+    <p>Your cart is empty</p>
+  <% else %>
+    <ul class="cart-items-mini">
+      <% @cart.cart_items.includes(:product).limit(5).each do |item| %>
+        <li>
+          <%= item.product.name %> x <%= item.quantity %>
+          <span><%= number_to_currency(item.total_price) %></span>
+        </li>
+      <% end %>
+      <% if @cart.cart_items.count > 5 %>
+        <li>... and <%= @cart.cart_items.count - 5 %> more</li>
+      <% end %>
+    </ul>
+    <p class="cart-total">Total: <strong><%= number_to_currency(@cart.total_price) %></strong></p>
+    <%= link_to 'View Cart', cart_path, class: 'btn btn-sm' %>
+  <% end %>
+</div>

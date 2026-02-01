@@ -1,0 +1,14 @@
+vote_one:
+  user: alice
+  post: post_one
+  value: 1
+
+vote_two:
+  user: charlie
+  post: post_one
+  value: 1
+
+vote_three:
+  user: admin
+  post: post_one
+  value: 1

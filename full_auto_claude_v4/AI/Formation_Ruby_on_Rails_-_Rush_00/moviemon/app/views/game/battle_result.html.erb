@@ -1,0 +1,20 @@
+<% @a_link = worldmap_path %>
+
+<div class="result-screen">
+  <% case @result %>
+  <% when 'captured' %>
+    <div class="result-icon success">:)</div>
+    <h2>You caught it!</h2>
+    <p>The MovieMon has been added to your Moviedex!</p>
+  <% when 'lost' %>
+    <div class="result-icon failure">:(</div>
+    <h2>MovieMon escaped!</h2>
+    <p>It got away...</p>
+  <% when 'fled' %>
+    <div class="result-icon coward">:/</div>
+    <h2>You coward!!</h2>
+    <p>You ran away from the battle.</p>
+  <% end %>
+
+  <p class="continue-hint">Press [A] to continue</p>
+</div>

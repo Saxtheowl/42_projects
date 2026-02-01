@@ -1,0 +1,35 @@
+<% @left_link = moviedex_navigate_path(direction: 'left') %>
+<% @right_link = moviedex_navigate_path(direction: 'right') %>
+<% @start_link = worldmap_path %>
+
+<div class="moviedex-screen">
+  <% if @movie %>
+    <div class="moviedex-content">
+      <div class="movie-poster">
+        <img src="<%= @movie[:poster] %>" alt="<%= @movie[:title] %>" onerror="this.style.display='none'"/>
+      </div>
+
+      <div class="movie-details">
+        <h2><%= @movie[:title] %></h2>
+        <p><strong>Director:</strong> <%= @movie[:director] %></p>
+        <p><strong>Year:</strong> <%= @movie[:year] %></p>
+        <p><strong>Genre:</strong> <%= @movie[:genre] %></p>
+        <p><strong>Rating:</strong> <%= @movie[:rating] %>/10</p>
+        <p class="plot"><%= @movie[:plot] %></p>
+      </div>
+    </div>
+
+    <div class="moviedex-nav">
+      <span><%= $selected + 1 %>/<%= $game.captured.length %></span>
+    </div>
+  <% else %>
+    <div class="empty-moviedex">
+      <p>No MovieMons captured yet!</p>
+      <p>Go explore the world and catch some!</p>
+    </div>
+  <% end %>
+
+  <div class="moviedex-legend">
+    <p>[Left/Right] Navigate | [Start] Back to Map</p>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+<h1>Seek Well - SQL Race Timer</h1>
+
+<% if flash[:error] %>
+  <div style="color: red;"><%= flash[:error] %></div>
+<% end %>
+
+<h2>Database Controls</h2>
+<%= link_to 'Create DB', create_db_path, class: 'button' %>
+<%= link_to 'Create Table', create_table_path, class: 'button' %>
+<%= link_to 'Drop Table', drop_table_path, class: 'button' %>
+
+<h2>Subscribe / Start Race</h2>
+<%= form_with url: start_race_path, method: :post, local: true do %>
+  <div>
+    <label>Runner 1:</label>
+    <%= text_field_tag :name_1, @runner_1 %>
+  </div>
+  <div>
+    <label>Runner 2:</label>
+    <%= text_field_tag :name_2, @runner_2 %>
+  </div>
+  <div>
+    <label>Runner 3:</label>
+    <%= text_field_tag :name_3, @runner_3 %>
+  </div>
+  <div>
+    <label>Runner 4:</label>
+    <%= text_field_tag :name_4, @runner_4 %>
+  </div>
+  <%= submit_tag 'Subscribe / Start Race' %>
+<% end %>
+
+<h2>Time Buttons</h2>
+<% [@runner_1, @runner_2, @runner_3, @runner_4].compact.each do |runner| %>
+  <%= form_with url: insert_time_stamp_path, method: :post, local: true do %>
+    <%= hidden_field_tag :name, runner %>
+    <%= submit_tag "Time: #{runner}" %>
+  <% end %>
+<% end %>
+
+<h2>Delete Controls</h2>
+<%= link_to 'Delete All', delete_all_path, class: 'button' %>
+<%= link_to 'Delete Last', delete_last_path, class: 'button' %>
+
+<h2>Sort Controls</h2>
+<%= link_to 'All by Name', all_by_name_path, class: 'button' %>
+<%= link_to 'All by Race', all_by_race_path, class: 'button' %>
+
+<h2>Update Name</h2>
+<%= form_with url: update_name_path, method: :post, local: true do %>
+  <div>
+    <label>Old Name:</label>
+    <%= text_field_tag :old_name %>
+  </div>
+  <div>
+    <label>New Name:</label>
+    <%= text_field_tag :new_name %>
+  </div>
+  <%= submit_tag 'Update Name' %>
+<% end %>
+
+<h2>Clock Watch Table</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ts_id</th>
+      <th>day</th>
+      <th>month</th>
+      <th>year</th>
+      <th>hour</th>
+      <th>min</th>
+      <th>sec</th>
+      <th>race</th>
+      <th>name</th>
+      <th>lap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @time_stamps.is_a?(Array) && @time_stamps.first.is_a?(Array) %>
+      <% @time_stamps.each do |row| %>
+        <tr>
+          <% row.each do |cell| %>
+            <td><%= cell %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="10"><%= @time_stamps.first %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Sorted Results ($all)</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ts_id</th>
+      <th>day</th>
+      <th>month</th>
+      <th>year</th>
+      <th>hour</th>
+      <th>min</th>
+      <th>sec</th>
+      <th>race</th>
+      <th>name</th>
+      <th>lap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @all.is_a?(Array) && @all.first.is_a?(Array) %>
+      <% @all.each do |row| %>
+        <tr>
+          <% row.each do |cell| %>
+            <td><%= cell %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="10"><%= @all.first %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,15 @@
+<h1>Chatrooms</h1>
+
+<ul>
+  <% @chatrooms.each do |chatroom| %>
+    <li>
+      <%= link_to chatroom.name, chatroom %>
+      (created by <%= chatroom.user.email %>)
+      <% if chatroom.user == current_user %>
+        <%= link_to 'Delete', chatroom, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'New Chatroom', new_chatroom_path %>

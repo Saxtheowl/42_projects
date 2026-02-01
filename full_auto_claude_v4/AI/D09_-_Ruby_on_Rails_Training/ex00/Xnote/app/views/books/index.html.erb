@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h2 id="book_count"><%= @books.count %> Books</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody id="books_list">
+    <%= render @books %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Book', new_book_path, remote: true %>
+
+<div id="form_container"></div>

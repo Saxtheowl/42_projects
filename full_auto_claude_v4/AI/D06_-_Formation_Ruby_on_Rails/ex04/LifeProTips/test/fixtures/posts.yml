@@ -1,0 +1,14 @@
+post_one:
+  user: bob
+  title: First Life Pro Tip
+  content: This is a great tip for everyone.
+
+post_two:
+  user: alice
+  title: Second Life Pro Tip
+  content: Another amazing tip to share.
+
+post_three:
+  user: charlie
+  title: Third Life Pro Tip
+  content: Yet another wonderful tip.

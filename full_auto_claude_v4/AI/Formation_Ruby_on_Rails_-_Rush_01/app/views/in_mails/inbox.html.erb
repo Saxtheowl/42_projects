@@ -1,0 +1,39 @@
+<h1>Inbox</h1>
+
+<div class="card">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>From</th>
+        <th>Subject</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @in_mails.each do |mail| %>
+        <tr>
+          <td>
+            <% if mail.read? %>
+              <span class="label label-default">Read</span>
+            <% else %>
+              <span class="label label-success">New</span>
+            <% end %>
+          </td>
+          <td><%= mail.sender.full_name %></td>
+          <td><%= link_to mail.subject, in_mail_path(mail) %></td>
+          <td><%= mail.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+          <td class="table-actions">
+            <%= link_to 'View', in_mail_path(mail), class: 'btn btn-xs btn-primary' %>
+            <%= link_to 'PDF', pdf_in_mail_path(mail), class: 'btn btn-xs btn-default' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @in_mails.empty? %>
+    <p class="text-muted text-center">No messages in your inbox.</p>
+  <% end %>
+</div>

@@ -1,0 +1,45 @@
+<h1>Likes</h1>
+
+<%= link_to 'New Like', new_like_path %>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Cuicui</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @likes.each do |like| %>
+      <tr>
+        <td><%= like.user.name %></td>
+        <td><%= link_to like.cuicui.content.truncate(30), like.cuicui %></td>
+        <td>
+          <%= link_to 'Show', like %>
+          <%= link_to 'Delete', like, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Top Cuicuis by Likes (Exercise 09 Scope)</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th>User</th>
+      <th>Likes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @top_cuicuis.each do |cuicui| %>
+      <tr>
+        <td><%= cuicui.content %></td>
+        <td><%= cuicui.user.name %></td>
+        <td><%= cuicui.likes.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

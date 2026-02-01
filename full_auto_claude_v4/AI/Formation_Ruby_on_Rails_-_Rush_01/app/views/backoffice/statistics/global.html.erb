@@ -1,0 +1,47 @@
+<h1>Global Statistics</h1>
+
+<div class="card">
+  <%= form_tag backoffice_statistics_global_path, method: :get, class: 'form-inline' do %>
+    <div class="form-group">
+      <label>From:</label>
+      <%= text_field_tag :start_date, @start_date, class: 'form-control datepicker' %>
+    </div>
+    <div class="form-group">
+      <label>To:</label>
+      <%= text_field_tag :end_date, @end_date, class: 'form-control datepicker' %>
+    </div>
+    <%= submit_tag 'Apply', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <h3>Profit (Revenue - Expenses) by Week</h3>
+      <div id="profit-chart"></div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <h3>Orders by Week</h3>
+      <div id="orders-chart"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+  Highcharts.chart('profit-chart', {
+    title: { text: 'Weekly Profit' },
+    xAxis: { categories: <%= raw @profit_data[:weeks].to_json %> },
+    yAxis: { title: { text: 'EUR' } },
+    series: [{ name: 'Profit', data: <%= raw @profit_data[:profit].to_json %> }]
+  });
+
+  Highcharts.chart('orders-chart', {
+    title: { text: 'Weekly Orders' },
+    xAxis: { categories: <%= raw @orders_data[:weeks].to_json %> },
+    yAxis: { title: { text: 'EUR' } },
+    series: [{ name: 'Orders', data: <%= raw @orders_data[:orders].to_json %> }]
+  });
+</script>

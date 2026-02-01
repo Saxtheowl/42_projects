@@ -1,0 +1,28 @@
+<h1><%= @user.name %></h1>
+
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Since:</strong> <%= @user.since %></p>
+<p><strong>Admin:</strong> <%= @user.admin %></p>
+<p><strong>Country:</strong> <%= @user.country %></p>
+
+<h2>User Stats (Exercise 07)</h2>
+<p><strong>Fame (total likes on tweets):</strong> <%= @user.fame %></p>
+<p><strong>Senior?:</strong> <%= @user.senior? %></p>
+<p><strong>Junior?:</strong> <%= @user.junior? %></p>
+
+<h3>Top Tweets (sorted by likes)</h3>
+<ul>
+  <% @user.top_tweet.each do |tweet| %>
+    <li><%= tweet.content %> (<%= tweet.likes.count %> likes)</li>
+  <% end %>
+</ul>
+
+<h3>Last 5 Responses to User's Tweets</h3>
+<ul>
+  <% @user.responses.each do |comment| %>
+    <li><%= comment.content %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

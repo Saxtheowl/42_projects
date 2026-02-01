@@ -1,0 +1,143 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @project.name %></h1>
+  </div>
+  <div class="col-md-4 text-right">
+    <%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' %>
+    <%= link_to 'Back', projects_path, class: 'btn btn-default' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <h4>Project Details</h4>
+      <p><strong>Client:</strong> <%= link_to @project.client.full_name, @project.client %></p>
+      <p><strong>Company:</strong> <%= @project.client.company&.name %></p>
+      <p><strong>Manager:</strong> <%= @project.user.full_name %></p>
+      <p><strong>Created:</strong> <%= @project.created_at.strftime('%Y-%m-%d') %></p>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="stat-box">
+          <h2><%= number_to_currency(@project.total_revenue, unit: '') %></h2>
+          <p>Revenue (EUR)</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-box">
+          <h2><%= number_to_currency(@project.total_expenses, unit: '') %></h2>
+          <p>Expenses (EUR)</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-box">
+          <h2><%= number_to_currency(@project.profit, unit: '') %></h2>
+          <p>Profit (EUR)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="row">
+        <div class="col-xs-8"><h4>Quotes</h4></div>
+        <div class="col-xs-4 text-right"><%= link_to 'New', new_project_quote_path(@project), class: 'btn btn-xs btn-primary' %></div>
+      </div>
+      <ul class="list-group">
+        <% @quotes.each do |quote| %>
+          <li class="list-group-item">
+            <%= link_to "Quote ##{quote.id}", project_quote_path(@project, quote) %>
+            <span class="badge"><%= number_to_currency(quote.total || 0, unit: '') %> EUR</span>
+          </li>
+        <% end %>
+      </ul>
+      <% if @quotes.empty? %>
+        <p class="text-muted">No quotes yet.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="row">
+        <div class="col-xs-8"><h4>Orders</h4></div>
+        <div class="col-xs-4 text-right"><%= link_to 'New', new_project_order_path(@project), class: 'btn btn-xs btn-primary' %></div>
+      </div>
+      <ul class="list-group">
+        <% @orders.each do |order| %>
+          <li class="list-group-item">
+            <%= link_to "Order ##{order.id}", project_order_path(@project, order) %>
+            <span class="badge"><%= number_to_currency(order.total || 0, unit: '') %> EUR</span>
+          </li>
+        <% end %>
+      </ul>
+      <% if @orders.empty? %>
+        <p class="text-muted">No orders yet.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="row">
+        <div class="col-xs-8"><h4>Invoices</h4></div>
+        <div class="col-xs-4 text-right">
+          <div class="dropdown">
+            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+              New <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><%= link_to 'Outgoing (Client)', new_project_invoice_path(@project, type: 'outgoing') %></li>
+              <li><%= link_to 'Incoming (Expense)', new_project_invoice_path(@project, type: 'incoming') %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <ul class="list-group">
+        <% @invoices.each do |invoice| %>
+          <li class="list-group-item">
+            <%= link_to "Invoice ##{invoice.id}", project_invoice_path(@project, invoice) %>
+            <span class="label label-<%= invoice.outgoing? ? 'success' : 'warning' %>"><%= invoice.invoice_type %></span>
+            <span class="badge"><%= number_to_currency(invoice.total || 0, unit: '') %> EUR</span>
+          </li>
+        <% end %>
+      </ul>
+      <% if @invoices.empty? %>
+        <p class="text-muted">No invoices yet.</p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Activity History</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Action</th>
+        <th>User</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @activity_logs.each do |log| %>
+        <tr>
+          <td><%= log.formatted_date %></td>
+          <td><%= log.action.humanize %></td>
+          <td><%= log.user&.full_name %></td>
+          <td><%= log.details %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if @activity_logs.empty? %>
+    <p class="text-muted">No activity recorded.</p>
+  <% end %>
+</div>

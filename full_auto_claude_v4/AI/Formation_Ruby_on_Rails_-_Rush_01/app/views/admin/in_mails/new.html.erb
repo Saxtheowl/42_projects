@@ -1,0 +1,73 @@
+<h1>Send Message</h1>
+
+<div class="card">
+  <%= form_for [:admin, @in_mail], html: { class: 'form-horizontal' } do |f| %>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Send To</label>
+      <div class="col-sm-10">
+        <label class="radio-inline">
+          <input type="radio" name="send_to" value="individual" checked> Individual User
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="send_to" value="group"> Group
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="send_to" value="all"> All Users
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group" id="recipient-field">
+      <%= f.label :recipient_id, 'Recipient', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.collection_select :recipient_id, @users, :id, :full_name, { include_blank: 'Select user' }, { class: 'form-control' } %>
+      </div>
+    </div>
+
+    <div class="form-group" id="group-field" style="display: none;">
+      <label class="col-sm-2 control-label">Group</label>
+      <div class="col-sm-10">
+        <%= select_tag :group, options_for_select(@groups), { class: 'form-control' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :subject, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :subject, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :body, 'Message', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_area :body, class: 'form-control', rows: 10 %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit 'Send Message', class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', admin_in_mails_path, class: 'btn btn-default' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('input[name="send_to"]').change(function() {
+      var value = $(this).val();
+      if (value === 'individual') {
+        $('#recipient-field').show();
+        $('#group-field').hide();
+      } else if (value === 'group') {
+        $('#recipient-field').hide();
+        $('#group-field').show();
+      } else {
+        $('#recipient-field').hide();
+        $('#group-field').hide();
+      }
+    });
+  });
+</script>

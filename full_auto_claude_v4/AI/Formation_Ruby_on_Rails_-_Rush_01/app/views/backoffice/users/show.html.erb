@@ -1,0 +1,27 @@
+<h1><%= @user.full_name %></h1>
+
+<div class="card">
+  <table class="table">
+    <tr>
+      <th>Email</th>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <th>Role</th>
+      <td><%= @user.role&.capitalize %></td>
+    </tr>
+    <tr>
+      <th>Group</th>
+      <td><%= @user.operator_group || 'None' %></td>
+    </tr>
+    <tr>
+      <th>Created</th>
+      <td><%= @user.created_at.strftime('%Y-%m-%d') %></td>
+    </tr>
+  </table>
+
+  <% if @user.operator? %>
+    <%= link_to 'Assign Group', edit_backoffice_user_path(@user), class: 'btn btn-primary' %>
+  <% end %>
+  <%= link_to 'Back', backoffice_users_path, class: 'btn btn-default' %>
+</div>
