@@ -2,7 +2,7 @@
 
 Statut : WAITING (tests smoke bloques: sockets locaux interdits)
 
-Derniere mise a jour (2026-01-17 03:20:56) : ajout skip test smoke si sockets interdites, blocage env.
+Derniere mise a jour (2026-01-26 11:27:26) : ajout doc tests_realisation/TESTS.md.
 
 ## Synthèse
 `ircserv` est une implémentation C++98 d'un serveur IRC monoproc/multiplexé conforme au sujet 42. Le binaire gère l'authentification PASS/NICK/USER, le routage des commandes de base (JOIN/PART/PRIVMSG/NOTICE/PING/QUIT) et la modération de canaux (MODE, TOPIC, INVITE, KICK) en appliquant les modes `i/t/k/l/o`. Toute l'I/O est non bloquante et orchestrée via un unique `poll(2)` comme requis.
@@ -24,6 +24,7 @@ Le serveur écoute sur toutes les interfaces IPv4/IPv6 disponibles. Utilisez ens
 Les tests de fumée automatisés nécessitent `python3` et `nc` :
 - `tests_realisation/run_smoke.py` lance le serveur sur un port éphémère, crée deux clients simulés, vérifie l'accueil, la diffusion `PRIVMSG`, `TOPIC`, `MODE` et un `KICK`.
 - `scripts/nc_basic.sh <port> <password>` permet un test manuel rapide comparant la diffusion à la sortie standard.
+ - `tests_realisation/TESTS.md` décrit les prérequis et l'exécution du test de fumée.
 
 Commande recommandée pour la campagne de fumée :
 ```bash

@@ -2120,3 +2120,4 @@ c++ -Wall -Wextra -Werror -std=c++98 src/main.o src/Server.o -o ircserv) avec S/
 2026-01-26 11:13:46 | C/Ft_turing | DONE | ajout invalid_blank_multi + invalid_initial_unknown + tests OK
 2026-01-26 11:17:37 | C/Libasm | WAITING | ajout tests zero-length/chaines vides (nasm manquant)
 2026-01-26 11:23:08 | Unix/UNIX_Project | WAITING | tests skip si ptrace bloque (skipped=2)
+2026-01-26 11:27:26 | C/ft_irc | WAITING | ajout doc tests smoke (TESTS.md)

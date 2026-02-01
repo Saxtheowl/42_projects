@@ -10,6 +10,7 @@ Derniere mise a jour (2026-01-26 11:11:01) : Unix/A_completely_UNIX_project DONE
 Derniere mise a jour (2026-01-26 11:13:46) : C/Ft_turing DONE : ajout cas invalides + tests OK.
 Derniere mise a jour (2026-01-26 11:17:37) : C/Libasm WAITING : ajout tests zero-length/chaines vides (nasm manquant).
 Derniere mise a jour (2026-01-26 11:23:08) : Unix/UNIX_Project WAITING : tests skip si ptrace bloque (skipped=2).
+Derniere mise a jour (2026-01-26 11:27:26) : C/ft_irc WAITING : ajout doc tests smoke (TESTS.md).
 Derniere mise a jour (2026-01-26 10:32:07) : Wordle/Wordle DONE : ajout tests max_attempts invalide + target ajoute au dictionnaire.
 Derniere mise a jour (2026-01-26 10:32:07) : Messagequeue/MessageQueue WAITING : blocage .env tracke (decision utilisateur requise).
 Derniere mise a jour (2026-01-25 19:21:51) : Messagequeue/MessageQueue IN_PROGRESS : ajout test_check_rabbitmq_json + docs test_tools/scripts_overview/tests_summary.

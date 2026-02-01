@@ -1,0 +1,9 @@
+# Simple expert system test
+# B is true if A is true
+
+A + B => C
+D | E => F
+!A => G
+
+=AB    # Initial facts: A and B are true
+?CFG   # Query: Are C, F, and G true?

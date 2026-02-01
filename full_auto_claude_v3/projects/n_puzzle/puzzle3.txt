@@ -1,0 +1,5 @@
+# 3x3 solvable puzzle (scrambled from goal)
+3
+1 2 3
+0 8 4
+7 6 5
